@@ -14,6 +14,7 @@ import { FooterComponent } from './interface-module/footer/footer.component';
 import { HeaderComponent } from './interface-module/header/header.component';
 import { FilterComponent } from './interface-module/filter/filter.component';
 import { AdsComponent } from './interface-module/ads/ads.component';
+import { HomeComponent } from './interface-module/home/home.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +26,8 @@ import { AdsComponent } from './interface-module/ads/ads.component';
     FooterComponent,
     HeaderComponent,
     FilterComponent,
-    AdsComponent
+    AdsComponent,
+    HomeComponent
   ],
   imports: [
     AppRoutingModule,
