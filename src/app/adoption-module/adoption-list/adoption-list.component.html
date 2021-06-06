@@ -7,6 +7,8 @@
             <app-adoption *ngFor="let adoption of adoptions" [adoption]="adoption">
             </app-adoption>
         </div>
+        <app-pagination class="container" [count]=100 [size]=10 [page]=0></app-pagination>
+
     </div>
     <div class="col-span-1">
         <app-ads></app-ads>

@@ -15,6 +15,9 @@ import { HeaderComponent } from './interface-module/header/header.component';
 import { FilterComponent } from './interface-module/filter/filter.component';
 import { AdsComponent } from './interface-module/ads/ads.component';
 import { HomeComponent } from './interface-module/home/home.component';
+import { AdoptionDetailsComponent } from './adoption-module/adoption-details/adoption-details.component';
+import { PaginationComponent } from './interface-module/pagination/pagination.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +30,10 @@ import { HomeComponent } from './interface-module/home/home.component';
     HeaderComponent,
     FilterComponent,
     AdsComponent,
-    HomeComponent
+    HomeComponent,
+    AdoptionDetailsComponent,
+    PaginationComponent
+
   ],
   imports: [
     AppRoutingModule,

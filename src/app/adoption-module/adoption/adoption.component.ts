@@ -13,7 +13,6 @@ export class AdoptionComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.adoption);
   }
 
 }
