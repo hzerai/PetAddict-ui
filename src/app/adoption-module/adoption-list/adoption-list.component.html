@@ -1,6 +1,14 @@
-<div class="px-2">
-    <div class="flex flex-wrap -mx-2">
-        <app-adoption *ngFor="let adoption of adoptions" [adoption]="adoption" class="w-auto hover:bg-gray-300 px-2 py-2">
-        </app-adoption>
+<div class="grid grid-cols-6 gap-2">
+    <div class="col-span-1">
+        <app-filter></app-filter>
+    </div>
+    <div class="col-span-4 container">
+        <div class="grid grid-cols-4 gap-4">
+            <app-adoption *ngFor="let adoption of adoptions" [adoption]="adoption">
+            </app-adoption>
+        </div>
+    </div>
+    <div class="col-span-1">
+        <app-ads></app-ads>
     </div>
 </div>

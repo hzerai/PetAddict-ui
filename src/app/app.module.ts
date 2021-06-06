@@ -5,11 +5,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { QuizComponent } from './adoption-module/quiz/quiz.component';
-import { BackgroundDirective } from './directives/background.directive';
-import { ImageDirective } from './directives/image.directive';
+import { ImageDirective } from './custom-directives/image.directive';
 import { AdoptionComponent } from './adoption-module/adoption/adoption.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AdoptionListComponent } from './adoption-module/adoption-list/adoption-list.component';
+import { BackgroundDirective } from './custom-directives/background.directive';
+import { FooterComponent } from './interface-module/footer/footer.component';
+import { HeaderComponent } from './interface-module/header/header.component';
+import { FilterComponent } from './interface-module/filter/filter.component';
+import { AdsComponent } from './interface-module/ads/ads.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,11 +22,15 @@ import { AdoptionListComponent } from './adoption-module/adoption-list/adoption-
     ImageDirective,
     AdoptionComponent,
     AdoptionListComponent,
+    FooterComponent,
+    HeaderComponent,
+    FilterComponent,
+    AdsComponent
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
-    AppRoutingModule,
     HttpClientModule
   ],
   providers: [],
