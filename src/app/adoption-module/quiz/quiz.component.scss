@@ -1,0 +1,50 @@
+.container{
+    max-width:1200px;
+    margin: 5rem auto;
+    display: grid;
+    justify-content: center;
+    text-align: center;
+}
+
+.answers{
+    display: grid;
+    text-align: left;
+    grid-template-columns: repeat(2, 1fr);
+
+    &__list{
+        list-style: none;
+    }
+    &__item{
+        border: lightgray thin solid;
+        padding: 1rem;
+        margin: 2rem 1rem 0;
+
+        &:hover{
+            cursor: pointer;
+        }
+    }
+    &__image{
+        border: lightgray thin solid;
+        padding: 1rem;
+        margin: 2rem 3.3rem 0;
+
+        &:hover{
+            cursor: pointer;
+        }
+    }
+}
+
+.btn{
+    font-size: 1.5rem;
+    width: 20rem;
+    padding: 1rem;
+    cursor: pointer;
+}
+
+.animal-image {
+    height: 150px; /* You must set a specified height */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; /* Resize the background image to cover the entire container */
+  }
+

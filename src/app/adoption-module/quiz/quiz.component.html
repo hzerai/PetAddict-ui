@@ -1,0 +1,34 @@
+<div class="container">
+  <div *ngIf="prevAnswered.length < 6">
+    <p class="text-center">{{ prevAnswered.length }} of {{ quizzes.length }}</p>
+    <h1>{{ quizzes[currentQuiz].question }}</h1>
+    <p>{{ quizzes[currentQuiz].description }}</p>
+
+    <div class="answers">
+      <ul class="answers__list" *ngFor="let quiz of quizzes[currentQuiz].answer;" >
+        <label >
+          <li @answer class="answers__item animal-image" animalImage [code1]="quiz.code">
+            <input type="radio" name="options" (change)="onAnswer(quiz.code)" [disabled]="answerSelected">
+            {{ quiz.option }}
+          </li>
+        </label>
+      </ul>
+
+    </div>
+
+
+
+  </div>
+
+
+  <div *ngIf="prevAnswered.length > 5">
+    <button class="btn" (click)="showResult()" *ngIf="resultStatus === 'Show my pet'">{{ resultStatus }}</button>
+    <button class="btn btn--new" (click)="playAgain()" *ngIf="resultStatus !== 'Show my pet'">{{ resultStatus
+      }}</button>
+    <div *ngIf="result">
+     your result : {{resultAnimal}}
+    </div>
+  </div>
+
+
+</div>
