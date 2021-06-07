@@ -21,6 +21,7 @@ import { HomeComponent } from './interface-module/home/home.component';
 import { AdoptionDetailsComponent } from './adoption-module/adoption-details/adoption-details.component';
 import { PaginationComponent } from './interface-module/pagination/pagination.component';
 import { AdoptionFormComponent } from './adoption-module/adoption-form/adoption-form.component';
+import { AdoptionRequestComponent } from './adoption-module/adoption-request/adoption-request.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { AdoptionFormComponent } from './adoption-module/adoption-form/adoption-
     HomeComponent,
     AdoptionDetailsComponent,
     PaginationComponent,
-    AdoptionFormComponent
+    AdoptionFormComponent,
+    AdoptionRequestComponent
 
 
   ],
