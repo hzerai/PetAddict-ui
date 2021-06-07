@@ -42,8 +42,10 @@ export class AdoptionFormComponent implements OnInit {
     this.adoption.title = this.adoptionForm.value.title
     this.adoption.description = this.adoptionForm.value.description
     if (this.adoption.id) {
+      //update
       this.adoptionService.updateAdoption(this.adoption).subscribe(next => { this.adoption = next; this.router.navigateByUrl("/adoptions/" + this.adoption.id) })
     } else {
+      //create
       this.adoptionService.newAdoption(this.adoption).subscribe(next => { this.adoption = next; this.router.navigateByUrl("/adoptions/" + this.adoption.id) })
     }
 
