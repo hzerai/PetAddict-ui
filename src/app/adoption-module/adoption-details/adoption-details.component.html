@@ -1,5 +1,4 @@
-<img src="https://placedog.net/500/280?id={{adoption.id - 100}}"
-    class="">
+<img src="https://placedog.net/640/480?random" class="">
 <div class="p-5">
     <h1 class="text-2xl font-bold text-gray-800 py-2">{{adoption.title}}</h1>
     <p class="bg-white text-sm text-black">>{{adoption.description}}</p>
@@ -8,6 +7,7 @@
     <p class="bg-white text-sm text-black">>{{adoption.createdAt}}</p>
     <p class="bg-white text-sm text-black">>{{adoption.createdBy}}</p>
 
-    <a class="py-2 px-3 mt-4 px-6 text-white bg-gray-500 inline-block rounded">Adopt me</a>
+    <a [routerLink]="['/adoptions', adoption.id , 'edit']"
+        class="py-2 px-3 mt-4 px-6 text-white bg-gray-500 inline-block rounded">Edit</a>
 
 </div>

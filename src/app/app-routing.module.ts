@@ -3,12 +3,15 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdoptionDetailsComponent } from './adoption-module/adoption-details/adoption-details.component';
 import { AdoptionListComponent } from './adoption-module/adoption-list/adoption-list.component';
+import { AdoptionFormComponent } from './adoption-module/adoption-form/adoption-form.component';
 import { HomeComponent } from './interface-module/home/home.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'adoptions', component: AdoptionListComponent },
+  { path: 'adoptions/new', component: AdoptionFormComponent },
   { path: 'adoptions/:id', component: AdoptionDetailsComponent },
+  { path: 'adoptions/:id/edit', component: AdoptionFormComponent },
 ];
 
 @NgModule({

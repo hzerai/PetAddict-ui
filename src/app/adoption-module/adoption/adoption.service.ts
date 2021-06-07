@@ -9,6 +9,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AdoptionService {
+  options = {
+    responseType: 'json' as const,
+  };
   private adoptionUrl = "http://localhost:8000/api/adoptions";
   constructor(private http: HttpClient) { }
 
@@ -20,4 +23,13 @@ export class AdoptionService {
   getAdoptionById(id: string): Observable<Adoption> {
     return this.http.get<Adoption>(this.adoptionUrl + '/' + id);
   }
+
+  newAdoption(adoption: Adoption): Observable<Adoption> {
+    return this.http.post<Adoption>(this.adoptionUrl, adoption, this.options);
+  }
+
+  updateAdoption(adoption: Adoption): Observable<Adoption> {
+    return this.http.put<Adoption>(this.adoptionUrl + '/' + adoption.id, adoption, this.options);
+  }
+
 }
