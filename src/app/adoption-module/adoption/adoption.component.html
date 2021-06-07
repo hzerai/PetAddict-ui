@@ -1,7 +1,7 @@
-<img src="https://placedog.net/640/480?random"
-    class="">
+<img src="https://via.placeholder.com/640x480?text=Image+For+adoption+{{adoption.id}}" class="">
 <div class="p-5">
     <h1 class="text-2xl font-bold text-gray-800 py-2">{{adoption.title}}</h1>
     <p class="bg-white text-sm text-black">>{{adoption.description}}</p>
-    <a [routerLink]="['/adoptions', adoption.id]" class="py-2 px-3 mt-4 px-6 text-white bg-gray-500 inline-block rounded">Read More</a>
+    <a [routerLink]="['/adoptions', adoption.id]"
+        class="py-2 px-3 mt-4 px-6 text-white bg-gray-500 inline-block rounded">Read More</a>
 </div>

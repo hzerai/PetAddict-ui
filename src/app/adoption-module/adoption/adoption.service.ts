@@ -32,4 +32,8 @@ export class AdoptionService {
     return this.http.put<Adoption>(this.adoptionUrl + '/' + adoption.id, adoption, this.options);
   }
 
+  deleteAdoption(id: number): Observable<Adoption> {
+    return this.http.delete<Adoption>(this.adoptionUrl + '/' + id, this.options);
+  }
+
 }

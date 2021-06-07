@@ -1,18 +1,19 @@
 <form [formGroup]="adoptionForm" (ngSubmit)="onSubmit()">
- 
-    <p>
-      <label for="firstname">Title </label>
-      <input type="text" id="title" name="title" formControlName="title">
-    </p>
-   
-    <p>
-      <label for="lastname">Description </label>
-      <input type="text" id="description" name="description" formControlName="description">
-    </p>
-   
- 
-   
-    <!-- <p>
+  <img src="https://via.placeholder.com/640x480?text=Image+For+adoption+{{adoption.id ? adoption.id : 'NEW'}}" class="">
+
+  <p>
+    <label for="firstname">Title </label>
+    <input type="text" id="title" name="title" formControlName="title">
+  </p>
+
+  <p>
+    <label for="lastname">Description </label>
+    <input type="text" id="description" name="description" formControlName="description">
+  </p>
+
+
+
+  <!-- <p>
       <label for="country">country </label>
       <select id="country" name="country"  formControlName="country">
         <option [ngValue]="c.id" *ngFor="let c of countryList">
@@ -20,9 +21,9 @@
         </option>
       </select>
     </p> -->
-   
-    <p>
-      <button type="submit">Submit</button>
-    </p>
-   
-  </form>
+
+  <p>
+    <button type="submit">Submit</button>
+  </p>
+
+</form>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Adoption } from '../adoption/Adoption';
 import { AdoptionService } from '../adoption/adoption.service';
 
@@ -12,12 +12,19 @@ import { AdoptionService } from '../adoption/adoption.service';
 export class AdoptionDetailsComponent implements OnInit {
   adoption: Adoption = new Adoption();
 
-  constructor(private route: ActivatedRoute, private adoptionService: AdoptionService) { }
+  constructor(private route: ActivatedRoute, private adoptionService: AdoptionService, private r: Router) { }
 
   ngOnInit(): void {
     let id = '';
     this.route.params.subscribe(next => id = next.id);
     this.adoptionService.getAdoptionById(id).subscribe(next => this.adoption = next);
+  }
+
+  delete(id: number) {
+    if (confirm("Are you sure to delete this adoption post ?")) {
+      this.adoptionService.deleteAdoption(id).subscribe(next => this.r.navigateByUrl('/adoptions'));
+    }
+
   }
 
 }
