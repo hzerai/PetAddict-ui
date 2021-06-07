@@ -1,2 +1,22 @@
-<p>home works!</p>
-<app-quiz></app-quiz>
+<div class="grid grid-cols-6 gap-2">
+    <div class="col-span-1">
+        <!-- <app-ads></app-ads> -->
+        <div *ngFor="let adoption of adoptions">
+            <img src="https://via.placeholder.com/400x300?text=Image+For+adoption+{{adoption.id}}" class="">
+            <div class="p-5">
+                <h1 class="text-sm font-bold text-gray-800 py-2">{{adoption.title}}</h1>
+                <a [routerLink]="['/adoptions', adoption.id]"
+                    class="px-2 text-white bg-gray-500 inline-block rounded">check me out</a>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="col-span-4 container">
+        <app-quiz></app-quiz>
+
+    </div>
+    <div class="col-span-1">
+        <app-ads></app-ads>
+    </div>
+</div>

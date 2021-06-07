@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Adoption } from './Adoption';
 import { Observable } from 'rxjs';
 
@@ -34,6 +34,13 @@ export class AdoptionService {
 
   deleteAdoption(id: number): Observable<Adoption> {
     return this.http.delete<Adoption>(this.adoptionUrl + '/' + id, this.options);
+  }
+  getPagedAdoptions(page: number, size: number): Observable<Adoption[]> {
+    let params = new HttpParams();
+    params = params.append('page', String(page));
+    params = params.append('size', String(size));
+    return this.http.get<Adoption[]>(this.adoptionUrl, { params });
+
   }
 
 }
