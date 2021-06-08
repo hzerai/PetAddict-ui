@@ -1,4 +1,5 @@
 import { User } from "src/app/user-module/User";
+import { Animals } from "./Animals";
 
 export class Adoption {
     id: number;
@@ -8,5 +9,6 @@ export class Adoption {
     updatedAt: Date;
     createdBy: string = '';
     updatedBy: string = '';
-    user : User
+    user : User;
+    animal : Animals
 }

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { title } from 'process';
 import { Adoption } from '../adoption/Adoption';
 import { AdoptionService } from '../adoption/adoption.service';
+import { Animals } from '../adoption/Animals';
 
 
 @Component({
@@ -12,6 +12,7 @@ import { AdoptionService } from '../adoption/adoption.service';
   styleUrls: ['./adoption-form.component.css']
 })
 export class AdoptionFormComponent implements OnInit {
+  animals = Object.values(Animals);
   adoptionForm: FormGroup;
   adoption: Adoption = new Adoption();
 
@@ -21,7 +22,8 @@ export class AdoptionFormComponent implements OnInit {
   ngOnInit(): void {
     this.adoptionForm = new FormGroup({
       title: new FormControl(null, Validators.required),
-      description: new FormControl(null, Validators.required)
+      description: new FormControl(null, Validators.required),
+      animal: new FormControl(null, Validators.required)
     })
     let id;
     this.ac.params.subscribe(next => id = next.id)
@@ -29,7 +31,7 @@ export class AdoptionFormComponent implements OnInit {
     if (id) {
       this.adoptionService.getAdoptionById(id).subscribe(next => {
         this.adoptionForm.setValue({
-          title: next.title, description: next.description
+          title: next.title, description: next.description, animal: next.animal
         }); this.adoption = next;
       })
 
@@ -41,6 +43,7 @@ export class AdoptionFormComponent implements OnInit {
   onSubmit() {
     this.adoption.title = this.adoptionForm.value.title
     this.adoption.description = this.adoptionForm.value.description
+    this.adoption.animal = this.adoptionForm.value.animal
     if (this.adoption.id) {
       //update
       this.adoptionService.updateAdoption(this.adoption).subscribe(next => { this.adoption = next; this.router.navigateByUrl("/adoptions/" + this.adoption.id) })

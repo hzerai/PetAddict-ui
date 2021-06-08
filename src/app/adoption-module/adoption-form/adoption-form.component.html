@@ -1,19 +1,28 @@
-<form [formGroup]="adoptionForm" (ngSubmit)="onSubmit()">
-  <img src="https://via.placeholder.com/640x480?text=Image+For+adoption+{{adoption.id ? adoption.id : 'NEW'}}" class="">
+<div class="m-10 p-10 container">
+  <form [formGroup]="adoptionForm" (ngSubmit)="onSubmit()">
+    <img src="https://via.placeholder.com/640x480?text=Image+For+adoption+{{adoption.id ? adoption.id : 'NEW'}}"
+      class="">
 
-  <p>
-    <label for="firstname">Title </label>
-    <input type="text" id="title" name="title" formControlName="title">
-  </p>
+    <p>
+      <label for="firstname">Title </label>
+      <input type="text" id="title" name="title" formControlName="title">
+    </p>
 
-  <p>
-    <label for="lastname">Description </label>
-    <input type="text" id="description" name="description" formControlName="description">
-  </p>
+    <p>
+      <select id="animal" name="animal" formControlName="animal">
+        <option *ngFor="let animal of animals" [value]="animal">{{animal}}
+        </option>
+      </select>
+    </p>
+
+    <p>
+      <label for="lastname">Description </label>
+      <input type="text" id="description" name="description" formControlName="description">
+    </p>
 
 
 
-  <!-- <p>
+    <!-- <p>
       <label for="country">country </label>
       <select id="country" name="country"  formControlName="country">
         <option [ngValue]="c.id" *ngFor="let c of countryList">
@@ -22,8 +31,9 @@
       </select>
     </p> -->
 
-  <p>
-    <button type="submit">Submit</button>
-  </p>
+    <p>
+      <button class="py-2 px-3 mt-4 px-6 text-white bg-gray-500 inline-block rounded" type="submit">Save</button>
+    </p>
 
-</form>
+  </form>
+</div>

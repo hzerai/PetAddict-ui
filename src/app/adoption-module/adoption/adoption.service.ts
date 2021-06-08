@@ -12,7 +12,7 @@ export class AdoptionService {
   options = {
     responseType: 'json' as const,
   };
-  private adoptionUrl = "http://localhost:8000/api/adoptions";
+  private adoptionUrl = "http://localhost:8000/api/adoption";
   constructor(private http: HttpClient) { }
 
 
