@@ -40,7 +40,9 @@ export class AdoptionService {
     params = params.append('page', String(page));
     params = params.append('size', String(size));
     return this.http.get<Adoption[]>(this.adoptionUrl, { params });
-
+  }
+  count(): Observable<number> {
+    return this.http.get<number>(this.adoptionUrl + 's/count');
   }
 
 }

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pagination',
@@ -6,21 +7,35 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./pagination.component.css']
 })
 export class PaginationComponent implements OnInit {
-  @Input() count: number;
-  @Input() size: number;
-  @Input() page: number;
 
-  nbrPages: any[] = [];
-  constructor() { }
+
+  @Input() page: number = 1;
+  @Input() size: number = 8;
+
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
-    for (let i = 1; i <= Math.floor(this.count / this.size); i++) {
-      this.nbrPages.push(i)
-    }
-    if(this.nbrPages.length > 6){
-      this.nbrPages = this.nbrPages.splice(this.nbrPages.length-3 , 3)
-      this.nbrPages.unshift(1,2,3,'. . . .')
-    }
+
+  }
+
+  next() {
+    this.page++;
+    // this.router.navigateByUrl('/adoptions', { queryParams: { page: this.page, size: this.size }, skipLocationChange: true });
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['/adoptions'], { queryParams: { page: this.page, size: this.size }, skipLocationChange: true });
+    });
+  }
+
+  previous() {
+    this.page--;
+    // this.router.navigateByUrl('/adoptions', { queryParams: { page: this.page, size: this.size }, skipLocationChange: true });
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['/adoptions'], { queryParams: { page: this.page, size: this.size }, skipLocationChange: true });
+    });
+  }
+
+  cantPaginate(): boolean {
+    return this.page == 1;
   }
 
 }

@@ -1,4 +1,6 @@
-<div class="space-x-4 ">
-    <div *ngFor="let i of nbrPages" class="inline-block">{{i}}</div>
-    
-  </div>
+<div class="flex space-x-4 grid grid-cols-6 inline-block ">
+  <button class="col-span-2 py-2 px-3 mt-4 px-6 text-white bg-gray-500 inline-block rounded" (click)="previous()"
+    [disabled]="cantPaginate()">previous</button>
+  <button class="col-span-2 py-2 px-3 mt-4 px-6 text-white bg-gray-500 inline-block rounded"
+    (click)="next()">next</button>
+</div>
