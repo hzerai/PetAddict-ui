@@ -6,6 +6,8 @@ import { AdoptionListComponent } from './adoption-module/adoption-list/adoption-
 import { AdoptionFormComponent } from './adoption-module/adoption-form/adoption-form.component';
 import { HomeComponent } from './interface-module/home/home.component';
 import { AboutUsComponent } from './interface-module/about-us/about-us.component';
+import { LoginComponent } from './user-module/login/login.component';
+import { RegisterComponent } from './user-module/register/register.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -15,6 +17,8 @@ const routes: Routes = [
   { path: 'adoptions/new', component: AdoptionFormComponent },
   { path: 'adoptions/:id', component: AdoptionDetailsComponent },
   { path: 'adoptions/:id/edit', component: AdoptionFormComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
 ];
 
 @NgModule({

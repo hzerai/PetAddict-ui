@@ -23,6 +23,10 @@ import { PaginationComponent } from './interface-module/pagination/pagination.co
 import { AdoptionFormComponent } from './adoption-module/adoption-form/adoption-form.component';
 import { AdoptionRequestComponent } from './adoption-module/adoption-request/adoption-request.component';
 import { AboutUsComponent } from './interface-module/about-us/about-us.component';
+import { LoginComponent } from './user-module/login/login.component';
+import { RegisterComponent } from './user-module/register/register.component';
+import { authInterceptorProviders } from './user-module/_helpers/auth.interceptor';
+
 
 @NgModule({
   declarations: [
@@ -41,7 +45,9 @@ import { AboutUsComponent } from './interface-module/about-us/about-us.component
     PaginationComponent,
     AdoptionFormComponent,
     AdoptionRequestComponent,
-    AboutUsComponent
+    AboutUsComponent,
+    LoginComponent,
+    RegisterComponent
 
 
   ],
@@ -53,7 +59,7 @@ import { AboutUsComponent } from './interface-module/about-us/about-us.component
     ReactiveFormsModule,
     FormsModule
   ],
-  providers: [],
+  providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

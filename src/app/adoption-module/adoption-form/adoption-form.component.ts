@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Adoption } from '../adoption/Adoption';
 import { AdoptionService } from '../adoption/adoption.service';
 import { Animals } from '../adoption/Animals';
-
+import {TokenStorageService} from '../../user-module/_services/token-storage.service';
 
 @Component({
   selector: 'app-adoption-form',
@@ -17,7 +17,11 @@ export class AdoptionFormComponent implements OnInit {
   adoption: Adoption = new Adoption();
 
 
-  constructor(private adoptionService: AdoptionService, private router: Router, private ac: ActivatedRoute) { }
+  constructor(private adoptionService: AdoptionService, private router: Router, private ac: ActivatedRoute,private tokenStorageService:TokenStorageService ) {
+    if (tokenStorageService.getToken!=null) {
+      this.router.navigate(['login']);
+    }
+   }
 
   ngOnInit(): void {
     this.adoptionForm = new FormGroup({
