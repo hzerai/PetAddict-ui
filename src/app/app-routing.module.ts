@@ -5,9 +5,11 @@ import { AdoptionDetailsComponent } from './adoption-module/adoption-details/ado
 import { AdoptionListComponent } from './adoption-module/adoption-list/adoption-list.component';
 import { AdoptionFormComponent } from './adoption-module/adoption-form/adoption-form.component';
 import { HomeComponent } from './interface-module/home/home.component';
+import { AboutUsComponent } from './interface-module/about-us/about-us.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'about', component: AboutUsComponent },
   { path: 'adoptions', component: AdoptionListComponent },
   { path: 'adoptions/filtered', component: AdoptionListComponent },
   { path: 'adoptions/new', component: AdoptionFormComponent },

@@ -2,11 +2,29 @@
     <div class="col-span-1">
         <!-- <app-ads></app-ads> -->
         <div *ngFor="let adoption of adoptions">
-            <img src="https://via.placeholder.com/400x300?text=Image+For+adoption+{{adoption.id}}" class="">
-            <div class="p-5">
-                <h1 class="text-sm font-bold text-gray-800 py-2">{{adoption.title}}</h1>
-                <a [routerLink]="['/adoptions', adoption.id]"
-                    class="px-2 text-white bg-gray-500 inline-block rounded">check me out</a>
+            <div class="border border-blue-200 rounded-lg mb-4 hover:bg-white hover:border-blue-900 h-full">
+
+                <div class="pt-4 px-4">
+                    <div class="mr-2 flex-shrink-0">
+                        <img src="https://placedog.net/{{adoption.id}}" class="">
+                    </div>
+                    <div class="w-full">
+                        <div class="flex justify-between w-full">
+                            <div class="flex">
+                                <a [routerLink]="['/adoptions', adoption.id]"
+                                    class="font-bold text-xs hover:text-blue-500">{{adoption.title}}</a>
+                            </div>
+                        </div>
+                        <br />
+                    </div>
+                    <div class="flex items-center p-2 pt-4">
+
+                        <a [routerLink]="['/adoptions', adoption.id]"
+                            class="flex-1 text-gray-700 text-center rounded-lg mx-2 border border-black rounded hover:bg-gray-600 hover:text-white">
+                            <img src="assets/svg/icon-external-link.svg" class="rounded-full inline-block" />
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
 

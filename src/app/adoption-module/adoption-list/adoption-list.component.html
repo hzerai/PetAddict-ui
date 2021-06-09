@@ -8,15 +8,17 @@
         <app-filter [title]="title" [animal]="animal"></app-filter>
     </div>
     <div class="col-span-4 container p-10">
-        <div class="grid grid-cols-4 gap-4">
+        <div class="grid grid-cols-4 gap-4 ">
             <app-adoption *ngFor="let adoption of adoptions" [adoption]="adoption">
             </app-adoption>
         </div>
-        <div class="flex space-x-4 grid grid-cols-6 inline-block ">
-            <button class="col-span-2 py-2 px-3 mt-4 px-6 text-white bg-gray-500 inline-block rounded"
+        <div class="flex items-center mx-auto">
+            <button
+                class="flex-1 text-gray-700 text-center rounded-lg bg-white border border-black rounded hover:bg-gray-600 hover:text-white"
                 (click)="previous()" [disabled]="cantPrevious()">previous</button>
-            <button class="col-span-2 py-2 px-3 mt-4 px-6 text-white bg-gray-500 inline-block rounded" (click)="next()"
-                [disabled]="cantNext()">next</button>
+            <button
+                class="flex-1 text-gray-700 text-center rounded-lg bg-white border border-black rounded hover:bg-gray-600 hover:text-white"
+                (click)="next()" [disabled]="cantNext()">next</button>
         </div>
     </div>
     <div class="col-span-1">

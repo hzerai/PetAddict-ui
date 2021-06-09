@@ -9,8 +9,26 @@
         <p class="bg-white text-sm text-black">>{{adoption.createdBy}}</p>
 
     </div>
-    <a [routerLink]="['/adoptions', adoption.id , 'edit']"
-        class="py-2 px-3 mt-4 px-6 text-white bg-gray-500 inline-block rounded">Edit</a>
-    <button (click)="delete(adoption.id)"
-        class="py-2 px-3 mt-4 px-6 text-white bg-gray-500 inline-block rounded">Delete</button>
+
+    
+
+    <div class="flex items-center p-2 pt-4">
+        <a [routerLink]="['/adoptions', adoption.id , 'edit']"
+            class="flex-1 text-gray-700 text-center rounded-lg mx-2 border border-black rounded hover:bg-gray-600 hover:text-white">
+            <img src="assets/svg/icon-edit.svg" alt class="rounded-full inline-block" />
+            <p class="inline-block">edit</p>
+        </a>
+
+        <a (click)="delete(adoption.id)"
+            class="flex-1 text-gray-700 text-center rounded-lg mx-2 border border-black rounded hover:bg-gray-600 hover:text-white">
+            <img src="assets/svg/icon-trash.svg" alt class="rounded-full inline-block" />
+            <p class="inline-block">delete</p>
+        </a>
+
+        <a [routerLink]="['/adoptions', adoption.id]"
+            class="flex-1 text-gray-700 text-center rounded-lg mx-2 border border-black rounded hover:bg-gray-600 hover:text-white">
+            <img src="assets/svg/icon-comment.svg" alt class="rounded-full inline-block" />
+            <p class="inline-block">comment</p>
+        </a>
+    </div>
 </div>

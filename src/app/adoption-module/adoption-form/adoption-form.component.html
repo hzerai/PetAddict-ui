@@ -1,6 +1,6 @@
 <div class="m-10 p-10 container">
   <form [formGroup]="adoptionForm" (ngSubmit)="onSubmit()">
-    <img src="https://via.placeholder.com/640x480?text=Image+For+adoption+{{adoption.id ? adoption.id : 'NEW'}}"
+    <img src="{{adoption.id ? 'https://placedog.net/' + adoption.id : 'https://via.placeholder.com/640x480?text=Image+For+adoption+NEW'}}"
       class="">
 
     <p>
