@@ -44,7 +44,7 @@ export class AdoptionListComponent implements OnInit {
   }
 
   cantNext(): boolean {
-    return (this.page * this.size + this.size) > this.count;
+    return (this.page * this.size) > this.count;
   }
 
 }
