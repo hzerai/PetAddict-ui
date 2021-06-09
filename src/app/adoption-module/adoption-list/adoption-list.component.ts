@@ -11,6 +11,8 @@ import { AdoptionService } from '../adoption/adoption.service';
 })
 export class AdoptionListComponent implements OnInit {
 
+  animal: string = '';
+  title: string = '';
   page: number = 1;
   size: number = 8;
   count: number = 0;
@@ -22,21 +24,36 @@ export class AdoptionListComponent implements OnInit {
     this.adoptionService.count().subscribe(next => this.count = next);
     this.route.queryParams
       .subscribe(params => {
+        console.log(params)
         this.page = params.page ? Number(params.page) : this.page;
         this.size = params.size ? Number(params.size) : this.size;
+        this.title = params.title ? params.title : this.title;
+        this.animal = params.animal ? params.animal : this.animal;
       }
       );
-    this.adoptionService.getPagedAdoptions(this.page, this.size).subscribe(next => this.adoptions = next);
+    if (this.title.length > 0 || this.animal.length > 0) {
+      this.adoptionService.getPagedAdoptionsFiltered(this.page, this.size, this.title, this.animal).subscribe(next => this.adoptions = next);
+    } else {
+      this.adoptionService.getPagedAdoptions(this.page, this.size).subscribe(next => this.adoptions = next);
+    }
   }
 
   next() {
     this.page++;
-    this.adoptionService.getPagedAdoptions(this.page, this.size).subscribe(next => this.adoptions = next);
+    if (this.title.length > 0 || this.animal.length > 0) {
+      this.adoptionService.getPagedAdoptionsFiltered(this.page, this.size, this.title, this.animal).subscribe(next => this.adoptions = next);
+    } else {
+      this.adoptionService.getPagedAdoptions(this.page, this.size).subscribe(next => this.adoptions = next);
+    }
   }
 
   previous() {
     this.page--;
-    this.adoptionService.getPagedAdoptions(this.page, this.size).subscribe(next => this.adoptions = next);
+    if (this.title.length > 0 || this.animal.length > 0) {
+      this.adoptionService.getPagedAdoptionsFiltered(this.page, this.size, this.title, this.animal).subscribe(next => this.adoptions = next);
+    } else {
+      this.adoptionService.getPagedAdoptions(this.page, this.size).subscribe(next => this.adoptions = next);
+    }
   }
 
   cantPrevious(): boolean {

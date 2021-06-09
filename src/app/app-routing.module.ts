@@ -9,6 +9,7 @@ import { HomeComponent } from './interface-module/home/home.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'adoptions', component: AdoptionListComponent },
+  { path: 'adoptions/filtered', component: AdoptionListComponent },
   { path: 'adoptions/new', component: AdoptionFormComponent },
   { path: 'adoptions/:id', component: AdoptionDetailsComponent },
   { path: 'adoptions/:id/edit', component: AdoptionFormComponent },

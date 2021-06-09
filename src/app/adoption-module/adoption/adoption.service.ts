@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Adoption } from './Adoption';
 import { Observable } from 'rxjs';
+import { isDefined } from '@angular/compiler/src/util';
 
 
 @Injectable({
@@ -41,6 +42,16 @@ export class AdoptionService {
     params = params.append('size', String(size));
     return this.http.get<Adoption[]>(this.adoptionUrl, { params });
   }
+
+  getPagedAdoptionsFiltered(page: number, size: number, title: string, animal: string): Observable<Adoption[]> {
+    let params = new HttpParams();
+    params = page != null ? params.append('page', String(page)) : params;
+    params = size != null ? params.append('size', String(size)) : params;
+    params = title != null && title.length > 0 ? params.append('title', String(title)) : params;
+    params = animal != null && animal.length > 0 ? params.append('animal', String(animal)) : params;
+    return this.http.get<Adoption[]>(this.adoptionUrl, { params });
+  }
+
   count(): Observable<number> {
     return this.http.get<number>(this.adoptionUrl + 's/count');
   }
