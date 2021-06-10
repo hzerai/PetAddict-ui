@@ -17,7 +17,7 @@ export class UserProfileComponent implements OnInit {
     payload = token.split(".")[1];
     payload = window.atob(payload);
     let username = JSON.parse(payload).username;
-    this.userService.getUserById(username).subscribe(next => {
+    this.userService.getUserById(username).subscribe(next => { console.log(next)
       this.user = next;
     })
   }

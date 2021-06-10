@@ -7,6 +7,10 @@ export class User {
     firstName: string;
     lastName: string;
     about : string;
+    email : string;
+    phoneNumber : string;
+    favoriteAnimal : string;
+    birthDate : Date;
     adoptions : Adoption[];
     adoptionRequests : AdoptionRequest[];
     createdAt: Date;
