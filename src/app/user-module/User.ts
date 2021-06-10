@@ -6,6 +6,7 @@ export class User {
     userName: string;
     firstName: string;
     lastName: string;
+    about : string;
     adoptions : Adoption[];
     adoptionRequests : AdoptionRequest[];
     createdAt: Date;

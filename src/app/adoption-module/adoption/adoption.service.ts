@@ -43,12 +43,13 @@ export class AdoptionService {
     return this.http.get<Adoption[]>(this.adoptionUrl, { params });
   }
 
-  getPagedAdoptionsFiltered(page: number, size: number, title: string, animal: string): Observable<Adoption[]> {
+  getPagedAdoptionsFiltered(page: number, size: number, title: string, animal: string , user_id : string): Observable<Adoption[]> {
     let params = new HttpParams();
     params = page != null ? params.append('page', String(page)) : params;
     params = size != null ? params.append('size', String(size)) : params;
     params = title != null && title.length > 0 ? params.append('title', String(title)) : params;
     params = animal != null && animal.length > 0 ? params.append('animal', String(animal)) : params;
+    params = user_id != null && user_id.length > 0 ? params.append('user_id', String(user_id)) : params;
     return this.http.get<Adoption[]>(this.adoptionUrl, { params });
   }
 

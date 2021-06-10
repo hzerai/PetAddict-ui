@@ -8,9 +8,11 @@ import { HomeComponent } from './interface-module/home/home.component';
 import { AboutUsComponent } from './interface-module/about-us/about-us.component';
 import { LoginComponent } from './user-module/login/login.component';
 import { RegisterComponent } from './user-module/register/register.component';
+import { UserProfileComponent } from './user-module/user-profile/user-profile.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'user_profile', component: UserProfileComponent },
   { path: 'about', component: AboutUsComponent },
   { path: 'adoptions', component: AdoptionListComponent },
   { path: 'adoptions/filtered', component: AdoptionListComponent },

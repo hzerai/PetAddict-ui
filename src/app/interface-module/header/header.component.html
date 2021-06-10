@@ -1,22 +1,39 @@
-<nav class="bg-blue-400">
-    <div class="container mx-auto grid grid-flow-col grid-rows-1 grid-cols-12 gap-3">
-    <div class="row-start-1 col-start-1 col-span-1 flex">
-            <a class="mx-auto my-3 font-bold tracking-wide lg:text-xl text-black no-underline hover:border-white hover:text-white hover:bg-light"
+<nav class="bg-blue-400 rounded-xl">
+    <div class="mx-auto grid grid-flow-col grid-rows-1 grid-cols-12">
+        <div class="col-start-2 col-span-1 flex">
+            <a class="mx-auto my-2 py-1 font-bold tracking-wide lg:text-xl text-black no-underline hover:border-white hover:text-white hover:bg-light"
                 href="/">
-                <span class="hidden sm:inline-block">PetAddict</span>
+                <span class="text-white text-3xl sm:inline-block hover:text-black">PetAddict</span>
             </a>
         </div>
-    <div class="row-start-1 col-span-3 col-start-10 flex">
+        <div class="col-start-5 col-span-1 flex mx-6"> <a [routerLink]="['adoptions']"
+                class="col-span-1 my-4  whitespace-no-wrap uppercase text-white text-sm px-4 py-2 text-black hover:border-white hover:text-black  font-medium no-underline">Adoptions</a>
             <a [routerLink]="['adoptions']"
-                class="mx-auto my-3  whitespace-no-wrap uppercase text-sm border border-light rounded-lg px-4 py-2 text-black hover:border-white hover:text-white  font-medium no-underline">Adoptions</a>
-            <a *ngIf="!isLoggedIn" class="mx-auto my-3 whitespace-no-wrap uppercase text-sm border border-light rounded-lg px-4 py-2 text-black hover:border-white hover:text-white  font-medium no-underline"
+                class="col-span-1 my-4  whitespace-no-wrap uppercase text-white text-sm px-4 py-2 text-black hover:border-white hover:text-black  font-medium no-underline">Lost
+                & Found</a>
+            <a [routerLink]="['adoptions']"
+                class="col-span-1 my-4  whitespace-no-wrap uppercase text-white text-sm px-4 py-2 text-black hover:border-white hover:text-black  font-medium no-underline">Associations</a>
+            <a [routerLink]="['adoptions']"
+                class="col-span-1 my-4  whitespace-no-wrap uppercase text-white text-sm px-4 py-2 text-black hover:border-white hover:text-black  font-medium no-underline">Vétérinaires</a>
+        </div>
+
+        <div class="col-start-11 col-span-5 flex ">
+            <a *ngIf="!isLoggedIn"
+                class="col-start-11 col-span-1 my-4 whitespace-no-wrap uppercase text-white text-sm border border-light rounded-lg px-2 py-2 mx-1  text-black hover:border-black hover:text-black font-medium no-underline"
                 routerLink="login">Sign-In</a>
-            <a *ngIf="!isLoggedIn" class="mx-auto my-3 whitespace-no-wrap uppercase text-sm border border-light rounded-lg px-4 py-2 text-black hover:border-white hover:text-white  font-medium no-underline"
-            routerLink="register">Sign-Up</a>
-                <a *ngIf="isLoggedIn" class="mx-auto my-3 whitespace-no-wrap uppercase text-sm border border-light rounded-lg px-4 py-2 text-black hover:border-white hover:text-white  font-medium no-underline"
-                href="#">{{ username }}</a>
-            <div *ngIf="isLoggedIn" class="mx-auto my-3 whitespace-no-wrap uppercase text-sm border border-light rounded-lg px-4 py-2 text-black hover:border-white hover:text-white  font-medium no-underline"
+            <a *ngIf="!isLoggedIn"
+                class="col-span-1 my-4 whitespace-no-wrap uppercase text-white text-sm border border-light rounded-lg px-4 py-2 mx-1  text-black hover:border-black hover:text-black font-medium no-underline"
+                routerLink="register">Sign-Up</a>
+            <div *ngIf="isLoggedIn" [routerLink]="['user_profile']" class="col-span-3 flex items-center  border border-light rounded-lg  my-4 mx-2 uppercase text-sm px-2 py-1
+                text-white hover:border-black hover:text-black font-medium ">
+                <div> <img src="/assets/images/40.jpg"
+                        class="w-8 h-8 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4" />
+                </div>
+                <div class="flex-grow"><a class="flex-1/2">{{username}}</a></div>
+            </div>
+            <div *ngIf="isLoggedIn"
+                class="col-span-1 my-4 whitespace-no-wrap uppercase text-sm border border-light rounded-lg px-4 py-2 text-white hover:border-black hover:text-black font-medium no-underline"
                 (click)="logout()">LogOut</div>
-    </div>
+        </div>
     </div>
 </nav>

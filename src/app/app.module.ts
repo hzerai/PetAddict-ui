@@ -26,6 +26,7 @@ import { AboutUsComponent } from './interface-module/about-us/about-us.component
 import { LoginComponent } from './user-module/login/login.component';
 import { RegisterComponent } from './user-module/register/register.component';
 import { authInterceptorProviders } from './user-module/_helpers/auth.interceptor';
+import { UserProfileComponent } from './user-module/user-profile/user-profile.component';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { authInterceptorProviders } from './user-module/_helpers/auth.intercepto
     AdoptionRequestComponent,
     AboutUsComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    UserProfileComponent
 
 
   ],

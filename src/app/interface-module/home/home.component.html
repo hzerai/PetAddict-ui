@@ -4,9 +4,9 @@
         <div *ngFor="let adoption of adoptions">
             <div class="border border-blue-200 rounded-lg mb-4 hover:bg-white hover:border-blue-900 h-full">
 
-                <div class="pt-4 px-4">
-                    <div class="mr-2 flex-shrink-0">
-                        <img src="https://placedog.net/{{adoption.id}}" class="">
+                <div class="pt-4 px-4 ">
+                    <div class="flex items-center p-2 pt-4">
+                        <img src="https://placedog.net/{{adoption.id + 100}}" class="flex-1">
                     </div>
                     <div class="w-full">
                         <div class="flex justify-between w-full">
@@ -18,7 +18,6 @@
                         <br />
                     </div>
                     <div class="flex items-center p-2 pt-4">
-
                         <a [routerLink]="['/adoptions', adoption.id]"
                             class="flex-1 text-gray-700 text-center rounded-lg mx-2 border border-black rounded hover:bg-gray-600 hover:text-white">
                             <img src="assets/svg/icon-external-link.svg" class="rounded-full inline-block" />
