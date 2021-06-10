@@ -1,4 +1,4 @@
-<div class="bg-gray-100">
+<div class="">
   <div class="text-white bg-main-color">
 
 
@@ -7,7 +7,7 @@
         <!-- Left Side -->
         <div class="w-full md:w-3/12 md:mx-2">
           <!-- Profile Card -->
-          <div class="bg-white p-3 border-t-4 border-blue-300">
+          <div class="bg-gray-100 p-3 border-t-4 border-blue-300">
             <div class="image overflow-hidden">
               <img class="h-auto w-full mx-auto" src="https://i.pravatar.cc/300?img={{user.id}}" alt="">
             </div>
@@ -34,7 +34,7 @@
         <div class="w-full h-full md:w-9/12 mx-2 h-64">
           <!-- Profile tab -->
           <!-- About Section -->
-          <div class="bg-white p-3 shadow-sm rounded-sm hover:text-gray-700 hover:shadow">
+          <div class="bg-gray-100 p-3 shadow-sm rounded-sm hover:text-gray-700 hover:shadow">
             <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
               <span clas="text-green-500">
                 <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -77,7 +77,7 @@
                 </div>
                 <div class="grid grid-cols-2 hover:text-gray-700 hover:shadow">
                   <div class="px-4 py-2 font-semibold">Anniversaire</div>
-                  <div class="px-4 py-2">{{user.birthDate}}</div>
+                  <div class="px-4 py-2">{{user.birthDate | date:'dd/MM/yyyy'}}</div>
                 </div>
               </div>
             </div>
@@ -90,13 +90,13 @@
           <div class="my-4"></div>
 
           <!-- Adoptions -->
-          <div class=" p-3 shadow-sm rounded-sm">
+          <div class="shadow-sm rounded-sm">
 
             <div>
               <section class="text-gray-600 body-font">
-                <div class="container mx-auto ">
-                  <div class="hover:text-gray-700 hover:shadow">
-                    <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 ">
+                <div class="container mx-auto">
+                  <div class="hover:text-gray-700 hover:shadow bg-gray-100">
+                    <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 p-2">
                       <span clas="text-green-500">
                         <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                           stroke="currentColor">
@@ -107,7 +107,7 @@
                       <span class="tracking-wide">Mes Publication</span>
                     </div>
 
-                    <div class="grid grid-flow-col grid-rows-1 grid-cols-12 bg-white">
+                    <div class="grid grid-flow-col grid-rows-1 grid-cols-12">
                       <div *ngFor="let adoption of user.adoptions"
                         class="col-span-3 m-2 hover:text-gray-700 hover:shadow">
                         <div class="p-6 rounded-lg">
@@ -119,9 +119,10 @@
                             class="text-gray-900 font-medium title-font text-sm mb-4 hover:text-blue-900">
                             {{adoption.title}}</h2>
                           <p class="leading-relaxed text-xs truncate">{{adoption.description}}</p>
-                          <p class="leading-relaxed text-xs font-medium title-font">Crée le {{adoption.createdAt}}</p>
-                          <p class="leading-relaxed text-xs font-medium title-font">Nombre des demande d'adoptions :
-                            {{adoption.adoptionRequests.size}}</p>
+                          <p class="leading-relaxed text-xs font-medium title-font">Crée le {{adoption.createdAt |
+                            date:'dd/MM/yyyy'}}</p>
+                          <p class="leading-relaxed text-xs font-medium title-font">Demande d'adoptions :
+                            {{adoption.adoptionRequests.length }}</p>
                         </div>
                       </div>
                     </div>
@@ -129,8 +130,8 @@
                   <div class="p-4">
                     <hr>
                   </div>
-                  <div class="hover:text-gray-700 hover:shadow">
-                    <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
+                  <div class="hover:text-gray-700 hover:shadow bg-gray-100">
+                    <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 p-2">
                       <span clas="text-green-500">
                         <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                           stroke="currentColor">
@@ -141,7 +142,7 @@
                       <span class="tracking-wide">Mes demandes d'adoption</span>
                     </div>
 
-                    <div class="grid grid-flow-col grid-rows-1 grid-cols-12 bg-white">
+                    <div class="grid grid-flow-col grid-rows-1 grid-cols-12">
                       <div *ngFor="let adoptionsRequest of user.adoptionRequests"
                         class="col-span-3 m-2 hover:text-gray-700 hover:shadow">
                         <div class="p-6 rounded-lg">
@@ -152,10 +153,11 @@
                           <h2 [routerLink]="['/adoptions', adoptionsRequest.adoption.id]"
                             class="text-gray-900 font-medium title-font text-sm mb-4 hover:text-blue-900">
                             {{adoptionsRequest.adoption.title}}</h2>
-                          <p class="leading-relaxed text-xs font-medium title-font">Crée le
-                            {{adoptionsRequest.createdAt}}
-                          </p>
+
                           <p class="leading-relaxed text-xs font-medium title-font">Status : {{adoptionsRequest.status}}
+                          </p>
+                          <p class="leading-relaxed text-xs font-medium title-font">Depuis :
+                            {{adoptionsRequest.createdAt | date:'dd/MM/yyyy'}}
                           </p>
                         </div>
                       </div>
