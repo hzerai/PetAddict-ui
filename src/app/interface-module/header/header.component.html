@@ -1,10 +1,11 @@
-<nav class="bg-blue-400 rounded-xl">
+<nav class="bg-blue-300 rounded-xl">
     <div class="mx-auto grid grid-flow-col grid-rows-1 grid-cols-12">
         <div class="col-start-2 col-span-1 flex">
-            <a class="mx-auto my-2 py-1 font-bold tracking-wide lg:text-xl text-black no-underline hover:border-white hover:text-white hover:bg-light"
-                href="/">
-                <span class="text-white text-3xl sm:inline-block hover:text-black">PetAddict</span>
+            <a href="/" class="flex title-font font-medium items-center md:justify-start justify-center text-black">
+                <img src="assets/images/petAddict.png" class="h-10 w-10"/>
+                <span class="ml-3 text-xl text-white">PetAddict</span>
             </a>
+            
         </div>
         <div class="col-start-5 col-span-1 flex mx-6"> <a [routerLink]="['adoptions']"
                 class="col-span-1 my-4  whitespace-no-wrap uppercase text-white text-sm px-4 py-2 text-black hover:border-white hover:text-black  font-medium no-underline">Adoptions</a>
