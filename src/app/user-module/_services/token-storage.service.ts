@@ -30,7 +30,11 @@ export class TokenStorageService {
 
   public saveToken(token: string): void {
     document.cookie = `${TOKEN_KEY} = ; expires=Thu, 1 jan 1990 12:00:00 UTC; path=/`;
-    document.cookie = TOKEN_KEY + '=' + (token || '');
+    var now = new Date(),
+    // this will set the expiration to 12 months
+    exp = new Date(now.getFullYear()+1, now.getMonth(), now.getDate());
+    document.cookie = `${TOKEN_KEY + '=' + (token || '')} ; expires=${exp}; path=/`;
+
   }
 
   public getToken(): string | null {
@@ -40,7 +44,10 @@ export class TokenStorageService {
 
   public saveUser(user: User): void {
     document.cookie = `${USER_KEY} = ; expires=Thu, 1 jan 1990 12:00:00 UTC; path=/`;
-    document.cookie = USER_KEY + '=' + (user || '');
+    var now = new Date(),
+    // this will set the expiration to 12 months
+    exp = new Date(now.getFullYear()+1, now.getMonth(), now.getDate());
+    document.cookie = `${USER_KEY + '=' + (user || '')} ; expires=${exp}; path=/`;
   }
 
   public getUser(): User {
