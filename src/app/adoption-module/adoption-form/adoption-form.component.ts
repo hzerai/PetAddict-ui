@@ -18,7 +18,7 @@ export class AdoptionFormComponent implements OnInit {
 
 
   constructor(private adoptionService: AdoptionService, private router: Router, private ac: ActivatedRoute,private tokenStorageService:TokenStorageService ) {
-    if (tokenStorageService.getToken!=null) {
+    if (tokenStorageService.getToken()==null) {
       this.router.navigate(['login']);
     }
    }

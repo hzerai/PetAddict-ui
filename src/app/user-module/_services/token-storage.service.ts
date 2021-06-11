@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { User } from '../User';
 
 const TOKEN_KEY = 'auth-token';
 const USER_KEY = 'auth-user';
@@ -7,32 +8,43 @@ const USER_KEY = 'auth-user';
   providedIn: 'root'
 })
 export class TokenStorageService {
-  constructor() { }
+  private cookieStore = {};
+  constructor() {
+    this.parseCookies(document.cookie);
+   }
+
+  public parseCookies(cookies = document.cookie) {
+    this.cookieStore = {};
+    if (!!cookies === false) { return; }
+    const cookiesArr = cookies.split(';');
+    for (const cookie of cookiesArr) {
+        const cookieArr = cookie.split('=');
+        this.cookieStore[cookieArr[0].trim()] = cookieArr[1];
+    }
+  }
 
   signOut(): void {
-    window.sessionStorage.clear();
+    document.cookie = `${TOKEN_KEY} = ; expires=Thu, 1 jan 1990 12:00:00 UTC; path=/`;
+    document.cookie = `${USER_KEY} = ; expires=Thu, 1 jan 1990 12:00:00 UTC; path=/`;
   }
 
   public saveToken(token: string): void {
-    window.sessionStorage.removeItem(TOKEN_KEY);
-    window.sessionStorage.setItem(TOKEN_KEY, token);
+    document.cookie = `${TOKEN_KEY} = ; expires=Thu, 1 jan 1990 12:00:00 UTC; path=/`;
+    document.cookie = TOKEN_KEY + '=' + (token || '');
   }
 
   public getToken(): string | null {
-    return window.sessionStorage.getItem(TOKEN_KEY);
+    this.parseCookies();
+    return !!this.cookieStore[TOKEN_KEY] ? this.cookieStore[TOKEN_KEY] : null;
   }
 
-  public saveUser(user: any): void {
-    window.sessionStorage.removeItem(USER_KEY);
-    window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
+  public saveUser(user: User): void {
+    document.cookie = `${USER_KEY} = ; expires=Thu, 1 jan 1990 12:00:00 UTC; path=/`;
+    document.cookie = USER_KEY + '=' + (user || '');
   }
 
-  public getUser(): any {
-    const user = window.sessionStorage.getItem(USER_KEY);
-    if (user) {
-      return JSON.parse(user);
-    }
-
-    return {};
+  public getUser(): User {
+    this.parseCookies();
+    return !!this.cookieStore[USER_KEY] ? this.cookieStore[USER_KEY] : null;
   }
 }

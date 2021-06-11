@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { User } from 'src/app/user-module/User';
 import { UserService } from 'src/app/user-module/_services/user.service';
 import { TokenStorageService } from '../../user-module/_services/token-storage.service';
@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
 
   isLoggedIn = false;
   username?: string;
-  user : User;
+  @Input() user : User;
 
   constructor(private tokenStorageService: TokenStorageService, private userService:UserService) { }
 
@@ -24,7 +24,10 @@ export class HeaderComponent implements OnInit {
       payload = token.split(".")[1];
       payload = window.atob(payload);
       this.username = JSON.parse(payload).username;
-      this.userService.getUserById(this.username).subscribe(next => this.user = next)
+      this.userService.getUserById(this.username).subscribe(next => {
+        this.user = next;
+        this.user.lastName!=null?this.username=this.user.lastName:this.username=this.user.username.substring(0, this.user.username.lastIndexOf("@"));
+      });
     }
   }
 

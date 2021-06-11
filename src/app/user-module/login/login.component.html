@@ -22,8 +22,8 @@
         </div>
         <button
           class="w-full font-bold text-white bg-blue-300 border-0 py-3 px-8 focus:outline-none hover:bg-indigo-600 rounded-lg text-lg">Connexion</button>
-        <div class="alert alert-warning text-red-500 font-bold text-sm" *ngIf="f.submitted && isSignUpFailed">
-          <p>{{ errorMessage.includes('Invalid credentials') ? 'L\'adresse e-mail utlisée est liée à un autre compte.' :
+        <div class="alert alert-warning text-red-500 font-bold text-sm" *ngIf="f.submitted && isLoginFailed">
+          <p>{{ errorMessage.includes('Invalid credentials') ? 'Identifiants non valides' :
             errorMessage}}</p>
         </div>
       </form>

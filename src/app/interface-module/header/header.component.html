@@ -1,13 +1,13 @@
 <nav class="bg-blue-300 rounded-xl">
-    <div class="mx-auto grid grid-flow-col grid-rows-1 grid-cols-12">
-        <div class="col-start-2 col-span-1 flex">
+    <div class="container m-auto flex">
+        <div class="mr-auto flex">
             <a href="/" class="flex title-font font-medium items-center md:justify-start justify-center text-black">
                 <img src="assets/images/petAddict.png" class="h-10 w-10"/>
                 <span class="ml-3 text-xl text-white">PetAddict</span>
             </a>
             
         </div>
-        <div class="col-start-5 col-span-1 flex mx-6"> <a [routerLink]="['adoptions']"
+        <div class="mx-auto flex"> <a [routerLink]="['adoptions']"
                 class="col-span-1 my-4  whitespace-no-wrap uppercase text-white text-sm px-4 py-2 text-black hover:border-white hover:text-black  font-medium no-underline">Adoptions</a>
             <a [routerLink]="['adoptions']"
                 class="col-span-1 my-4  whitespace-no-wrap uppercase text-white text-sm px-4 py-2 text-black hover:border-white hover:text-black  font-medium no-underline">Lost
@@ -18,7 +18,7 @@
                 class="col-span-1 my-4  whitespace-no-wrap uppercase text-white text-sm px-4 py-2 text-black hover:border-white hover:text-black  font-medium no-underline">Vétérinaires</a>
         </div>
 
-        <div class="col-start-11 col-span-5 flex ">
+        <div class="ml-auto flex ">
             <a *ngIf="!isLoggedIn"
                 class="col-start-11 col-span-1 my-4 whitespace-no-wrap uppercase text-white text-sm border border-light rounded-lg px-2 py-2 mx-1  text-black hover:border-black hover:text-black font-medium no-underline"
                 routerLink="login">Sign-In</a>
@@ -27,10 +27,12 @@
                 routerLink="register">Sign-Up</a>
             <div *ngIf="isLoggedIn" [routerLink]="['user_profile']" class="col-span-3 flex items-center  border border-light rounded-lg  my-4 mx-2 uppercase text-sm px-2 py-1
                 text-white hover:border-black hover:text-black font-medium ">
-                <div> <img src="https://i.pravatar.cc/300?img={{user.id}}"
+                <div> <img src="https://i.pravatar.cc/{{user.id}}"
                         class="w-8 h-8 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4" />
                 </div>
-                <div class="flex-grow"><a class="flex-1/2">{{username}}</a></div>
+                <div class="flex-grow">
+                    <a class="flex-1/2">{{username}}</a>
+                </div>
             </div>
             <div *ngIf="isLoggedIn"
                 class="col-span-1 my-4 whitespace-no-wrap uppercase text-sm border border-light rounded-lg px-4 py-2 text-white hover:border-black hover:text-black font-medium no-underline"

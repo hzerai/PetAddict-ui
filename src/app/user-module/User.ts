@@ -3,7 +3,7 @@ import { Adoption } from "../adoption-module/adoption/Adoption";
 
 export class User {
     id: number;
-    userName: string;
+    username: string;
     firstName: string;
     lastName: string;
     about : string;
@@ -17,4 +17,5 @@ export class User {
     updatedAt: Date;
     createdBy: string = '';
     updatedBy: string = '';
+    roles:string[];
 }
