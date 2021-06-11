@@ -27,11 +27,11 @@
                 routerLink="register">Sign-Up</a>
             <div *ngIf="isLoggedIn" [routerLink]="['user_profile']" class="col-span-3 flex items-center  border border-light rounded-lg  my-4 mx-2 uppercase text-sm px-2 py-1
                 text-white hover:border-black hover:text-black font-medium ">
-                <div> <img src="https://i.pravatar.cc/300?img={{user.id}}"
+                <div> <img src="https://i.pravatar.cc/300?img={{user?.id}}"
                         class="w-8 h-8 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4" />
                 </div>
                 <div class="flex-grow">
-                    <a class="flex-1/2">{{user.firstName != null ? user.firstName + ' ' + user.lastName : username}}</a>
+                    <a class="flex-1/2">{{user?.firstName != null ? user?.firstName + ' ' + user?.lastName : user?.username}}</a>
                 </div>
             </div>
             <div *ngIf="isLoggedIn"
