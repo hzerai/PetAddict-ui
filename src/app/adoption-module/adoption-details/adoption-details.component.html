@@ -1,34 +1,40 @@
-<div class="m-10 p-10 container">
-    <img src="https://via.placeholder.com/640x480?text=Image+For+adoption+{{adoption.id}}" class="">
-    <div class="p-5">
-        <h1 class="text-2xl font-bold text-gray-800 py-2">{{adoption.title}}</h1>
-        <p class="bg-white text-sm text-black">>{{adoption.animal}}</p>
-        <p class="bg-white text-sm text-black">>{{adoption.description}}</p>
-        <p class="bg-white text-sm text-black">>{{adoption.id}}</p>
-        <p class="bg-white text-sm text-black">>{{adoption.createdAt}}</p>
-        <p class="bg-white text-sm text-black">>{{adoption.createdBy}}</p>
+<section class="text-gray-600 body-font overflow-hidden">
+    <div class="container px-5 py-24 mx-auto">
+        <div class="lg:w-4/5 mx-auto flex flex-wrap">
+            <img alt="animalPhoto" class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded-lg shadow"
+                src="https://placedog.net/{{adoption.id + 100}}">
+            <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+                <h2 class="text-sm title-font text-gray-500 tracking-widest">#{{adoption.animal}}</h2>
+                <h1 class="text-gray-900 text-3xl title-font font-medium mb-1">{{adoption.title}}</h1>
 
+                <p class="leading-relaxed">{{adoption.description}}</p>
+                <div
+                    class="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5 leading-relaxed text-xs font-medium title-font">
+                    <div class="flex">
+                        <span class="mr-3">Publié le : {{adoption.createdAt | date:'dd/MM/yyyy'}} par :
+                            {{adoption.user.firstName != null ? adoption.user.firstName : 'anonyme'}}</span>
+                    </div>
+
+                </div>
+
+                <div class="mt-2 grid justify-items-center">
+                    <hr>
+
+                    <br>
+                    <div class="flex">
+                        <p class="text-xs font-bold text-center text-black mt-3"><a href="/">Vous aimez cet animal? Vous
+                                pouvez commencer la
+                                procedure d'adoption dès maintenant !</a></p>
+                    </div>
+                    <button *ngIf="!isOwner()" [routerLink]="['adopter']"  
+                        class="place-self-center font-bold mt-2 text-white bg-blue-300 border-0 py-3 px-6 focus:outline-none hover:bg-indigo-600 rounded-lg text-lg">Adopter
+                        moi</button>
+                    <button *ngIf="isOwner()" [routerLink]="['edit']"  
+                        class="place-self-center font-bold mt-2 text-white bg-blue-300 border-0 py-3 px-6 focus:outline-none hover:bg-indigo-600 rounded-lg text-lg">Modifier la publication</button>
+                    <button backButton
+                        class="place-self-center mt-3 text-white bg-gray-300 border-0 py-1 px-2 focus:outline-none hover:bg-gray-600 rounded-lg text-sm font-bold">Retourner</button>
+                </div>
+            </div>
+        </div>
     </div>
-
-    
-
-    <div class="flex items-center p-2 pt-4">
-        <a [routerLink]="['/adoptions', adoption.id , 'edit']"
-            class="flex-1 text-gray-700 text-center rounded-lg mx-2 border border-black rounded hover:bg-gray-600 hover:text-white">
-            <img src="assets/svg/icon-edit.svg" alt class="rounded-full inline-block" />
-            <p class="inline-block">edit</p>
-        </a>
-
-        <a (click)="delete(adoption.id)"
-            class="flex-1 text-gray-700 text-center rounded-lg mx-2 border border-black rounded hover:bg-gray-600 hover:text-white">
-            <img src="assets/svg/icon-trash.svg" alt class="rounded-full inline-block" />
-            <p class="inline-block">delete</p>
-        </a>
-
-        <a [routerLink]="['/adoptions', adoption.id]"
-            class="flex-1 text-gray-700 text-center rounded-lg mx-2 border border-black rounded hover:bg-gray-600 hover:text-white">
-            <img src="assets/svg/icon-comment.svg" alt class="rounded-full inline-block" />
-            <p class="inline-block">comment</p>
-        </a>
-    </div>
-</div>
+</section>

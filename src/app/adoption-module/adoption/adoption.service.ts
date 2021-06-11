@@ -4,6 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Adoption } from './Adoption';
 import { Observable } from 'rxjs';
 import { isDefined } from '@angular/compiler/src/util';
+import { AdoptionRequest } from '../adoption-request/AdoptionRequest';
 
 
 @Injectable({
@@ -55,6 +56,10 @@ export class AdoptionService {
 
   count(): Observable<number> {
     return this.http.get<number>(this.adoptionUrl + 's/count');
+  }
+
+  createAdoptionRequest(id : number){
+    return this.http.post<AdoptionRequest>(this.adoptionUrl + '/' + id + '/adopt', this.options);
   }
 
 }

@@ -9,6 +9,7 @@ import { AboutUsComponent } from './interface-module/about-us/about-us.component
 import { LoginComponent } from './user-module/login/login.component';
 import { RegisterComponent } from './user-module/register/register.component';
 import { UserProfileComponent } from './user-module/user-profile/user-profile.component';
+import { AdoptionRequestComponent } from './adoption-module/adoption-request/adoption-request.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'adoptions/filtered', component: AdoptionListComponent },
   { path: 'adoptions/new', component: AdoptionFormComponent },
   { path: 'adoptions/:id', component: AdoptionDetailsComponent },
+  { path: 'adoptions/:id/adopter', component: AdoptionRequestComponent },
   { path: 'adoptions/:id/edit', component: AdoptionFormComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
