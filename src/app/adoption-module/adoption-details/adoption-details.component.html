@@ -3,34 +3,34 @@
         <div class="lg:w-4/5 mx-auto flex flex-wrap">
             <div class="lg:w-1/2 object-cover object-center text-gray-700 text-sm">
                 <img alt="animalPhoto" class="rounded-lg shadow w-full h-3/4"
-                    src="https://placedog.net/{{adoption.id + 100}}">
+                    src="https://placedog.net/{{adoption?.id + 100}}">
                 <div class="grid grid-cols-4 p-6">
                     <div class="font-bold ">Nom :</div>
-                    <div class="ml-5">{{adoption.animal.nom}}</div>
+                    <div class="ml-5">{{adoption?.animal.nom}}</div>
                     <div class="font-bold">Espece:</div>
-                    <div class="ml-5">{{adoption.animal.espece}}</div>
+                    <div class="ml-5">{{adoption?.animal.espece}}</div>
                     <div class="font-bold">Sexe :</div>
-                    <div class="ml-5">{{adoption.animal.sexe}}</div>
+                    <div class="ml-5">{{adoption?.animal.sexe}}</div>
                     <div class="font-bold">Type :</div>
-                    <div class="ml-5">{{adoption.animal.type}}</div>
+                    <div class="ml-5">{{adoption?.animal.type}}</div>
                     <div class="font-bold">Taille :</div>
-                    <div class="ml-5">{{adoption.animal.taille}}</div>
+                    <div class="ml-5">{{adoption?.animal.taille}}</div>
                     <div class="font-bold">Age :</div>
-                    <div class="ml-5">{{adoption.animal.age}}</div>
+                    <div class="ml-5">{{adoption?.animal.age}}</div>
                     <div class="font-bold">Couleur :</div>
-                    <div class="ml-5"> {{adoption.animal.couleur}} </div>
+                    <div class="ml-5"> {{adoption?.animal.couleur}} </div>
 
                 </div>
             </div>
             <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-                <h1 class="text-gray-900 text-3xl mb-3 leading-none">{{adoption.title}}</h1>
+                <h1 class="text-gray-900 text-3xl mb-3 leading-none">{{adoption?.title}}</h1>
 
-                <p class="leading-none text-gray-600 text-sm mb-1">{{adoption.description}}</p>
+                <p class="leading-none text-gray-600 text-sm mb-1">{{adoption?.description}}</p>
                 <div
                     class="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5 leading-relaxed text-xs font-medium title-font">
                     <div class="flex">
-                        <span class="mr-3">Publié le : {{adoption.createdAt | date:'dd/MM/yyyy'}} par :
-                            {{adoption.user.firstName != null ? adoption.user.firstName : 'anonyme'}}</span>
+                        <span class="mr-3">Publié le : {{adoption?.createdAt | date:'dd/MM/yyyy'}} par :
+                            {{adoption?.user?.firstName != null ? adoption?.user?.firstName : 'anonyme'}}</span>
                     </div>
 
                 </div>

@@ -7,11 +7,11 @@
         <div class="w-full md:w-3/12 md:mx-2">
           <div class="bg-gray-100 p-3 border-t-4 border-blue-300">
             <div class="image overflow-hidden">
-              <img class="h-auto w-full mx-auto" src="https://i.pravatar.cc/300?img={{user.id}}" alt="">
+              <img class="h-auto w-full mx-auto" src="https://i.pravatar.cc/300?img={{user?.id > 100 ? user?.id - 100 : user?.id}}" alt="">
             </div>
-            <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">{{user.firstName}} {{user.lastName}}</h1>
-            <h3 class="text-gray-600 font-lg text-semibold leading-6">J'aime les {{user.favoriteAnimal}}s</h3>
-            <p class="text-sm text-gray-500 hover:text-gray-600 leading-6">{{user.about}}</p>
+            <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">{{user?.firstName}} {{user?.lastName}}</h1>
+            <h3 class="text-gray-600 font-lg text-semibold leading-6">J'aime les {{user?.favoriteAnimal}}s</h3>
+            <p class="text-sm text-gray-500 hover:text-gray-600 leading-6">{{user?.about}}</p>
             <ul
               class="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm text-sm">
               <li class="flex items-center py-3">
@@ -20,7 +20,7 @@
               </li>
               <li class="flex items-center py-3">
                 <span>Member depuis</span>
-                <span class="ml-auto">{{user.createdAt}} 10/06/2021</span>
+                <span class="ml-auto">{{user?.createdAt}} 10/06/2021</span>
               </li>
             </ul>
           </div>
@@ -44,11 +44,11 @@
               <div class="grid md:grid-cols-2 text-sm">
                 <div class="grid grid-cols-2 hover:text-gray-700 hover:shadow">
                   <div class="px-4 py-2 font-semibold">Prénom</div>
-                  <div class="px-4 py-2">{{user.firstName}}</div>
+                  <div class="px-4 py-2">{{user?.firstName}}</div>
                 </div>
                 <div class="grid grid-cols-2 hover:text-gray-700 hover:shadow">
                   <div class="px-4 py-2 font-semibold">Nom</div>
-                  <div class="px-4 py-2">{{user.lastName}}</div>
+                  <div class="px-4 py-2">{{user?.lastName}}</div>
                 </div>
                 <div class="grid grid-cols-2 hover:text-gray-700 hover:shadow">
                   <div class="px-4 py-2 font-semibold">Sexe</div>
@@ -56,7 +56,7 @@
                 </div>
                 <div class="grid grid-cols-2 hover:text-gray-700 hover:shadow">
                   <div class="px-4 py-2 font-semibold">Numero de tél.</div>
-                  <div class="px-4 py-2">{{user.phoneNumber}}</div>
+                  <div class="px-4 py-2">{{user?.phoneNumber}}</div>
                 </div>
                 <div class="grid grid-cols-2 hover:text-gray-700 hover:shadow">
                   <div class="px-4 py-2 font-semibold">Adresse</div>
@@ -64,15 +64,15 @@
                 </div>
                 <div class="grid grid-cols-2 hover:text-gray-700 hover:shadow">
                   <div class="px-4 py-2 font-semibold">Animale préféré</div>
-                  <div class="px-4 py-2">{{user.favoriteAnimal}}</div>
+                  <div class="px-4 py-2">{{user?.favoriteAnimal}}</div>
                 </div>
                 <div class="grid grid-cols-2 hover:text-gray-700 hover:shadow">
                   <div class="px-4 py-2 font-semibold">Adresse mail</div>
-                  <div class="px-4 py-2 uppercase"> {{user.email}} </div>
+                  <div class="px-4 py-2 uppercase"> {{user?.email}} </div>
                 </div>
                 <div class="grid grid-cols-2 hover:text-gray-700 hover:shadow">
                   <div class="px-4 py-2 font-semibold">Anniversaire</div>
-                  <div class="px-4 py-2">{{user.birthDate | date:'dd/MM/yyyy'}}</div>
+                  <div class="px-4 py-2">{{user?.birthDate | date:'dd/MM/yyyy'}}</div>
                 </div>
               </div>
             </div>
@@ -101,7 +101,7 @@
                     </div>
 
                     <div class="grid grid-flow-col grid-rows-1 grid-cols-12">
-                      <div *ngFor="let adoption of user.adoptions"
+                      <div *ngFor="let adoption of user?.adoptions"
                         class="col-span-3 m-2 hover:text-gray-700 hover:shadow">
                         <div class="p-6 rounded-lg">
                           <img class="h-40 rounded w-full object-cover object-center mb-6"
@@ -136,7 +136,7 @@
                     </div>
 
                     <div class="grid grid-flow-col grid-rows-1 grid-cols-12">
-                      <div *ngFor="let adoptionsRequest of user.adoptionRequests"
+                      <div *ngFor="let adoptionsRequest of user?.adoptionRequests"
                         class="col-span-3 m-2 hover:text-gray-700 hover:shadow">
                         <div class="p-6 rounded-lg">
                           <img class="h-40 rounded w-full object-cover object-center mb-6"

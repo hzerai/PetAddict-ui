@@ -32,7 +32,7 @@ export class AdoptionDetailsComponent implements OnInit {
   }
 
   isOwner(): boolean {
-    return this.currentUserId == this.adoption.user.id;
+    return this.currentUserId == this.adoption?.user?.id;
   }
 
   getCurrentUser() {
