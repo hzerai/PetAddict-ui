@@ -1,13 +1,31 @@
 <section class="text-gray-600 body-font overflow-hidden">
     <div class="container px-5 py-24 mx-auto">
         <div class="lg:w-4/5 mx-auto flex flex-wrap">
-            <img alt="animalPhoto" class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded-lg shadow"
-                src="https://placedog.net/{{adoption.id + 100}}">
-            <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-                <h2 class="text-sm title-font text-gray-500 tracking-widest">#{{adoption.animal}}</h2>
-                <h1 class="text-gray-900 text-3xl title-font font-medium mb-1">{{adoption.title}}</h1>
+            <div class="lg:w-1/2 object-cover object-center text-gray-700 text-sm">
+                <img alt="animalPhoto" class="rounded-lg shadow w-full h-3/4"
+                    src="https://placedog.net/{{adoption.id + 100}}">
+                <div class="grid grid-cols-4 p-6">
+                    <div class="font-bold ">Nom :</div>
+                    <div class="ml-5">{{adoption.animal.nom}}</div>
+                    <div class="font-bold">Espece:</div>
+                    <div class="ml-5">{{adoption.animal.espece}}</div>
+                    <div class="font-bold">Sexe :</div>
+                    <div class="ml-5">{{adoption.animal.sexe}}</div>
+                    <div class="font-bold">Type :</div>
+                    <div class="ml-5">{{adoption.animal.type}}</div>
+                    <div class="font-bold">Taille :</div>
+                    <div class="ml-5">{{adoption.animal.taille}}</div>
+                    <div class="font-bold">Age :</div>
+                    <div class="ml-5">{{adoption.animal.age}}</div>
+                    <div class="font-bold">Couleur :</div>
+                    <div class="ml-5"> {{adoption.animal.couleur}} </div>
 
-                <p class="leading-relaxed">{{adoption.description}}</p>
+                </div>
+            </div>
+            <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+                <h1 class="text-gray-900 text-3xl mb-3 leading-none">{{adoption.title}}</h1>
+
+                <p class="leading-none text-gray-600 text-sm mb-1">{{adoption.description}}</p>
                 <div
                     class="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5 leading-relaxed text-xs font-medium title-font">
                     <div class="flex">
@@ -26,11 +44,12 @@
                                 pouvez commencer la
                                 procedure d'adoption dès maintenant !</a></p>
                     </div>
-                    <button *ngIf="!isOwner()" [routerLink]="['adopter']"  
+                    <button *ngIf="!isOwner()" [routerLink]="['adopter']"
                         class="place-self-center font-bold mt-2 text-white bg-blue-300 border-0 py-3 px-6 focus:outline-none hover:bg-indigo-600 rounded-lg text-lg">Adopter
                         moi</button>
-                    <button *ngIf="isOwner()" [routerLink]="['edit']"  
-                        class="place-self-center font-bold mt-2 text-white bg-blue-300 border-0 py-3 px-6 focus:outline-none hover:bg-indigo-600 rounded-lg text-lg">Modifier la publication</button>
+                    <button *ngIf="isOwner()" [routerLink]="['edit']"
+                        class="place-self-center font-bold mt-2 text-white bg-blue-300 border-0 py-3 px-6 focus:outline-none hover:bg-indigo-600 rounded-lg text-lg">Modifier
+                        la publication</button>
                     <button backButton
                         class="place-self-center mt-3 text-white bg-gray-300 border-0 py-1 px-2 focus:outline-none hover:bg-gray-600 rounded-lg text-sm font-bold">Retourner</button>
                 </div>

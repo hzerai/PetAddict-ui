@@ -4,9 +4,7 @@
 
     <div class="container mx-auto my-5 p-5">
       <div class="md:flex no-wrap md:-mx-2 ">
-        <!-- Left Side -->
         <div class="w-full md:w-3/12 md:mx-2">
-          <!-- Profile Card -->
           <div class="bg-gray-100 p-3 border-t-4 border-blue-300">
             <div class="image overflow-hidden">
               <img class="h-auto w-full mx-auto" src="https://i.pravatar.cc/300?img={{user.id}}" alt="">
@@ -26,14 +24,11 @@
               </li>
             </ul>
           </div>
-          <!-- End of profile card -->
           <div class="my-4"></div>
 
         </div>
-        <!-- Right Side -->
         <div class="w-full h-full md:w-9/12 mx-2 h-64">
-          <!-- Profile tab -->
-          <!-- About Section -->
+     
           <div class="bg-gray-100 p-3 shadow-sm rounded-sm hover:text-gray-700 hover:shadow">
             <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
               <span clas="text-green-500">
@@ -85,8 +80,6 @@
               class="block w-full text-blue-800 text-sm font-semibold rounded-lg hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4">Modifier
               mon profile</button>
           </div>
-          <!-- End of about section -->
-
           <div class="my-4"></div>
 
           <!-- Adoptions -->
@@ -113,7 +106,7 @@
                         <div class="p-6 rounded-lg">
                           <img class="h-40 rounded w-full object-cover object-center mb-6"
                             src="https://placedog.net/{{adoption.id + 100}}" alt="content">
-                          <h3 class="tracking-widest text-indigo-500 text-xs font-medium title-font">{{adoption.animal}}
+                          <h3 class="tracking-widest text-indigo-500 text-xs font-medium title-font">{{adoption.animal.espece}}
                           </h3>
                           <h2 [routerLink]="['/adoptions', adoption.id]"
                             class="text-gray-900 font-medium title-font text-sm mb-4 hover:text-blue-900">
@@ -149,7 +142,7 @@
                           <img class="h-40 rounded w-full object-cover object-center mb-6"
                             src="https://placedog.net/{{adoptionsRequest.adoption.id + 100}}" alt="content">
                           <h3 class="tracking-widest text-indigo-500 text-xs font-medium title-font">
-                            {{adoptionsRequest.adoption.animal}}</h3>
+                            {{adoptionsRequest.adoption.animal.espece}}</h3>
                           <h2 [routerLink]="['/adoptions', adoptionsRequest.adoption.id]"
                             class="text-gray-900 font-medium title-font text-sm mb-4 hover:text-blue-900">
                             {{adoptionsRequest.adoption.title}}</h2>
@@ -167,9 +160,7 @@
                 </div>
               </section>
             </div>
-            <!-- End of Experience and education grid -->
           </div>
-          <!-- End of profile tab -->
         </div>
       </div>
     </div>

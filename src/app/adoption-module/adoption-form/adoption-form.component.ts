@@ -4,7 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Adoption } from '../adoption/Adoption';
 import { AdoptionService } from '../adoption/adoption.service';
 import { Animals } from '../adoption/Animals';
-import {TokenStorageService} from '../../user-module/_services/token-storage.service';
+import { TokenStorageService } from '../../user-module/_services/token-storage.service';
+import { Sexe } from '../adoption/Sexe';
 
 @Component({
   selector: 'app-adoption-form',
@@ -13,21 +14,29 @@ import {TokenStorageService} from '../../user-module/_services/token-storage.ser
 })
 export class AdoptionFormComponent implements OnInit {
   animals = Object.values(Animals);
+  sexes = Object.values(Sexe);
   adoptionForm: FormGroup;
   adoption: Adoption = new Adoption();
 
 
-  constructor(private adoptionService: AdoptionService, private router: Router, private ac: ActivatedRoute,private tokenStorageService:TokenStorageService ) {
-    if (tokenStorageService.getToken()==null) {
+  constructor(private adoptionService: AdoptionService, private router: Router, private ac: ActivatedRoute, private tokenStorageService: TokenStorageService) {
+    if (tokenStorageService.getToken() == null) {
       this.router.navigate(['login']);
     }
-   }
+  }
 
   ngOnInit(): void {
     this.adoptionForm = new FormGroup({
       title: new FormControl(null, Validators.required),
-      description: new FormControl(null, Validators.required),
-      animal: new FormControl(null, Validators.required)
+      description: new FormControl(),
+      nom: new FormControl(),
+      sexe: new FormControl(),
+      type: new FormControl(),
+      age: new FormControl(),
+      taille: new FormControl(),
+      couleur: new FormControl(),
+      espece: new FormControl(),
+
     })
     let id;
     this.ac.params.subscribe(next => id = next.id)
@@ -35,19 +44,32 @@ export class AdoptionFormComponent implements OnInit {
     if (id) {
       this.adoptionService.getAdoptionById(id).subscribe(next => {
         this.adoptionForm.setValue({
-          title: next.title, description: next.description, animal: next.animal
+          title: next.title,
+          description: next.description,
+          sexe: next.animal.sexe,
+          type: next.animal.type,
+          age: next.animal.age,
+          espece: next.animal.espece,
+          couleur: next.animal.couleur,
+          taille: next.animal.taille,
+          nom: next.animal.nom
         }); this.adoption = next;
       })
 
     }
-
 
   }
 
   onSubmit() {
     this.adoption.title = this.adoptionForm.value.title
     this.adoption.description = this.adoptionForm.value.description
-    this.adoption.animal = this.adoptionForm.value.animal
+    this.adoption.animal.espece = this.adoptionForm.value.espece
+    this.adoption.animal.sexe = this.adoptionForm.value.sexe
+    this.adoption.animal.type = this.adoptionForm.value.type
+    this.adoption.animal.age = this.adoptionForm.value.age
+    this.adoption.animal.taille = this.adoptionForm.value.taille
+    this.adoption.animal.couleur = this.adoptionForm.value.couleur
+    this.adoption.animal.nom = this.adoptionForm.value.nom
     if (this.adoption.id) {
       //update
       this.adoptionService.updateAdoption(this.adoption).subscribe(next => { this.adoption = next; this.router.navigateByUrl("/adoptions/" + this.adoption.id) })

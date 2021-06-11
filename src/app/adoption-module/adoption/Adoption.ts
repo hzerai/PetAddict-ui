@@ -1,6 +1,6 @@
 import { User } from "src/app/user-module/User";
 import { AdoptionRequest } from "../adoption-request/AdoptionRequest";
-import { Animals } from "./Animals";
+import { Animal } from "./Animal";
 
 export class Adoption {
     id: number;
@@ -11,6 +11,6 @@ export class Adoption {
     createdBy: string = '';
     updatedBy: string = '';
     user : User;
-    animal : Animals;
+    animal : Animal = new Animal();
     adoptionRequests : AdoptionRequest[];
 }

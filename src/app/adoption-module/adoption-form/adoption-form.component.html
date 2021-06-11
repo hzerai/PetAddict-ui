@@ -14,24 +14,51 @@
           class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
           type="text" placeholder="Titre de l'annonce" />
       </div>
-
-
-
-      <div class="grid grid-cols-1 mt-5 ml-10 mr-10">
-        <label class="md:text-sm text-xs text-gray-500 text-light font-semibold">Animal</label>
-        <select formControlName="animal"
-          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-          <option *ngFor="let animal of animals" [value]="animal">{{animal}}
-          </option>
-        </select>
-      </div>
-
       <div class="grid grid-cols-1 mt-5 ml-10 mr-10">
         <label class="md:text-sm text-xs text-gray-500 text-light font-semibold">Description</label>
         <input formControlName="description"
           class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
           type="text" placeholder="Description" />
       </div>
+      <label class="md:text-sm text-xs text-gray-500 text-light font-semibold mt-5 ml-10 mr-10">Information sur
+        l'animal</label>
+      <div class="grid grid-cols-2 gap-4 ml-10 mr-10">
+
+        <select formControlName="espece"
+          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+          <option [ngValue]="null" [disabled]="true">Espèce</option>
+          <option *ngFor="let animal of animals" [value]="animal">{{animal}}
+          </option>
+        </select>
+
+        <select formControlName="sexe"
+          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+          <option [ngValue]="null" [disabled]="true">Sexe</option>
+          <option *ngFor="let sexe of sexes" [value]="sexe">{{sexe}}
+        </select>
+
+        <input formControlName="nom"
+          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+          type="text" placeholder="Nom" />
+
+        <input formControlName="couleur"
+          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+          type="text" placeholder="Couleur" />
+
+        <input formControlName="type"
+          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+          type="text" placeholder="Type" />
+
+        <input formControlName="age"
+          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+          type="number" placeholder="Age" />
+
+        <input formControlName="taille"
+          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+          type="text" placeholder="Taille" />
+      </div>
+
+
       <div class="flex justify-center py-4">
         <div *ngIf="adoption.id != null" class="flex ">
           <img
@@ -66,7 +93,7 @@
           class='font-bold text-white bg-blue-300 border-0 py-3 px-8 focus:outline-none hover:bg-indigo-600 rounded-lg text-lg'>Sauvegarder</button>
       </div>
     </form>
-    <div *ngIf="adoption.id  == null" class="grid justify-items-center mb-4">
+    <div *ngIf="adoption.id != null" class="grid justify-items-center mb-4">
       <hr>
       <br><button [routerLink]="['/adoptions/new']"
         class="place-self-center font-bold mt-2 text-white bg-green-500 border-0 py-3 px-6 focus:outline-none hover:bg-indigo-600 rounded-lg text-lg">Publier
