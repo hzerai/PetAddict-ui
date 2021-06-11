@@ -36,10 +36,13 @@ export class LoginComponent implements OnInit {
     this.authService.login(email, password).subscribe(
       data => {
         this.tokenStorage.saveToken(data.token);
+        this.tokenStorage.saveRefreshToken(data.refresh_token)
         let payload;
         payload = data.token.split(".")[1];
         payload = window.atob(payload);
         this.tokenStorage.saveUser(JSON.parse(payload).username);
+        const expirationDate = (JSON.parse(payload).exp * 1000);
+        this.tokenStorage.saveExpirationDate(expirationDate);
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         
