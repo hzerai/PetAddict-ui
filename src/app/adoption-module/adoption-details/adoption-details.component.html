@@ -39,7 +39,7 @@
                     <hr>
 
                     <br>
-                    <div class="flex">
+                    <div *ngIf="!isOwner()" class="flex">
                         <p class="text-xs font-bold text-center text-black mt-3"><a href="/">Vous aimez cet animal? Vous
                                 pouvez commencer la
                                 procedure d'adoption dès maintenant !</a></p>
