@@ -4,7 +4,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms'
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
@@ -31,6 +30,7 @@ import { BackButtonDirective } from './custom-directives/back-button.directive';
 import { UserProfileEditComponent } from './user-module/user-profile-edit/user-profile-edit.component';
 import { UserProfileShowComponent } from './user-module/user-profile-show/user-profile-show.component';
 import { SideFilterDirective } from './custom-directives/side-filter.directive';
+import { VisitProfileComponent } from './user-module/visit-profile/visit-profile.component';
 
 
 @NgModule({
@@ -57,7 +57,8 @@ import { SideFilterDirective } from './custom-directives/side-filter.directive';
     BackButtonDirective,
     UserProfileEditComponent,
     UserProfileShowComponent,
-    SideFilterDirective
+    SideFilterDirective,
+    VisitProfileComponent
 
 
   ],

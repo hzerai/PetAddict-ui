@@ -8,7 +8,7 @@
           <div class="bg-gray-100 p-3 border-t-4 border-blue-300">
             <div class="image overflow-hidden">
               <img class="h-auto w-full mx-auto"
-                src="https://i.pravatar.cc/300?img={{user?.id > 100 ? user?.id - 100 : user?.id}}" alt="">
+                src="https://i.pravatar.cc/300?img={{user?.id % 70}}" alt="">
             </div>
             <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">{{user?.firstName}} {{user?.lastName}}</h1>
             <p class="text-sm text-gray-500 hover:text-gray-800 leading-6">{{user?.about}}</p>

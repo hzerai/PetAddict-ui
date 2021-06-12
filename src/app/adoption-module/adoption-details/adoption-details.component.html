@@ -29,8 +29,11 @@
                 <div
                     class="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5 leading-relaxed text-xs font-medium title-font">
                     <div class="flex">
-                        <span class="mr-3">Publié le : {{adoption?.createdAt | date:'dd/MM/yyyy'}} par :
-                            {{adoption?.user?.firstName != null ? adoption?.user?.firstName : 'anonyme'}}</span>
+                        <span class="mr-3">Publié le : {{adoption?.createdAt | date:'dd/MM/yyyy'}} par :<a
+                                [routerLink]="['/visit_user_profile']"
+                                [queryParams]="{id: adoption?.user?.email}">
+                                {{adoption?.user?.firstName != null ? adoption?.user?.firstName : 'anonyme'}}</a>
+                        </span>
                     </div>
 
                 </div>

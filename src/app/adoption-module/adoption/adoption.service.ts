@@ -44,7 +44,7 @@ export class AdoptionService {
   }
 
   
-  getPagedAdoptionsFiltered(espece, type, sexe, taille, ville, municipality , user_id , page) {
+  getPagedAdoptionsFiltered(espece, type, sexe, taille, ville, municipality , user_id , page , size) {
     let params = new HttpParams();
     params = espece != null && espece.length > 0 ? params.append('espece', String(espece)) : params;
     params = type != null && type.length > 0 ? params.append('type', String(type)) : params;
@@ -53,6 +53,7 @@ export class AdoptionService {
     params = ville != null && ville.length > 0 ? params.append('ville', String(ville)) : params;
     params = user_id != null && user_id.length > 0 ? params.append('user_id', String(user_id)) : params;
     params = page != null ? params.append('page', String(page)) : params;
+    params = size != null ? params.append('size', String(size)) : params;
     params = municipality != null && municipality.length > 0 ? params.append('municipality', String(municipality)) : params;
     return this.http.get<Adoption[]>(this.adoptionUrl, { params });
   }

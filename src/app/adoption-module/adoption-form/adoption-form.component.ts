@@ -51,6 +51,7 @@ export class AdoptionFormComponent implements OnInit {
 
     if (id) {
       this.adoptionService.getAdoptionById(id).subscribe(next => {
+        console.log(next.animal)
         this.adoptionForm.setValue({
           title: next.title,
           description: next.description,
@@ -62,6 +63,8 @@ export class AdoptionFormComponent implements OnInit {
           taille: next.animal.taille,
           nom: next.animal.nom
         }); this.adoption = next;
+        this.onSelectBreed(next.animal.espece);
+
       })
 
     }

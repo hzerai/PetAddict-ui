@@ -1,34 +1,27 @@
-<div class="border border-blue-200 rounded-lg mb-4 hover:bg-white hover:border-blue-900 h-full">
-
-    <div class="pt-4 px-4 ">
-        <div class="flex items-center">
-            <img src="https://placedog.net/{{adoption.id + 100}}" class="flex-1">
-        </div>
-        <div class="w-full">
-            <div class="flex justify-between w-full">
-                <div class="truncate">
-                    <a [routerLink]="['/adoptions', adoption.id]"
-                        class="font-bold text-xs hover:text-blue-500 ">{{adoption.title}}</a>
-                </div>
-            </div>
-            <span
-                class="inline-block bg-gray-400 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 ">#{{adoption.animal.espece}}</span>
-            <div class="text-xs truncate "> {{adoption.description}}</div>
-        </div>
-        <div class="flex items-center p-2 pt-4 mb-0 inline-block align-bottom">
-            <a
-                class="flex-1 text-gray-700 text-center rounded-lg mx-2 border border-black rounded hover:bg-gray-600 hover:text-white">
-                <img src="assets/svg/icon-thumb-up.svg" class="rounded-full inline-block" />
-            </a>
-
-            <a
-                class="flex-1 text-gray-700 text-center rounded-lg mx-2 border border-black rounded hover:bg-gray-600 hover:text-white">
-                <img src="assets/svg/icon-comment.svg" class="rounded-full inline-block " />
-            </a>
-
-            <a [routerLink]="['/adoptions', adoption.id]"
-                class="flex-1 text-gray-700 text-center rounded-lg mx-2 border border-black rounded hover:bg-gray-600 hover:text-white">
-                <img src="assets/svg/icon-external-link.svg" class="rounded-full inline-block" />
-            </a>
+<div class="flex relative " [routerLink]="['/adoptions', adoption.id]" >
+    <img alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center rounded"
+        src="https://placedog.net/{{adoption.id + 100}}">
+    <div class="px-8 py-10 relative z-10 w-full border-1 border-gray-200 opacity-0 hover:bg-gray-100 hover:text-black hover:opacity-100">
+        <div class="grid grid-cols-2 p-10 text-xs">
+            <div class="font-bold">Nom :</div>
+            <div>{{adoption?.animal.nom}}</div>
+            <div class="font-bold">Sexe :</div>
+            <div>{{adoption?.animal.sexe}}</div>
+            <div class="font-bold">Espece:</div>
+            <div>{{adoption?.animal.espece}}</div>           
+            <div class="font-bold">Type :</div>
+            <div>{{adoption?.animal.type}}</div>
+            <div class="font-bold">Taille :</div>
+            <div>{{adoption?.animal.taille}}</div>
+            <div class="font-bold">Age :</div>
+            <div>{{adoption?.animal.age}}</div>
+            <div class="font-bold">Couleur :</div>
+            <div> {{adoption?.animal.couleur}} </div>
         </div>
     </div>
+</div>
+<div class="p-5">
+    <h2 class="tracking-widest text-sm title-font font-medium text-indigo-500 mb-1">{{adoption.user?.address?.ville? adoption.user?.address?.ville : 'Tunis'}}</h2>
+    <h1 class="title-font text-lg font-medium text-gray-900 mb-3">{{adoption.title}}</h1>
+    <p class="leading-relaxed h-32 overflow-y-auto text-sm">{{adoption.description}}.</p>
+</div>

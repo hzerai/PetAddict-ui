@@ -14,7 +14,7 @@ export class AdoptionListComponent implements OnInit {
 
   filtered: boolean = false;
   page: number = 0;
-  size: number = 8;
+  size: number = 6;
   count: number = 0;
   adoptions: Adoption[] = [];
   query: Query = new Query();
@@ -35,10 +35,9 @@ export class AdoptionListComponent implements OnInit {
     this.page++;
     if (this.filtered) {
       this.query.params.set('page', this.page)
+      this.query.params.set('size', this.size)
       this.getPagedAdoptionsFiltered()
     } else {
-      console.log(this.page)
-
       this.adoptionService.getPagedAdoptions(this.page, this.size).subscribe(next => { this.adoptions = next });
     }
   }
@@ -47,10 +46,9 @@ export class AdoptionListComponent implements OnInit {
     this.page--;
     if (this.filtered) {
       this.query.params.set('page', this.page)
+      this.query.params.set('size', this.size)
       this.getPagedAdoptionsFiltered()
     } else {
-      console.log(this.page)
-
       this.adoptionService.getPagedAdoptions(this.page, this.size).subscribe(next => { this.adoptions = next });
     }
   }
@@ -77,10 +75,10 @@ export class AdoptionListComponent implements OnInit {
     let taille = this.query.params.get('taille');
     let ville = this.query.params.get('ville');
     let page = this.query.params.get('page');
+    let size = this.query.params.get('size');
     let user_id = this.query.params.get('user_id');
     let municipality = this.query.params.get('municipality');
-    console.log(page)
-    this.adoptionService.getPagedAdoptionsFiltered(espece, type, sexe, taille, ville, municipality, user_id, page).subscribe(next => { this.adoptions = next });
+    this.adoptionService.getPagedAdoptionsFiltered(espece, type, sexe, taille, ville, municipality, user_id, page, size).subscribe(next => { this.adoptions = next });
   }
 
   resetPage(a: any) {
