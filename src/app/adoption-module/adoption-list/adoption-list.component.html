@@ -1,12 +1,11 @@
-<div class="grid justify-items-stretch">
-    <div class="justify-self-center"><a [routerLink]="['new']"
-            class="py-2 px-3 mt-4 px-6 text-red bg-cyan-900 rounded">Post a new
-            adoption</a></div>
-</div>
-<div class="grid grid-cols-6 gap-2">
+<div class="grid grid-cols-6 gap-2 justify-items-center">
     <div class="col-span-1">
         <app-filter (newQueryEvent)="queryResult($event)"></app-filter>
+        <br><button [routerLink]="['new']"
+            class="ml-8 place-self-center font-bold mt-2 text-white bg-blue-300 border-0 py-3 px-6 focus:outline-none hover:bg-indigo-600 rounded-lg text-xs">Publier
+            une nouvelle adoption</button>
     </div>
+
     <div class="col-span-4 container p-10">
         <div class="grid grid-cols-4 gap-4 ">
             <app-adoption *ngFor="let adoption of adoptions" [adoption]="adoption">

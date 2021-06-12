@@ -12,25 +12,28 @@ import { AdoptionService } from '../adoption/adoption.service';
 })
 export class AdoptionListComponent implements OnInit {
 
-  filtered : boolean= false;
+  filtered: boolean = false;
   page: number = 1;
   size: number = 8;
-  count: number = 0;
+  count: number = 100;
   adoptions: Adoption[] = [];
   query: Query = new Query();
 
   constructor(private adoptionService: AdoptionService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.adoptionService.count().subscribe(next => this.count = next);
+
     this.adoptionService.getPagedAdoptions(this.page, this.size).subscribe(next => this.adoptions = next);
   }
 
   next() {
     this.page++;
     if (this.filtered) {
-      this.query.params.set('page' , this.page)
+      this.query.params.set('page', this.page)
       this.queryResult(this.query)
     } else {
+      console.log(this.filtered)
       this.adoptionService.getPagedAdoptions(this.page, this.size).subscribe(next => this.adoptions = next);
     }
   }
@@ -38,7 +41,7 @@ export class AdoptionListComponent implements OnInit {
   previous() {
     this.page--;
     if (this.filtered) {
-      this.query.params.set('page' , this.page)
+      this.query.params.set('page', this.page)
       this.queryResult(this.query)
     } else {
       this.adoptionService.getPagedAdoptions(this.page, this.size).subscribe(next => this.adoptions = next);
@@ -63,7 +66,7 @@ export class AdoptionListComponent implements OnInit {
     let page = this.query.params.get('page');
     let user_id = this.query.params.get('user_id');
     let municipality = this.query.params.get('municipality');
-    this.adoptionService.getPagedAdoptionsFiltered(espece, type, sexe, taille, ville, municipality, user_id , page).subscribe(next => this.adoptions = next);
+    this.adoptionService.getPagedAdoptionsFiltered(espece, type, sexe, taille, ville, municipality, user_id, page).subscribe(next => this.adoptions = next);
     this.filtered = true;
     console.log(query)
   }

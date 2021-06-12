@@ -59,7 +59,6 @@ export class FilterComponent implements OnInit {
       ville: ville,
       municipality: municipality
     })
-    console.log(this.villes)
   }
 
   // onSubmit() {
