@@ -1,10 +1,15 @@
 export enum Animals {
-    DOG = 'Chien',
-    CAT = 'Chat',
-    BIRD = 'Oiseau',
-    FISH = 'Poisson',
-    TURTLE = 'Tortue',
-    NOTHING = ''
-
-    
+    Chien = 'Chien',
+    Chat = 'Chat',
+    Cheval = 'Cheval',
+    Lapin = 'Lapin',
+    Rongeur = 'Rongeur',
+    Furet = 'Furet',
+    Reptile = 'Reptile',
+    Oiseau = 'Oiseau',
+    Poisson = 'Poisson',
+    Tortue = 'Tortue',
+    FARM = 'Animal de ferme',
+    Autre = 'Autre'
 }
+

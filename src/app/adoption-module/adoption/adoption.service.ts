@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Adoption } from './Adoption';
 import { Observable } from 'rxjs';
-import { isDefined } from '@angular/compiler/src/util';
 import { AdoptionRequest } from '../adoption-request/AdoptionRequest';
 
 
@@ -44,13 +43,17 @@ export class AdoptionService {
     return this.http.get<Adoption[]>(this.adoptionUrl, { params });
   }
 
-  getPagedAdoptionsFiltered(page: number, size: number, title: string, animal: string , user_id : string): Observable<Adoption[]> {
+  
+  getPagedAdoptionsFiltered(espece, type, sexe, taille, ville, municipality , user_id , page) {
     let params = new HttpParams();
-    params = page != null ? params.append('page', String(page)) : params;
-    params = size != null ? params.append('size', String(size)) : params;
-    params = title != null && title.length > 0 ? params.append('title', String(title)) : params;
-    params = animal != null && animal.length > 0 ? params.append('animal', String(animal)) : params;
+    params = espece != null && espece.length > 0 ? params.append('espece', String(espece)) : params;
+    params = type != null && type.length > 0 ? params.append('type', String(type)) : params;
+    params = sexe != null && sexe.length > 0 ? params.append('sexe', String(sexe)) : params;
+    params = taille != null && taille.length > 0 ? params.append('taille', String(taille)) : params;
+    params = ville != null && ville.length > 0 ? params.append('ville', String(ville)) : params;
     params = user_id != null && user_id.length > 0 ? params.append('user_id', String(user_id)) : params;
+    params = page != null && page.length > 0 ? params.append('page', String(page)) : params;
+    params = municipality != null && municipality.length > 0 ? params.append('municipality', String(municipality)) : params;
     return this.http.get<Adoption[]>(this.adoptionUrl, { params });
   }
 
@@ -58,7 +61,7 @@ export class AdoptionService {
     return this.http.get<number>(this.adoptionUrl + 's/count');
   }
 
-  createAdoptionRequest(id : number){
+  createAdoptionRequest(id: number) {
     return this.http.post<AdoptionRequest>(this.adoptionUrl + '/' + id + '/adopt', this.options);
   }
 

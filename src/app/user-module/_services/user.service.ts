@@ -18,4 +18,8 @@ export class UserService {
   getUserById(id: string): Observable<User> {
     return this.http.get<User>(API_URL + '/user_by_email/' + id);
   }
+
+  updateUserProfile(user: User): Observable<User> {
+    return this.http.put<User>(API_URL + '/' + user.id, user);
+  }
 }

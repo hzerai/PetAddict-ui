@@ -1,13 +1,15 @@
+import { Colors } from "src/app/interface-module/filter/Colors";
+import { Tailles } from "src/app/interface-module/filter/Tailles";
 import { Animals } from "./Animals";
 import { Sexe } from "./Sexe";
 
 export class Animal {
     id: number;
-    espece: Animals = Animals.NOTHING;
+    espece: Animals ;
     sexe: Sexe;
-    taille: string = '';
+    taille: Tailles;
     age: number = 0;
-    couleur: string = '';
+    couleur: Colors;
     type: string = '';
     nom: string = '';
     updatedAt: Date;

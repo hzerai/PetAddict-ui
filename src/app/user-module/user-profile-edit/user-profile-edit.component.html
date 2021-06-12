@@ -1,0 +1,104 @@
+<div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
+  <span clas="text-green-500">
+    <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+    </svg>
+  </span>
+  <span class="tracking-wide">Modifier mon profil</span>
+</div>
+<div class="text-gray-700">
+  <form [formGroup]="userForm">
+    <div class="grid md:grid-cols-2 text-sm">
+      <div class="col-span-2 text-gray-900 hover:shadow px-4 py-2 font-bold">Données personnelles</div>
+      <div class="grid grid-cols-2 hover:text-gray-700 hover:shadow m-1">
+        <div class="px-4 py-2 font-semibold">Prénom</div>
+        <input class="px-4 py-2" formControlName="firstName" type="text" />
+      </div>
+      <div class="grid grid-cols-2 hover:text-gray-700 hover:shadow m-1">
+        <div class="px-4 py-2 font-semibold">Nom</div>
+        <input class="px-4 py-2" formControlName="lastName" type="text" />
+      </div>
+      <div class="grid grid-cols-2 hover:text-gray-700 hover:shadow m-1">
+        <div class="px-4 py-2 font-semibold">Numero de tél.</div>
+        <input class="px-4 py-2" formControlName="phoneNumber" type="number" />
+      </div>
+      <div class="grid grid-cols-2 hover:text-gray-700 hover:shadow m-1">
+        <div class="px-4 py-2 font-semibold">Animal Préféré</div>
+        <select formControlName="favoriteAnimal"
+          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+          <option [disabled]="true">Espèce</option>
+          <option *ngFor="let animal of animals" [value]="animal">{{animal}}
+          </option>
+        </select>
+      </div>
+      <div class="grid grid-cols-2 hover:text-gray-700 hover:shadow m-1">
+        <div class="px-4 py-2 font-semibold">Anniversaire</div>
+        <input class="px-4 py-2" formControlName="birthDate" type="date" />
+      </div>
+      <div class="grid grid-cols-2 hover:text-gray-700 hover:shadow m-1">
+        <div class="px-4 py-2 font-semibold">Sexe</div>
+        <select formControlName="sexe"
+          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+          <option [ngValue]="null" [disabled]="true">Sexe</option>
+          <option *ngFor="let sexe of sexes" [value]="sexe">{{sexe}}
+        </select>
+      </div>
+      <div class="col-span-2 text-gray-900 hover:shadow px-4 py-2 font-bold">Adresse</div>
+      <div class="grid grid-cols-2 hover:text-gray-700 hover:shadow m-1">
+        <div class="px-4 py-2 font-semibold">Ville</div>
+        <select formControlName="ville" (change)="onSelect($event.target.value)"
+          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+          <option [ngValue]="null" [disabled]="true">Ville</option>
+          <option *ngFor="let ville of villes" [value]="ville?.name">{{ville.name}}
+        </select>
+      </div>
+      <div class="grid grid-cols-2 hover:text-gray-700 hover:shadow m-1">
+        <div class="px-4 py-2 font-semibold">Municipalité</div>
+        <select formControlName="municipality"
+          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+          <option [ngValue]="null" [disabled]="true">Municipalité</option>
+          <option *ngFor="let m of municipalities" [value]="m?.name">{{m.name}}</option>
+        </select>
+      </div>
+      <div class="col-span-2 hover:text-gray-700 hover:shadow m-1">
+        <input class="px-4 py-2 w-full" formControlName="details" type="text" placeholder="plus de details" />
+      </div>
+      <div class="col-span-2 text-gray-900 hover:shadow px-4 py-2 font-bold">confidentialité</div>
+      <div class="grid grid-cols-2 hover:text-gray-700 hover:shadow m-1">
+        <div class="px-4 py-2 font-semibold">Numero de tél. public</div>
+        <select formControlName="isPhonePublic"
+          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+          <option [ngValue]="true">Oui</option>
+          <option [ngValue]="false">Non</option>
+        </select>
+      </div>
+      <div class="grid grid-cols-2 hover:text-gray-700 hover:shadow m-1">
+        <div class="px-4 py-2 font-semibold">Activer les notification</div>
+        <select formControlName="allowNotification"
+          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+          <option [ngValue]="true">Oui</option>
+          <option [ngValue]="false">Non</option>
+        </select>
+      </div>
+      <div class="grid grid-cols-2 hover:text-gray-700 hover:shadow m-1">
+        <div class="px-4 py-2 font-semibold">Adresse mail publique</div>
+        <select formControlName="isMailPublic"
+          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+          <option [ngValue]="true">Oui</option>
+          <option [ngValue]="false">Non</option>
+        </select>
+      </div>
+
+      <div class="col-span-2 text-gray-900 hover:shadow px-4 py-2 font-bold">À propos de moi</div>
+      <div class="col-span-2 hover:text-gray-700 hover:shadow m-1">
+        <textarea class="px-4 py-2 w-full" formControlName="about" type="text"
+          placeholder="À propos de moi ..."></textarea>
+      </div>
+    </div>
+  </form>
+</div>
+<button (click)="saveProfile()"
+  class="block w-full text-blue-800 text-sm font-semibold rounded-lg hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-2 mt-4">Sauvegarder</button>
+<button backButton
+  class='block w-full text-blue-400 text-sm font-semibold rounded-lg hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-2 '>Retourner</button>

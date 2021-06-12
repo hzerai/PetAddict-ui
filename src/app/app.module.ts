@@ -28,6 +28,8 @@ import { RegisterComponent } from './user-module/register/register.component';
 import { authInterceptorProviders } from './user-module/_helpers/auth.interceptor';
 import { UserProfileComponent } from './user-module/user-profile/user-profile.component';
 import { BackButtonDirective } from './custom-directives/back-button.directive';
+import { UserProfileEditComponent } from './user-module/user-profile-edit/user-profile-edit.component';
+import { UserProfileShowComponent } from './user-module/user-profile-show/user-profile-show.component';
 
 
 @NgModule({
@@ -51,7 +53,9 @@ import { BackButtonDirective } from './custom-directives/back-button.directive';
     LoginComponent,
     RegisterComponent,
     UserProfileComponent,
-    BackButtonDirective
+    BackButtonDirective,
+    UserProfileEditComponent,
+    UserProfileShowComponent
 
 
   ],

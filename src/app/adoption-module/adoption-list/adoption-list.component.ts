@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Query } from 'src/app/interface-module/filter/Query';
 import { Adoption } from '../adoption/Adoption';
 import { AdoptionService } from '../adoption/adoption.service';
 
@@ -11,38 +12,24 @@ import { AdoptionService } from '../adoption/adoption.service';
 })
 export class AdoptionListComponent implements OnInit {
 
-  user_id: string = '';
-  animal: string = '';
-  title: string = '';
+  filtered : boolean= false;
   page: number = 1;
   size: number = 8;
   count: number = 0;
   adoptions: Adoption[] = [];
+  query: Query = new Query();
 
   constructor(private adoptionService: AdoptionService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.adoptionService.count().subscribe(next => this.count = next);
-    this.route.queryParams
-      .subscribe(params => {
-        this.page = params.page ? Number(params.page) : this.page;
-        this.size = params.size ? Number(params.size) : this.size;
-        this.title = params.title ? params.title : this.title;
-        this.animal = params.animal ? params.animal : this.animal;
-        this.user_id = params.user_id ? params.user_id : this.user_id;
-      }
-      );
-    if (this.title.length > 0 || this.animal.length > 0 || this.user_id.length > 0) {
-      this.adoptionService.getPagedAdoptionsFiltered(this.page, this.size, this.title, this.animal, this.user_id).subscribe(next => this.adoptions = next);
-    } else {
-      this.adoptionService.getPagedAdoptions(this.page, this.size).subscribe(next => this.adoptions = next);
-    }
+    this.adoptionService.getPagedAdoptions(this.page, this.size).subscribe(next => this.adoptions = next);
   }
 
   next() {
     this.page++;
-    if (this.title.length > 0 || this.animal.length > 0) {
-      this.adoptionService.getPagedAdoptionsFiltered(this.page, this.size, this.title, this.animal, this.user_id).subscribe(next => this.adoptions = next);
+    if (this.filtered) {
+      this.query.params.set('page' , this.page)
+      this.queryResult(this.query)
     } else {
       this.adoptionService.getPagedAdoptions(this.page, this.size).subscribe(next => this.adoptions = next);
     }
@@ -50,8 +37,9 @@ export class AdoptionListComponent implements OnInit {
 
   previous() {
     this.page--;
-    if (this.title.length > 0 || this.animal.length > 0) {
-      this.adoptionService.getPagedAdoptionsFiltered(this.page, this.size, this.title, this.animal, this.user_id).subscribe(next => this.adoptions = next);
+    if (this.filtered) {
+      this.query.params.set('page' , this.page)
+      this.queryResult(this.query)
     } else {
       this.adoptionService.getPagedAdoptions(this.page, this.size).subscribe(next => this.adoptions = next);
     }
@@ -63,6 +51,21 @@ export class AdoptionListComponent implements OnInit {
 
   cantNext(): boolean {
     return (this.page * this.size) > this.count;
+  }
+
+  queryResult(query: Query) {
+    this.query = query;
+    let espece = this.query.params.get('espece');
+    let type = this.query.params.get('type');
+    let sexe = this.query.params.get('sexe');
+    let taille = this.query.params.get('taille');
+    let ville = this.query.params.get('ville');
+    let page = this.query.params.get('page');
+    let user_id = this.query.params.get('user_id');
+    let municipality = this.query.params.get('municipality');
+    this.adoptionService.getPagedAdoptionsFiltered(espece, type, sexe, taille, ville, municipality, user_id , page).subscribe(next => this.adoptions = next);
+    this.filtered = true;
+    console.log(query)
   }
 
 }

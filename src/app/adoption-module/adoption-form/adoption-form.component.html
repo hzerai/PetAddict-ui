@@ -16,18 +16,25 @@
       </div>
       <div class="grid grid-cols-1 mt-5 ml-10 mr-10">
         <label class="md:text-sm text-xs text-gray-500 text-light font-semibold">Description</label>
-        <input formControlName="description"
+        <textarea formControlName="description"
           class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-          type="text" placeholder="Description" />
+          type="text" placeholder="Description"></textarea>
       </div>
       <label class="md:text-sm text-xs text-gray-500 text-light font-semibold mt-5 ml-10 mr-10">Information sur
         l'animal</label>
       <div class="grid grid-cols-2 gap-4 ml-10 mr-10">
 
-        <select formControlName="espece"
+        <select formControlName="espece" (change)="onSelectBreed($event.target.value)"
           class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
           <option [ngValue]="null" [disabled]="true">Espèce</option>
           <option *ngFor="let animal of animals" [value]="animal">{{animal}}
+          </option>
+        </select>
+
+        <select formControlName="type"
+          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+          <option [ngValue]="null" [disabled]="true">Race</option>
+          <option *ngFor="let b of breed" [value]="b">{{b}}
           </option>
         </select>
 
@@ -41,23 +48,24 @@
           class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
           type="text" placeholder="Nom" />
 
-        <input formControlName="couleur"
-          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-          type="text" placeholder="Couleur" />
 
-        <input formControlName="type"
-          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-          type="text" placeholder="Type" />
+        <select formControlName="couleur"
+          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+          <option [ngValue]="null" [disabled]="true">Couleur</option>
+          <option *ngFor="let c of colors" [value]="c">{{c}}
+        </select>
+
 
         <input formControlName="age"
           class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
           type="number" placeholder="Age" />
 
-        <input formControlName="taille"
-          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-          type="text" placeholder="Taille" />
+        <select formControlName="taille"
+          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+          <option [ngValue]="null" [disabled]="true">Taille</option>
+          <option *ngFor="let t of tailles" [value]="t">{{t}}
+        </select>
       </div>
-
 
       <div class="flex justify-center py-4">
         <div *ngIf="adoption.id != null" class="flex ">

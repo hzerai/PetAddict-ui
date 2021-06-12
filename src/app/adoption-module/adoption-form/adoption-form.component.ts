@@ -6,6 +6,11 @@ import { AdoptionService } from '../adoption/adoption.service';
 import { Animals } from '../adoption/Animals';
 import { TokenStorageService } from '../../user-module/_services/token-storage.service';
 import { Sexe } from '../adoption/Sexe';
+import { DogBreed } from 'src/app/interface-module/filter/DogBreed';
+import { CatBreed } from 'src/app/interface-module/filter/CatBreed';
+import { HorseBreed } from 'src/app/interface-module/filter/HorseBreed';
+import { Colors } from 'src/app/interface-module/filter/Colors';
+import { Tailles } from 'src/app/interface-module/filter/Tailles';
 
 @Component({
   selector: 'app-adoption-form',
@@ -14,6 +19,9 @@ import { Sexe } from '../adoption/Sexe';
 })
 export class AdoptionFormComponent implements OnInit {
   animals = Object.values(Animals);
+  colors = Object.values(Colors);
+  tailles = Object.values(Tailles);
+  breed = [];
   sexes = Object.values(Sexe);
   adoptionForm: FormGroup;
   adoption: Adoption = new Adoption();
@@ -78,6 +86,17 @@ export class AdoptionFormComponent implements OnInit {
       this.adoptionService.newAdoption(this.adoption).subscribe(next => { this.adoption = next; this.router.navigateByUrl("/adoptions/" + this.adoption.id) })
     }
 
+  }
+  onSelectBreed(b) {
+    if (b == Animals.Chien) {
+      this.breed = Object.values(DogBreed);
+    } else if (b == Animals.Chat) {
+      this.breed = Object.values(CatBreed);
+    } else if (b == Animals.Cheval) {
+      this.breed = Object.values(HorseBreed);
+    } else {
+
+    }
   }
 
 }
