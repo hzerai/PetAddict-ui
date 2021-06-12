@@ -1,42 +1,41 @@
-<nav class="bg-blue-300 rounded-xl">
-    <div class="container m-auto flex">
-        <div class="mr-auto flex">
-            <a href="/" class="flex title-font font-medium items-center md:justify-start justify-center text-black">
-                <img src="assets/images/petAddict.png" class="h-10 w-10"/>
-                <span class="ml-3 text-xl text-white">PetAddict</span>
-            </a>
-            
-        </div>
-        <div class="mx-auto flex"> <a [routerLink]="['adoptions']"
-                class="col-span-1 my-4  whitespace-no-wrap uppercase text-white text-sm px-4 py-2 text-black hover:border-white hover:text-black  font-medium no-underline">Adoptions</a>
-            <a [routerLink]="['adoptions']"
-                class="col-span-1 my-4  whitespace-no-wrap uppercase text-white text-sm px-4 py-2 text-black hover:border-white hover:text-black  font-medium no-underline">Lost
-                & Found</a>
-            <a [routerLink]="['adoptions']"
-                class="col-span-1 my-4  whitespace-no-wrap uppercase text-white text-sm px-4 py-2 text-black hover:border-white hover:text-black  font-medium no-underline">Associations</a>
-            <a [routerLink]="['adoptions']"
-                class="col-span-1 my-4  whitespace-no-wrap uppercase text-white text-sm px-4 py-2 text-black hover:border-white hover:text-black  font-medium no-underline">Vétérinaires</a>
-        </div>
+<nav class="container m-auto flex ">
+    <div class="mr-auto flex">
+        <a href="/" class="flex title-font font-medium items-center md:justify-start justify-center text-black">
+            <img src="assets/images/petAddict.png" class="h-10 w-10" />
+            <span class="ml-3 text-xl text-gray-800">PetAddict</span>
+        </a>
 
-        <div class="ml-auto flex ">
-            <a *ngIf="!isLoggedIn"
-                class="col-start-11 col-span-1 my-4 whitespace-no-wrap uppercase text-white text-sm border border-light rounded-lg px-2 py-2 mx-1  text-black hover:border-black hover:text-black font-medium no-underline"
-                routerLink="login">Sign-In</a>
-            <a *ngIf="!isLoggedIn"
-                class="col-span-1 my-4 whitespace-no-wrap uppercase text-white text-sm border border-light rounded-lg px-4 py-2 mx-1  text-black hover:border-black hover:text-black font-medium no-underline"
-                routerLink="register">Sign-Up</a>
-            <div *ngIf="isLoggedIn" [routerLink]="['user_profile']" class="col-span-3 flex items-center  border border-light rounded-lg  my-4 mx-2 uppercase text-sm px-2 py-1
-                text-white hover:border-black hover:text-black font-medium ">
-                <div> <img src="https://i.pravatar.cc/300?img={{user?.id > 100 ? user?.id - 100 : user?.id}}"
-                        class="w-8 h-8 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4" />
-                </div>
-                <div class="flex-grow">
-                    <a class="flex-1/2">{{user?.firstName != null ? user?.firstName + ' ' + user?.lastName : user?.username}}</a>
-                </div>
+    </div>
+    <div class="mx-auto flex"> <a [routerLink]="['adoptions']"
+            class="col-span-1 my-4  whitespace-no-wrap uppercase text-gray-800 text-sm px-4 py-2 text-black hover:border-white hover:text-black  font-medium no-underline">Adoptions</a>
+        <a [routerLink]="['adoptions']"
+            class="col-span-1 my-4  whitespace-no-wrap uppercase text-gray-800 text-sm px-4 py-2 text-black hover:border-white hover:text-black  font-medium no-underline">Lost
+            & Found</a>
+        <a [routerLink]="['adoptions']"
+            class="col-span-1 my-4  whitespace-no-wrap uppercase text-gray-800 text-sm px-4 py-2 text-black hover:border-white hover:text-black  font-medium no-underline">Associations</a>
+        <a [routerLink]="['adoptions']"
+            class="col-span-1 my-4  whitespace-no-wrap uppercase text-gray-800 text-sm px-4 py-2 text-black hover:border-white hover:text-black  font-medium no-underline">Vétérinaires</a>
+    </div>
+
+    <div class="ml-auto flex ">
+        <a *ngIf="!isLoggedIn"
+            class="col-start-11 col-span-1 my-4 whitespace-no-wrap uppercase text-gray-800 text-sm border border-light rounded-lg px-2 py-2 mx-1  text-black hover:border-black hover:text-black font-medium no-underline"
+            routerLink="login">Sign-In</a>
+        <a *ngIf="!isLoggedIn"
+            class="col-span-1 my-4 whitespace-no-wrap uppercase text-gray-800 text-sm border border-light rounded-lg px-4 py-2 mx-1  text-black hover:border-black hover:text-black font-medium no-underline"
+            routerLink="register">Sign-Up</a>
+        <div *ngIf="isLoggedIn" [routerLink]="['user_profile']" class="col-span-3 flex items-center  border border-light rounded-lg  my-4 mx-2 uppercase text-sm px-2 py-1
+                text-gray-800 hover:border-black hover:text-black font-medium ">
+            <div> <img src="https://i.pravatar.cc/300?img={{user?.id > 100 ? user?.id - 100 : user?.id}}"
+                    class="w-8 h-8 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4" />
             </div>
-            <div *ngIf="isLoggedIn"
-                class="col-span-1 my-4 whitespace-no-wrap uppercase text-sm border border-light rounded-lg px-4 py-2 text-white hover:border-black hover:text-black font-medium no-underline"
-                (click)="logout()">LogOut</div>
+            <div class="flex-grow">
+                <a class="flex-1/2">{{user?.firstName != null ? user?.firstName + ' ' + user?.lastName :
+                    user?.username}}</a>
+            </div>
         </div>
+        <div *ngIf="isLoggedIn"
+            class="col-span-1 my-4 whitespace-no-wrap uppercase text-sm border border-light rounded-lg px-4 py-2 text-gray-800 hover:border-black hover:text-black font-medium no-underline"
+            (click)="logout()">LogOut</div>
     </div>
 </nav>

@@ -25,6 +25,7 @@ export class FilterComponent implements OnInit {
   villes = VillesService.villes;
   municipalities: Municipality[];
   @Output() newQueryEvent = new EventEmitter<Query>();
+  @Output() resetPageNumberEvent = new EventEmitter<any>();
   query: Query = new Query();
   adoptionFilter: FormGroup;
   constructor() {
@@ -89,7 +90,7 @@ export class FilterComponent implements OnInit {
     this.query.params.set('municipality', this.adoptionFilter.value['municipality']);
     this.newQueryEvent.emit(query);
   }
-
+  
   onSelectVille(ville) {
     this.municipalities = this.villes.find(v => v?.name == ville)?.municipalities;
   }
@@ -104,6 +105,10 @@ export class FilterComponent implements OnInit {
     } else {
       this.breed = ['Autre']
     }
+  }
+
+  resetPageNumber(){
+    this.resetPageNumberEvent.emit('');
   }
 
 }

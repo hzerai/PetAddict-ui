@@ -30,6 +30,7 @@ import { UserProfileComponent } from './user-module/user-profile/user-profile.co
 import { BackButtonDirective } from './custom-directives/back-button.directive';
 import { UserProfileEditComponent } from './user-module/user-profile-edit/user-profile-edit.component';
 import { UserProfileShowComponent } from './user-module/user-profile-show/user-profile-show.component';
+import { SideFilterDirective } from './custom-directives/side-filter.directive';
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import { UserProfileShowComponent } from './user-module/user-profile-show/user-p
     UserProfileComponent,
     BackButtonDirective,
     UserProfileEditComponent,
-    UserProfileShowComponent
+    UserProfileShowComponent,
+    SideFilterDirective
 
 
   ],

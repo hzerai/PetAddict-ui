@@ -1,12 +1,16 @@
-<div class="grid grid-cols-6 gap-2 justify-items-center">
-    <div class="col-span-1">
-        <app-filter (newQueryEvent)="queryResult($event)"></app-filter>
-        <br><button [routerLink]="['new']"
-            class="ml-8 place-self-center font-bold mt-2 text-white bg-blue-300 border-0 py-3 px-6 focus:outline-none hover:bg-indigo-600 rounded-lg text-xs">Publier
-            une nouvelle adoption</button>
+<div class="flex flex-nowrap">
+    <div id="mySidenav" class="sidenav" class="w-1/6 ">
+        <a (click)="filter()" id="filter">Filtre</a>
+        <div *ngIf="filterOpen">
+            <div
+                class="fixed left-0 max-w-xs w-full h-full py-4 transition duration-300 transform overflow-y-auto border-l-2 border-gray-300">
+                <app-filter (newQueryEvent)="queryResult($event)" (resetPageNumberEvent)="resetPage($event)"></app-filter>
+                <button (click)="filter()"
+                    class="mt-2 md:mb-0 bg-white ml-24 px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">Cacher</button>
+            </div>
+        </div>
     </div>
-
-    <div class="col-span-4 container p-10">
+    <div [ngClass]="{'w-full' : !filterOpen} " [ngClass]="{'w-5/6' : filterOpen} " class="">
         <div class="grid grid-cols-4 gap-4 ">
             <app-adoption *ngFor="let adoption of adoptions" [adoption]="adoption">
             </app-adoption>
@@ -19,8 +23,11 @@
                 class="flex-1 text-gray-700 text-center rounded-lg bg-white border border-black rounded hover:bg-gray-600 hover:text-white"
                 (click)="next()" [disabled]="cantNext()">next</button>
         </div>
+        <br><button [routerLink]="['new']"
+            class="ml-8 place-self-center font-bold text-white bg-blue-300 border-0 py-3 px-6 focus:outline-none hover:bg-indigo-600 rounded-lg text-xs">Publier
+            une nouvelle adoption</button>
     </div>
-    <div class="col-span-1">
+    <!-- <div class="w-1/5 mx-2">
         <app-ads></app-ads>
-    </div>
+    </div> -->
 </div>

@@ -11,7 +11,7 @@
 
                         <div class="md:flex md:flex-row md:space-x-4 w-full text-xs">
                             <div class="w-full flex flex-col mb-3">
-                                <select (change)="onSelectBreed($event.target.value)" formControlName="espece"
+                                <select (change)="onSelectBreed($event.target.value)" formControlName="espece" (change)="resetPageNumber()"
                                     class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4 md:w-full ">
                                     <option value="">Espèce</option>
                                     <option *ngFor="let e of animals" [value]="e">{{e}}</option>
@@ -20,7 +20,7 @@
                             </div>
 
                             <div class="w-full flex flex-col mb-3">
-                                <select formControlName="type"
+                                <select formControlName="type" (change)="resetPageNumber()"
                                     class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4 md:w-full ">
                                     <option value="">Race</option>
                                     <option *ngFor="let r of breed" [value]="r">{{r}}</option>
@@ -31,7 +31,7 @@
 
                         <div class="md:flex md:flex-row md:space-x-4 w-full text-xs">
                             <div class="w-full flex flex-col mb-3">
-                                <select formControlName="taille"
+                                <select formControlName="taille" (change)="resetPageNumber()"
                                     class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4 md:w-full ">
                                     <option value="">Taille</option>
                                     <option *ngFor="let taille of tailles" [value]="taille">{{taille}}</option>
@@ -41,7 +41,7 @@
                             </div>
 
                             <div class="w-full flex flex-col mb-3">
-                                <select formControlName="sexe"
+                                <select formControlName="sexe" (change)="resetPageNumber()"
                                     class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4 md:w-full ">
                                     <option value="">Sexe</option>
                                     <option *ngFor="let s of sexes" [value]="s">{{s}}</option>
@@ -54,7 +54,7 @@
 
                         <div class="md:flex md:flex-row md:space-x-4 w-full text-xs">
                             <div class="w-full flex flex-col mb-3">
-                                <select (change)="onSelectVille($event.target.value)" formControlName="ville"
+                                <select (change)="onSelectVille($event.target.value)" formControlName="ville" (change)="resetPageNumber()"
                                     class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4 md:w-full ">
                                     <option value="">Ville</option>
                                     <option *ngFor="let ville of villes" [value]="ville?.name">{{ville.name}}</option>
@@ -64,7 +64,7 @@
                             </div>
 
                             <div class="w-full flex flex-col mb-3">
-                                <select formControlName="municipality"
+                                <select formControlName="municipality" (change)="resetPageNumber()"
                                     class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4 md:w-full ">
                                     <option value="">Municipalité</option>
                                     <option *ngFor="let m of municipalities" [value]="m?.name">{{m.name}}</option>
@@ -73,13 +73,15 @@
                             </div>
                         </div>
                     </form>
-                    <div class="mt-5 text-right md:space-x-3 md:block flex flex-col-reverse">
-                        <button (click)="resetFilter()"
+                    <div class="mt-5 text-center md:space-x-3 md:block flex">
+                        <button (click)="resetFilter()" (change)="resetPageNumber()"
                             class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
                             Réinitialiser </button>
                         <button (click)="queryResult(query)"
                             class="mb-2 md:mb-0 bg-blue-300 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-indigo-600">Rechercher</button>
+
                     </div>
+                    
                 </div>
             </div>
         </div>

@@ -52,7 +52,7 @@ export class AdoptionService {
     params = taille != null && taille.length > 0 ? params.append('taille', String(taille)) : params;
     params = ville != null && ville.length > 0 ? params.append('ville', String(ville)) : params;
     params = user_id != null && user_id.length > 0 ? params.append('user_id', String(user_id)) : params;
-    params = page != null && page.length > 0 ? params.append('page', String(page)) : params;
+    params = page != null ? params.append('page', String(page)) : params;
     params = municipality != null && municipality.length > 0 ? params.append('municipality', String(municipality)) : params;
     return this.http.get<Adoption[]>(this.adoptionUrl, { params });
   }
