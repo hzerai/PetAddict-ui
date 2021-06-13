@@ -18,7 +18,6 @@ import { FilterComponent } from './interface-module/filter/filter.component';
 import { AdsComponent } from './interface-module/ads/ads.component';
 import { HomeComponent } from './interface-module/home/home.component';
 import { AdoptionDetailsComponent } from './adoption-module/adoption-details/adoption-details.component';
-import { PaginationComponent } from './interface-module/pagination/pagination.component';
 import { AdoptionFormComponent } from './adoption-module/adoption-form/adoption-form.component';
 import { AdoptionRequestComponent } from './adoption-module/adoption-request/adoption-request.component';
 import { AboutUsComponent } from './interface-module/about-us/about-us.component';
@@ -47,7 +46,6 @@ import { VisitProfileComponent } from './user-module/visit-profile/visit-profile
     AdsComponent,
     HomeComponent,
     AdoptionDetailsComponent,
-    PaginationComponent,
     AdoptionFormComponent,
     AdoptionRequestComponent,
     AboutUsComponent,

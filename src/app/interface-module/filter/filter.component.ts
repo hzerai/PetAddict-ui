@@ -35,6 +35,7 @@ export class FilterComponent implements OnInit {
     this.query.params.set('sexe', '');
     this.query.params.set('ville', '');
     this.query.params.set('municipality', '');
+    this.query.params.set('size', '6');
   }
 
   ngOnInit(): void {
@@ -50,7 +51,8 @@ export class FilterComponent implements OnInit {
     municipality.setValue(this.query.params.get('municipality'));
     let sexe = new FormControl();
     sexe.setValue(this.query.params.get('sexe'));
-
+    let size = new FormControl();
+    size.setValue(this.query.params.get('size'));
 
     this.adoptionFilter = new FormGroup({
       espece: espece,
@@ -58,7 +60,9 @@ export class FilterComponent implements OnInit {
       sexe: sexe,
       taille: taille,
       ville: ville,
-      municipality: municipality
+      municipality: municipality,
+      size: size
+
     })
   }
 
@@ -77,6 +81,7 @@ export class FilterComponent implements OnInit {
     this.query.params.set('sexe', '');
     this.query.params.set('taille', '');
     this.query.params.set('ville', '');
+    this.query.params.set('size', '');
     this.query.params.set('municipality', '');
     this.ngOnInit();
   }
@@ -88,9 +93,10 @@ export class FilterComponent implements OnInit {
     this.query.params.set('taille', this.adoptionFilter.value['taille']);
     this.query.params.set('ville', this.adoptionFilter.value['ville']);
     this.query.params.set('municipality', this.adoptionFilter.value['municipality']);
+    this.query.params.set('size', this.adoptionFilter.value['size']);
     this.newQueryEvent.emit(query);
   }
-  
+
   onSelectVille(ville) {
     this.municipalities = this.villes.find(v => v?.name == ville)?.municipalities;
   }
@@ -107,7 +113,7 @@ export class FilterComponent implements OnInit {
     }
   }
 
-  resetPageNumber(){
+  resetPageNumber() {
     this.resetPageNumberEvent.emit('');
   }
 

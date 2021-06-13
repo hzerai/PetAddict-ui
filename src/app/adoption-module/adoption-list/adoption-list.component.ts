@@ -25,6 +25,7 @@ export class AdoptionListComponent implements OnInit {
 
   ngOnInit(): void {
     this.page++;
+    this.adoptionService.count().subscribe(next => this.count = next);
     this.adoptionService.getPagedAdoptions(this.page, this.size).subscribe(next => { this.adoptions = next });
   }
   filter() {
@@ -44,6 +45,17 @@ export class AdoptionListComponent implements OnInit {
 
   previous() {
     this.page--;
+    if (this.filtered) {
+      this.query.params.set('page', this.page)
+      this.query.params.set('size', this.size)
+      this.getPagedAdoptionsFiltered()
+    } else {
+      this.adoptionService.getPagedAdoptions(this.page, this.size).subscribe(next => { this.adoptions = next });
+    }
+  }
+
+  setPage(n: number) {
+    this.page = n;
     if (this.filtered) {
       this.query.params.set('page', this.page)
       this.query.params.set('size', this.size)
