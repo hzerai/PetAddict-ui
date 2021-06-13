@@ -62,7 +62,6 @@ export class AdoptionListComponent implements OnInit {
   }
 
   queryResult(query: Query) {
-    this.page++;
     this.query = query;
     this.filtered = true;
     this.getPagedAdoptionsFiltered();
