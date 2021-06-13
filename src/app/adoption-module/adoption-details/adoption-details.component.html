@@ -50,7 +50,7 @@
                     <button *ngIf="!isOwner()" [routerLink]="['adopter']"
                         class="place-self-center font-bold mt-2 text-white bg-blue-300 border-0 py-3 px-6 focus:outline-none hover:bg-indigo-600 rounded-lg text-lg">Adopter
                         moi</button>
-                    <button *ngIf="isOwner()" [routerLink]="['edit']"
+                    <button *ngIf="isOwner()" (click)="edit()"
                         class="place-self-center font-bold mt-2 text-white bg-blue-300 border-0 py-3 px-6 focus:outline-none hover:bg-indigo-600 rounded-lg text-lg">Modifier
                         la publication</button>
                     <button backButton
