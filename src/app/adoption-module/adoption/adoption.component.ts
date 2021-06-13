@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Adoption } from './Adoption';
 
 @Component({
@@ -9,15 +8,11 @@ import { Adoption } from './Adoption';
 })
 export class AdoptionComponent implements OnInit {
 
-
+ 
   @Input() adoption: Adoption;
-  constructor(private route: Router) { }
+  constructor() { }
 
   ngOnInit(): void {
-  }
-
-  getAdoption() {
-    this.route.navigate(['/adoptions', this.adoption.id], { queryParams: { adoption: JSON.stringify(this.adoption) } })
   }
 
 }

@@ -18,12 +18,14 @@ export class VisitProfileComponent implements OnInit {
   ngOnInit(): void {
     let id;
     this.activatedRoute.queryParamMap.subscribe(next => id = next.get('id'))
-    this.userService.getUserById(id).subscribe(next => {
-      if (next.username == String(this.tokenService.getUser())) {
-        this.route.navigate(['/user_profile'], { queryParams: { user: JSON.stringify(next) } });
-      } else {
-        this.user = next;
-      }
-    })
+    if (id == this.tokenService.getUser()) {
+      this.route.navigate(['/user_profile']);
+    } else {
+      this.userService.getUserById(id).subscribe(next => this.user = next)
+
+    }
+
+
   }
+
 }

@@ -34,7 +34,6 @@ export class AdoptionFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.ac.queryParamMap.subscribe(next => next.has('adoption') ? this.adoption = JSON.parse(next.get('adoption')) : {});
     this.adoptionForm = new FormGroup({
       title: new FormControl(null, Validators.required),
       description: new FormControl(),
@@ -47,20 +46,27 @@ export class AdoptionFormComponent implements OnInit {
       espece: new FormControl(),
 
     })
+    let id;
+    this.ac.params.subscribe(next => id = next.id)
 
-    if (this.adoption?.id) {
-      this.adoptionForm.setValue({
-        title: this.adoption.title,
-        description: this.adoption.description,
-        sexe: this.adoption.animal.sexe,
-        type: this.adoption.animal.type,
-        age: this.adoption.animal.age,
-        espece: this.adoption.animal.espece,
-        couleur: this.adoption.animal.couleur,
-        taille: this.adoption.animal.taille,
-        nom: this.adoption.animal.nom
-      }); this.adoption = this.adoption;
-      this.onSelectBreed(this.adoption.animal.espece);
+    if (id) {
+      this.adoptionService.getAdoptionById(id).subscribe(next => {
+        console.log(next.animal)
+        this.adoptionForm.setValue({
+          title: next.title,
+          description: next.description,
+          sexe: next.animal.sexe,
+          type: next.animal.type,
+          age: next.animal.age,
+          espece: next.animal.espece,
+          couleur: next.animal.couleur,
+          taille: next.animal.taille,
+          nom: next.animal.nom
+        }); this.adoption = next;
+        this.onSelectBreed(next.animal.espece);
+
+      })
+
     }
 
   }
@@ -77,12 +83,10 @@ export class AdoptionFormComponent implements OnInit {
     this.adoption.animal.nom = this.adoptionForm.value.nom
     if (this.adoption.id) {
       //update
-      this.adoptionService.updateAdoption(this.adoption)
-        .subscribe(next => { this.adoption = next; this.router.navigate(["/adoptions/" + this.adoption.id], { queryParams: { adoption: JSON.stringify(this.adoption) } }) })
+      this.adoptionService.updateAdoption(this.adoption).subscribe(next => { this.adoption = next; this.router.navigateByUrl("/adoptions/" + this.adoption.id) })
     } else {
       //create
-      this.adoptionService.newAdoption(this.adoption)
-        .subscribe(next => { this.adoption = next; this.router.navigate(["/adoptions/" + this.adoption.id], { queryParams: { adoption: JSON.stringify(this.adoption) } }) })
+      this.adoptionService.newAdoption(this.adoption).subscribe(next => { this.adoption = next; this.router.navigateByUrl("/adoptions/" + this.adoption.id) })
     }
 
   }

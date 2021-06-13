@@ -22,8 +22,6 @@ export class AdoptionService {
   }
 
   getAdoptionById(id: string): Observable<Adoption> {
-    console.log('loaded serivce')
-
     return this.http.get<Adoption>(this.adoptionUrl + '/' + id);
   }
 

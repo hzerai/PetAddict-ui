@@ -14,13 +14,13 @@ import { AdoptionService } from '../adoption/adoption.service';
 })
 export class AdoptionDetailsComponent implements OnInit {
   adoption: Adoption = new Adoption();
-  currentUserId: string;
+  currentUserId: number;
   constructor(private route: ActivatedRoute, private adoptionService: AdoptionService, private r: Router, private userService: UserService, private tokenService: TokenStorageService) { }
 
   ngOnInit(): void {
     let id = '';
     this.route.params.subscribe(next => id = next.id);
-    this.route.queryParamMap.subscribe(next => this.adoption = JSON.parse(next.get('adoption')));
+    this.adoptionService.getAdoptionById(id).subscribe(next => { next == null ? this.r.navigateByUrl('/adoptions') : this.adoption = next });
     this.getCurrentUser()
   }
 
@@ -28,14 +28,11 @@ export class AdoptionDetailsComponent implements OnInit {
     if (confirm("Are you sure to delete this adoption post ?")) {
       this.adoptionService.deleteAdoption(id).subscribe(next => this.r.navigateByUrl('/adoptions'));
     }
-  }
 
-  edit() {
-    this.r.navigate(['/adoptions/' + this.adoption.id + '/edit'], { queryParams: { adoption: JSON.stringify(this.adoption) } })
   }
 
   isOwner(): boolean {
-    return this.currentUserId == this.adoption?.user?.email;
+    return this.currentUserId == this.adoption?.user?.id;
   }
 
   getCurrentUser() {
@@ -46,8 +43,10 @@ export class AdoptionDetailsComponent implements OnInit {
     let payload;
     payload = token.split(".")[1];
     payload = window.atob(payload);
-    this.currentUserId = JSON.parse(payload).username;
-
+    let username = JSON.parse(payload).username;
+    this.userService.getUserById(username).subscribe(next => {
+      this.currentUserId = next.id;
+    })
   }
 
 }

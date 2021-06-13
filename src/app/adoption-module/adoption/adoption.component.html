@@ -1,4 +1,4 @@
-<div class="flex relative " (click)="getAdoption()" >
+<div class="flex relative " [routerLink]="['/adoptions', adoption.id]" >
     <img alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center rounded"
         src="https://placedog.net/{{adoption.id + 100}}">
     <div class="px-8 py-10 relative z-10 w-full border-1 border-gray-200 opacity-0 hover:bg-gray-100 hover:text-black hover:opacity-100">

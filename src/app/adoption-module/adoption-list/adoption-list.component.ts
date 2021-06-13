@@ -62,10 +62,9 @@ export class AdoptionListComponent implements OnInit {
   }
 
   queryResult(query: Query) {
+    this.page++;
     this.query = query;
     this.filtered = true;
-    this.query.params.set('page', this.page)
-    this.query.params.set('size', this.size)
     this.getPagedAdoptionsFiltered();
   }
 
@@ -79,7 +78,6 @@ export class AdoptionListComponent implements OnInit {
     let size = this.query.params.get('size');
     let user_id = this.query.params.get('user_id');
     let municipality = this.query.params.get('municipality');
-    
     this.adoptionService.getPagedAdoptionsFiltered(espece, type, sexe, taille, ville, municipality, user_id, page, size).subscribe(next => { this.adoptions = next });
   }
 
