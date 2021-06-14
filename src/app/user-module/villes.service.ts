@@ -9,7 +9,9 @@ export class VillesService {
   public static villes: Ville[];
 
   constructor(private http: HttpClient) {
-    this.http.get<Ville[]>('http://localhost:8000/api/villes').subscribe(next => VillesService.villes = next);
+    if (VillesService.villes == null) {
+      this.http.get<Ville[]>('http://localhost:8000/api/villes').subscribe(next => VillesService.villes = next);
+    }
   }
 }
 

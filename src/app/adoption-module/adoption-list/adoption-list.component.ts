@@ -1,8 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Query } from 'src/app/interface-module/filter/Query';
+import { VillesService } from 'src/app/user-module/villes.service';
 import { Adoption } from '../adoption/Adoption';
 import { AdoptionService } from '../adoption/adoption.service';
+import { Animal } from '../adoption/Animal';
+import { AnimalService } from '../adoption/animal.service';
 
 
 @Component({
@@ -22,7 +25,7 @@ export class AdoptionListComponent implements OnInit {
 
   filterOpen: boolean = false;
 
-  constructor(private adoptionService: AdoptionService, private route: ActivatedRoute) {
+  constructor(private adoptionService: AdoptionService, private route: ActivatedRoute, private animalService: AnimalService) {
   }
 
   ngOnInit(): void {
@@ -30,6 +33,10 @@ export class AdoptionListComponent implements OnInit {
       this.count = next; this.generatePagination();
     });
     this.adoptionService.getPagedAdoptions(this.page, this.size).subscribe(next => { this.adoptions = next });
+  }
+  populateSuggestions() {
+    if (this.suggestions.indexOf('Tunis') < 0)
+      Object.values(VillesService.villes).forEach(v => { this.suggestions.push(v.name); v.municipalities.forEach(k => this.suggestions.push(k.name)) })
   }
   filter() {
     this.filterOpen = !this.filterOpen;
@@ -91,8 +98,8 @@ export class AdoptionListComponent implements OnInit {
     let user_id = this.query.params.get('user_id');
     let municipality = this.query.params.get('municipality');
     this.size = size != null ? Number(size) : this.size;
-    this.adoptionService.getPagedAdoptionsFiltered(espece, type, sexe, taille, ville, municipality, user_id, this.page, size).subscribe(next => { this.adoptions = next; this.currentCount = next.length;  this.generatePagination(); });
-   
+    this.adoptionService.getPagedAdoptionsFiltered(espece, type, sexe, taille, ville, municipality, user_id, this.page, size).subscribe(next => { this.adoptions = next; this.currentCount = next.length; this.generatePagination(); });
+
   }
 
   resetPage(a: any) {
@@ -132,8 +139,55 @@ export class AdoptionListComponent implements OnInit {
   }
 
 
+  //search bar
+  placeHolderSearchBar: string = 'Chercher partout : {Espece , Race , Taille, couleur, ville ...}';
+  hideSearchBarResult: boolean = true;
+  searchBarResult: Adoption[] = [];
+  searchcontent: string = '';
+
+
+  suggestions: string[] = AdoptionService.suggestions;;
+  autoComplete: string[] = [];
+  autoC = true;
+
+
+
+
+  fetch(str: string) {
+    this.populateSuggestions();
+    if (str?.length > 3) {
+      if (this.autoC) {
+        this.autoComplete = [];
+        this.autoComplete = this.suggestions.filter(v => {
+          return v.toLowerCase().includes(str.toLowerCase())
+        })
+      }
+      this.searchBarResult = [];
+      AdoptionService.cache.adoptions.forEach((value, key, map) => {
+        let localAdoption = (JSON.parse(JSON.stringify(value)));
+        localAdoption.user.adoptions = null;
+        localAdoption.user.adoptionRequests = null;
+        localAdoption.adoptionRequests = null;
+        localAdoption.animal.user = null;
+        let adoptionAsString = JSON.stringify(localAdoption).toLowerCase().replace(/[^a-zA-Z0-9]/g, '');
+        if (this.respectCriteria(adoptionAsString, str.toLowerCase().replace(/[^a-zA-Z0-9]/g, ''))) {
+          this.searchBarResult.push(value);
+        }
+      })
+      this.hideSearchBarResult = false;
+    } else {
+      this.hideSearchBarResult = true;
+    }
+  }
+  respectCriteria(adoptionAsString: string, str: string): boolean {
+    return adoptionAsString.includes(str);
+  }
 
 }
+
+
+
+
 
 export class Page {
   number: any = 1;
@@ -152,5 +206,4 @@ export class Page {
     this.after = false;
     return this;
   }
-
 }

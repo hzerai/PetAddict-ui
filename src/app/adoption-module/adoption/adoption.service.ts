@@ -4,14 +4,23 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Adoption } from './Adoption';
 import { Observable, of } from 'rxjs';
 import { AdoptionRequest } from '../adoption-request/AdoptionRequest';
+import { Animals } from './Animals';
+import { Sexe } from './Sexe';
+import { DogBreed } from 'src/app/interface-module/filter/DogBreed';
+import { CatBreed } from 'src/app/interface-module/filter/CatBreed';
+import { HorseBreed } from 'src/app/interface-module/filter/HorseBreed';
+import { VillesService } from 'src/app/user-module/villes.service';
+import { Tailles } from 'src/app/interface-module/filter/Tailles';
+import { Colors } from 'src/app/interface-module/filter/Colors';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdoptionService {
-  private static cache: AdoptionCacheService;
+  public static cache: AdoptionCacheService;
   private static collectionCache: AdoptionCollectionCacheService;
+  public static suggestions: string[];
 
   options = {
     responseType: 'json' as const,
@@ -21,6 +30,7 @@ export class AdoptionService {
     AdoptionService.cache = new AdoptionCacheService();
     AdoptionService.collectionCache = new AdoptionCollectionCacheService();
     this.getAdoptions();
+    AdoptionService.suggestions = this.populateSuggestions()
   }
 
 
@@ -136,11 +146,25 @@ export class AdoptionService {
     return this.http.post<AdoptionRequest>(this.adoptionUrl + '/' + id + '/adopt', this.options);
   }
 
+
+  populateSuggestions(): string[] {
+
+    let result: string[] = [];
+    Object.values(Animals).forEach(v => result.push(v))
+    Object.values(Sexe).forEach(v => result.push(v))
+    Object.values(Tailles).forEach(v => result.push(v))
+    Object.values(Colors).forEach(v => result.push(v))
+    Object.values(DogBreed).forEach(v => result.push(v))
+    Object.values(CatBreed).forEach(v => result.push(v))
+    Object.values(HorseBreed).forEach(v => result.push(v))
+    return result;
+  }
+
 }
 
 class AdoptionCacheService {
 
-  private adoptions: Map<number, Adoption> = new Map();
+  public adoptions: Map<number, Adoption> = new Map();
   constructor() { }
 
   getAll(): Adoption[] {
@@ -157,6 +181,7 @@ class AdoptionCacheService {
   cacheAll(adoptions: Adoption[]): void {
     adoptions.forEach(a => {
       this.adoptions.set(a.id, a);
+      AdoptionService.suggestions.push(a.title)
     })
   }
 
@@ -193,3 +218,5 @@ class AdoptionCollectionCacheService {
   }
 
 }
+
+

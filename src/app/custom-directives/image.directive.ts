@@ -4,7 +4,7 @@ import { Directive, ElementRef, HostListener, Input, Renderer2 } from '@angular/
   selector: '[animalImage]'
 })
 export class ImageDirective {
-  @Input() code1: string = '';
+  @Input() code1: string = 'C';
 
   constructor(private elRef: ElementRef, private renderer: Renderer2) { }
 
