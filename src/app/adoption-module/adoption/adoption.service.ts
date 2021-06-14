@@ -75,7 +75,6 @@ export class AdoptionService {
     } else {
       let adoptionsFromBack = this.http.get<Adoption[]>(this.adoptionUrl, { params });
       adoptionsFromBack.subscribe(next => AdoptionService.collectionCache.cache(cacheKey, next))
-      console.log(AdoptionService.collectionCache)
       return adoptionsFromBack;
     }
   }
@@ -113,12 +112,12 @@ export class AdoptionService {
       cacheKey += String(user_id);
     }
     if (page != null) {
-      params.append('page', String(page))
-      cacheKey += String(page);
+      params = params.append('page', String(page))
+      cacheKey += 'page' + String(page);
     }
     if (size != null) {
-      params.append('size', String(size))
-      cacheKey += String(size);
+      params = params.append('size', String(size))
+      cacheKey += 'size' + String(size);
     }
     if (AdoptionService.collectionCache.has(cacheKey)) {
       return of(AdoptionService.collectionCache.get(cacheKey));

@@ -30,6 +30,7 @@ import { UserProfileEditComponent } from './user-module/user-profile-edit/user-p
 import { UserProfileShowComponent } from './user-module/user-profile-show/user-profile-show.component';
 import { SideFilterDirective } from './custom-directives/side-filter.directive';
 import { VisitProfileComponent } from './user-module/visit-profile/visit-profile.component';
+import { PageButtonDirective } from './custom-directives/page-button.directive';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import { VisitProfileComponent } from './user-module/visit-profile/visit-profile
     UserProfileEditComponent,
     UserProfileShowComponent,
     SideFilterDirective,
-    VisitProfileComponent
+    VisitProfileComponent,
+    PageButtonDirective
 
 
   ],

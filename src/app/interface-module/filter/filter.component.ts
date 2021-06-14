@@ -81,7 +81,7 @@ export class FilterComponent implements OnInit {
     this.query.params.set('sexe', '');
     this.query.params.set('taille', '');
     this.query.params.set('ville', '');
-    this.query.params.set('size', '');
+    this.query.params.set('size', '6');
     this.query.params.set('municipality', '');
     this.ngOnInit();
   }

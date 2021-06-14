@@ -13,19 +13,22 @@ import { AdoptionService } from '../adoption/adoption.service';
 export class AdoptionListComponent implements OnInit {
 
   filtered: boolean = false;
-  page: number = 0;
+  page: number = 1;
   size: number = 6;
   count: number = 0;
   adoptions: Adoption[] = [];
   query: Query = new Query();
+  pages: Page[];
 
   filterOpen: boolean = false;
 
-  constructor(private adoptionService: AdoptionService, private route: ActivatedRoute) { }
+  constructor(private adoptionService: AdoptionService, private route: ActivatedRoute) {
+  }
 
   ngOnInit(): void {
-    this.page++;
-    this.adoptionService.count().subscribe(next => this.count = next);
+    this.adoptionService.count().subscribe(next => {
+      this.count = next; this.generatePagination();
+    });
     this.adoptionService.getPagedAdoptions(this.page, this.size).subscribe(next => { this.adoptions = next });
   }
   filter() {
@@ -35,47 +38,46 @@ export class AdoptionListComponent implements OnInit {
   next() {
     this.page++;
     if (this.filtered) {
-      this.query.params.set('page', this.page)
-      this.query.params.set('size', this.size)
       this.getPagedAdoptionsFiltered()
     } else {
       this.adoptionService.getPagedAdoptions(this.page, this.size).subscribe(next => { this.adoptions = next });
+      this.generatePagination();
     }
   }
 
   previous() {
     this.page--;
     if (this.filtered) {
-      this.query.params.set('page', this.page)
-      this.query.params.set('size', this.size)
       this.getPagedAdoptionsFiltered()
     } else {
       this.adoptionService.getPagedAdoptions(this.page, this.size).subscribe(next => { this.adoptions = next });
+      this.generatePagination();
     }
   }
 
-  setPage(n: number) {
-    this.page = n;
+  setPage(n: any) {
+    this.page = Number(n);
     if (this.filtered) {
-      this.query.params.set('page', this.page)
-      this.query.params.set('size', this.size)
       this.getPagedAdoptionsFiltered()
     } else {
       this.adoptionService.getPagedAdoptions(this.page, this.size).subscribe(next => { this.adoptions = next });
+      this.generatePagination();
     }
   }
 
   cantPrevious(): boolean {
-    return false;
+    return this.page < 2;
   }
 
   cantNext(): boolean {
-    return false;
+    return (this.filtered && this.currentCount < this.size) || this.page >= this.nbPages;
   }
 
   queryResult(query: Query) {
+    this.page = this.page < 0 ? 1 : this.page;
     this.query = query;
     this.filtered = true;
+    this.nbPages = 1;
     this.getPagedAdoptionsFiltered();
   }
 
@@ -85,17 +87,70 @@ export class AdoptionListComponent implements OnInit {
     let sexe = this.query.params.get('sexe');
     let taille = this.query.params.get('taille');
     let ville = this.query.params.get('ville');
-    let page = this.query.params.get('page');
     let size = this.query.params.get('size');
     let user_id = this.query.params.get('user_id');
     let municipality = this.query.params.get('municipality');
-    this.adoptionService.getPagedAdoptionsFiltered(espece, type, sexe, taille, ville, municipality, user_id, page, size).subscribe(next => { this.adoptions = next });
+    this.size = size != null ? Number(size) : this.size;
+    this.adoptionService.getPagedAdoptionsFiltered(espece, type, sexe, taille, ville, municipality, user_id, this.page, size).subscribe(next => { this.adoptions = next; this.currentCount = next.length;  this.generatePagination(); });
+   
   }
 
   resetPage(a: any) {
-    this.page = 0;
-    this.count = 0;
+    this.page = 1;
+    this.nbPages = 0;
+  }
+  private nbPages = 0;
+  private currentCount = 6;
+  generatePagination() {
+    let pages: Page[] = [];
+    if (this.filtered) {
+      console.log('pages', this.nbPages, 'count', this.currentCount)
+      this.nbPages = this.currentCount == this.size && this.page == this.nbPages ? this.nbPages + 1 : this.nbPages;
+
+    } else {
+      this.nbPages = Math.ceil(this.count / this.size)
+    }
+    if (this.nbPages <= 6) {
+      for (let i = 1; i <= this.nbPages; i++) {
+        pages.push(new Page(i, i == this.page, i == this.page + 1))
+      }
+    }
+    else {
+      pages.push(new Page(1, 1 == this.page, 1 == this.page + 1))
+      pages.push(new Page(2, 2 == this.page, 2 == this.page + 1))
+      pages.push(new Page(3, 3 == this.page, 3 == this.page + 1))
+      if (this.page <= 3 || this.page >= this.nbPages - 2) {
+        pages.push(new Page('...', false, false).isMiddle())
+      } else {
+        pages.push(new Page(this.page, true, false).isMiddle())
+      }
+      pages.push(new Page(this.nbPages - 2, this.nbPages - 2 == this.page, this.nbPages - 2 == this.page + 1))
+      pages.push(new Page(this.nbPages - 1, this.nbPages - 1 == this.page, this.nbPages - 1 == this.page + 1))
+      pages.push(new Page(this.nbPages, this.nbPages == this.page, this.nbPages == this.page + 1))
+    }
+    this.pages = pages;
   }
 
+
+
+}
+
+export class Page {
+  number: any = 1;
+  current: boolean = false;
+  next: boolean = false;
+  after: boolean = false;
+  middle: boolean = false;
+  constructor(number: any, current: boolean, next: boolean) {
+    this.number = number;
+    this.current = current;
+    this.next = next;
+    this.after = !(current || next);
+  }
+  isMiddle(): Page {
+    this.middle = true;
+    this.after = false;
+    return this;
+  }
 
 }
