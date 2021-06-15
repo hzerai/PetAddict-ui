@@ -11,7 +11,9 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 ## Host on a virtual server
 
 eanble cors in symfony by uncommenting the cros line in index.php file
+
 then
+
 Run `.\remote.bat` 
 
 
