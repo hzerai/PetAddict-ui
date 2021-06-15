@@ -1,6 +1,7 @@
 <nav class="container m-auto flex pt-6">
     <div class="mr-auto flex">
-        <a [routerLink]="['/']" routerLinkActive="router-link-active"  class="flex title-font font-medium items-center md:justify-start justify-center text-black">
+        <a [routerLink]="['/']" routerLinkActive="router-link-active"
+            class="flex title-font font-medium items-center md:justify-start justify-center text-black">
             <img src="assets/images/petAddict.png" class="h-10 w-10" />
             <span class="ml-3 text-xl text-gray-800">PetAddict</span>
         </a>
@@ -8,13 +9,42 @@
     </div>
     <div class="mx-auto flex"> <a [routerLink]="['adoptions']"
             class="col-span-1 my-4  whitespace-no-wrap uppercase text-gray-800 text-sm px-4 py-2 text-black hover:border-white hover:text-black  font-medium no-underline">Adoptions</a>
-        <a [routerLink]="['adoptions']"
+        <a #btnDropdownRef (mouseenter)="toggleTooltipS()" (mouseleave)="toggleTooltipS()" *ngIf="!dropdownPopoverShowS"
             class="col-span-1 my-4  whitespace-no-wrap uppercase text-gray-800 text-sm px-4 py-2 text-black hover:border-white hover:text-black  font-medium no-underline">Lost
             & Found</a>
-        <a [routerLink]="['adoptions']"
+
+        <div class="z-50" *ngIf="dropdownPopoverShowS" #popoverDropdownRef (mouseleave)="toggleTooltipS()">
+            <div
+                class="bg-pink-600 border-0 mb-3 block z-50 font-normal leading-normal text-sm max-w-xs text-left no-underline break-words rounded-lg">
+                <div class="text-white p-3">
+                    Wini el 5odma ya sawsen?
+                </div>
+            </div>
+        </div>`
+        <a [routerLink]="['adoptions']" #btnDropdownRef (mouseenter)="toggleTooltipM()" (mouseleave)="toggleTooltipM()"
+            *ngIf="!dropdownPopoverShowM"
             class="col-span-1 my-4  whitespace-no-wrap uppercase text-gray-800 text-sm px-4 py-2 text-black hover:border-white hover:text-black  font-medium no-underline">Associations</a>
-        <a [routerLink]="['adoptions']"
+        <div class="z-50" *ngIf="dropdownPopoverShowM" #popoverDropdownRef (mouseleave)="toggleTooltipM()">
+            <div
+                class="bg-pink-600 border-0 mb-3 block z-50 font-normal leading-normal text-sm max-w-xs text-left no-underline break-words rounded-lg">
+                <div class="text-white p-3">
+                    Wini el 5odma ya merihen?
+                </div>
+            </div>
+        </div>`
+
+        <a [routerLink]="['adoptions']" #btnDropdownRef (mouseenter)="toggleTooltipZ()" (mouseleave)="toggleTooltipZ()"
+            *ngIf="!dropdownPopoverShowZ"
             class="col-span-1 my-4  whitespace-no-wrap uppercase text-gray-800 text-sm px-4 py-2 text-black hover:border-white hover:text-black  font-medium no-underline">Vétérinaires</a>
+        <div class="z-50" *ngIf="dropdownPopoverShowZ" #popoverDropdownRef (mouseleave)="toggleTooltipZ()">
+            <div
+                class="bg-pink-600 border-0 mb-3 block z-50 font-normal leading-normal text-sm max-w-xs text-left no-underline break-words rounded-lg">
+                <div class="text-white p-3">
+                    Wini el 5odma ya marzougui?
+                </div>
+            </div>
+        </div>`
+
     </div>
 
     <div class="ml-auto flex ">

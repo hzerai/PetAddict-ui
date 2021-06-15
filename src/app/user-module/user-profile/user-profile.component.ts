@@ -31,6 +31,11 @@ export class UserProfileComponent implements OnInit {
   }
 
   editProfile() {
-    this.edit = true;   
+    this.edit = !this.edit;
+  }
+
+  updateProfile(user: User) {
+    this.user = user;
+    this.edit = !this.edit;
   }
 }

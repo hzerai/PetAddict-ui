@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Animals } from 'src/app/adoption-module/adoption/Animals';
@@ -16,7 +16,9 @@ import { Municipality, VillesService } from '../villes.service';
   styleUrls: ['./user-profile-edit.component.css']
 })
 export class UserProfileEditComponent implements OnInit {
+  @Input() showModal = false;
   @Input() user: User;
+  @Output() userEvent = new EventEmitter<User>();
   userForm: FormGroup;
   animals = Object.values(Animals);
   sexes = Object.values(Sexe);
@@ -77,15 +79,15 @@ export class UserProfileEditComponent implements OnInit {
     this.user.address.ville = this.userForm.value.ville
     this.user.about = this.userForm.value.about
     this.userService.updateUserProfile(this.user).subscribe(next => this.user = next)
-
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate(["/user_profile"])
-    })
-
+    this.userEvent.emit(this.user);
   }
 
   onSelect(ville) {
     this.municipalities = this.villes.find(v => v?.name == ville)?.municipalities;
+  }
+
+  toggleModal() {
+    this.showModal = !this.showModal;
   }
 
 }

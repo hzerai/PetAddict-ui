@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms'
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
+import { createPopper } from "@popperjs/core";
 
 import { AppComponent } from './app.component';
 import { QuizComponent } from './adoption-module/quiz/quiz.component';
@@ -68,7 +69,8 @@ import { PageButtonDirective } from './custom-directives/page-button.directive';
     BrowserAnimationsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    
 
   ],
   providers: [authInterceptorProviders],

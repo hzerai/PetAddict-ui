@@ -38,6 +38,7 @@ export class AdoptionListComponent implements OnInit {
     if (this.suggestions.indexOf('Tunis') < 0)
       Object.values(VillesService.villes).forEach(v => { this.suggestions.push(v.name); v.municipalities.forEach(k => this.suggestions.push(k.name)) })
   }
+
   filter() {
     this.filterOpen = !this.filterOpen;
   }
@@ -77,14 +78,13 @@ export class AdoptionListComponent implements OnInit {
   }
 
   cantNext(): boolean {
-    return (this.filtered && this.currentCount < this.size) || this.page >= this.nbPages;
+    return this.page >= this.nbPages;
   }
 
   queryResult(query: Query) {
     this.page = this.page < 0 ? 1 : this.page;
     this.query = query;
     this.filtered = true;
-    this.nbPages = 1;
     this.getPagedAdoptionsFiltered();
   }
 
@@ -98,7 +98,9 @@ export class AdoptionListComponent implements OnInit {
     let user_id = this.query.params.get('user_id');
     let municipality = this.query.params.get('municipality');
     this.size = size != null ? Number(size) : this.size;
-    this.adoptionService.getPagedAdoptionsFiltered(espece, type, sexe, taille, ville, municipality, user_id, this.page, size).subscribe(next => { this.adoptions = next; this.currentCount = next.length; this.generatePagination(); });
+    this.count = this.adoptionService.countFiltered(espece, type, sexe, taille, ville, municipality, user_id);
+    this.generatePagination();
+    this.adoptionService.getPagedAdoptionsFiltered(espece, type, sexe, taille, ville, municipality, user_id, this.page, this.size).subscribe(next => { this.adoptions = next;});
 
   }
 
@@ -107,16 +109,13 @@ export class AdoptionListComponent implements OnInit {
     this.nbPages = 0;
   }
   private nbPages = 0;
-  private currentCount = 6;
-  generatePagination() {
-    let pages: Page[] = [];
-    if (this.filtered) {
-      console.log('pages', this.nbPages, 'count', this.currentCount)
-      this.nbPages = this.currentCount == this.size && this.page == this.nbPages ? this.nbPages + 1 : this.nbPages;
 
-    } else {
-      this.nbPages = Math.ceil(this.count / this.size)
-    }
+  generatePagination() {
+    console.log(this.count , this.size)
+    let pages: Page[] = [];
+
+    this.nbPages = Math.ceil(this.count / this.size)
+
     if (this.nbPages <= 6) {
       for (let i = 1; i <= this.nbPages; i++) {
         pages.push(new Page(i, i == this.page, i == this.page + 1))
