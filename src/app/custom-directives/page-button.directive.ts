@@ -12,20 +12,20 @@ export class PageButtonDirective implements OnInit {
   }
   ngOnInit(): void {
     if (this.page?.current) {
-      'z-10 bg-indigo-50 border-indigo-500 text-indigo-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium'.split(' ').forEach(c => {
+      'text-xs text-blue-500 font-semibold flex w-8 h-8 mx-2 p-0 rounded-full items-center justify-center leading-tight relative border border-solid border-blueGray-200 text-white bg-white'.split(' ').forEach(c => {
         this.renderer.addClass(this.elRef.nativeElement, c);
       })
     } else if (this.page?.next) {
-      'bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium'.split(' ').forEach(c => {
+      'text-xs font-semibold flex w-8 h-8 mx-2 p-0 rounded-full items-center justify-center leading-tight relative border border-solid border-blueGray-200 text-white bg-blueGray-200'.split(' ').forEach(c => {
         this.renderer.addClass(this.elRef.nativeElement, c);
       })
     } else if (this.page?.after) {
 
-      'bg-white border-gray-300 text-gray-500 hover:bg-gray-50 hidden md:inline-flex relative items-center px-4 py-2 border text-sm font-medium'.split(' ').forEach(c => {
+      'text-xs font-semibold flex w-8 h-8 mx-2 p-0 rounded-full items-center justify-center leading-tight relative border border-solid border-blueGray-200 text-white bg-blueGray-200'.split(' ').forEach(c => {
         this.renderer.addClass(this.elRef.nativeElement, c);
       })
     } else if (this.page?.middle) {
-      'relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700'.split(' ').forEach(c => {
+      'text-xs font-semibold flex w-8 h-8 mx-2 p-0 rounded-full items-center justify-center leading-tight relative border border-solid border-blueGray-200 text-white bg-blueGray-200'.split(' ').forEach(c => {
         this.renderer.addClass(this.elRef.nativeElement, c);
       })
     }
