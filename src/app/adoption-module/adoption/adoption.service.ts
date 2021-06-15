@@ -12,6 +12,7 @@ import { HorseBreed } from 'src/app/interface-module/filter/HorseBreed';
 import { VillesService } from 'src/app/user-module/villes.service';
 import { Tailles } from 'src/app/interface-module/filter/Tailles';
 import { Colors } from 'src/app/interface-module/filter/Colors';
+import { UserService } from 'src/app/user-module/_services/user.service';
 
 
 @Injectable({
@@ -137,8 +138,10 @@ export class AdoptionService {
     return AdoptionService.cache.count(espece, type, sexe, taille, ville, municipality, user_id);
   }
 
-  createAdoptionRequest(id: number) {
-    return this.http.post<AdoptionRequest>(this.adoptionUrl + '/' + id + '/adopt', this.options);
+  createAdoptionRequest(id: number, userId: string) {
+    let result = this.http.post<AdoptionRequest>(this.adoptionUrl + '/' + id + '/adopt', this.options);
+    result.subscribe(next => UserService.cache.get(userId).adoptionRequests.push(next))
+    return result;
   }
 
 

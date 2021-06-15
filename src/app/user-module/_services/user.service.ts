@@ -9,7 +9,7 @@ const API_URL = 'http://localhost:8000/api/users';
   providedIn: 'root'
 })
 export class UserService {
-  private static cache: UserCacheService;
+  static cache: UserCacheService;
   constructor(private http: HttpClient) {
     UserService.cache = new UserCacheService();
   }

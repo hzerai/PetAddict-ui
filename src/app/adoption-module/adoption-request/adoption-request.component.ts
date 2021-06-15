@@ -35,7 +35,7 @@ export class AdoptionRequestComponent implements OnInit {
     })
   }
 
-  envoyerDemande(){
-    this.adoptionService.createAdoptionRequest(this.adoption.id).subscribe(next => this.r.navigate(['/user_profile']));
+  envoyerDemande() {
+    this.adoptionService.createAdoptionRequest(this.adoption.id, this.currentUser.email).subscribe(next => this.r.navigate(['/user_profile']));
   }
 }
