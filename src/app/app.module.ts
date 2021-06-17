@@ -35,6 +35,7 @@ import { PageButtonDirective } from './custom-directives/page-button.directive';
 import { MessageComponent } from './user-module/messages-module/message/message.component';
 import { InboxComponent } from './user-module/messages-module/inbox/inbox.component';
 import { UserPageComponent } from './user-module/user-page/user-page.component';
+import { NotificationComponent } from './user-module/notification-module/notification/notification.component';
 
 
 @NgModule({
@@ -66,6 +67,7 @@ import { UserPageComponent } from './user-module/user-page/user-page.component';
     MessageComponent,
     InboxComponent,
     UserPageComponent,
+    NotificationComponent,
     
 
 

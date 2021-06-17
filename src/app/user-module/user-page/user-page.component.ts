@@ -36,7 +36,11 @@ export class UserPageComponent implements OnInit {
   }
   createContactList(inbox: Inbox) {
     Object.keys(inbox.messagesByUser).forEach((k) => {
-      inbox.messagesByUser[k].forEach(m => { if (!m.vu && m.toUser == this.user?.email) {this.unreadMessages++} })
+      inbox.messagesByUser[k].forEach(m => {
+        if (!m.vu && m.toUser == this.user?.email) {
+          this.unreadMessages++;
+        }
+      })
       this.userService.getUserById(k).subscribe(next => this.contacts.push(next))
     })
   }

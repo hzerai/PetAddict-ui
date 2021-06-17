@@ -21,7 +21,11 @@
                             <span class="ml-2 text-gray-700">Message</span>
                         </span>
                         <span *ngIf="unreadMessages > 0"
-                            class="w-10 text-center py-1 text-xs font-semibold rounded-full text-gray-700 bg-gray-300">
+                            class="relative w-10 text-center py-1 text-xs font-semibold rounded-full text-gray-700 bg-gray-300">
+                            <span class=" flex ">
+                                <span
+                                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                            </span>
                             {{unreadMessages}}
                         </span>
                     </a>
@@ -32,8 +36,9 @@
                     Publications
                 </h2>
                 <div class="mt-4">
-                    <a class="cursor-pointer block text-sm font-medium text-gray-700" [ngClass]="{'bg-gray-200': child=='adoptions'}"
-                        (click)="child='adoptions'">Adoptions publiées</a>
+                    <a class="cursor-pointer block text-sm font-medium text-gray-700"
+                        [ngClass]="{'bg-gray-200': child=='adoptions'}" (click)="child='adoptions'">Adoptions
+                        publiées</a>
                     <a class="cursor-pointer mt-4 block text-sm font-medium text-gray-700"
                         [ngClass]="{'bg-gray-200': child=='adoptionRequests'}"
                         (click)="child='adoptionRequests'">Demandes d'adoptions</a>
