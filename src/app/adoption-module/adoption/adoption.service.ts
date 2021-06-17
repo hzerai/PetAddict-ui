@@ -166,6 +166,7 @@ class AdoptionCacheService {
   constructor() { }
 
   getAll(): Adoption[] {
+    console.log('aaaa')
     return Array.from(this.adoptions.values())
   }
 

@@ -41,7 +41,7 @@
             </p>
             <div class="relative">
                 <label for="message" class="leading-7 text-sm text-gray-600">Message</label>
-                <textarea id="message" name="message"
+                <textarea id="message" name="message" [(ngModel)]="messageBody" placeholder="tapez un message ..."
                     class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
             </div>
             <p class="text-xs text-gray-500 ">Une demande d'adoption sera créé. Vous receverez une notification dès

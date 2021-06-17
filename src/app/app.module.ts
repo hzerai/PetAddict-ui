@@ -32,6 +32,9 @@ import { UserProfileShowComponent } from './user-module/user-profile-show/user-p
 import { SideFilterDirective } from './custom-directives/side-filter.directive';
 import { VisitProfileComponent } from './user-module/visit-profile/visit-profile.component';
 import { PageButtonDirective } from './custom-directives/page-button.directive';
+import { MessageComponent } from './user-module/messages-module/message/message.component';
+import { InboxComponent } from './user-module/messages-module/inbox/inbox.component';
+import { UserPageComponent } from './user-module/user-page/user-page.component';
 
 
 @NgModule({
@@ -59,7 +62,10 @@ import { PageButtonDirective } from './custom-directives/page-button.directive';
     UserProfileShowComponent,
     SideFilterDirective,
     VisitProfileComponent,
-    PageButtonDirective
+    PageButtonDirective,
+    MessageComponent,
+    InboxComponent,
+    UserPageComponent
 
 
   ],

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Message } from 'src/app/user-module/messages-module/Message';
+import { MessageService } from 'src/app/user-module/messages-module/message.service';
 import { User } from 'src/app/user-module/User';
 import { TokenStorageService } from 'src/app/user-module/_services/token-storage.service';
 import { UserService } from 'src/app/user-module/_services/user.service';
@@ -13,7 +15,8 @@ import { AdoptionService } from '../adoption/adoption.service';
 export class AdoptionRequestComponent implements OnInit {
   adoption: Adoption = new Adoption();
   currentUser: User;
-  constructor(private route: ActivatedRoute, private adoptionService: AdoptionService, private r: Router, private userService: UserService, private tokenService: TokenStorageService) { }
+  messageBody: string = '';
+  constructor(private messages: MessageService, private route: ActivatedRoute, private adoptionService: AdoptionService, private r: Router, private userService: UserService, private tokenService: TokenStorageService) { }
 
   ngOnInit(): void {
     let id = '';
@@ -36,6 +39,14 @@ export class AdoptionRequestComponent implements OnInit {
   }
 
   envoyerDemande() {
+    if (this.currentUser == null) {
+      return;
+    }
+    let message: Message = new Message();
+    message.body = this.messageBody;
+    message.fromUser = this.currentUser.email;
+    message.toUser = this.adoption.user.email;
+    this.messages.sendMessage(message).subscribe(next => message = next);
     this.adoptionService.createAdoptionRequest(this.adoption.id, this.currentUser.email).subscribe(next => this.r.navigate(['/user_profile']));
   }
 }

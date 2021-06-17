@@ -1,0 +1,15 @@
+<div class="grid grid-rows-1 grid-cols-12 border-l border-r bg-gray-200">
+  <div class="col-span-4 p-3 h-screen overflow-y-auto">
+    <a class="block px-6 pt-3 pb-4 bg-white" *ngFor="let user of contacts" (click)="selectedContact=user.email">
+      <div class="flex justify-between ">
+        <span class="text-sm font-semibold text-gray-900">{{user.firstName}} {{user.lastName}}</span>
+        <span class="text-sm text-gray-500">2 days ago</span>
+      </div>
+      <p class="text-sm text-gray-600">{{inbox.messagesByUser[user.email][0].body}}
+      </p>
+    </a>
+
+  </div>
+  <app-message class="col-span-8" *ngIf="selectedContact != null" [messages]="inbox.messagesByUser[selectedContact]" [contacts]="contacts" [currentUser]="currentUser">
+  </app-message>
+</div>

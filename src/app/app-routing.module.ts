@@ -11,10 +11,11 @@ import { RegisterComponent } from './user-module/register/register.component';
 import { UserProfileComponent } from './user-module/user-profile/user-profile.component';
 import { AdoptionRequestComponent } from './adoption-module/adoption-request/adoption-request.component';
 import { VisitProfileComponent } from './user-module/visit-profile/visit-profile.component';
+import { UserPageComponent } from './user-module/user-page/user-page.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'user_profile', component: UserProfileComponent },
+  { path: 'user_profile', component: UserPageComponent },
   { path: 'visit_user_profile', component: VisitProfileComponent },
   { path: 'about', component: AboutUsComponent },
   { path: 'adoptions', component: AdoptionListComponent },
