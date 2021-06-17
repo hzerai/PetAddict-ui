@@ -9,7 +9,7 @@
 </div>
 <div class="text-gray-700">
   <form [formGroup]="userForm">
-    <div class="grid md:grid-cols-2 text-sm">
+    <div class="grid md:grid-cols-2 text-xs">
       <div class="col-span-2 text-gray-900 hover:shadow px-4 py-2 font-bold">Données personnelles</div>
       <div class="grid grid-cols-2 hover:text-gray-700 hover:shadow m-1">
         <div class="px-4 py-2 font-semibold">Prénom</div>
@@ -26,7 +26,7 @@
       <div class="grid grid-cols-2 hover:text-gray-700 hover:shadow m-1">
         <div class="px-4 py-2 font-semibold">Animal Préféré</div>
         <select formControlName="favoriteAnimal"
-          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
           <option [disabled]="true">Espèce</option>
           <option *ngFor="let animal of animals" [value]="animal">{{animal}}
           </option>
@@ -39,7 +39,7 @@
       <div class="grid grid-cols-2 hover:text-gray-700 hover:shadow m-1">
         <div class="px-4 py-2 font-semibold">Sexe</div>
         <select formControlName="sexe"
-          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
           <option [ngValue]="null" [disabled]="true">Sexe</option>
           <option *ngFor="let sexe of sexes" [value]="sexe">{{sexe}}
         </select>
@@ -48,7 +48,7 @@
       <div class="grid grid-cols-2 hover:text-gray-700 hover:shadow m-1">
         <div class="px-4 py-2 font-semibold">Ville</div>
         <select formControlName="ville" (change)="onSelect($event.target.value)"
-          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
           <option [ngValue]="null" [disabled]="true">Ville</option>
           <option *ngFor="let ville of villes" [value]="ville?.name">{{ville.name}}
         </select>
@@ -56,7 +56,7 @@
       <div class="grid grid-cols-2 hover:text-gray-700 hover:shadow m-1">
         <div class="px-4 py-2 font-semibold">Municipalité</div>
         <select formControlName="municipality"
-          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
           <option [ngValue]="null" [disabled]="true">Municipalité</option>
           <option *ngFor="let m of municipalities" [value]="m?.name">{{m.name}}</option>
         </select>
@@ -68,7 +68,7 @@
       <div class="grid grid-cols-2 hover:text-gray-700 hover:shadow m-1">
         <div class="px-4 py-2 font-semibold">Numero de tél. public</div>
         <select formControlName="isPhonePublic"
-          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
           <option [ngValue]="true">Oui</option>
           <option [ngValue]="false">Non</option>
         </select>
@@ -76,7 +76,7 @@
       <div class="grid grid-cols-2 hover:text-gray-700 hover:shadow m-1">
         <div class="px-4 py-2 font-semibold">Activer les notification</div>
         <select formControlName="allowNotification"
-          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
           <option [ngValue]="true">Oui</option>
           <option [ngValue]="false">Non</option>
         </select>
@@ -84,7 +84,7 @@
       <div class="grid grid-cols-2 hover:text-gray-700 hover:shadow m-1">
         <div class="px-4 py-2 font-semibold">Adresse mail publique</div>
         <select formControlName="isMailPublic"
-          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
           <option [ngValue]="true">Oui</option>
           <option [ngValue]="false">Non</option>
         </select>

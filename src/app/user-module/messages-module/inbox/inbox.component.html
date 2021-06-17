@@ -1,15 +1,21 @@
 <div class="grid grid-rows-1 grid-cols-12 border-l border-r bg-gray-200">
   <div class="col-span-4 p-3 h-screen overflow-y-auto">
-    <a class="block px-6 pt-3 pb-4 bg-white" *ngFor="let user of contacts" (click)="selectedContact=user.email">
-      <div class="flex justify-between ">
-        <span class="text-sm font-semibold text-gray-900">{{user.firstName}} {{user.lastName}}</span>
-        <span class="text-sm text-gray-500">2 days ago</span>
+    <div *ngFor="let user of contacts" (click)="read(user.email)" class="bg-white rounded-lg m-1"
+      [ngClass]="{'bg-gray-300': inbox.messagesByUser[user.email][0].fromUser 
+                                  != currentUser.email && !inbox.messagesByUser[user.email][0].vu}">
+      <div class="block px-6 pt-3 pb-4 " 
+      [ngClass]="{'shadow-lg border border-gray-400': selectedContact == inbox.messagesByUser[user.email][0].fromUser
+                                                   || selectedContact == inbox.messagesByUser[user.email][0].toUser}">
+        <div class="flex justify-between ">
+          <span class="text-sm font-semibold text-gray-900">{{user.firstName}} {{user.lastName}}</span>
+          <span class="text-sm text-gray-500">2 days ago</span>
+        </div>
+        <p class="text-sm text-gray-600">{{inbox.messagesByUser[user.email][0].body}}
+        </p>
       </div>
-      <p class="text-sm text-gray-600">{{inbox.messagesByUser[user.email][0].body}}
-      </p>
-    </a>
-
+    </div>
   </div>
-  <app-message class="col-span-8" *ngIf="selectedContact != null" [messages]="inbox.messagesByUser[selectedContact]" [contacts]="contacts" [currentUser]="currentUser">
+  <app-message class="col-span-8" *ngIf="selectedContact != null" [messages]="inbox.messagesByUser[selectedContact]"
+    [contacts]="contacts" [currentUser]="currentUser">
   </app-message>
 </div>

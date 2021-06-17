@@ -17,6 +17,9 @@ export class MessageComponent implements OnInit {
   toSend: string = '';
 
   ngOnInit(): void {
+    this.messages.forEach(message => {
+      message.vu = true;
+    })
   }
 
   getUser(email: string): User {
@@ -29,6 +32,7 @@ export class MessageComponent implements OnInit {
     message.body = this.toSend;
     message.fromUser = this.currentUser.email;
     message.toUser = sendTo;
+    message.createdAt = new Date();
     this.messages.unshift(message)
     this.messagesService.sendMessage(message).subscribe(next => message = next);
     this.toSend = '';
@@ -42,11 +46,8 @@ export class MessageComponent implements OnInit {
       day = hour * 24,
       week = day * 7;
     var fuzzy;
-    if (secondBetweenTwoDate < 30) {
+    if (secondBetweenTwoDate < 60) {
       fuzzy = 'maintenant.';
-    } else if (secondBetweenTwoDate < minute) {
-      fuzzy = secondBetweenTwoDate;
-      fuzzy = 'il y\'a ' + fuzzy + 'secondes.'
     } else if (secondBetweenTwoDate < 2 * minute) {
       fuzzy = 'il y\'a une minute.'
     } else if (secondBetweenTwoDate < hour) {
@@ -59,6 +60,8 @@ export class MessageComponent implements OnInit {
       fuzzy = 'il y\'a ' + fuzzy + 'heures.'
     } else if (secondBetweenTwoDate < day * 2) {
       fuzzy = 'hier';
+    } else {
+      fuzzy = time.toLocaleString('fr');
     }
     return fuzzy;
   }

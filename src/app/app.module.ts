@@ -65,7 +65,8 @@ import { UserPageComponent } from './user-module/user-page/user-page.component';
     PageButtonDirective,
     MessageComponent,
     InboxComponent,
-    UserPageComponent
+    UserPageComponent,
+    
 
 
   ],

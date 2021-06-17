@@ -111,7 +111,6 @@ export class AdoptionListComponent implements OnInit {
   private nbPages = 0;
 
   generatePagination() {
-    console.log(this.count , this.size)
     let pages: Page[] = [];
 
     this.nbPages = Math.ceil(this.count / this.size)

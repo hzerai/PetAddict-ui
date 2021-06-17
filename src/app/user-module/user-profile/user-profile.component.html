@@ -1,122 +1,39 @@
-  <div class="text-white bg-main-color">
-    <div class="mx-auto my-5 p-5">
-      <div class="md:flex no-wrap md:-mx-2 ">
-        <div class="w-full md:w-3/12 md:mx-2">
-          <div class="p-3 border-t-4 border-blue-300">
-            <div class="image overflow-hidden">
-              <img class="h-auto w-full mx-auto" src="https://i.pravatar.cc/300?img={{user?.id % 70}}" alt="">
-            </div>
-            <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">{{user?.firstName}} {{user?.lastName}}</h1>
-            <p class="text-sm text-gray-500 hover:text-gray-800 leading-6">{{user?.about}}</p>
-            <ul
-              class="text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm text-xs">
-              <li class="flex items-center py-3">
-                <span>Status</span>
-                <span class="ml-auto"><span class="bg-blue-300 py-1 px-2 rounded text-white ">Active</span></span>
-              </li>
-              <li class="flex items-center py-3">
-                <span>Member depuis le</span>
-                <span class="ml-auto">{{user?.createdAt | date:'dd-MM-yyyy'}}</span>
-              </li>
-            </ul>
+<div class="text-white bg-main-color">
+  <div class="mx-auto my-5 p-5">
+    <div class="md:flex no-wrap md:-mx-2 ">
+      <div class="w-full md:w-3/12 md:mx-2">
+        <div class="p-3 border-t-4 border-blue-300">
+          <div class="image overflow-hidden">
+            <img class="h-auto w-full mx-auto" src="https://i.pravatar.cc/300?img={{user?.id % 70}}" alt="">
           </div>
-          <div class="my-4"></div>
-
+          <h1 class="text-gray-900 font-bold text-xl leading-8 my-1">{{user?.firstName}} {{user?.lastName}}</h1>
+          <p class="text-sm text-gray-500 hover:text-gray-800 leading-6">{{user?.about}}</p>
+          <ul class="text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm text-xs">
+            <li class="flex items-center py-3">
+              <span>Status</span>
+              <span class="ml-auto"><span class="bg-blue-300 py-1 px-2 rounded text-white ">Active</span></span>
+            </li>
+            <li class="flex items-center py-3">
+              <span>Member depuis le</span>
+              <span class="ml-auto">{{user?.createdAt | date:'dd-MM-yyyy'}}</span>
+            </li>
+          </ul>
         </div>
-        <div class="w-full h-full md:w-9/12 mx-2 h-64">
+        <div class="my-4"></div>
 
-          <div class="p-3 shadow-sm rounded-sm hover:text-gray-700 hover:shadow">
-            <app-user-profile-edit *ngIf="edit" [user]="user" (userEvent)="updateProfile($event)"></app-user-profile-edit>
-            <app-user-profile-show *ngIf="!edit" [user]="user"></app-user-profile-show>
-            <button (click)="editProfile()" *ngIf="!edit"
-              class="block w-full text-blue-800 text-sm font-semibold rounded-lg hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4">Modifier
-              mon profile</button>
-            <button (click)="editProfile()" *ngIf="edit"
-              class='block w-full text-blue-400 text-sm font-semibold rounded-lg hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-2 '>Retourner</button>
+      </div>
+      <div class="w-full h-full md:w-9/12 mx-2 h-64">
 
-          </div>
-          <div class="my-4"></div>
-
-          <!-- Adoptions -->
-          <div class="shadow-sm rounded-sm">
-
-            <div>
-              <section class="text-gray-600 body-font">
-                <div class="container mx-auto">
-                  <div class="hover:text-gray-700 hover:shadow ">
-                    <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 p-2">
-                      <span clas="text-green-500">
-                        <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                          stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                        </svg>
-                      </span>
-                      <span class="tracking-wide">Mes Publication</span>
-                    </div>
-
-                    <div class="grid grid-flow-col grid-rows-1 grid-cols-12">
-                      <div *ngFor="let adoption of user?.adoptions"
-                        class="col-span-3 m-2 hover:text-gray-700 hover:shadow">
-                        <div class="p-6 rounded-lg">
-                          <img class="h-40 rounded w-full object-cover object-center mb-6"
-                            src="https://placedog.net/{{adoption.id + 100}}" alt="content">
-                          <h3 class="tracking-widest text-indigo-500 text-xs font-medium title-font">
-                            {{adoption.animal.espece}}
-                          </h3>
-                          <h2 [routerLink]="['/adoptions', adoption.id]"
-                            class="text-gray-900 font-medium title-font text-sm mb-4 hover:text-blue-900">
-                            {{adoption.title}}</h2>
-                          <p class="leading-relaxed text-xs truncate">{{adoption.description}}</p>
-                          <p class="leading-relaxed text-xs font-medium title-font">Crée le {{adoption.createdAt |
-                            date:'dd/MM/yyyy'}}</p>
-                          <p class="leading-relaxed text-xs font-medium title-font">Demande d'adoptions :
-                            {{adoption.adoptionRequests.length }}</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="p-4">
-                    <hr>
-                  </div>
-                  <div class="hover:text-gray-700 hover:shadow ">
-                    <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 p-2">
-                      <span clas="text-green-500">
-                        <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                          stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                        </svg>
-                      </span>
-                      <span class="tracking-wide">Mes demandes d'adoption</span>
-                    </div>
-
-                    <div class="grid grid-flow-col grid-rows-1 grid-cols-12">
-                      <div *ngFor="let adoptionsRequest of user?.adoptionRequests"
-                        class="col-span-3 m-2 hover:text-gray-700 hover:shadow">
-                        <div class="p-6 rounded-lg">
-                          <img class="h-40 rounded w-full object-cover object-center mb-6"
-                            src="https://placedog.net/{{adoptionsRequest.adoption.id + 100}}" alt="content">
-                          <h3 class="tracking-widest text-indigo-500 text-xs font-medium title-font">
-                            {{adoptionsRequest.adoption.animal.espece}}</h3>
-                          <h2 [routerLink]="['/adoptions', adoptionsRequest.adoption.id]"
-                            class="text-gray-900 font-medium title-font text-sm mb-4 hover:text-blue-900">
-                            {{adoptionsRequest.adoption.title}}</h2>
-
-                          <p class="leading-relaxed text-xs font-medium title-font">Status : {{adoptionsRequest.status}}
-                          </p>
-                          <p class="leading-relaxed text-xs font-medium title-font">Depuis :
-                            {{adoptionsRequest.createdAt | date:'dd/MM/yyyy'}}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
-            </div>
-          </div>
+        <div class="p-3 shadow-sm rounded-sm hover:text-gray-700 hover:shadow">
+          <app-user-profile-edit *ngIf="edit" [user]="user" (userEvent)="updateProfile($event)"></app-user-profile-edit>
+          <app-user-profile-show *ngIf="!edit" [user]="user"></app-user-profile-show>
+          <button (click)="editProfile()" *ngIf="!edit"
+            class="block w-full text-blue-800 text-sm font-semibold rounded-lg hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4">Modifier
+            mon profile</button>
+          <button (click)="editProfile()" *ngIf="edit"
+            class='block w-full text-blue-400 text-sm font-semibold rounded-lg hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-2 '>Retourner</button>
         </div>
       </div>
     </div>
   </div>
+</div>

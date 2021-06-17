@@ -6,6 +6,7 @@ export class Message {
     toUser: string;
     fromUser: string;
     body: string;
+    vu:boolean;
     createdAt: Date;
     updatedAt: Date;
     createdBy: string;

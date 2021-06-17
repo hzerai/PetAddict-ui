@@ -19,7 +19,7 @@ export class UserPageComponent implements OnInit {
   user: User;
   inbox: Inbox = new Inbox();
   contacts: User[] = [];
-  
+  unreadMessages: number = 0;
   ngOnInit(): void {
     const token = this.tokenStorageService.getToken();
     let payload;
@@ -36,6 +36,7 @@ export class UserPageComponent implements OnInit {
   }
   createContactList(inbox: Inbox) {
     Object.keys(inbox.messagesByUser).forEach((k) => {
+      inbox.messagesByUser[k].forEach(m => { if (!m.vu && m.toUser == this.user?.email) {this.unreadMessages++} })
       this.userService.getUserById(k).subscribe(next => this.contacts.push(next))
     })
   }

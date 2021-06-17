@@ -39,8 +39,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   popoverDropdownRef: ElementRef;
   ngAfterViewInit() {
     createPopper(
-      this.btnDropdownRef.nativeElement,
-      this.popoverDropdownRef.nativeElement,
+      this.btnDropdownRef?.nativeElement,
+      this.popoverDropdownRef?.nativeElement,
       {
         placement: "bottom",
       }

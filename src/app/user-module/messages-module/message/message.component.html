@@ -1,26 +1,42 @@
 <div class="p-3 h-screen overflow-y-auto">
-    <div class="px-10 pt-6 pb-8 bg-white rounded-lg shadow">
+    <div class="p-2 m-1 rounded-lg shadow">
         <div class="flex items-center justify-between">
             <textarea [(ngModel)]="toSend" class="w-full rounded-lg shadow-lg border "></textarea>
-            <button (click)="sendMessage()">Envoyer</button>
+            <button class="bg-blue-600 py-1 px-2 m-5 rounded text-white text-sm font-bold" (click)="sendMessage()">Envoyer</button>
         </div>
     </div>
-    <article class="px-10 pt-6 pb-8 bg-white rounded-lg shadow" *ngFor="let message of messages">
-        <div class="flex items-center justify-between">
+    <article class="p-2 m-1 bg-white rounded-lg shadow" *ngFor="let message of messages">
+        <div class="flex items-center justify-between" *ngIf="currentUser?.email!=message?.fromUser">
             <div class="flex justify-between">
-                <img class="ml-5 h-8 w-8 rounded-full object-cover"
+                <img class="mr-2 h-4 w-4 rounded-full object-cover"
                     src="https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3.5&w=144&q=60">
-                <p class="ml-5 text-lg font-semibold">
-                    <span *ngIf="currentUser?.email!=message?.fromUser" class="text-gray-900">{{getUser(message?.fromUser)?.firstName}} {{getUser(message?.fromUser)?.lastName}}.</span>
-                    <span *ngIf="currentUser?.email==message?.fromUser" class="text-gray-900">You.</span>
+                <p class="text-xs font-semibold">
+                    <span class="text-gray-600">{{getUser(message?.fromUser)?.firstName}}
+                        {{getUser(message?.fromUser)?.lastName}}.</span>
                 </p>
             </div>
             <div>
-                <span class="text-xs text-gray-600">{{getHumanDate(message?.createdAt)}}</span>
+                <span class="text-xs text-gray-600">{{getHumanDate(message.createdAt)}}</span>
             </div>
         </div>
-        <div class="mt-6 text-gray-800 text-sm w-full">
-            <p>{{message?.body}}</p>
+        <div class="flex items-center justify-between" *ngIf="currentUser?.email==message?.fromUser">
+            <div>
+                <span class="text-xs text-gray-600">{{getHumanDate(message.createdAt)}}</span>
+            </div>
+            <div class="flex justify-between">
+                <p class="text-xs font-semibold">
+                    <span *ngIf="currentUser?.email!=message?.fromUser"
+                        class="text-gray-600">{{getUser(message?.fromUser)?.firstName}}
+                        {{getUser(message?.fromUser)?.lastName}}.</span>
+                    <span *ngIf="currentUser?.email==message?.fromUser" class="text-gray-900">You.</span>
+                </p>
+                <img class="ml-2 h-4 w-4 rounded-full object-cover"
+                    src="https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3.5&w=144&q=60">
+            </div>
+
+        </div>
+        <div class="p-1 text-black w-full" [ngClass]="{'flex flex-row-reverse': currentUser?.email==message?.fromUser}">
+            <p >{{message?.body}}</p>
         </div>
     </article>
 </div>
