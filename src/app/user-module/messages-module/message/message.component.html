@@ -1,42 +1,42 @@
 <div class="p-3 h-screen overflow-y-auto">
-    <div class="p-2 m-1 rounded-lg shadow">
-        <div class="flex items-center justify-between">
-            <textarea [(ngModel)]="toSend" class="w-full rounded-lg shadow-lg border "></textarea>
-            <button class="bg-blue-600 py-1 px-2 m-5 rounded text-white text-sm font-bold" (click)="sendMessage()">Envoyer</button>
+    <div class="p-2 m-1">
+        <div class="flex items-center justify-between ">
+            <textarea [ngClass]="{'animate-pulse rounded-full': toSend.length==0}" [(ngModel)]="toSend"
+                class="w-full rounded-lg text-sm font-semibold focus:outline-none focus:border-none px-2"></textarea>
+            <button class="bg-blue-600 py-1 px-2 m-2 rounded text-white text-sm font-bold" [disabled]="toSend.length==0"
+                (click)="sendMessage()">Envoyer</button>
         </div>
     </div>
-    <article class="p-2 m-1 bg-white rounded-lg shadow" *ngFor="let message of messages">
-        <div class="flex items-center justify-between" *ngIf="currentUser?.email!=message?.fromUser">
-            <div class="flex justify-between">
-                <img class="mr-2 h-4 w-4 rounded-full object-cover"
-                    src="https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3.5&w=144&q=60">
-                <p class="text-xs font-semibold">
-                    <span class="text-gray-600">{{getUser(message?.fromUser)?.firstName}}
-                        {{getUser(message?.fromUser)?.lastName}}.</span>
-                </p>
+    <article class="m-1" *ngFor="let message of messages">
+        <div *ngIf="currentUser?.email!=message?.fromUser">
+            <div class="flex w-full">
+                <span title="{{getFormatedDate(message.createdAt)}}" class="mx-auto font-normal text-xs text-gray-600 ">{{getHumanDate(message.createdAt)}}</span>
             </div>
-            <div>
-                <span class="text-xs text-gray-600">{{getHumanDate(message.createdAt)}}</span>
+            <div class="relative flex p-2">
+                <div class="w-10">
+                    <img class="absolute bottom-0 h-8 w-8 rounded-full object-cover"
+                        title="{{getUser(message?.fromUser)?.firstName}} {{getUser(message?.fromUser)?.lastName}}"
+                        src="https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3.5&w=144&q=60">
+                </div>
+                <div class="max-w-xs bg-gray-300 rounded-lg py-3 px-6  pl-4">
+                    <p title="{{getFormatedDate(message.createdAt)}}" class="text-sm font-semibold">{{message?.body}}</p>
+                </div>
             </div>
         </div>
-        <div class="flex items-center justify-between" *ngIf="currentUser?.email==message?.fromUser">
-            <div>
-                <span class="text-xs text-gray-600">{{getHumanDate(message.createdAt)}}</span>
+        <div *ngIf="currentUser?.email==message?.fromUser">
+            <div class="flex w-full" *ngIf="showMessageDate(message , messages)">
+                <span title="{{getFormatedDate(message.createdAt)}}" class="mx-auto font-normal text-xs text-gray-600 ">{{getHumanDate(message.createdAt)}}</span>
             </div>
-            <div class="flex justify-between">
-                <p class="text-xs font-semibold">
-                    <span *ngIf="currentUser?.email!=message?.fromUser"
-                        class="text-gray-600">{{getUser(message?.fromUser)?.firstName}}
-                        {{getUser(message?.fromUser)?.lastName}}.</span>
-                    <span *ngIf="currentUser?.email==message?.fromUser" class="text-gray-900">You.</span>
-                </p>
-                <img class="ml-2 h-4 w-4 rounded-full object-cover"
-                    src="https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3.5&w=144&q=60">
+            <div class="relative flex flex-row-reverse">
+                <div class="w-10">
+                    <img class="absolute bottom-0 h-8 w-8 rounded-full object-cover"
+                        title="{{currentUser?.firstName}} {{currentUser?.lastName}}"
+                        src="https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3.5&w=144&q=60">
+                </div>
+                <div class="max-w-xs bg-gray-300 rounded-lg py-3 px-6 pr-4 mr-2">
+                    <p title="{{getFormatedDate(message.createdAt)}}" class="text-sm font-semibold">{{message?.body}}</p>
+                </div>
             </div>
-
-        </div>
-        <div class="p-1 text-black w-full" [ngClass]="{'flex flex-row-reverse': currentUser?.email==message?.fromUser}">
-            <p >{{message?.body}}</p>
         </div>
     </article>
 </div>
