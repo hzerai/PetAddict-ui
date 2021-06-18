@@ -20,7 +20,7 @@ export class AdoptionDetailsComponent implements OnInit {
   ngOnInit(): void {
     let id = '';
     this.route.params.subscribe(next => id = next.id);
-    this.adoptionService.getAdoptionById(id).subscribe(next => { next == null ? this.r.navigateByUrl('/adoptions') : this.adoption = next });
+    this.adoptionService.getAdoptionById(id).subscribe(next => { this.adoption = next });
     this.getCurrentUser()
   }
 

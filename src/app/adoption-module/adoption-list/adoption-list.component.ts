@@ -44,6 +44,9 @@ export class AdoptionListComponent implements OnInit {
   }
 
   next() {
+    if(this.cantNext()){
+      return;
+    }
     this.page++;
     if (this.filtered) {
       this.getPagedAdoptionsFiltered()
@@ -54,6 +57,9 @@ export class AdoptionListComponent implements OnInit {
   }
 
   previous() {
+    if(this.cantPrevious()){
+      return;
+    }
     this.page--;
     if (this.filtered) {
       this.getPagedAdoptionsFiltered()
@@ -64,7 +70,10 @@ export class AdoptionListComponent implements OnInit {
   }
 
   setPage(n: any) {
-    this.page = Number(n);
+    if(n.middle){
+      return;
+    }
+    this.page = Number(n.number);
     if (this.filtered) {
       this.getPagedAdoptionsFiltered()
     } else {

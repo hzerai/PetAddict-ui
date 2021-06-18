@@ -13,15 +13,14 @@ export class AnimalService {
 
   constructor(private http: HttpClient) {
     AnimalService.cache = new AnimalCacheService();
-    this.getAnimalsFromDb();
+    this.getAnimalsFromDb().subscribe(next => AnimalService.cache.cacheAll(next));
 
   }
 
   getAnimalsFromDb(): Observable<Animal[]> {
-    let animalsFromBackend = this.http.get<Animal[]>(this.animalUrl);
-    animalsFromBackend.subscribe(next => AnimalService.cache.cacheAll(next))
-    return animalsFromBackend;
+    return this.http.get<Animal[]>(this.animalUrl);   
   }
+  
   getAnimals() {
    return AnimalService.cache;
   }

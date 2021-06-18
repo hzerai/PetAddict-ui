@@ -9,10 +9,8 @@ import { Sexe } from './Sexe';
 import { DogBreed } from 'src/app/interface-module/filter/DogBreed';
 import { CatBreed } from 'src/app/interface-module/filter/CatBreed';
 import { HorseBreed } from 'src/app/interface-module/filter/HorseBreed';
-import { VillesService } from 'src/app/user-module/villes.service';
 import { Tailles } from 'src/app/interface-module/filter/Tailles';
 import { Colors } from 'src/app/interface-module/filter/Colors';
-import { UserService } from 'src/app/user-module/_services/user.service';
 
 
 @Injectable({
@@ -28,44 +26,28 @@ export class AdoptionService {
   private adoptionUrl = "http://localhost:8000/api/adoption";
   constructor(private http: HttpClient) {
     AdoptionService.cache = new AdoptionCacheService();
-    this.getAdoptions();
+    this.getAdoptions().subscribe(next => AdoptionService.cache.cacheAll(next));
     AdoptionService.suggestions = this.populateSuggestions()
   }
 
 
   getAdoptions(): Observable<Adoption[]> {
-    let adoptionsFromBackend = this.http.get<Adoption[]>(this.adoptionUrl);
-    adoptionsFromBackend.subscribe(next => AdoptionService.cache.cacheAll(next))
-    return adoptionsFromBackend;
+    return this.http.get<Adoption[]>(this.adoptionUrl);
   }
 
 
   getAdoptionById(idAsString: string): Observable<Adoption> {
     let id = Number(idAsString);
-    if (AdoptionService.cache.has(id)) {
-      return of(AdoptionService.cache.get(id));
-    } else {
-      let adoptionFromBack = this.http.get<Adoption>(this.adoptionUrl + '/' + id);
-      adoptionFromBack.subscribe(next => AdoptionService.cache.cache(next))
-      return adoptionFromBack;
-    }
+    return AdoptionService.cache.has(id) ? of(AdoptionService.cache.get(id)) : this.http.get<Adoption>(this.adoptionUrl + '/' + id);
   }
 
   newAdoption(adoption: Adoption): Observable<Adoption> {
-    let adoptionFromBack = this.http.post<Adoption>(this.adoptionUrl, adoption, this.options);
-    adoptionFromBack.subscribe(next => {
-      AdoptionService.cache.cache(next);
-    })
-    return adoptionFromBack;
+    return this.http.post<Adoption>(this.adoptionUrl, adoption, this.options);
   }
 
   updateAdoption(adoption: Adoption): Observable<Adoption> {
     AdoptionService.cache.remove(adoption.id);
-    let adoptionFromBack = this.http.put<Adoption>(this.adoptionUrl + '/' + adoption.id, adoption, this.options);
-    adoptionFromBack.subscribe(next => {
-      AdoptionService.cache.cache(next);
-    })
-    return adoptionFromBack;
+    return this.http.put<Adoption>(this.adoptionUrl + '/' + adoption.id, adoption, this.options);
   }
 
   deleteAdoption(id: number): Observable<Adoption> {
@@ -127,10 +109,7 @@ export class AdoptionService {
   }
 
   count(): Observable<number> {
-    if (AdoptionService.cache.adoptions.size > 0) {
-      return of(AdoptionService.cache.adoptions.size)
-    }
-    return this.http.get<number>(this.adoptionUrl + 's/count');
+    return AdoptionService.cache.adoptions.size > 0 ? of(AdoptionService.cache.adoptions.size) : this.http.get<number>(this.adoptionUrl + 's/count');
   }
 
 
@@ -139,9 +118,7 @@ export class AdoptionService {
   }
 
   createAdoptionRequest(id: number, userId: string) {
-    let result = this.http.post<AdoptionRequest>(this.adoptionUrl + '/' + id + '/adopt', this.options);
-    result.subscribe(next => UserService.cache.get(userId).adoptionRequests.push(next))
-    return result;
+    return this.http.post<AdoptionRequest>(this.adoptionUrl + '/' + id + '/adopt', this.options);
   }
 
 

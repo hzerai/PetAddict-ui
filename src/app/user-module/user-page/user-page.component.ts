@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AdoptionRequest } from 'src/app/adoption-module/adoption-request/AdoptionRequest';
 import { Inbox } from '../messages-module/Inbox';
 import { MessageService } from '../messages-module/message.service';
 import { User } from '../User';
@@ -14,6 +15,7 @@ import { UserService } from '../_services/user.service';
 export class UserPageComponent implements OnInit {
 
   child: string = 'profile';
+  receivedAdoptionRequests: AdoptionRequest[] = [];
 
   constructor(private messages: MessageService, private tokenStorageService: TokenStorageService, private userService: UserService, private activatedRoute: ActivatedRoute, private router: Router) { }
   user: User;
@@ -27,6 +29,8 @@ export class UserPageComponent implements OnInit {
     payload = window.atob(payload);
     let username = JSON.parse(payload).username;
     this.userService.getUserById(username).subscribe(next => {
+      next.adoptions.forEach(a => a.adoptionRequests.forEach(r =>{r.adoption = a; this.receivedAdoptionRequests.push(r)}))
+      console.log(next)
       this.user = next;
     })
     this.messages.getAllMessages().subscribe(next => {
@@ -44,4 +48,5 @@ export class UserPageComponent implements OnInit {
       this.userService.getUserById(k).subscribe(next => this.contacts.push(next))
     })
   }
+
 }

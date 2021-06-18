@@ -137,23 +137,20 @@
                 </div>
                 <div class="cursor-pointer">
                     <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
-                        <button (click)="previous()" [disabled]="cantPrevious()"
+                        <a (click)="previous()"
                             class="text-xs font-semibold flex w-8 h-8 p-0 rounded-full items-center justify-center leading-tight relative border border-solid border-blueGray-200 text-white bg-blueGray-200">
                             &lt;
-                        </button>
-                        <button *ngFor="let i of pages" (click)="setPage(i.number)" paginationButton [page]="i"
-                            [disabled]="i.middle">{{i.number}}</button>
+                        </a>
+                        <a *ngFor="let i of pages" (click)="setPage(i)" paginationButton [page]="i">{{i.number}}</a>
 
-                        <button (click)="next()" [disabled]="cantNext()"
+                        <a (click)="next()"
                             class="text-xs font-semibold flex w-8 h-8 p-0 rounded-full items-center justify-center leading-tight relative border border-solid border-blueGray-200 text-white bg-blueGray-200">
                             &gt;
-                        </button>
+                        </a>
                     </nav>
                 </div>
             </div>
         </div>
-
-
 
     </section>
 </div>

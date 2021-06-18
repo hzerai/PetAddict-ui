@@ -78,7 +78,7 @@ export class UserProfileEditComponent implements OnInit {
     this.user.address.details = this.userForm.value.details
     this.user.address.ville = this.userForm.value.ville
     this.user.about = this.userForm.value.about
-    this.userService.updateUserProfile(this.user).subscribe(next => this.user = next)
+    this.userService.updateUserProfile(this.user).subscribe(next => { UserService.cache.cache(next); this.user = next })
     this.userEvent.emit(this.user);
   }
 

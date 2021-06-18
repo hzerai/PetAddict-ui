@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Message } from 'src/app/user-module/messages-module/Message';
@@ -18,12 +19,12 @@ export class AdoptionRequestComponent implements OnInit {
   adoption: Adoption = new Adoption();
   currentUser: User;
   messageBody: string = '';
-  constructor(private notifService: NotificationService, private messages: MessageService, private route: ActivatedRoute, private adoptionService: AdoptionService, private r: Router, private userService: UserService, private tokenService: TokenStorageService) { }
+  constructor(private location: Location, private notifService: NotificationService, private messages: MessageService, private route: ActivatedRoute, private adoptionService: AdoptionService, private r: Router, private userService: UserService, private tokenService: TokenStorageService) { }
 
   ngOnInit(): void {
     let id = '';
     this.route.params.subscribe(next => id = next.id);
-    this.adoptionService.getAdoptionById(id).subscribe(next => { next == null ? this.r.navigateByUrl('/adoptions') : this.adoption = next });
+    this.adoptionService.getAdoptionById(id).subscribe(next => { this.adoption = next });
     this.getCurrentUser()
   }
   getCurrentUser() {
@@ -55,6 +56,13 @@ export class AdoptionRequestComponent implements OnInit {
     notification.toUser = this.adoption.user.email;
     notification.body = 'Vous avez une nouvelle demande d\'adoption';
     this.notifService.sendNotification(notification).subscribe(next => { })
-    this.adoptionService.createAdoptionRequest(this.adoption.id, this.currentUser.email).subscribe(next => this.r.navigate(['/user_profile']));
+
+    this.adoptionService.createAdoptionRequest(this.adoption.id, this.currentUser.email).subscribe(next => {
+      UserService.cache.get(this.currentUser.email).adoptionRequests.push(next)
+      AdoptionService.cache.get(this.adoption.id).adoptionRequests.push(next)
+      UserService.cache.get(this.adoption.user.email).adoptions.find(a => a.id = this.adoption.id).adoptionRequests.push(next)
+      console.log(UserService.cache.get(this.adoption.user.email))
+    });
+    this.location.back();
   }
 }

@@ -28,9 +28,7 @@ export class AdoptionFormComponent implements OnInit {
 
 
   constructor(private adoptionService: AdoptionService, private router: Router, private ac: ActivatedRoute, private tokenStorageService: TokenStorageService) {
-    if (tokenStorageService.getToken() == null) {
-      this.router.navigate(['login']);
-    }
+
   }
 
   ngOnInit(): void {
@@ -51,7 +49,6 @@ export class AdoptionFormComponent implements OnInit {
 
     if (id) {
       this.adoptionService.getAdoptionById(id).subscribe(next => {
-        console.log(next.animal)
         this.adoptionForm.setValue({
           title: next.title,
           description: next.description,
@@ -83,10 +80,10 @@ export class AdoptionFormComponent implements OnInit {
     this.adoption.animal.nom = this.adoptionForm.value.nom
     if (this.adoption.id) {
       //update
-      this.adoptionService.updateAdoption(this.adoption).subscribe(next => { this.adoption = next; this.router.navigateByUrl("/adoptions/" + this.adoption.id) })
+      this.adoptionService.updateAdoption(this.adoption).subscribe(next => { AdoptionService.cache.cache(next); this.adoption = next; this.router.navigateByUrl("/adoptions/" + this.adoption.id) })
     } else {
       //create
-      this.adoptionService.newAdoption(this.adoption).subscribe(next => { this.adoption = next; this.router.navigateByUrl("/adoptions/" + this.adoption.id) })
+      this.adoptionService.newAdoption(this.adoption).subscribe(next => { AdoptionService.cache.cache(next); this.adoption = next; this.router.navigateByUrl("/adoptions/" + this.adoption.id) })
     }
 
   }

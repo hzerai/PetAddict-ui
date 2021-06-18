@@ -41,7 +41,10 @@
                         publiées</a>
                     <a class="cursor-pointer mt-4 block text-sm font-medium text-gray-700"
                         [ngClass]="{'bg-gray-200': child=='adoptionRequests'}"
-                        (click)="child='adoptionRequests'">Demandes d'adoptions</a>
+                        (click)="child='adoptionRequests'">Demandes enovyées</a>
+                    <a class="cursor-pointer mt-4 block text-sm font-medium text-gray-700"
+                        [ngClass]="{'bg-gray-200': child=='RadoptionRequests'}"
+                        (click)="child='RadoptionRequests'">Demandes reçues</a>
                     <a class="cursor-pointer mt-4 block text-sm font-medium text-gray-700">Perdu</a>
                     <a class="cursor-pointer mt-4 block text-sm font-medium text-gray-700">Trouvé</a>
                     <a class="cursor-pointer mt-4 block text-sm font-medium text-gray-700">Posts</a>
@@ -62,6 +65,22 @@
                     <app-adoption [adoption]="adoptionsRequest.adoption">
                     </app-adoption>
                     <div class="flex justify-between">
+                        <p class="leading-relaxed text-xs font-medium title-font">Status : {{adoptionsRequest.status}}
+                        </p>
+                        <p class="leading-relaxed text-xs font-medium title-font">Depuis :
+                            {{adoptionsRequest.createdAt | date:'dd/MM/yyyy'}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-wrap p-10 overflow-y-auto" *ngIf="child=='RadoptionRequests'">
+                <div *ngFor="let adoptionsRequest of receivedAdoptionRequests"
+                    class="lg:w-1/2 sm:w-1/2 p-4 hover:rounded cursor-pointer hover:shadow">
+                    <app-adoption [adoption]="adoptionsRequest.adoption">
+                    </app-adoption>
+                    <div class="flex ">
+                        <p class="leading-relaxed text-xs font-medium title-font">From : {{adoptionsRequest.user.email}}
+                        </p>
                         <p class="leading-relaxed text-xs font-medium title-font">Status : {{adoptionsRequest.status}}
                         </p>
                         <p class="leading-relaxed text-xs font-medium title-font">Depuis :

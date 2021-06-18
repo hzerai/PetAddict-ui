@@ -12,30 +12,20 @@ export class UserService {
   static cache: UserCacheService;
   constructor(private http: HttpClient) {
     UserService.cache = new UserCacheService();
-    this.getPublicContent();
+    this.getPublicContent().subscribe(next => UserService.cache.cacheAll(next));
   }
 
-  getPublicContent(): Observable<User[]> {
-    let allUsersFromDB = this.http.get<User[]>(API_URL);
-    allUsersFromDB.subscribe(next => UserService.cache.cacheAll(next))
-    return allUsersFromDB;
+  private getPublicContent(): Observable<User[]> {
+    return this.http.get<User[]>(API_URL);
   }
 
   getUserById(id: string): Observable<User> {
-    if (UserService.cache.has(id)) {
-      return of(UserService.cache.get(id));
-    } else {
-      let userFromBack = this.http.get<User>(API_URL + 'user_by_email/' + id);
-      userFromBack.subscribe(next => UserService.cache.cache(next))
-      return userFromBack;
-    }
+    return UserService.cache.has(id) ? of(UserService.cache.get(id)) : this.http.get<User>(API_URL + 'user_by_email/' + id);
   }
 
   updateUserProfile(user: User): Observable<User> {
     UserService.cache.remove(user.email);
-    let updatedUser = this.http.put<User>(API_URL +user.id, user);
-    updatedUser.subscribe(next => UserService.cache.cache(next))
-    return updatedUser;
+    return this.http.put<User>(API_URL + user.id, user);
   }
 }
 
