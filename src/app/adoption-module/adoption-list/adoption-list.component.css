@@ -1,7 +1,7 @@
 #mySidenav a {
     position: absolute; /* Position them relative to the browser window */
     left: -80px; /* Position them outside of the screen */
-    transition: 0.3s; /* Add transition on hover */
+    transition: 0.5s; /* Add transition on hover */
     padding: 15px; /* 15px padding */
     width: 100px; /* Set a specific width */
     text-decoration: none; /* Remove underline */
@@ -21,6 +21,16 @@
 
 #create {
     top: 120px;
-   background-color: #0f4b17; /* Green */
+   background-color: #148323; /* Green */
 }
 
+#here {
+  top: 80px;
+}
+
+#here {
+  left: 10px; 
+  width: 140px; 
+  height: 140px; 
+  border-radius: 0 5px 5px 0; 
+}
