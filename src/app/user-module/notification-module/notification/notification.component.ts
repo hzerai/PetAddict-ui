@@ -1,4 +1,5 @@
-import { Component, ElementRef, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserService } from '../../_services/user.service';
 import { Notification } from '../Notification';
 import { NotificationService } from '../notification.service';
@@ -15,7 +16,7 @@ export class NotificationComponent implements OnInit {
   unreadNotif: number = 0;
   notifications: Notification[] = [];
   dropdownOpen: boolean = false;
-  constructor(private notificationService: NotificationService, private userService: UserService, private _eref: ElementRef) { }
+  constructor(private notificationService: NotificationService, private userService: UserService, private _eref: ElementRef, private router: Router) { }
 
   ngOnInit(): void {
     this.notificationService.getAllNotifications().subscribe(next => {
@@ -36,7 +37,7 @@ export class NotificationComponent implements OnInit {
   }
 
   onClick(event) {
-    if (!this._eref.nativeElement.contains(event.target)) 
+    if (!this._eref.nativeElement.contains(event.target))
       this.dropdownOpen = false;
   }
 

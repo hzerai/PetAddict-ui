@@ -56,14 +56,12 @@ export class QuizComponent implements OnInit {
   }
 
   showResult() {
-    console.log(this.codes);
     let dog = this.codes.match(new RegExp('C', 'g'))?.length;
     let cat = this.codes.match(new RegExp('B', 'g'))?.length;
     let bird = this.codes.match(new RegExp('A', 'g'))?.length;
     dog = dog == undefined ? 0 : dog;
     cat = cat == undefined ? 0 : cat;
     bird = bird == undefined ? 0 : bird;
-    console.log(dog, cat, bird);
     if (dog > cat && dog > bird) {
       this.resultAnimal = 'YOU NEED A DOG';
     } else if (cat > dog && cat > bird) {

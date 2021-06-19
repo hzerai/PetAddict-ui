@@ -13,7 +13,6 @@ export class AdsComponent implements OnInit {
   adoptions: Adoption[] = [];
 
   ngOnInit(): void {
-    console.log(this.type)
     if (this.type == 'adoptions') {
       this.adoptionService.getPagedAdoptions(1, 3).subscribe(next => this.adoptions = next);
     }

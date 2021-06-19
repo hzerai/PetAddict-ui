@@ -75,15 +75,20 @@
             </div>
             <div class="flex flex-wrap p-10 overflow-y-auto" *ngIf="child=='RadoptionRequests'">
                 <div *ngFor="let adoptionsRequest of receivedAdoptionRequests"
+                    [ngClass]="{'animate-bounce': specialAdoptionRequest == adoptionsRequest.adoption.id && specialAdoptionRequestSender == adoptionsRequest.user.id}"
                     class="lg:w-1/2 sm:w-1/2 p-4 hover:rounded cursor-pointer hover:shadow">
                     <app-adoption [adoption]="adoptionsRequest.adoption">
                     </app-adoption>
-                    <div class="flex ">
-                        <p class="leading-relaxed text-xs font-medium title-font">From : {{adoptionsRequest.user.email}}
-                        </p>
-                        <p class="leading-relaxed text-xs font-medium title-font">Status : {{adoptionsRequest.status}}
-                        </p>
-                        <p class="leading-relaxed text-xs font-medium title-font">Depuis :
+                    <div class="flex justify-between mx-10">
+                        <div>
+                            <p class="leading-relaxed text-xs font-medium title-font">From :
+                                {{adoptionsRequest.user.firstName}}  {{adoptionsRequest.user.lastName}}
+                            </p>
+                            <p class="leading-relaxed text-xs font-medium title-font">Status :
+                                {{adoptionsRequest.status}}
+                            </p>
+                        </div>
+                        <p class="leading-relaxed text-xs font-medium title-font mx-auto">Depuis :
                             {{adoptionsRequest.createdAt | date:'dd/MM/yyyy'}}
                         </p>
                     </div>

@@ -3,6 +3,7 @@ import { User } from '../../User';
 import { Inbox } from '../Inbox';
 import { Message } from '../Message';
 import { MessageService } from '../message.service';
+import { PetAddictDate } from '../PetAddictDates';
 
 @Component({
   selector: 'app-inbox',
@@ -20,6 +21,7 @@ export class InboxComponent implements OnInit {
   selectedContact: string;
 
   ngOnInit(): void {
+    
   }
 
 
@@ -32,5 +34,9 @@ export class InboxComponent implements OnInit {
         this.msgService.readMessage(m.id).subscribe(next => { });
       }
     })
+  }
+
+  getHumanDate(time: Date): string {
+    return PetAddictDate.getHumanDate(time);
   }
 }

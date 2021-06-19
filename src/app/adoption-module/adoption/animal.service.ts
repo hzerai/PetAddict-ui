@@ -13,7 +13,7 @@ export class AnimalService {
 
   constructor(private http: HttpClient) {
     AnimalService.cache = new AnimalCacheService();
-    this.getAnimalsFromDb().subscribe(next => AnimalService.cache.cacheAll(next));
+   // this.getAnimalsFromDb().subscribe(next => AnimalService.cache.cacheAll(next));
 
   }
 

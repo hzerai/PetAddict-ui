@@ -8,9 +8,9 @@
                                                    || selectedContact == inbox.messagesByUser[user.email][0].toUser}">
         <div class="flex justify-between ">
           <span class="text-sm font-semibold text-gray-900">{{user.firstName}} {{user.lastName}}</span>
-          <span class="text-sm text-gray-500">2 days ago</span>
+          <span class="text-sm text-gray-500">{{getHumanDate(inbox.messagesByUser[user.email][0].createdAt)}}</span>
         </div>
-        <p class="text-sm text-gray-600">{{inbox.messagesByUser[user.email][0].body}}
+        <p class="text-sm text-gray-600 truncate">{{inbox.messagesByUser[user.email][0].body}}
         </p>
       </div>
     </div>

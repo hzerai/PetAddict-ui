@@ -19,9 +19,12 @@
 
         <div *ngIf="dropdownOpen"
             class="absolute right-0 mt-2 bg-white rounded-md shadow-lg overflow-hidden overflow-y-auto z-20 h-56 "
-            style="width:20rem;">
+            [ngClass]="{'z-auto h-auto w-auto': notifications.length == 0}" style="width:20rem;">
             <div class="py-2">
-                <a *ngFor="let notification of notifications"
+                <p *ngIf="notifications.length == 0" class="text-gray-600 text-sm mx-2">Vous n'avez pas de
+                    notifications.</p>
+                <a *ngFor="let notification of notifications" [routerLink]="[notification.route.split('#')[0]]"
+                    [queryParams]="{section: notification.route.split('#')[1] , id: notification.route.split('#')[2] , u: notification.route.split('#')[3]}"
                     class="flex items-center px-4 py-3 border-b hover:bg-gray-100 -mx-2">
                     <img class="h-8 w-8 rounded-full object-cover mx-1"
                         src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80"

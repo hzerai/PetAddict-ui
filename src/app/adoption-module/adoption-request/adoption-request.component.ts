@@ -55,13 +55,13 @@ export class AdoptionRequestComponent implements OnInit {
     notification.fromUser = this.currentUser.email;
     notification.toUser = this.adoption.user.email;
     notification.body = 'Vous avez une nouvelle demande d\'adoption';
+    notification.route = '/user_profile#RadoptionRequests#' + this.adoption.id + '#' + this.currentUser.id;
     this.notifService.sendNotification(notification).subscribe(next => { })
 
     this.adoptionService.createAdoptionRequest(this.adoption.id, this.currentUser.email).subscribe(next => {
       UserService.cache.get(this.currentUser.email).adoptionRequests.push(next)
       AdoptionService.cache.get(this.adoption.id).adoptionRequests.push(next)
       UserService.cache.get(this.adoption.user.email).adoptions.find(a => a.id = this.adoption.id).adoptionRequests.push(next)
-      console.log(UserService.cache.get(this.adoption.user.email))
     });
     this.location.back();
   }
