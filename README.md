@@ -1,5 +1,7 @@
 # PetAddict
 
+## Project is not yet responsive, its built on a 1920/1080 resolution screen. you might see the interface different for now.
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
