@@ -6,7 +6,7 @@ import { UserService } from './user-module/_services/user.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   constructor(private villesService: VillesService, private adoption : AdoptionService , private user : UserService) { 
