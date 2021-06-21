@@ -68,13 +68,13 @@
       </div>
 
       <div class="flex justify-center py-4">
-        <div *ngIf="adoption.id != null" class="flex ">
-          <img
-            src="{{adoption.id ? 'https://placedog.net/' + (adoption.id+100) : 'https://via.placeholder.com/640x480?text=Image+For+adoption+NEW'}}"
-            class="">
+        <div class="flex ">
+          <app-image [default]="'https://via.placeholder.com/640x480?text=Image+For+adoption+NEW'"
+          #imageComponent   [model]="'ADOPTION'" [imageName]="imageName"
+          ></app-image>
         </div>
       </div>
-      <div class="grid grid-cols-1 mt-5 ml-10 mr-10">
+      <!-- <div class="grid grid-cols-1 mt-5 ml-10 mr-10">
         <label class="md:text-sm text-xs text-gray-500 text-light font-semibold mb-1">Importer des photos</label>
         <div class='flex items-center justify-center w-full'>
           <label
@@ -86,13 +86,14 @@
                   d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
                 </path>
               </svg>
-              <p class='lowercase text-sm text-gray-400 group-hover:text-purple-600 pt-1 tracking-wider'>Select a photo
+              <p class='lowercase text-sm text-gray-400 group-hover:text-purple-600 pt-1 tracking-wider'>Selectionner
+                une photo
               </p>
             </div>
             <input type='file' class="hidden" />
           </label>
         </div>
-      </div>
+      </div> -->
 
       <div class='flex items-center justify-center  md:gap-8 gap-4 pt-5 pb-5'>
         <a backButton

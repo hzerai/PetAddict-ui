@@ -18,7 +18,7 @@
                     <div class="w-10">
                         <img class="absolute bottom-0 h-8 w-8 rounded-full object-cover"
                             title="{{getUser(message?.fromUser)?.firstName}} {{getUser(message?.fromUser)?.lastName}}"
-                            src="https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3.5&w=144&q=60">
+                            [src]="getUserImage(getUser(message?.fromUser))?.bytes ? getUserImage(getUser(message?.fromUser))?.bytes : 'https://www.w3schools.com/howto/img_avatar.png'">
                     </div>
                     <div title="{{getFormatedDate(message.createdAt)}}"
                         class="max-w-xs bg-gray-300 rounded-lg py-3 px-6  pl-4">
@@ -35,7 +35,7 @@
                     <div class="w-10">
                         <img class="absolute bottom-0 h-8 w-8 rounded-full object-cover"
                             title="{{currentUser?.firstName}} {{currentUser?.lastName}}"
-                            src="https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3.5&w=144&q=60">
+                            [src]="getUserImage(currentUser)?.bytes ? getUserImage(currentUser)?.bytes : 'https://www.w3schools.com/howto/img_avatar.png'">
                     </div>
                     <div title="{{getFormatedDate(message.createdAt)}}"
                         class="max-w-xs text-white bg-blue-600 rounded-lg py-3 px-6 pr-4 mr-2">

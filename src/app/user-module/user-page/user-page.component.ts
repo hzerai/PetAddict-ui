@@ -41,7 +41,6 @@ export class UserPageComponent implements OnInit {
           this.specialAdoptionRequestSender = Number(u);
         }
       }
-      console.log(next.get('section'))
     });
 
     const token = this.tokenStorageService.getToken();
@@ -52,7 +51,6 @@ export class UserPageComponent implements OnInit {
     this.userService.getUserById(username).subscribe(next => {
       next.adoptions.forEach(a => a.adoptionRequests.forEach(r => { r.adoption = a; this.receivedAdoptionRequests.push(r) }))
       this.user = next;
-      console.log(this.receivedAdoptionRequests)
     })
     this.messages.getAllMessages().subscribe(next => {
       Object.assign(this.inbox, next);

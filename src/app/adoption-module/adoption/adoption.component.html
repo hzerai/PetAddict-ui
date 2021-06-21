@@ -1,6 +1,6 @@
 <div class="flex relative " [routerLink]="['/adoptions', adoption.id]">
     <img alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center rounded"
-        src="https://placedog.net/{{adoption.id + 100}}">
+        [src]="image?.bytes ? image.bytes : 'https://via.placeholder.com/640x480?text=Image+For+adoption+NEW'">
     <div
         class="px-8 py-10 relative z-10 w-full border-1 border-gray-200 opacity-0 hover:bg-white hover:text-black hover:opacity-100">
         <div class="grid grid-cols-2 p-10 text-xs">
@@ -23,9 +23,10 @@
 </div>
 <div class="p-5">
     <h2 class="tracking-widest text-sm title-font font-medium text-black mb-1 flex flex-wrap">
-        <img src="assets/svg/place.svg"/>        
+        <img src="assets/svg/place.svg" />
         {{adoption.user?.address?.ville?
-        adoption.user?.address?.ville : 'Tunis'}}</h2>
+        adoption.user?.address?.ville : 'Tunis'}}
+    </h2>
     <h1 class="title-font text-lg font-medium text-black mb-3">{{adoption.title}}</h1>
     <p class="leading-relaxed h-32 overflow-y-auto text-black text-sm">{{adoption.description}}.</p>
 </div>

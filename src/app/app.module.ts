@@ -36,6 +36,7 @@ import { MessageComponent } from './user-module/messages-module/message/message.
 import { InboxComponent } from './user-module/messages-module/inbox/inbox.component';
 import { UserPageComponent } from './user-module/user-page/user-page.component';
 import { NotificationComponent } from './user-module/notification-module/notification/notification.component';
+import { ImageComponent } from './images-module/image/image.component';
 
 
 @NgModule({
@@ -68,6 +69,7 @@ import { NotificationComponent } from './user-module/notification-module/notific
     InboxComponent,
     UserPageComponent,
     NotificationComponent,
+    ImageComponent,
     
 
 

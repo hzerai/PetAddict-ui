@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Image } from 'src/app/images-module/Image';
+import { ImageService } from 'src/app/images-module/image.service';
 import { User } from 'src/app/user-module/User';
 import { TokenStorageService } from 'src/app/user-module/_services/token-storage.service';
 import { UserService } from 'src/app/user-module/_services/user.service';
@@ -15,12 +17,16 @@ import { AdoptionService } from '../adoption/adoption.service';
 export class AdoptionDetailsComponent implements OnInit {
   adoption: Adoption = new Adoption();
   currentUserId: number;
-  constructor(private route: ActivatedRoute, private adoptionService: AdoptionService, private r: Router, private userService: UserService, private tokenService: TokenStorageService) { }
+  image: Image;
+
+  constructor(private imageService: ImageService, private route: ActivatedRoute, private adoptionService: AdoptionService, private r: Router, private userService: UserService, private tokenService: TokenStorageService) { }
 
   ngOnInit(): void {
     let id = '';
     this.route.params.subscribe(next => id = next.id);
     this.adoptionService.getAdoptionById(id).subscribe(next => { this.adoption = next });
+    this.imageService.getImage(`ADOPTION-${id}`).subscribe(next => { ImageService.cache.cache(next); this.image = next });
+
     this.getCurrentUser()
   }
 

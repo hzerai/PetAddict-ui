@@ -13,6 +13,7 @@ export class UserProfileComponent implements OnInit {
   constructor(private tokenStorageService: TokenStorageService, private userService: UserService, private activatedRoute: ActivatedRoute, private router: Router) { }
   user: User;
   edit: boolean = false;
+  userImage : string;
 
   ngOnInit(): void {
     this.activatedRoute.queryParams
@@ -27,6 +28,7 @@ export class UserProfileComponent implements OnInit {
     let username = JSON.parse(payload).username;
     this.userService.getUserById(username).subscribe(next => {
       this.user = next;
+      this.userImage = `USER-${next.id}`
     })
   }
 

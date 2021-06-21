@@ -6,6 +6,8 @@ import { MessageService } from '../message.service';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import { PetAddictDate } from '../PetAddictDates';
+import { ImageService } from 'src/app/images-module/image.service';
+import { Image } from 'src/app/images-module/Image';
 registerLocaleData(localeFr, 'fr');
 @Component({
   selector: 'app-message',
@@ -14,20 +16,39 @@ registerLocaleData(localeFr, 'fr');
 })
 export class MessageComponent implements OnInit {
 
-  constructor(private messagesService: MessageService) { }
+  constructor(private imageService: ImageService, private messagesService: MessageService) { }
   @Input() messages: Message[];
   @Input() contacts: User[];
   @Input() currentUser: User;
+  userImages: any;
   toSend: string = '';
 
   ngOnInit(): void {
     this.messages.forEach(message => {
       message.vu = true;
     })
+    this.initUserImage();
   }
 
   getUser(email: string): User {
     return this.contacts?.filter(user => email == user.email)[0]
+  }
+
+  initUserImage() {
+    if (!this.userImages) {
+      this.userImages = [];
+      this.imageService.getImage(`USER-${this.currentUser.id}`).subscribe(next => { ImageService.cache.cache(next); this.userImages[this.currentUser.id] = next }, (error) => {
+
+      });
+      this.contacts.forEach(u => {
+        this.imageService.getImage(`USER-${u.id}`).subscribe(next => { ImageService.cache.cache(next); this.userImages[u.id] = next }, (error) => {
+        });
+      })
+    }
+  }
+
+  getUserImage(user) {
+    return this.userImages[user.id];
   }
 
   sendMessage() {

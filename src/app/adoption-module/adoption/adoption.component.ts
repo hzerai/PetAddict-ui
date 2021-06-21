@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Image } from 'src/app/images-module/Image';
+import { ImageService } from 'src/app/images-module/image.service';
 import { Adoption } from './Adoption';
 
 @Component({
@@ -8,11 +10,12 @@ import { Adoption } from './Adoption';
 })
 export class AdoptionComponent implements OnInit {
 
- 
+
   @Input() adoption: Adoption;
-  constructor() { }
+  image: Image;
+  constructor(private imageService: ImageService) { }
 
   ngOnInit(): void {
+    this.imageService.getImage(`ADOPTION-${this.adoption.id}`).subscribe(next => { ImageService.cache.cache(next); this.image = next });
   }
-
 }

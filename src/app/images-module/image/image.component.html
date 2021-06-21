@@ -1,0 +1,5 @@
+<div class="image-container">
+    <img [src]="url ? url : default" class=""> <br />
+    <input type='file' (change)="onSelectFile($event)" class="select-profile-picture">
+    <span class="message">{{imageMessage}}</span>
+</div>

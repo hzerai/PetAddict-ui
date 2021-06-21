@@ -6,7 +6,7 @@
                     <div class="lg:w-4/5 mx-auto flex flex-wrap">
                         <img alt="animalPhoto"
                             class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded-lg shadow"
-                            src="https://placedog.net/{{adoption.id + 100}}">
+                            [src]="image?.bytes ? image.bytes : 'https://via.placeholder.com/640x480?text=Image+For+adoption+NEW'">
                         <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                             <h2 class="text-sm title-font text-gray-500 tracking-widest">#{{adoption.animal.espece}}</h2>
                             <h1 class="text-gray-900 text-lg title-font font-medium mb-1">{{adoption.title}}</h1>
