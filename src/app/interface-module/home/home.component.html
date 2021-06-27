@@ -56,8 +56,8 @@
                 <p class="m-auto text-xl text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
             </div>
             <div class="flex">
-                <a [routerLink]="['about']" class="ml-auto text-white bg-red-600 mt-3 text-xl flex hover:bg-blue-600 py-3 pl-3 pr-1 rounded-full" >Read more
-                    <svg xmlns="http://www.w3.org/2000/svg" class="mt-auto" style="fill: white;" viewBox="0 0 24 24" width="24" height="24"><path class="heroicon-ui" d="M9.3 8.7a1 1 0 0 1 1.4-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4-1.4l3.29-3.3-3.3-3.3z"/></svg>
+                <a [routerLink]="['about']" class="ml-auto text-white bg-red-600 mt-3 text-xl flex hover:bg-blue-600 py-2 pl-3 pr-1 rounded-full" >Read more
+                    <svg xmlns="http://www.w3.org/2000/svg" class="mx-3 mt-auto " style="fill: white;" viewBox="0 0 24 24" width="24" height="24"><path class="heroicon-ui" d="M18.59 13H3a1 1 0 0 1 0-2h15.59l-5.3-5.3a1 1 0 1 1 1.42-1.4l7 7a1 1 0 0 1 0 1.4l-7 7a1 1 0 0 1-1.42-1.4l5.3-5.3z"/></svg>
                 </a>
             </div>
         </div>
@@ -126,8 +126,8 @@
         </div>
         <div class="grid grid-cols-4 gap-4">
             <div class="pb-5 card cursor-pointer" *ngFor="let adoption of adoptions; let i = index">
-                <div class="flex" [routerLink]="['/adoptions', adoption?.id]">
-                    <img alt=""  class="mx-auto inset-0 w-full h-full object-cover object-center"
+                <div class="flex relative h-40" [routerLink]="['/adoptions', adoption?.id]">
+                    <img alt=""  class="absolute mx-auto inset-0 w-full h-full object-cover object-center"
                     [src]="images[i]?.bytes ? images[i].bytes : 'https://via.placeholder.com/640x480?text=Image+For+adoption+NEW'">
                 </div>
                 <div class="px-5 flex h-16">
@@ -145,7 +145,7 @@
         </div>
         <div class="flex w-full">
             <a [routerLink]="['adoptions']" class="mx-auto text-white bg-red-600 mt-5 text-xl flex hover:bg-blue-600 py-2 pl-10 pr-6 rounded-full" >See them all 
-                <svg xmlns="http://www.w3.org/2000/svg" class="mt-auto" style="fill: white;" viewBox="0 0 24 24" width="24" height="24"><path class="heroicon-ui" d="M9.3 8.7a1 1 0 0 1 1.4-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4-1.4l3.29-3.3-3.3-3.3z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="ml-3 mt-auto" style="fill: white;" viewBox="0 0 24 24" width="24" height="24"><path class="heroicon-ui" d="M18.59 13H3a1 1 0 0 1 0-2h15.59l-5.3-5.3a1 1 0 1 1 1.42-1.4l7 7a1 1 0 0 1 0 1.4l-7 7a1 1 0 0 1-1.42-1.4l5.3-5.3z"/></svg>
             </a>
         </div>
     </div>
@@ -187,7 +187,7 @@
     </div>
     <div class="flex w-full">
         <a [routerLink]="['adoptions']" class="mx-auto text-white bg-red-600 mt-5 text-xl flex hover:bg-blue-600 py-2 pl-10 pr-6 rounded-full" >Adopt now
-            <svg xmlns="http://www.w3.org/2000/svg" class="mt-auto" style="fill: white;" viewBox="0 0 24 24" width="24" height="24"><path class="heroicon-ui" d="M9.3 8.7a1 1 0 0 1 1.4-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.4-1.4l3.29-3.3-3.3-3.3z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" class="ml-3 mt-auto" style="fill: white;" viewBox="0 0 24 24" width="24" height="24"><path class="heroicon-ui" d="M18.59 13H3a1 1 0 0 1 0-2h15.59l-5.3-5.3a1 1 0 1 1 1.42-1.4l7 7a1 1 0 0 1 0 1.4l-7 7a1 1 0 0 1-1.42-1.4l5.3-5.3z"/></svg>
         </a>
     </div>
     </div>

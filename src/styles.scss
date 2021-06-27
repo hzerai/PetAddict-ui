@@ -13,3 +13,14 @@ body{
     background: #90cdf4;
 }
 
+.backslide{
+    margin: 0 0 0 -8%;
+    transform: skew(-10deg);
+    -webkit-transform: skew(-10deg);
+    -moz-transform: skew(-10deg);
+    -o-transform: skew(-10deg);
+    overflow: hidden;
+    position: relative;
+    width: 135%;
+}
+

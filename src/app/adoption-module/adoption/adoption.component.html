@@ -2,7 +2,7 @@
     <img alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center rounded"
         [src]="image?.bytes ? image.bytes : 'https://via.placeholder.com/640x480?text=Image+For+adoption+NEW'">
     <div
-        class="px-8 py-10 relative z-10 w-full border-1 border-gray-200 opacity-0 hover:bg-white hover:text-black hover:opacity-100">
+        class="px-8 py-10 relative z-10 w-full border-1 border-gray-200 opacity-0 hover:bg-black hover:bg-opacity-50 hover:text-white hover:opacity-100">
         <div class="grid grid-cols-2 p-10 text-xs">
             <div class="font-bold">Nom :</div>
             <div>{{adoption?.animal.nom}}</div>
