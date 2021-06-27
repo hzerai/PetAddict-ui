@@ -3,9 +3,9 @@ import { User } from 'src/app/user-module/User';
 import { UserService } from 'src/app/user-module/_services/user.service';
 import { TokenStorageService } from '../../user-module/_services/token-storage.service';
 import { createPopper } from "@popperjs/core";
-import { NotificationService } from 'src/app/user-module/notification-module/notification.service';
-import { Notification } from 'src/app/user-module/notification-module/Notification';
 import { Router } from '@angular/router';
+import { ImageService } from 'src/app/images-module/image.service';
+import { Image } from 'src/app/images-module/Image';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -16,9 +16,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   isLoggedIn = false;
   user?: User;
   navbarheight=0;
-
-
-  constructor(private tokenStorageService: TokenStorageService, private userService: UserService,public router: Router) { }
+  image: Image;
+  constructor(private imageService: ImageService,private tokenStorageService: TokenStorageService, private userService: UserService,public router: Router) { }
 
   ngOnInit(): void {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
@@ -29,6 +28,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       payload = window.atob(payload);
       this.userService.getUserById(JSON.parse(payload).username).subscribe(next => {
         this.user = next;
+        this.imageService.getImage(`USER-${next.id}`).subscribe(next => { ImageService.cache.cache(next); this.image = next });
       });
      
     }

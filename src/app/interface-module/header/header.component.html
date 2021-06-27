@@ -57,7 +57,7 @@
             routerLink="register">Sign-Up</a>
         <div *ngIf="isLoggedIn" [routerLink]="['user_profile']" class="col-span-3 flex items-center  border border-light rounded-lg  my-4 mx-2 uppercase text-sm px-2 
                 text-gray-800 hover:border-black hover:text-black font-medium ">
-            <div> <img src="https://i.pravatar.cc/300?img={{user?.id % 70}}"
+            <div> <img  [src]="image?.bytes ? image.bytes : 'https://www.w3schools.com/howto/img_avatar.png'"
                     class="w-8 h-8 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4" />
             </div>
             <div class="flex-grow">
