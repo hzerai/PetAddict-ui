@@ -1,0 +1,47 @@
+.countbottombar{
+    width: 100%;
+    height: 50px;
+    transform: skewY(2deg);
+    -webkit-transform: skewY(2deg);
+    -moz-transform: skewY(2deg);
+    -o-transform: skewY(2deg);
+    background: white;
+    position: absolute;
+    z-index: 0;
+    margin-top: 12%;
+    box-shadow: 1px 4px 4px rgb(0 0 0 / 20%);
+}
+
+.countbar{
+    margin-top:-95px;
+}
+
+.bgaboutus{
+    width: 45%;
+}
+
+.card .cardicon svg{
+    fill: white;
+}
+
+.card  {
+    box-shadow: 1px 0px 4px rgb(0 0 0 / 20%)
+}
+.bgwhatyoucando{
+    bottom: 0;
+    height: 70%;
+}
+
+.whatyoucando .cardicon{
+    margin-top: -25px;
+}
+
+.whyadopt .cardicon{
+    margin-top: -50px;
+}
+
+.whyadopt .cardicon>div{
+    border-color: white;
+    border-style: solid;
+    border-width: 10px;
+}

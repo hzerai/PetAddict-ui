@@ -1,9 +1,9 @@
 #mySidenav a {
     position: absolute; /* Position them relative to the browser window */
-    left: -80px; /* Position them outside of the screen */
+    left: -77px; /* Position them outside of the screen */
     transition: 0.5s; /* Add transition on hover */
     padding: 15px; /* 15px padding */
-    width: 100px; /* Set a specific width */
+    width: 120px; /* Set a specific width */
     text-decoration: none; /* Remove underline */
     font-size: 20px; /* Increase font size */
     color: white; /* White text color */

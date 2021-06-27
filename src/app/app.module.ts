@@ -37,6 +37,7 @@ import { InboxComponent } from './user-module/messages-module/inbox/inbox.compon
 import { UserPageComponent } from './user-module/user-page/user-page.component';
 import { NotificationComponent } from './user-module/notification-module/notification/notification.component';
 import { ImageComponent } from './images-module/image/image.component';
+import { MatCarouselModule } from '@ngmodule/material-carousel';
 
 
 @NgModule({
@@ -81,8 +82,7 @@ import { ImageComponent } from './images-module/image/image.component';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    
-
+    MatCarouselModule.forRoot(),
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

@@ -10,19 +10,39 @@
     .max-h-select {
         max-height: 240px;
     }
+
+    .searchresult::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.searchresult {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
 </style>
-<div class="flex flex-col items-center">
-    <div class="w-full md:w-1/2 flex flex-col items-center ">
-        <div class="w-full px-4">
+<div #slider class="grid grid-cols-5 mb-5 absolute top-0 w-full">
+    <img class="col-start-3 col-span-3 ml-auto h-full w-full flex-col" src="assets/images/slider/adoptionbg.jpg">
+    <div class="row-start-1 col-start-1 col-span-2 backslide mr-auto flex h-full w-full flex-grow bg-gradient-to-r to-blue-300 from-blue-600">
+    </div> 
+</div>
+<div class="relative mb-5 flex container mx-auto" style="height: 500px;">
+    
+    <h1 class="my-auto text-6xl z-50 relative text-white">Find your partner</h1>
+</div>
+<div class="container mx-auto flex flex-col items-center" style="margin-top: -160px;">
+    <div class="w-full flex flex-col items-center ">
+        <div class="w-full">
             <div class="flex flex-col items-center relative ">
                 <div class="w-full">
                     <div
-                        class="my-2 p-1 bg-white flex border border-gray-200 rounded hover:shadow hover:border-gray-400">
+                        class="mt-2 bg-white flex rounded-t hover:shadow hover:border-gray-400 overflow-hidden">
                         <!-- <div class="flex flex-auto flex-wrap"></div> -->
+                        <div class="px-3 py-1 mx-auto bg-red-600 text-white">Chercher</div>
                         <input placeholder="{{placeHolderSearchBar}}"
-                            class="p-1 px-2 appearance-none outline-none w-full text-sm text-gray-800"
+                            class="m-1 p-1 px-2 appearance-none outline-none w-full text-sm text-gray-800"
                             (keyup)="autoC=true; fetch(searchcontent);" [(ngModel)]="searchcontent">
-                        <div class="text-gray-300 w-8 py-1 pl-2 pr-1 border-l flex items-center border-gray-200">
+                        <div class="text-gray-300 w-8 py-1 border-l flex items-center border-gray-200">
                             <button class="cursor-pointer w-6 h-6 text-gray-600 outline-none focus:outline-none"
                                 (click)="searchcontent=''; autoC=false; fetch('');">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
@@ -37,8 +57,8 @@
 
 
                 <div *ngIf="autoC" (clickOutside)="autoC = false"
-                    class="absolute h-20 top-100 z-40 w-full lef-0 rounded max-h-select overflow-y-auto svelte-5uyqqj">
-                    <div class="flex flex-col w-full max-h-24">
+                    class="absolute h-20 top-100 z-40 w-full lef-0 rounded-b  max-h-select overflow-y-auto searchresult svelte-5uyqqj">
+                    <div class="flex flex-col w-full max-h-24 bg-white">
                         <div class="cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-teal-100"
                             *ngFor="let item of autoComplete">
                             <div (click)="searchcontent=item ; autoComplete = []; autoC=false; fetch(searchcontent);"
@@ -54,12 +74,14 @@
         </div>
     </div>
 </div>
-<div class="flex flex-nowrap">
+<div class="mb-5">
     <div id="mySidenav" class="sidenav" class="w-1/6 ">
-        <a (click)="filter()" id="filter" class="cursor-pointer">Filtre</a>
+        <a (click)="filter()" id="filter" class="cursor-pointer flex">Filtre
+            <svg xmlns="http://www.w3.org/2000/svg" class="ml-auto mt-auto ml-2" style="fill:white" viewBox="0 0 24 24" width="24" height="24"><path class="heroicon-ui" d="M2.3 7.7A1 1 0 0 1 2 7V3a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v4a1 1 0 0 1-.3.7L15 14.42V17a1 1 0 0 1-.3.7l-4 4A1 1 0 0 1 9 21v-6.59l-6.7-6.7zM4 4v2.59l6.7 6.7a1 1 0 0 1 .3.71v4.59l2-2V14a1 1 0 0 1 .3-.7L20 6.58V4H4z"/></svg>
+        </a>
         <div *ngIf="filterOpen">
             <div
-                class="fixed left-0 max-w-xs w-full h-full py-4 transition duration-300 transform overflow-y-auto border-l-2 border-gray-300">
+                class="fixed left-0 max-w-xs w-full h-full py-4 transition duration-300 transform overflow-y-auto border-l-2 border-gray-300 z-50" style="top: 20%;">
                 <app-filter (newQueryEvent)="queryResult($event)" (resetPageNumberEvent)="resetPage($event)">
                 </app-filter>
                 <button (click)="filter()"
@@ -67,12 +89,13 @@
             </div>
         </div>
     </div>
-    <div id="here" class="here h-32 w-32 absolute"><img src="/assets/images/here.png" alt=""></div>
     <div id="mySidenav" class="sidenav" class="w-0 ">
-        <a [routerLink]="['/adoptions/new']" id="create" class="cursor-pointer">Publier</a>
+        <a [routerLink]="['/adoptions/new']" id="create" class="cursor-pointer flex">Publier 
+            <svg xmlns="http://www.w3.org/2000/svg" class="ml-auto mt-auto ml-2" style="fill:white" viewBox="0 0 24 24" width="24" height="24"><path class="heroicon-ui" d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm1-9h2a1 1 0 0 1 0 2h-2v2a1 1 0 0 1-2 0v-2H9a1 1 0 0 1 0-2h2V9a1 1 0 0 1 2 0v2z"/></svg>
+        </a>
     </div>
-    <section class="text-gray-600 w-4/6">
-        <div class="container px-5 py-24 mx-auto">
+    <section class="mt-5 text-gray-600 container mx-auto">
+        <div class="container py-24 mx-auto">
             <div class="flex flex-wrap -m-4" *ngIf="hideSearchBarResult">
                 <app-adoption *ngFor="let adoption of adoptions" [adoption]="adoption"
                     class="lg:w-1/3 sm:w-1/2 p-4 hover:rounded cursor-pointer hover:shadow">
@@ -86,7 +109,7 @@
         </div>
         <div class="px-4 py-3 flex items-center border-t border-gray-200 sm:px-6 mx-auto w-full"
             *ngIf="!hideSearchBarResult  && searchBarResult.length > 0">
-            <div class="mx-auto text-white">
+            <div class="mx-auto text-black">
                 <p class="text-xs font-medium text-red">
                     <span class="font-bold">{{searchBarResult.length}}</span>
                     résultats trouvés pour le mot clé :
@@ -97,7 +120,7 @@
 
         <div class="px-4 py-3 flex items-center border-t border-gray-200 sm:px-6 mx-auto w-full"
             *ngIf="!hideSearchBarResult && searchBarResult.length == 0">
-            <div class="mx-auto text-white">
+            <div class="mx-auto text-black">
                 <p class="text-xs font-medium text-red">
                     Aucun résultats trouvés pour le mot clé :
                     <span class="font-bold text-sm">{{searchcontent}}</span>
@@ -107,7 +130,7 @@
 
         <div class="px-4 py-3 flex items-center border-t border-gray-200 sm:px-6 mx-auto w-full"
             *ngIf="hideSearchBarResult && adoptions.length == 0">
-            <div class="mx-auto text-white">
+            <div class="mx-auto text-black">
                 <p class="text-sm font-bold text-red">
                     Aucun résultats trouvés
                 </p>
@@ -128,7 +151,7 @@
             </div>
             <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
                 <div class="">
-                    <p class="text-xs font-bold text-white">
+                    <p class="text-xs font-bold text-black">
                         Affichage de
                         <span class="font-medium">{{(page - 1) * size + 1}}</span>
                         à
@@ -141,13 +164,13 @@
                 <div class="cursor-pointer">
                     <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
                         <a (click)="previous()"
-                            class="text-xs font-semibold flex w-8 h-8 p-0 rounded-full items-center justify-center leading-tight relative border border-solid border-blueGray-200 text-white bg-blueGray-200">
+                            class="text-xs font-semibold flex w-8 h-8 p-0 rounded-full items-center justify-center leading-tight relative border border-solid border-blueGray-200 text-black bg-blueGray-200">
                             &lt;
                         </a>
                         <a *ngFor="let i of pages" (click)="setPage(i)" paginationButton [page]="i">{{i.number}}</a>
 
                         <a (click)="next()"
-                            class="text-xs font-semibold flex w-8 h-8 p-0 rounded-full items-center justify-center leading-tight relative border border-solid border-blueGray-200 text-white bg-blueGray-200">
+                            class="text-xs font-semibold flex w-8 h-8 p-0 rounded-full items-center justify-center leading-tight relative border border-solid border-blueGray-200 text-black bg-blueGray-200">
                             &gt;
                         </a>
                     </nav>

@@ -1,10 +1,11 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { User } from 'src/app/user-module/User';
 import { UserService } from 'src/app/user-module/_services/user.service';
 import { TokenStorageService } from '../../user-module/_services/token-storage.service';
 import { createPopper } from "@popperjs/core";
-import { ImageService } from 'src/app/images-module/image.service';
-import { Image } from 'src/app/images-module/Image';
+import { NotificationService } from 'src/app/user-module/notification-module/notification.service';
+import { Notification } from 'src/app/user-module/notification-module/Notification';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -14,8 +15,10 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   isLoggedIn = false;
   user?: User;
-  image: Image;
-  constructor(private imageService: ImageService, private tokenStorageService: TokenStorageService, private userService: UserService) { }
+  navbarheight=0;
+
+
+  constructor(private tokenStorageService: TokenStorageService, private userService: UserService,public router: Router) { }
 
   ngOnInit(): void {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
@@ -26,8 +29,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       payload = window.atob(payload);
       this.userService.getUserById(JSON.parse(payload).username).subscribe(next => {
         this.user = next;
-        this.imageService.getImage(`USER-${next.id}`).subscribe(next => { ImageService.cache.cache(next); this.image = next });
       });
+     
     }
   }
 
@@ -37,9 +40,11 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   @ViewChild("btnDropdownRef", { static: false }) btnDropdownRef: ElementRef;
-  @ViewChild("popoverDropdownRef", { static: false })
-  popoverDropdownRef: ElementRef;
+  @ViewChild("popoverDropdownRef", { static: false }) popoverDropdownRef: ElementRef;
+  @ViewChild("navbar", { static: false }) navbar: ElementRef;
   ngAfterViewInit() {
+    this.navbarheight=this.navbar.nativeElement.clientHeight+30;
+
     createPopper(
       this.btnDropdownRef?.nativeElement,
       this.popoverDropdownRef?.nativeElement,
