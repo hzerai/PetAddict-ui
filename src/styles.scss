@@ -4,3 +4,12 @@
 body{
     font-size: 1.5rem;
 }
+.carousel-indicators > button{
+    background: black;
+}
+
+.carousel-indicators > button.mat-button-disabled
+{
+    background: #90cdf4;
+}
+
