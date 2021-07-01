@@ -46,7 +46,6 @@ export class AdoptionService {
   }
 
   updateAdoption(adoption: Adoption): Observable<Adoption> {
-    AdoptionService.cache.remove(adoption.id);
     return this.http.put<Adoption>(this.adoptionUrl + '/' + adoption.id, adoption, this.options);
   }
 

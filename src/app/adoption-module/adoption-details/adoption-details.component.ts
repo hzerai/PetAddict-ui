@@ -25,7 +25,7 @@ export class AdoptionDetailsComponent implements OnInit {
     let id = '';
     this.route.params.subscribe(next => id = next.id);
     this.adoptionService.getAdoptionById(id).subscribe(next => { this.adoption = next });
-    this.imageService.getImage(`ADOPTION-${id}`).subscribe(next => { ImageService.cache.cache(next); this.image = next });
+    this.imageService.getImage(`ADOPTION-${id}`).subscribe(next => { this.image = next ; console.log(next)});
 
     this.getCurrentUser()
   }

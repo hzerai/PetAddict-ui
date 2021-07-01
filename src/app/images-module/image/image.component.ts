@@ -20,15 +20,16 @@ export class ImageComponent implements OnInit {
 
   ngOnInit(): void {
     if (!this.image) {
-      this.imageService.getImage(this.imageName).subscribe(next => { ImageService.cache.cache(next); this.image = next; this.url = next.bytes; });
+      this.imageService.getImage(this.imageName).subscribe(next => { this.image = next; this.url = next?.bytes; });
     }
   }
-
+  touchedImage: boolean = false;
   onSelectFile(event) {
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
       reader.readAsDataURL(event.target.files[0]);
       reader.onload = (event) => {
+        this.touchedImage = true;
         this.url = event.target.result;
         if (!this.image) {
           this.image = new Image();
@@ -36,20 +37,24 @@ export class ImageComponent implements OnInit {
           this.image.bytes = this.url;
           this.image.cover = true;
           if (this.autoUpload)
-            this.imageService.uploadImage(this.image).subscribe(next => { ImageService.cache.cache(next); this.image = next });
+            this.imageService.uploadImage(this.image).subscribe(next => { this.image = next });
         } else {
           this.image.bytes = this.url;
           if (this.autoUpload)
-            this.imageService.updateImage(this.image).subscribe(next => { ImageService.cache.cache(next); this.image = next });
+            this.imageService.updateImage(this.image).subscribe();
         }
       }
     }
   }
+
   uploadImage() {
+    if (!this.touchedImage) {
+      return;
+    }
     if (this.image.createdAt != null) {
-      this.imageService.updateImage(this.image).subscribe(next => { ImageService.cache.cache(next); this.image = next });
+      this.imageService.updateImage(this.image).subscribe();
     } else {
-      this.imageService.uploadImage(this.image).subscribe(next => { ImageService.cache.cache(next); this.image = next });
+      this.imageService.uploadImage(this.image).subscribe(next => { this.image = next });
     }
   }
   deleteFile() {

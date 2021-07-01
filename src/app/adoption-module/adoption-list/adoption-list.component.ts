@@ -173,11 +173,14 @@ export class AdoptionListComponent implements OnInit {
       AdoptionService.cache.adoptions.forEach((value, key, map) => {
         let localAdoption = (JSON.parse(JSON.stringify(value)));
         localAdoption.user.adoptions = null;
+        localAdoption.user.firstName = null;
+        localAdoption.user.lastName = null;
+        localAdoption.user.about = null;
         localAdoption.user.adoptionRequests = null;
         localAdoption.adoptionRequests = null;
         localAdoption.animal.user = null;
-        let adoptionAsString = JSON.stringify(localAdoption).toLowerCase().replace(/[^a-zA-Z0-9]/g, '');
-        if (this.respectCriteria(adoptionAsString, str.toLowerCase().replace(/[^a-zA-Z0-9]/g, ''))) {
+        let adoptionAsString = JSON.stringify(localAdoption).toLowerCase().replace(/[^a-zA-Z]/g, '');
+        if (this.respectCriteria(adoptionAsString, str.toLowerCase().replace(/[^a-zA-Z]/g, ''))) {
           this.searchBarResult.push(value);
         }
       })
@@ -187,6 +190,9 @@ export class AdoptionListComponent implements OnInit {
     }
   }
   respectCriteria(adoptionAsString: string, str: string): boolean {
+    if(adoptionAsString.includes(str)){
+      console.log(adoptionAsString)
+    }
     return adoptionAsString.includes(str);
   }
 

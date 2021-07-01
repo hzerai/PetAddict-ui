@@ -38,6 +38,7 @@ import { UserPageComponent } from './user-module/user-page/user-page.component';
 import { NotificationComponent } from './user-module/notification-module/notification/notification.component';
 import { ImageComponent } from './images-module/image/image.component';
 import { MatCarouselModule } from '@ngmodule/material-carousel';
+import { ReceivedAdoptionComponent } from './adoption-module/received-adoption/received-adoption.component';
 
 
 @NgModule({
@@ -71,6 +72,7 @@ import { MatCarouselModule } from '@ngmodule/material-carousel';
     UserPageComponent,
     NotificationComponent,
     ImageComponent,
+    ReceivedAdoptionComponent,
     
 
 

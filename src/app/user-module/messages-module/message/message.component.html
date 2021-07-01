@@ -2,7 +2,7 @@
     <div class="p-2 m-1">
         <div class="flex items-center justify-between ">
             <textarea [ngClass]="{'animate-pulse rounded-full': toSend.length==0}" [(ngModel)]="toSend"
-                class="w-full rounded-lg text-sm font-semibold focus:outline-none focus:border-none px-2"></textarea>
+                class="w-full rounded-lg text-sm font-semibold focus:outline-none focus:border-none px-2 bg-gray-300"></textarea>
             <button class="bg-blue-600 py-1 px-2 m-2 rounded text-white text-sm font-bold" [disabled]="toSend.length==0"
                 (click)="sendMessage()">Envoyer</button>
         </div>

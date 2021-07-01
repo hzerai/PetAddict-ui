@@ -13,18 +13,25 @@ export class ImageService {
 
   constructor(private http: HttpClient) {
     ImageService.cache = new ImagesCacheService();
+    this.getAllImages();
+  }
+
+
+  getAllImages() {
+    this.http.get<Image[]>(API_URL ).subscribe(images => ImageService.cache.cacheAll(images));
   }
 
   getImage(name: string): Observable<Image> {
-    return ImageService.cache.has(name) ? of(ImageService.cache.get(name)) : this.http.get<Image>(API_URL + name);
+    return of(ImageService.cache.get(name));
   }
 
   updateImage(image: Image): Observable<Image> {
-    ImageService.cache.remove(image.name);
+    ImageService.cache.cache(image);
     return this.http.put<Image>(API_URL + image.name, image);
   }
 
   uploadImage(image: Image): Observable<Image> {
+    ImageService.cache.cache(image);
     return this.http.post<Image>(API_URL, image);
   }
 
@@ -47,7 +54,7 @@ class ImagesCacheService {
   }
 
   cache(image: Image): void {
-    if (!this.has(image.name))
+    if (!this.has(image?.name))
       this.images.set(image.name, image);
   }
 

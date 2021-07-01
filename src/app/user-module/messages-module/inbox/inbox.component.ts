@@ -29,7 +29,7 @@ export class InboxComponent implements OnInit {
     this.selectedContact = email
     let msg: Message[] = this.inbox.messagesByUser[email];
     msg.forEach(m => {
-      if (!m.vu) {
+      if (!m.vu && m.fromUser != this.currentUser.email) {
         m.vu = true;
         this.msgService.readMessage(m.id).subscribe(next => { });
       }

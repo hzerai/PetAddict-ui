@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
     });
     this.adoptionService.getPagedAdoptions(1, 4).subscribe(next => { this.adoptions = next; 
       this.adoptions.forEach(a => {
-      this.imageService.getImage(`ADOPTION-${a.id}`).subscribe(next => { ImageService.cache.cache(next); this.images.push(next) });
+      this.imageService.getImage(`ADOPTION-${a.id}`).subscribe(next => {this.images.push(next) });
       })
     });
 

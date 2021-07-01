@@ -37,11 +37,11 @@ export class MessageComponent implements OnInit {
   initUserImage() {
     if (!this.userImages) {
       this.userImages = [];
-      this.imageService.getImage(`USER-${this.currentUser.id}`).subscribe(next => { ImageService.cache.cache(next); this.userImages[this.currentUser.id] = next }, (error) => {
+      this.imageService.getImage(`USER-${this.currentUser.id}`).subscribe(next => {  this.userImages[this.currentUser.id] = next }, (error) => {
 
       });
       this.contacts.forEach(u => {
-        this.imageService.getImage(`USER-${u.id}`).subscribe(next => { ImageService.cache.cache(next); this.userImages[u.id] = next }, (error) => {
+        this.imageService.getImage(`USER-${u.id}`).subscribe(next => { this.userImages[u.id] = next }, (error) => {
         });
       })
     }

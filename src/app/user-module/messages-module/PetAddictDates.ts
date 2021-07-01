@@ -15,11 +15,11 @@ export class PetAddictDate {
             fuzzy = 'il y\'a une minute.'
         } else if (secondBetweenTwoDate < hour) {
             fuzzy = Math.floor(secondBetweenTwoDate / minute);
-            fuzzy = 'il y\'a ' + + formatDate(time, 'mm', 'fr') + ' minutes.'
+            fuzzy = 'il y\'a ' + this.getDiff(time, 'mm') + ' minutes.'
         } else if (Math.floor(secondBetweenTwoDate / hour) == 1) {
             fuzzy = 'il y\'a une heure.'
         } else if (secondBetweenTwoDate < day) {
-            fuzzy = 'il y\'a ' + formatDate(time, 'h', 'fr') + ' heures.'
+            fuzzy = 'il y\'a ' + this.getDiff(time, 'h') + ' heures.'
         } else if (secondBetweenTwoDate < day * 2) {
             fuzzy = 'hier ' + formatDate(time, 'HH:mm', 'fr');
         } else if (secondBetweenTwoDate < week) {
@@ -28,6 +28,12 @@ export class PetAddictDate {
             fuzzy = formatDate(time, 'd MMMM y HH:mm', 'fr');
         }
         return fuzzy;
+    }
+
+    private static getDiff(time: Date , format : string) : number{
+        let old = Number(formatDate(time, format, 'fr'));
+        let now = Number(formatDate(new Date(), format, 'fr'));
+        return now - old;
     }
 
     public static getFormatedDate(date: Date): string {

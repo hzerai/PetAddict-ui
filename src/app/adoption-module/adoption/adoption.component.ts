@@ -16,6 +16,6 @@ export class AdoptionComponent implements OnInit {
   constructor(private imageService: ImageService) { }
 
   ngOnInit(): void {
-    this.imageService.getImage(`ADOPTION-${this.adoption.id}`).subscribe(next => { ImageService.cache.cache(next); this.image = next });
+    this.imageService.getImage(`ADOPTION-${this.adoption.id}`).subscribe(next => {this.image = next });
   }
 }
