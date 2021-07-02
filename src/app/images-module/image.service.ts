@@ -31,7 +31,7 @@ export class ImageService {
   }
 
   uploadImage(image: Image): Observable<Image> {
-    ImageService.cache.cache(image);
+    ImageService.cache.cache(image);  
     return this.http.post<Image>(API_URL, image);
   }
 

@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       payload = window.atob(payload);
       this.userService.getUserById(JSON.parse(payload).username).subscribe(next => {
         this.user = next;
-        this.imageService.getImage(`USER-${next.id}`).subscribe(next => { ImageService.cache.cache(next); this.image = next });
+        this.imageService.getImage(`USER-${next.id}`).subscribe(next => { this.image = next });
       });
      
     }

@@ -1,5 +1,7 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ImageService } from 'src/app/images-module/image.service';
+import { User } from '../../User';
 import { UserService } from '../../_services/user.service';
 import { Notification } from '../Notification';
 import { NotificationService } from '../notification.service';
@@ -16,7 +18,7 @@ export class NotificationComponent implements OnInit {
   unreadNotif: number = 0;
   notifications: Notification[] = [];
   dropdownOpen: boolean = false;
-  constructor(private notificationService: NotificationService, private userService: UserService, private _eref: ElementRef, private router: Router) { }
+  constructor(private imageService: ImageService, private notificationService: NotificationService, private userService: UserService, private _eref: ElementRef, private router: Router) { }
 
   ngOnInit(): void {
     this.notificationService.getAllNotifications().subscribe(next => {
@@ -29,6 +31,14 @@ export class NotificationComponent implements OnInit {
     let userName = '';
     this.userService.getUserById(email).subscribe(u => userName = `${u.firstName} ${u.lastName}`)
     return userName;
+  }
+
+  getUserImage(email : string){
+    let user : User;
+    let url ;
+    this.userService.getUserById(email).subscribe(u => user=u);
+    this.imageService.getImage(`USER-${user.id}`).subscribe(next =>  next != null ? url = next.bytes : url = 'https://www.w3schools.com/howto/img_avatar.png' );
+    return url;
   }
 
   showNotifs() {

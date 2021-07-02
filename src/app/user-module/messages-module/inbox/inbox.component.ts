@@ -21,9 +21,13 @@ export class InboxComponent implements OnInit {
   selectedContact: string;
 
   ngOnInit(): void {
-    
+    // this.inbox.messagesByUser = new Map([...this.inbox.messagesByUser.entries()]
+    //   .sort((a, b) => this.getLastMsgFromInbox(b[1]).id - this.getLastMsgFromInbox(a[1]).id));
   }
 
+  // getLastMsgFromInbox(messages: Message[]): Message {
+  //   return messages.sort((a, b) => a.id - b.id)[0];
+  // }
 
   read(email: string) {
     this.selectedContact = email
