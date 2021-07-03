@@ -61,6 +61,7 @@
             </div>
             <div class="flex flex-wrap p-10 overflow-y-auto hide-scroll" *ngIf="child=='adoptionRequests'">
                 <div *ngFor="let adoptionsRequest of user?.adoptionRequests"
+                [ngClass]="{'animate-bounce bg-red-200': specialAdoptionRequest == adoptionsRequest.id}"
                     class="lg:w-1/2 sm:w-1/2 p-4 hover:rounded cursor-pointer hover:shadow">
                     <app-adoption [adoption]="adoptionsRequest.adoption">
                     </app-adoption>
@@ -75,22 +76,35 @@
             </div>
             <div class="flex flex-wrap p-10 overflow-y-auto hide-scroll" *ngIf="child=='RadoptionRequests'">
                 <div *ngFor="let adoptionsRequest of receivedAdoptionRequests"
-                    [ngClass]="{'animate-bounce': specialAdoptionRequest == adoptionsRequest.adoption.id && specialAdoptionRequestSender == adoptionsRequest.user.id}"
-                    class="lg:w-1/2 sm:w-1/2 p-4 hover:rounded cursor-pointer hover:shadow">
-                    <app-adoption [adoption]="adoptionsRequest.adoption">
-                    </app-adoption>
-                    <div class="flex justify-between mx-10">
-                        <div>
-                            <p class="leading-relaxed text-xs font-medium title-font">From :
-                                {{adoptionsRequest.user.firstName}}  {{adoptionsRequest.user.lastName}}
-                            </p>
-                            <p class="leading-relaxed text-xs font-medium title-font">Status :
-                                {{adoptionsRequest.status}}
-                            </p>
-                        </div>
-                        <p class="leading-relaxed text-xs font-medium title-font mx-auto">Depuis :
-                            {{adoptionsRequest.createdAt | date:'dd/MM/yyyy'}}
+                    (click)="adoptionsRequest.show = !adoptionsRequest.show"
+                    [ngClass]="{'animate-bounce bg-red-200': specialAdoptionRequest == adoptionsRequest.adoption.id && specialAdoptionRequestSender == adoptionsRequest.user.id}"
+                    class="w-full px-auto p-2 my-2 border border-1 hover:rounded cursor-pointer hover:shadow-lg shadow">
+                    <div class="ml-4 text-gray-900 text-sm">
+                        <p class="leading-relaxed">From :
+                            <span class="font-bold">{{adoptionsRequest.user.firstName}}
+                                {{adoptionsRequest.user.lastName}}</span>
                         </p>
+                        <p class="leading-relaxed">Adoption :
+                            <span class="font-bold">{{adoptionsRequest.adoption.title}}</span>
+                        </p>
+                        <p class="leading-relaxed">Status :
+                            <span class="font-bold">{{adoptionsRequest.status}}</span>
+                        </p>
+                        <p class="leading-relaxed">Crée le :
+                            <span class="font-bold"> {{adoptionsRequest.createdAt | date:'dd/MM/yyyy'}}</span>
+                        </p>
+                    </div>
+                    <div class="flex mx-auto text-sm">
+                        <button (click)="acceptAdoptionRequest(adoptionsRequest)" [hidden]="adoptionsRequest.status!='CREATED'"
+                        class="font-bold w-1/4 mx-auto mt-2 text-white bg-green-500 border-0 py-1  focus:outline-none 
+                        hover:bg-green-900 hover:shadow-lg rounded-lg">Accepter</button>
+                        <button (click)="rejectAdoptionRequest(adoptionsRequest)" [hidden]="adoptionsRequest.status!='CREATED'"
+                        class="font-bold w-1/4 mx-auto  mt-2 text-white bg-Red-500 border-0 py-1  focus:outline-none 
+                        hover:bg-red-900 hover:shadow-lg rounded-lg">Rejeter</button>
+                    </div>
+                    <div class="w-1/2 mt-4 mx-auto">
+                        <app-adoption *ngIf="adoptionsRequest.show" [adoption]="adoptionsRequest.adoption">
+                        </app-adoption>
                     </div>
                 </div>
             </div>

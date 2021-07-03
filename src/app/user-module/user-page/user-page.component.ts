@@ -1,8 +1,11 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdoptionRequest } from 'src/app/adoption-module/adoption-request/AdoptionRequest';
+import { AdoptionService } from 'src/app/adoption-module/adoption/adoption.service';
 import { Inbox } from '../messages-module/Inbox';
 import { MessageService } from '../messages-module/message.service';
+import { Notification } from '../notification-module/Notification';
+import { NotificationService } from '../notification-module/notification.service';
 import { User } from '../User';
 import { TokenStorageService } from '../_services/token-storage.service';
 import { UserService } from '../_services/user.service';
@@ -18,11 +21,11 @@ import { UserService } from '../_services/user.service';
 export class UserPageComponent implements OnInit {
 
   child: string = 'profile';
-  receivedAdoptionRequests: AdoptionRequest[] = [];
+  receivedAdoptionRequests: any[] = [];
   specialAdoptionRequest = -1;
   specialAdoptionRequestSender = -1;
   cameFromNotif = false;
-  constructor(private _eref: ElementRef, private route: ActivatedRoute, private messages: MessageService, private tokenStorageService: TokenStorageService, private userService: UserService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private notifService: NotificationService, private adoptionService: AdoptionService, private _eref: ElementRef, private route: ActivatedRoute, private messages: MessageService, private tokenStorageService: TokenStorageService, private userService: UserService, private activatedRoute: ActivatedRoute, private router: Router) { }
   user: User;
   inbox: Inbox = new Inbox();
   contacts: User[] = [];
@@ -32,7 +35,9 @@ export class UserPageComponent implements OnInit {
     let u;
     let section;
     this.route.queryParamMap.subscribe(next => {
-      id = next.get('id'); section = next.get('section'); u = next.get('u');
+      id = next.get('id');
+      section = next.get('section'); 
+      u = next.get('u');
       if (section != null) {
         this.child = section;
         this.cameFromNotif = true;
@@ -49,7 +54,7 @@ export class UserPageComponent implements OnInit {
     payload = window.atob(payload);
     let username = JSON.parse(payload).username;
     this.userService.getUserById(username).subscribe(next => {
-      next.adoptions.forEach(a => a.adoptionRequests.forEach(r => { r.adoption = a; this.receivedAdoptionRequests.push(r) }))
+      next.adoptions.forEach(a => a.adoptionRequests.forEach(r => { r.adoption = a; let m: any = r; m.show = false; this.receivedAdoptionRequests.push(m) }))
       this.user = next;
     })
     this.messages.getAllMessages().subscribe(next => {
@@ -70,6 +75,28 @@ export class UserPageComponent implements OnInit {
   onClick(event) {
     if (this._eref.nativeElement.contains(event.target))
       this.specialAdoptionRequest = -1;
+  }
+
+  acceptAdoptionRequest(adoptionRequest: AdoptionRequest) {
+    adoptionRequest.status = 'ACCEPTED';
+    let notification = new Notification();
+    notification.fromUser = this.user.email;
+    notification.toUser = adoptionRequest.user.email;
+    notification.body = 'a rejeté votre demande d\'adoption';
+    notification.route = '/user_profile#adoptionRequests#' + adoptionRequest.id;
+    this.notifService.sendNotification(notification).subscribe();
+    this.adoptionService.acceptAdoptionRequest(adoptionRequest.id).subscribe();
+  }
+
+  rejectAdoptionRequest(adoptionRequest: any) {
+    adoptionRequest.status = 'REJECTED';
+    let notification = new Notification();
+    notification.fromUser = this.user.email;
+    notification.toUser = adoptionRequest.user.email;
+    notification.body = 'a accepté votre demande d\'adoption';
+    notification.route = '/user_profile#adoptionRequests#' + adoptionRequest.id;
+    this.notifService.sendNotification(notification).subscribe();
+    this.adoptionService.rejectAdoptionRequest(adoptionRequest.id).subscribe();
   }
 
 }

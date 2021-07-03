@@ -17,6 +17,7 @@ import { Colors } from 'src/app/interface-module/filter/Colors';
   providedIn: 'root'
 })
 export class AdoptionService {
+
   public static cache: AdoptionCacheService;
   public static suggestions: string[];
 
@@ -24,6 +25,7 @@ export class AdoptionService {
     responseType: 'json' as const,
   };
   private adoptionUrl = "http://localhost:8000/api/adoption";
+  private adoptionRequestUrl = "http://localhost:8000/api/adoptionRequest/";
   constructor(private http: HttpClient) {
     AdoptionService.cache = new AdoptionCacheService();
     this.getAdoptions().subscribe(next => AdoptionService.cache.cacheAll(next));
@@ -118,6 +120,14 @@ export class AdoptionService {
 
   createAdoptionRequest(id: number, userId: string) {
     return this.http.post<AdoptionRequest>(this.adoptionUrl + '/' + id + '/adopt', this.options);
+  }
+
+  acceptAdoptionRequest(id: number) {
+    return this.http.post<AdoptionRequest>(this.adoptionRequestUrl + id + '/accept', this.options);
+  }
+
+  rejectAdoptionRequest(id: number) {
+    return this.http.post<AdoptionRequest>(this.adoptionRequestUrl + id + '/reject', this.options);
   }
 
 

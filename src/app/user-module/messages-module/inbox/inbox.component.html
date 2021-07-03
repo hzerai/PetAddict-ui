@@ -1,6 +1,6 @@
 <div class="grid grid-rows-1 grid-cols-12" style="height: 32rem;">
   <div class="col-span-4 p-3 overflow-y-auto hide-scroll overscroll-none">
-    <div *ngFor="let user of contacts" (click)="read(user.email)" class="rounded-lg m-1" [ngClass]="{'bg-gray-300': inbox.messagesByUser[user.email][0].fromUser 
+    <div *ngFor="let user of contacts" (click)="read(user.email)" class="rounded-lg m-1 border" [ngClass]="{'bg-gray-300': inbox.messagesByUser[user.email][0].fromUser 
                                   != currentUser.email && !inbox.messagesByUser[user.email][0].vu}">
       <div class="block px-6 pt-3 pb-4 " [ngClass]="{'bg-blue-500': selectedContact == inbox.messagesByUser[user.email][0].fromUser
                                                    || selectedContact == inbox.messagesByUser[user.email][0].toUser}">
@@ -31,7 +31,7 @@
       </svg>
     </div>
   </div>
-  <app-message class="col-span-8" *ngIf="selectedContact != null" [messages]="inbox.messagesByUser[selectedContact]"
+  <app-message class="col-span-8 border-l border-r" *ngIf="selectedContact != null" [messages]="inbox.messagesByUser[selectedContact]"
     [contacts]="contacts" [currentUser]="currentUser">
   </app-message>
 </div>

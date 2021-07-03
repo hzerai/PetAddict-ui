@@ -58,7 +58,7 @@ export class AdoptionRequestComponent implements OnInit {
     let notification = new Notification();
     notification.fromUser = this.currentUser.email;
     notification.toUser = this.adoption.user.email;
-    notification.body = 'Vous avez une nouvelle demande d\'adoption';
+    notification.body = 'vous a envoyé une demande d\'adoption';
     notification.route = '/user_profile#RadoptionRequests#' + this.adoption.id + '#' + this.currentUser.id;
     this.notifService.sendNotification(notification).subscribe(next => { })
 

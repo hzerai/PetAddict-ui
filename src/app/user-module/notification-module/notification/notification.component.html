@@ -26,12 +26,12 @@
                 <a *ngFor="let notification of notifications" [routerLink]="[notification.route.split('#')[0]]"
                     [queryParams]="{section: notification.route.split('#')[1] , id: notification.route.split('#')[2] , u: notification.route.split('#')[3]}"
                     class="flex items-center px-4 py-3 border-b hover:bg-gray-100 -mx-2">
-                    <img class="h-8 w-12 rounded-full object-cover mx-1"
-                    [src]="getUserImage(notification.fromUser) "
+                    <img class="h-8 w-12 rounded-full object-cover mx-1" [src]="getUserImage(notification.fromUser) "
                         alt="avatar">
                     <p class="text-gray-600 text-sm mx-2">
-                        {{notification.body}} de <span class="font-bold" href="#">
+                        <span class="font-bold" href="#">
                             {{getFromUser(notification.fromUser)}}</span>
+                        {{notification.body}}.
                     </p>
                 </a>
             </div>
