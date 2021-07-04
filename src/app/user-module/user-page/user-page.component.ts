@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdoptionRequest } from 'src/app/adoption-module/adoption-request/AdoptionRequest';
 import { AdoptionService } from 'src/app/adoption-module/adoption/adoption.service';
+import { ImageService } from 'src/app/images-module/image.service';
 import { Inbox } from '../messages-module/Inbox';
 import { MessageService } from '../messages-module/message.service';
 import { Notification } from '../notification-module/Notification';
@@ -25,7 +26,7 @@ export class UserPageComponent implements OnInit {
   specialAdoptionRequest = -1;
   specialAdoptionRequestSender = -1;
   cameFromNotif = false;
-  constructor(private notifService: NotificationService, private adoptionService: AdoptionService, private _eref: ElementRef, private route: ActivatedRoute, private messages: MessageService, private tokenStorageService: TokenStorageService, private userService: UserService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private _eref: ElementRef, private route: ActivatedRoute, private messages: MessageService, private tokenStorageService: TokenStorageService, private userService: UserService, private activatedRoute: ActivatedRoute, private router: Router) { }
   user: User;
   inbox: Inbox = new Inbox();
   contacts: User[] = [];
@@ -36,7 +37,7 @@ export class UserPageComponent implements OnInit {
     let section;
     this.route.queryParamMap.subscribe(next => {
       id = next.get('id');
-      section = next.get('section'); 
+      section = next.get('section');
       u = next.get('u');
       if (section != null) {
         this.child = section;
@@ -77,26 +78,6 @@ export class UserPageComponent implements OnInit {
       this.specialAdoptionRequest = -1;
   }
 
-  acceptAdoptionRequest(adoptionRequest: AdoptionRequest) {
-    adoptionRequest.status = 'ACCEPTED';
-    let notification = new Notification();
-    notification.fromUser = this.user.email;
-    notification.toUser = adoptionRequest.user.email;
-    notification.body = 'a rejeté votre demande d\'adoption';
-    notification.route = '/user_profile#adoptionRequests#' + adoptionRequest.id;
-    this.notifService.sendNotification(notification).subscribe();
-    this.adoptionService.acceptAdoptionRequest(adoptionRequest.id).subscribe();
-  }
-
-  rejectAdoptionRequest(adoptionRequest: any) {
-    adoptionRequest.status = 'REJECTED';
-    let notification = new Notification();
-    notification.fromUser = this.user.email;
-    notification.toUser = adoptionRequest.user.email;
-    notification.body = 'a accepté votre demande d\'adoption';
-    notification.route = '/user_profile#adoptionRequests#' + adoptionRequest.id;
-    this.notifService.sendNotification(notification).subscribe();
-    this.adoptionService.rejectAdoptionRequest(adoptionRequest.id).subscribe();
-  }
+  
 
 }

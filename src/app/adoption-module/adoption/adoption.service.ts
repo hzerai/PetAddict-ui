@@ -129,6 +129,12 @@ export class AdoptionService {
   rejectAdoptionRequest(id: number) {
     return this.http.post<AdoptionRequest>(this.adoptionRequestUrl + id + '/reject', this.options);
   }
+  cancelAdoptionRequest(id: number) {
+    return this.http.post<AdoptionRequest>(this.adoptionRequestUrl + id + '/cancel', this.options);
+  }
+  reopenAdoptionRequest(id: number) {
+    return this.http.post<AdoptionRequest>(this.adoptionRequestUrl + id + '/reopen', this.options);
+  }
 
 
   populateSuggestions(): string[] {
