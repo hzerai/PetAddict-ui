@@ -18,6 +18,7 @@ export class AdoptionDetailsComponent implements OnInit {
   adoption: Adoption = new Adoption();
   currentUserId: number;
   image: Image;
+  showAdoptionButton: boolean = true;
 
   constructor(private imageService: ImageService, private route: ActivatedRoute, private adoptionService: AdoptionService, private r: Router, private userService: UserService, private tokenService: TokenStorageService) { }
 
@@ -25,7 +26,7 @@ export class AdoptionDetailsComponent implements OnInit {
     let id = '';
     this.route.params.subscribe(next => id = next.id);
     this.adoptionService.getAdoptionById(id).subscribe(next => { this.adoption = next });
-    this.imageService.getImage(`ADOPTION-${id}`).subscribe(next => { this.image = next ; console.log(next)});
+    this.imageService.getImage(`ADOPTION-${id}`).subscribe(next => { this.image = next });
 
     this.getCurrentUser()
   }
@@ -51,6 +52,9 @@ export class AdoptionDetailsComponent implements OnInit {
     payload = window.atob(payload);
     let username = JSON.parse(payload).username;
     this.userService.getUserById(username).subscribe(next => {
+      if (next.adoptionRequests.find(a => a.adoption.id == this.adoption.id)) {
+        this.showAdoptionButton = false;
+      }
       this.currentUserId = next.id;
     })
   }

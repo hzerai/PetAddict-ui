@@ -37,12 +37,15 @@
                     <hr>
 
                     <br>
-                    <div *ngIf="!isOwner()" class="flex">
+                    <div *ngIf="!isOwner()  && showAdoptionButton" class="flex">
                         <p class="text-xs font-bold text-center text-black mt-3"><a href="/">Vous aimez cet animal? Vous
                                 pouvez commencer la
                                 procedure d'adoption dès maintenant !</a></p>
                     </div>
-                    <button *ngIf="!isOwner()" [routerLink]="['adopter']"
+                    <div *ngIf="!isOwner()  && !showAdoptionButton" class="flex">
+                        <p class="text-xs font-bold text-center text-black mt-3"><a href="/">Vous avez une demande d'adoption pour cet animal !</a></p>
+                    </div>
+                    <button *ngIf="!isOwner() && showAdoptionButton" [routerLink]="['adopter']"
                         class="place-self-center font-bold mt-2 text-white bg-blue-300 border-0 py-3 px-6 focus:outline-none hover:bg-indigo-600 rounded-lg text-lg">Adopter
                         moi</button>
                     <button *ngIf="isOwner()" [routerLink]="['edit']"
