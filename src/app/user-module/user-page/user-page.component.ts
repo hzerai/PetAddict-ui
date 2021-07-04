@@ -1,12 +1,7 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AdoptionRequest } from 'src/app/adoption-module/adoption-request/AdoptionRequest';
-import { AdoptionService } from 'src/app/adoption-module/adoption/adoption.service';
-import { ImageService } from 'src/app/images-module/image.service';
 import { Inbox } from '../messages-module/Inbox';
 import { MessageService } from '../messages-module/message.service';
-import { Notification } from '../notification-module/Notification';
-import { NotificationService } from '../notification-module/notification.service';
 import { User } from '../User';
 import { TokenStorageService } from '../_services/token-storage.service';
 import { UserService } from '../_services/user.service';
@@ -62,6 +57,23 @@ export class UserPageComponent implements OnInit {
       Object.assign(this.inbox, next);
       this.createContactList(this.inbox);
     })
+    this.sortAdoptions();
+  }
+
+  sortAdoptions() {
+    this.receivedAdoptionRequests?.sort((a, b) => {
+      if (a.updatedAt > b.updatedAt) {
+        return -1;
+      }
+      return 1;
+    })
+
+    this.user?.adoptionRequests.sort((a, b) => {
+      if (a.updatedAt > b.updatedAt) {
+        return -1;
+      }
+      return 1;
+    })
   }
   createContactList(inbox: Inbox) {
     Object.keys(inbox.messagesByUser).forEach((k) => {
@@ -78,6 +90,6 @@ export class UserPageComponent implements OnInit {
       this.specialAdoptionRequest = -1;
   }
 
-  
+
 
 }
