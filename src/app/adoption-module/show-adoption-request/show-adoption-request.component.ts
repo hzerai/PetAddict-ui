@@ -24,12 +24,11 @@ export class ShowAdoptionRequestComponent implements OnInit {
     let image;
     this.imageService.getImage('ADOPTION-' + adoptionRequest.adoption.id).subscribe(next => image = next);
     if (image == null) {
-      return 'https://classroomclipart.com/images/gallery/Clipart/Animals/TN_cute-small-baby-red-panda-animal-clipart.jpg';
+      return 'https://placedog.net/500/280?id=' + ( this.adoptionsRequest.adoption?.id > 200 ? this.adoptionsRequest.adoption?.id - 100 : this.adoptionsRequest.adoption?.id );
     } else {
       return image.bytes;
     }
   }
-
   getAdoptionRequestStatusColor(adoptionRequest: any): string {
     if (adoptionRequest.status == 'CREATED') {
       return 'yellow'

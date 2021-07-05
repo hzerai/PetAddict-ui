@@ -38,7 +38,6 @@ import { UserPageComponent } from './user-module/user-page/user-page.component';
 import { NotificationComponent } from './user-module/notification-module/notification/notification.component';
 import { ImageComponent } from './images-module/image/image.component';
 import { MatCarouselModule } from '@ngmodule/material-carousel';
-import { ReceivedAdoptionComponent } from './adoption-module/received-adoption/received-adoption.component';
 import { ShowAdoptionRequestComponent } from './adoption-module/show-adoption-request/show-adoption-request.component';
 import { ShowAdoptionRequestSentComponent } from './adoption-module/show-adoption-request-sent/show-adoption-request-sent.component';
 
@@ -74,10 +73,9 @@ import { ShowAdoptionRequestSentComponent } from './adoption-module/show-adoptio
     UserPageComponent,
     NotificationComponent,
     ImageComponent,
-    ReceivedAdoptionComponent,
     ShowAdoptionRequestComponent,
     ShowAdoptionRequestSentComponent,
-    
+
 
 
   ],

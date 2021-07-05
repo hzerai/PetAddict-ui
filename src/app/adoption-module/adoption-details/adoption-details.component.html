@@ -2,15 +2,13 @@
     <div class="container px-5 py-24 mx-auto">
         <div class="lg:w-4/5 mx-auto flex flex-wrap">
             <div class="lg:w-1/2 object-cover object-center ">
-                <img alt="animalPhoto" class="rounded-lg shadow w-full h-3/4"
-                    [src]="image?.bytes ? image.bytes : 'https://via.placeholder.com/640x480?text=Image+For+adoption+NEW'">
+                <img alt="animalPhoto" class="rounded-lg shadow w-full h-3/4" [src]="image?.bytes ? image.bytes : 'https://placedog.net/500/280?id=' + ( adoption?.id > 200 ? adoption?.id - 100 : adoption?.id )">
             </div>
             <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                 <h1 class="text-gray-900 text-3xl mb-3 leading-none">{{adoption?.title}}</h1>
 
                 <p class="leading-none text-gray-600 text-sm mb-1">{{adoption?.description}}</p>
-                <div
-                    class="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5 leading-relaxed text-xs font-medium title-font">
+                <div class="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5 leading-relaxed text-xs font-medium title-font">
                     <span class="mr-3">Publié le : {{adoption?.createdAt | date:'dd/MM/yyyy'}} par :<a
                             [routerLink]="['/visit_user_profile']" [queryParams]="{id: adoption?.user?.email}">
                             {{adoption?.user?.firstName != null ? adoption?.user?.firstName : 'anonyme'}}</a>
@@ -45,14 +43,11 @@
                     <div *ngIf="!isOwner()  && !showAdoptionButton" class="flex">
                         <p class="text-xs font-bold text-center text-black mt-3"><a href="/">Vous avez une demande d'adoption pour cet animal !</a></p>
                     </div>
-                    <button *ngIf="!isOwner() && showAdoptionButton" [routerLink]="['adopter']"
-                        class="place-self-center font-bold mt-2 text-white bg-blue-300 border-0 py-3 px-6 focus:outline-none hover:bg-indigo-600 rounded-lg text-lg">Adopter
+                    <button *ngIf="!isOwner() && showAdoptionButton" [routerLink]="['adopter']" class="place-self-center font-bold mt-2 text-white bg-blue-300 border-0 py-3 px-6 focus:outline-none hover:bg-indigo-600 rounded-lg text-lg">Adopter
                         moi</button>
-                    <button *ngIf="isOwner()" [routerLink]="['edit']"
-                        class="place-self-center font-bold mt-2 text-white bg-blue-300 border-0 py-3 px-6 focus:outline-none hover:bg-indigo-600 rounded-lg text-lg">Modifier
+                    <button *ngIf="isOwner()" [routerLink]="['edit']" class="place-self-center font-bold mt-2 text-white bg-blue-300 border-0 py-3 px-6 focus:outline-none hover:bg-indigo-600 rounded-lg text-lg">Modifier
                         la publication</button>
-                    <button backButton
-                        class="place-self-center mt-3 text-white bg-gray-300 border-0 py-1 px-2 focus:outline-none hover:bg-gray-600 rounded-lg text-sm font-bold">Retourner</button>
+                    <button backButton class="place-self-center mt-3 text-white bg-gray-300 border-0 py-1 px-2 focus:outline-none hover:bg-gray-600 rounded-lg text-sm font-bold">Retourner</button>
                 </div>
             </div>
         </div>

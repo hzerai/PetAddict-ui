@@ -4,16 +4,13 @@
             <section class="text-gray-600 body-font overflow-hidden">
                 <div class="container mx-auto">
                     <div class="lg:w-4/5 mx-auto flex flex-wrap">
-                        <img alt="animalPhoto"
-                            class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded-lg shadow"
-                            [src]="image?.bytes ? image.bytes : 'https://via.placeholder.com/640x480?text=Image+For+adoption+NEW'">
+                        <img alt="animalPhoto" class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded-lg shadow" [src]="image?.bytes ? image.bytes : 'https://placedog.net/500/280?id=' + ( adoption?.id > 200 ? adoption?.id - 100 : adoption?.id )">
                         <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                             <h2 class="text-sm title-font text-gray-500 tracking-widest">#{{adoption.animal.espece}}</h2>
                             <h1 class="text-gray-900 text-lg title-font font-medium mb-1">{{adoption.title}}</h1>
 
                             <p class="leading-relaxed text-gray-600 text-sm title-font font-small mb-1">{{adoption.description}}</p>
-                            <div
-                                class="mt-6 pb-5 border-b-2 border-gray-100 mb-5 leading-relaxed text-xs font-medium title-font">
+                            <div class="mt-6 pb-5 border-b-2 border-gray-100 mb-5 leading-relaxed text-xs font-medium title-font">
                                 <div class="">
                                     <span class="mr-3">Publié le : {{adoption.createdAt | date:'dd/MM/yyyy'}} 
                                        </span>
@@ -36,21 +33,16 @@
         </div>
         <div class="lg:w-2/6 md:w-1/2 bg-gray-100 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 shadow">
             <h2 class="text-gray-900 text-md mb-1 font-medium title-font">Adopter</h2>
-            <p class="leading-relaxed mb-5 text-gray-600">Pour commencer la procedure d'adoption, veillez saisir un
-                message pour le proprietaire actuel :
+            <p class="leading-relaxed mb-5 text-gray-600">Pour commencer la procedure d'adoption, veillez saisir un message pour le proprietaire actuel :
             </p>
             <div class="relative">
                 <label for="message" class="leading-7 text-sm text-gray-600">Message</label>
-                <textarea id="message" name="message" [(ngModel)]="messageBody" placeholder="tapez un message ..."
-                    class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
+                <textarea id="message" name="message" [(ngModel)]="messageBody" placeholder="tapez un message ..." class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
             </div>
-            <p class="text-xs text-gray-500 ">Une demande d'adoption sera créé. Vous receverez une notification dès
-                que le proprietaire consulte ta demande.</p>
-            <button (click)="envoyerDemande()"
-                class="mt-3 text-white bg-blue-300 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Envoyer</button>
+            <p class="text-xs text-gray-500 ">Une demande d'adoption sera créé. Vous receverez une notification dès que le proprietaire consulte ta demande.</p>
+            <button (click)="envoyerDemande()" class="mt-3 text-white bg-blue-300 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Envoyer</button>
 
-            <button backButton
-                class="place-self-center mt-3 text-white bg-gray-400 border-0 py-1 px-2 focus:outline-none hover:bg-gray-600 rounded-lg text-sm font-bold">Retourner</button>
+            <button backButton class="place-self-center mt-3 text-white bg-gray-400 border-0 py-1 px-2 focus:outline-none hover:bg-gray-600 rounded-lg text-sm font-bold">Retourner</button>
         </div>
     </div>
 </section>

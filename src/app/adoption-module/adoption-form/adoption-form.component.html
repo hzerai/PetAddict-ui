@@ -1,80 +1,69 @@
 <div class="flex  items-center justify-center  mt-10 mb-10">
-  <div class="grid rounded-lg bg-gray-100 w-11/12 md:w-9/12 lg:w-1/2 shadow">
+    <div class="grid rounded-lg bg-gray-100 w-11/12 md:w-9/12 lg:w-1/2 shadow">
 
 
-    <div class="flex justify-center mt-6 ">
-      <div class="flex">
-        <h1 class="text-gray-600 font-bold md:text-2xl text-xl">Publier une adoption</h1>
-      </div>
-    </div>
-    <form [formGroup]="adoptionForm" (ngSubmit)="onSubmit()">
-      <div class="grid grid-cols-1 mt-5 ml-10 mr-10">
-        <label class="md:text-sm text-xs text-gray-500 text-light font-semibold">Titre de l'annonce</label>
-        <input formControlName="title"
-          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-          type="text" placeholder="Titre de l'annonce" />
-      </div>
-      <div class="grid grid-cols-1 mt-5 ml-10 mr-10">
-        <label class="md:text-sm text-xs text-gray-500 text-light font-semibold">Description</label>
-        <textarea formControlName="description"
-          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-          type="text" placeholder="Description"></textarea>
-      </div>
-      <label class="md:text-sm text-xs text-gray-500 text-light font-semibold mt-5 ml-10 mr-10">Information sur
+        <div class="flex justify-center mt-6 ">
+            <div class="flex">
+                <h1 class="text-gray-600 font-bold md:text-2xl text-xl">Publier une adoption</h1>
+            </div>
+        </div>
+        <form [formGroup]="adoptionForm" (ngSubmit)="onSubmit()">
+            <div class="grid grid-cols-1 mt-5 ml-10 mr-10">
+                <label class="md:text-sm text-xs text-gray-500 text-light font-semibold">Titre de l'annonce</label>
+                <input formControlName="title" class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" type="text" placeholder="Titre de l'annonce"
+                />
+            </div>
+            <div class="grid grid-cols-1 mt-5 ml-10 mr-10">
+                <label class="md:text-sm text-xs text-gray-500 text-light font-semibold">Description</label>
+                <textarea formControlName="description" class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" type="text"
+                    placeholder="Description"></textarea>
+            </div>
+            <label class="md:text-sm text-xs text-gray-500 text-light font-semibold mt-5 ml-10 mr-10">Information sur
         l'animal</label>
-      <div class="grid grid-cols-2 gap-4 ml-10 mr-10">
+            <div class="grid grid-cols-2 gap-4 ml-10 mr-10">
 
-        <select formControlName="espece" (change)="onSelectBreed($event.target.value)"
-          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                <select formControlName="espece" (change)="onSelectBreed($event.target.value)" class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
           <option [ngValue]="null" [disabled]="true">Espèce</option>
           <option *ngFor="let animal of animals" [value]="animal">{{animal}}
           </option>
         </select>
 
-        <select formControlName="type"
-          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                <select formControlName="type" class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
           <option [ngValue]="null" [disabled]="true">Race</option>
           <option *ngFor="let b of breed" [value]="b">{{b}}
           </option>
         </select>
 
-        <select formControlName="sexe"
-          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                <select formControlName="sexe" class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
           <option [ngValue]="null" [disabled]="true">Sexe</option>
           <option *ngFor="let sexe of sexes" [value]="sexe">{{sexe}}
         </select>
 
-        <input formControlName="nom"
-          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-          type="text" placeholder="Nom" />
+                <input formControlName="nom" class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" type="text" placeholder="Nom"
+                />
 
 
-        <select formControlName="couleur"
-          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                <select formControlName="couleur" class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
           <option [ngValue]="null" [disabled]="true">Couleur</option>
           <option *ngFor="let c of colors" [value]="c">{{c}}
         </select>
 
 
-        <input formControlName="age"
-          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-          type="number" placeholder="Age" />
+                <input formControlName="age" class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" type="number" placeholder="Age"
+                />
 
-        <select formControlName="taille"
-          class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                <select formControlName="taille" class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
           <option [ngValue]="null" [disabled]="true">Taille</option>
           <option *ngFor="let t of tailles" [value]="t">{{t}}
         </select>
-      </div>
+            </div>
 
-      <div class="flex justify-center py-4">
-        <div class="flex ">
-          <app-image [default]="'https://via.placeholder.com/640x480?text=Image+For+adoption+NEW'"
-          #imageComponent   [model]="'ADOPTION'" [imageName]="imageName"
-          ></app-image>
-        </div>
-      </div>
-      <!-- <div class="grid grid-cols-1 mt-5 ml-10 mr-10">
+            <div class="flex justify-center py-4">
+                <div class="flex ">
+                    <app-image [default]="'https://via.placeholder.com/640x480?text=Image+For+adoption+NEW'" #imageComponent [model]="'ADOPTION'" [imageName]="imageName"></app-image>
+                </div>
+            </div>
+            <!-- <div class="grid grid-cols-1 mt-5 ml-10 mr-10">
         <label class="md:text-sm text-xs text-gray-500 text-light font-semibold mb-1">Importer des photos</label>
         <div class='flex items-center justify-center w-full'>
           <label
@@ -95,18 +84,15 @@
         </div>
       </div> -->
 
-      <div class='flex items-center justify-center  md:gap-8 gap-4 pt-5 pb-5'>
-        <a backButton
-          class='font-bold text-white bg-gray-500 border-0 py-3 px-8 focus:outline-none hover:bg-indigo-600 rounded-lg text-lg'>Retourner</a>
-        <button type="submit"
-          class='font-bold text-white bg-blue-300 border-0 py-3 px-8 focus:outline-none hover:bg-indigo-600 rounded-lg text-lg'>Sauvegarder</button>
-      </div>
-    </form>
-    <div *ngIf="adoption.id != null" class="grid justify-items-center mb-4">
-      <hr>
-      <br><button [routerLink]="['/adoptions/new']"
-        class="place-self-center font-bold mt-2 text-white bg-green-500 border-0 py-3 px-6 focus:outline-none hover:bg-indigo-600 rounded-lg text-lg">Publier
+            <div class='flex items-center justify-center  md:gap-8 gap-4 pt-5 pb-5'>
+                <a backButton class='font-bold text-white bg-gray-500 border-0 py-3 px-8 focus:outline-none hover:bg-indigo-600 rounded-lg text-lg'>Retourner</a>
+                <button type="submit" class='font-bold text-white bg-blue-300 border-0 py-3 px-8 focus:outline-none hover:bg-indigo-600 rounded-lg text-lg'>Sauvegarder</button>
+            </div>
+        </form>
+        <div *ngIf="adoption.id != null" class="grid justify-items-center mb-4">
+            <hr>
+            <br><button [routerLink]="['/adoptions/new']" class="place-self-center font-bold mt-2 text-white bg-green-500 border-0 py-3 px-6 focus:outline-none hover:bg-indigo-600 rounded-lg text-lg">Publier
         une nouvelle annonce</button>
+        </div>
     </div>
-  </div>
 </div>
