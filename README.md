@@ -18,4 +18,10 @@ then
 
 Run `.\remote.bat` 
 
+## Host on github pages
+install angular-cli-ghpages
+use your username instead of hzerai and you repository insteadof PetAddict-ui
+ng build --prod --base-href "https://hzerai.github.io/PetAddict-ui/"
+npx angular-cli-ghpages --dir  dist/front --repo  "https://github.com/hzerai/PetAddict-ui"
+
 
