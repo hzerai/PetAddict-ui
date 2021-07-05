@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NotifierService } from 'angular-notifier';
 import { Inbox } from '../messages-module/Inbox';
 import { MessageService } from '../messages-module/message.service';
 import { User } from '../User';
@@ -15,13 +16,16 @@ import { UserService } from '../_services/user.service';
   styleUrls: ['./user-page.component.css']
 })
 export class UserPageComponent implements OnInit {
+  private readonly notifier: NotifierService;
 
   child: string = 'profile';
   receivedAdoptionRequests: any[] = [];
   specialAdoptionRequest = -1;
   specialAdoptionRequestSender = -1;
   cameFromNotif = false;
-  constructor(private _eref: ElementRef, private route: ActivatedRoute, private messages: MessageService, private tokenStorageService: TokenStorageService, private userService: UserService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private _eref: ElementRef, private route: ActivatedRoute, private messages: MessageService, private tokenStorageService: TokenStorageService, private userService: UserService, private activatedRoute: ActivatedRoute, private router: Router, notifierService: NotifierService) {
+    this.notifier = notifierService;
+  }
   user: User;
   inbox: Inbox = new Inbox();
   contacts: User[] = [];
@@ -58,6 +62,7 @@ export class UserPageComponent implements OnInit {
       this.createContactList(this.inbox);
     })
     this.sortAdoptions();
+    this.streamNewMessages();
   }
 
   sortAdoptions() {
@@ -85,11 +90,37 @@ export class UserPageComponent implements OnInit {
       this.userService.getUserById(k).subscribe(next => this.contacts.push(next))
     })
   }
+
+
   onClick(event) {
     if (this._eref.nativeElement.contains(event.target))
       this.specialAdoptionRequest = -1;
   }
 
+  getFromUser(email: string): string {
+    let userName = '';
+    this.userService.getUserById(email).subscribe(u => userName = `${u.firstName} ${u.lastName}`)
+    return userName;
+  }
 
+  streamNewMessages() {
+    setTimeout(() => {
+      if (this.user)
+        this.messages.messagesStream(this.user?.email).subscribe(next => {
+          if (next) {
+            console.log(next)
+            this.unreadMessages = this.unreadMessages + next.length;
+            next.forEach(message => {
+              if (!this.inbox.messagesByUser[message.fromUser]) {
+                this.inbox.messagesByUser[message.fromUser] = [];
+              }
+              this.notifier.notify('default', this.getFromUser(message.fromUser) + ' : ' + message.body);
+              this.inbox.messagesByUser[message.fromUser].unshift(message);
+            });
+          }
+        })
+      this.streamNewMessages();
+    }, 2000);
+  }
 
 }

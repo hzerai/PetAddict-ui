@@ -27,6 +27,10 @@ export class MessageService {
   getNewMessages(): Observable<any> {
     return this.http.put<any>(this.inboxUrl, null, this.options);
   }
+
+  messagesStream(email): Observable<any> {
+    return this.http.get<any>(this.inboxUrl + '/' + email +'/new');
+  }
   sendMessage(message: Message): Observable<Message> {
     return this.http.post<Message>(this.inboxUrl, message, this.options);
   }

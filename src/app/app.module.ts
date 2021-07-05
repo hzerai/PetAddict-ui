@@ -40,8 +40,51 @@ import { ImageComponent } from './images-module/image/image.component';
 import { MatCarouselModule } from '@ngmodule/material-carousel';
 import { ShowAdoptionRequestComponent } from './adoption-module/show-adoption-request/show-adoption-request.component';
 import { ShowAdoptionRequestSentComponent } from './adoption-module/show-adoption-request-sent/show-adoption-request-sent.component';
+import { NotifierModule, NotifierOptions } from 'angular-notifier';
 
-
+/**
+ * Custom angular notifier options
+ */
+ const customNotifierOptions: NotifierOptions = {
+  position: {
+		horizontal: {
+			position: 'left',
+			distance: 12
+		},
+		vertical: {
+			position: 'bottom',
+			distance: 12,
+			gap: 10
+		}
+	},
+  theme: 'material',
+  behaviour: {
+    autoHide: 10000,
+    onClick: 'hide',
+    onMouseover: 'pauseAutoHide',
+    showDismissButton: true,
+    stacking: 4
+  },
+  animations: {
+    enabled: true,
+    show: {
+      preset: 'slide',
+      speed: 300,
+      easing: 'ease'
+    },
+    hide: {
+      preset: 'fade',
+      speed: 300,
+      easing: 'ease',
+      offset: 50
+    },
+    shift: {
+      speed: 300,
+      easing: 'ease'
+    },
+    overlap: 150
+  }
+};
 @NgModule({
   declarations: [
     AppComponent,
@@ -87,6 +130,7 @@ import { ShowAdoptionRequestSentComponent } from './adoption-module/show-adoptio
     ReactiveFormsModule,
     FormsModule,
     MatCarouselModule.forRoot(),
+    NotifierModule.withConfig(customNotifierOptions)
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

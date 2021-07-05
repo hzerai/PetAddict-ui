@@ -20,6 +20,10 @@ export class NotificationService {
     return this.http.get<Notification[]>(this.notificationUrl, this.options);
   }
 
+  notificationsStream(id): Observable<Notification[]> {
+    return this.http.get<Notification[]>(this.notificationUrl + '/' + id + '/new');
+  }
+
   sendNotification(notification: Notification): Observable<Notification> {
     return this.http.post<Notification>(this.notificationUrl, notification, this.options);
   }
