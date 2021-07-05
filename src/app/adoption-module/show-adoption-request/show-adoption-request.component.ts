@@ -45,7 +45,7 @@ export class ShowAdoptionRequestComponent implements OnInit {
     let notification = new Notification();
     notification.fromUser = this.user.email;
     notification.toUser = adoptionRequest.user.email;
-    notification.body = 'a rejeté votre demande d\'adoption';
+    notification.body = 'a accepté votre demande d\'adoption';
     notification.route = '/user_profile#adoptionRequests#' + adoptionRequest.id;
     this.notifService.sendNotification(notification).subscribe();
     this.adoptionService.acceptAdoptionRequest(adoptionRequest.id).subscribe();
@@ -56,7 +56,7 @@ export class ShowAdoptionRequestComponent implements OnInit {
     let notification = new Notification();
     notification.fromUser = this.user.email;
     notification.toUser = adoptionRequest.user.email;
-    notification.body = 'a accepté votre demande d\'adoption';
+    notification.body = 'a rejeté votre demande d\'adoption';
     notification.route = '/user_profile#adoptionRequests#' + adoptionRequest.id;
     this.notifService.sendNotification(notification).subscribe();
     this.adoptionService.rejectAdoptionRequest(adoptionRequest.id).subscribe();

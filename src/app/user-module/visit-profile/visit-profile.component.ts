@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Image } from 'src/app/images-module/Image';
+import { ImageService } from 'src/app/images-module/image.service';
 import { Message } from '../messages-module/Message';
 import { MessageService } from '../messages-module/message.service';
 import { User } from '../User';
@@ -16,8 +18,10 @@ export class VisitProfileComponent implements OnInit {
   user: User;
   messageBody: string = '';
   showMessageform: boolean = false;
+  image: Image;
 
-  constructor(private messages: MessageService, private activatedRoute: ActivatedRoute, private userService: UserService, private tokenService: TokenStorageService, private route: Router) { }
+
+  constructor(private imageService: ImageService, private messages: MessageService, private activatedRoute: ActivatedRoute, private userService: UserService, private tokenService: TokenStorageService, private route: Router) { }
 
   ngOnInit(): void {
     let id;
@@ -25,7 +29,11 @@ export class VisitProfileComponent implements OnInit {
     if (id == this.tokenService.getUser()) {
       this.route.navigate(['/user_profile']);
     } else {
-      this.userService.getUserById(id).subscribe(next => this.user = next)
+      this.userService.getUserById(id).subscribe(next => {
+        this.user = next;
+        this.imageService.getImage('USER-' + next.id).subscribe(next => this.image = next);
+
+      })
     }
     this.getCurrentUser()
   }
