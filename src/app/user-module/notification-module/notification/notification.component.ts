@@ -29,7 +29,6 @@ export class NotificationComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.ws.watch('notifications' + this.currentUserName).subscribe(next => {
       let notif: Notification = JSON.parse(next.body);
-      console.log(notif)
       this.unreadNotif++;
       if (notif.body.includes('acc')) {
         this.notifier.notify('success', this.getFromUser(notif.fromUser) + ' a ' + notif.body);
@@ -68,10 +67,11 @@ export class NotificationComponent implements OnInit, AfterViewInit {
     this.dropdownOpen = !this.dropdownOpen;
     this.unreadNotif = 0;
     this.notifications.forEach(n => {
-      if (!n.id) {
+      if (!n.id || n.vu) {
         return;
       }
       this.notificationService.readNotification(n.id).subscribe();
+      n.vu = true;
     })
   }
 
