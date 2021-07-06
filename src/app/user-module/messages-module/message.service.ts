@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Inbox } from './Inbox';
 import { Message } from './Message';
 import { WebSocketService } from 'src/app/WebSockets/web-socket.service';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -17,7 +18,7 @@ export class MessageService {
     responseType: 'json' as const,
   };
 
-  private inboxUrl = "http://localhost:8000/api/inbox";
+  private inboxUrl = environment.backUrl + "/inbox";
 
   constructor(private http: HttpClient, private ws: WebSocketService) {
   }

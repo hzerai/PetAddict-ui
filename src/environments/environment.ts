@@ -3,7 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  backUrl: "http://localhost:8000/api",
+  rabbitMq : 'ws://localhost:15674/ws/',
+  rabbitMqUser : 'guest',
+  rabbitMqPassword : 'guest'
 };
 
 /*

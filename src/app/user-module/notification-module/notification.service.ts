@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { WebSocketService } from 'src/app/WebSockets/web-socket.service';
+import { environment } from 'src/environments/environment';
 import { Notification } from './Notification';
 
 @Injectable({
@@ -12,7 +13,7 @@ export class NotificationService {
     responseType: 'json' as const,
   };
 
-  private notificationUrl = "http://localhost:8000/api/notification";
+  private notificationUrl = environment.backUrl + "/notification";
 
   constructor(private ws: WebSocketService, private http: HttpClient) {
   }

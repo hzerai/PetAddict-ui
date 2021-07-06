@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Animal } from './Animal';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -9,7 +10,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 })
 export class AnimalService {
   private static cache: AnimalCacheService;
-  private animalUrl = "http://localhost:8000/api/animal";
+  private animalUrl = environment.backUrl + "/animal";
 
   constructor(private http: HttpClient) {
     AnimalService.cache = new AnimalCacheService();

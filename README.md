@@ -10,6 +10,10 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
+# Setup RabbitMQ server for real time interactions
+
+docker run -d -p 15672:15672 -p 5672:5672 -p 15674:15674 --name rabbitmq --rm crochik/rabbitmq:3.7-stomp
+
 ## Host on a virtual server
 
 eanble cors in symfony by uncommenting the cros line in index.php file

@@ -11,6 +11,7 @@ import { CatBreed } from 'src/app/interface-module/filter/CatBreed';
 import { HorseBreed } from 'src/app/interface-module/filter/HorseBreed';
 import { Tailles } from 'src/app/interface-module/filter/Tailles';
 import { Colors } from 'src/app/interface-module/filter/Colors';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -24,8 +25,8 @@ export class AdoptionService {
   options = {
     responseType: 'json' as const,
   };
-  private adoptionUrl = "http://localhost:8000/api/adoption";
-  private adoptionRequestUrl = "http://localhost:8000/api/adoptionRequest/";
+  private adoptionUrl = environment.backUrl + "/adoption";
+  private adoptionRequestUrl = environment.backUrl + "/adoptionRequest/";
   constructor(private http: HttpClient) {
     AdoptionService.cache = new AdoptionCacheService();
     this.getAdoptions().subscribe(next => AdoptionService.cache.cacheAll(next));

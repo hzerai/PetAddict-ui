@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Image } from './Image';
-const API_URL = 'http://localhost:8000/api/image/';
+const API_URL = environment.backUrl + '/image/';
 
 @Injectable({
   providedIn: 'root'

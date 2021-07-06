@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class VillesService {
 
   constructor(private http: HttpClient) {
     if (VillesService.villes == null) {
-      this.http.get<Ville[]>('http://localhost:8000/api/villes').subscribe(next => VillesService.villes = next);
+      this.http.get<Ville[]>(environment.backUrl + '/villes').subscribe(next => VillesService.villes = next);
     }
   }
 }
