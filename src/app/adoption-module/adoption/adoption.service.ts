@@ -12,6 +12,8 @@ import { HorseBreed } from 'src/app/interface-module/filter/HorseBreed';
 import { Tailles } from 'src/app/interface-module/filter/Tailles';
 import { Colors } from 'src/app/interface-module/filter/Colors';
 import { environment } from 'src/environments/environment';
+import { WebSocketService } from 'src/app/WebSockets/web-socket.service';
+import { UserService } from 'src/app/user-module/_services/user.service';
 
 
 @Injectable({
@@ -27,10 +29,48 @@ export class AdoptionService {
   };
   private adoptionUrl = environment.backUrl + "/adoption";
   private adoptionRequestUrl = environment.backUrl + "/adoptionRequest/";
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private ws: WebSocketService) {
     AdoptionService.cache = new AdoptionCacheService();
     this.getAdoptions().subscribe(next => AdoptionService.cache.cacheAll(next));
     AdoptionService.suggestions = this.populateSuggestions()
+    this.ws.watch('adoptionRequest').subscribe(msg => {
+      let ar: AdoptionRequest = JSON.parse(msg.body);
+      let adoptionId = ar.adoption.id;
+      let fromuser = ar.createdBy;
+      let toUser = ar.adoption.createdBy;
+      let fr = UserService.cache.get(fromuser).adoptionRequests.find(r => r.id === ar.id);
+      if (fr) {
+        fr = ar;
+      } else {
+        UserService.cache.get(fromuser).adoptionRequests.unshift(ar)
+      }
+
+      let fr2 = UserService.cache.get(fromuser).adoptionRequests.find(r => r.id === ar.id);
+      if (fr) {
+        fr2 = ar;
+      } else {
+        AdoptionService.cache.get(adoptionId).adoptionRequests.unshift(ar)
+      }
+
+      let fr3 = UserService.cache.get(toUser).adoptions.find(a => a.id = adoptionId).adoptionRequests.find(r => r.id === ar.id);
+      if (fr) {
+        fr3 = ar;
+      } else {
+        UserService.cache.get(toUser).adoptions.find(a => a.id = adoptionId).adoptionRequests.unshift(ar)
+      }
+    })
+
+    this.ws.watch('adoptions').subscribe(msg => {
+      let adoption: Adoption = JSON.parse(msg.body);
+      let creator = adoption.createdBy;
+      let fa = UserService.cache.get(creator).adoptions.find(r => r.id === adoption.id);
+      if (fa) {
+        fa = adoption;
+      } else {
+        UserService.cache.get(creator).adoptions.unshift(adoption)
+      }
+      AdoptionService.cache.cache(adoption)
+    })
   }
 
 

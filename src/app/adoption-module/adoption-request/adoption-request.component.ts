@@ -10,6 +10,7 @@ import { NotificationService } from 'src/app/user-module/notification-module/not
 import { User } from 'src/app/user-module/User';
 import { TokenStorageService } from 'src/app/user-module/_services/token-storage.service';
 import { UserService } from 'src/app/user-module/_services/user.service';
+import { WebSocketService } from 'src/app/WebSockets/web-socket.service';
 import { Adoption } from '../adoption/Adoption';
 import { AdoptionService } from '../adoption/adoption.service';
 @Component({
@@ -22,7 +23,7 @@ export class AdoptionRequestComponent implements OnInit {
   currentUser: User;
   messageBody: string = '';
   image: Image;
-  constructor(private imageService: ImageService, private location: Location, private notifService: NotificationService, private messages: MessageService, private route: ActivatedRoute, private adoptionService: AdoptionService, private r: Router, private userService: UserService, private tokenService: TokenStorageService) { }
+  constructor(private ws: WebSocketService, private imageService: ImageService, private location: Location, private notifService: NotificationService, private messages: MessageService, private route: ActivatedRoute, private adoptionService: AdoptionService, private r: Router, private userService: UserService, private tokenService: TokenStorageService) { }
 
   ngOnInit(): void {
     let id = '';
@@ -61,13 +62,11 @@ export class AdoptionRequestComponent implements OnInit {
     notification.toUser = this.adoption.user.email;
     notification.body = 'vous a envoyé une demande d\'adoption';
     notification.route = '/user_profile#RadoptionRequests#' + this.adoption.id + '#' + this.currentUser.id;
-    this.notifService.sendNotification(notification).subscribe(next => { })
+    this.notifService.sendNotification(notification).subscribe()
 
     this.adoptionService.createAdoptionRequest(this.adoption.id, this.currentUser.email).subscribe(next => {
-      UserService.cache.get(this.currentUser.email).adoptionRequests.push(next)
-      AdoptionService.cache.get(this.adoption.id).adoptionRequests.push(next)
-      UserService.cache.get(this.adoption.user.email).adoptions.find(a => a.id = this.adoption.id).adoptionRequests.push(next)
+      this.ws.push(next, 'adoptionRequest');
     });
-    this.location.back();
+    this.r.navigate(['/adoptions/' + this.adoption.id])
   }
 }

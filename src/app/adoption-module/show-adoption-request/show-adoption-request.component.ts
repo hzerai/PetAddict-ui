@@ -3,6 +3,7 @@ import { ImageService } from 'src/app/images-module/image.service';
 import { Notification } from 'src/app/user-module/notification-module/Notification';
 import { NotificationService } from 'src/app/user-module/notification-module/notification.service';
 import { User } from 'src/app/user-module/User';
+import { WebSocketService } from 'src/app/WebSockets/web-socket.service';
 import { AdoptionRequest } from '../adoption-request/AdoptionRequest';
 import { AdoptionService } from '../adoption/adoption.service';
 
@@ -15,7 +16,7 @@ export class ShowAdoptionRequestComponent implements OnInit {
 
   @Input() adoptionsRequest: any;
   @Input() user: User;
-  constructor(private imageService: ImageService, private notifService: NotificationService, private adoptionService: AdoptionService) { }
+  constructor(private ws: WebSocketService, private imageService: ImageService, private notifService: NotificationService, private adoptionService: AdoptionService) { }
 
   ngOnInit(): void {
     this.adoptionsRequest.show = false;
@@ -24,7 +25,7 @@ export class ShowAdoptionRequestComponent implements OnInit {
     let image;
     this.imageService.getImage('ADOPTION-' + adoptionRequest.adoption.id).subscribe(next => image = next);
     if (image == null) {
-      return 'https://placedog.net/500/280?id=' + ( this.adoptionsRequest.adoption?.id > 200 ? this.adoptionsRequest.adoption?.id - 100 : this.adoptionsRequest.adoption?.id );
+      return 'https://placedog.net/500/280?id=' + (this.adoptionsRequest.adoption?.id > 200 ? this.adoptionsRequest.adoption?.id - 100 : this.adoptionsRequest.adoption?.id);
     } else {
       return image.bytes;
     }
@@ -34,7 +35,7 @@ export class ShowAdoptionRequestComponent implements OnInit {
       return 'yellow'
     } else if (adoptionRequest.status == 'REJECTED') {
       return 'red'
-    } else if(adoptionRequest.status == 'CANCELED') {
+    } else if (adoptionRequest.status == 'CANCELED') {
       return 'gray';
     } else {
       return 'green'
@@ -48,7 +49,9 @@ export class ShowAdoptionRequestComponent implements OnInit {
     notification.body = 'a accepté votre demande d\'adoption';
     notification.route = '/user_profile#adoptionRequests#' + adoptionRequest.id;
     this.notifService.sendNotification(notification).subscribe();
-    this.adoptionService.acceptAdoptionRequest(adoptionRequest.id).subscribe();
+    this.adoptionService.acceptAdoptionRequest(adoptionRequest.id).subscribe(next => {
+      this.ws.push(next, 'adoptionRequest');
+    });
   }
 
   rejectAdoptionRequest(adoptionRequest: any) {
@@ -59,6 +62,8 @@ export class ShowAdoptionRequestComponent implements OnInit {
     notification.body = 'a rejeté votre demande d\'adoption';
     notification.route = '/user_profile#adoptionRequests#' + adoptionRequest.id;
     this.notifService.sendNotification(notification).subscribe();
-    this.adoptionService.rejectAdoptionRequest(adoptionRequest.id).subscribe();
+    this.adoptionService.rejectAdoptionRequest(adoptionRequest.id).subscribe(next => {
+      this.ws.push(next, 'adoptionRequest');
+    });
   }
 }

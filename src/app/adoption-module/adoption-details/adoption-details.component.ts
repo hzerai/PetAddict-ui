@@ -17,12 +17,23 @@ import { AdoptionService } from '../adoption/adoption.service';
 export class AdoptionDetailsComponent implements OnInit {
   adoption: Adoption = new Adoption();
   currentUserId: number;
+  username: string;
   image: Image;
   showAdoptionButton: boolean = true;
 
   constructor(private imageService: ImageService, private route: ActivatedRoute, private adoptionService: AdoptionService, private r: Router, private userService: UserService, private tokenService: TokenStorageService) { }
 
   ngOnInit(): void {
+
+    const token = this.tokenService.getToken();
+    if (token == null) {
+      return;
+    }
+    let payload;
+    payload = token.split(".")[1];
+    payload = window.atob(payload);
+    this.username = JSON.parse(payload).username;
+
     let id = '';
     this.route.params.subscribe(next => id = next.id);
     this.adoptionService.getAdoptionById(id).subscribe(next => { this.adoption = next });
@@ -39,24 +50,13 @@ export class AdoptionDetailsComponent implements OnInit {
   }
 
   isOwner(): boolean {
-    return this.currentUserId == this.adoption?.user?.id;
+    return this.username === this.adoption.createdBy;
   }
 
   getCurrentUser() {
-    const token = this.tokenService.getToken();
-    if (token == null) {
-      return;
-    }
-    let payload;
-    payload = token.split(".")[1];
-    payload = window.atob(payload);
-    let username = JSON.parse(payload).username;
-    this.userService.getUserById(username).subscribe(next => {
-      if (next.adoptionRequests.find(a => a.adoption.id == this.adoption.id)) {
-        this.showAdoptionButton = false;
-      }
-      this.currentUserId = next.id;
-    })
+    if (this.adoption.adoptionRequests.find(a => a.user.username == this.username))
+      this.showAdoptionButton = false;
+    return this.username;
   }
 
 }

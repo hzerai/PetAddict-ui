@@ -41,7 +41,7 @@
                                 procedure d'adoption dès maintenant !</a></p>
                     </div>
                     <div *ngIf="!isOwner()  && !showAdoptionButton" class="flex">
-                        <p class="text-xs font-bold text-center text-black mt-3"><a href="/">Vous avez une demande d'adoption pour cet animal !</a></p>
+                        <p class="text-xs font-bold text-center text-black mt-3">Vous avez une demande d'adoption pour cet animal !</p>
                     </div>
                     <button *ngIf="!isOwner() && showAdoptionButton" [routerLink]="['adopter']" class="place-self-center font-bold mt-2 text-white bg-blue-300 border-0 py-3 px-6 focus:outline-none hover:bg-indigo-600 rounded-lg text-lg">Adopter
                         moi</button>
