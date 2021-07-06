@@ -8,10 +8,19 @@ import { Message } from '@stomp/stompjs';
 })
 export class WebSocketService {
 
+  subscriptions: [] = []
+
   constructor(private rxStompService: RxStompService) { }
 
   public watch(topic: string): Observable<Message> {
     return this.rxStompService.watch('/topic/' + topic.replace(/[^a-zA-Z0-9 ]/g, ""));
+  }
+
+  public subscribe(topic: string, next?: (value: Message) => void) {
+    if (this.subscriptions[topic]) {
+      return;
+    }
+    this.subscriptions[topic] = this.rxStompService.watch('/topic/' + topic.replace(/[^a-zA-Z0-9 ]/g, "")).subscribe(next);
   }
 
   public push(obj: any, topic: string) {

@@ -69,7 +69,6 @@ const customNotifierOptions: NotifierOptions = {
     onClick: 'hide',
     onMouseover: 'pauseAutoHide',
     showDismissButton: true,
-    stacking: 4
   },
   animations: {
     enabled: true,

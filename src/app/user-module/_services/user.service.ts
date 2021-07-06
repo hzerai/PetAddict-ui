@@ -21,6 +21,7 @@ export class UserService {
   }
 
   getUserById(id: string): Observable<User> {
+    console.log(UserService.cache.has(id))
     return UserService.cache.has(id) ? of(UserService.cache.get(id)) : this.http.get<User>(API_URL + 'user_by_email/' + id);
   }
 
@@ -48,7 +49,10 @@ class UserCacheService {
   }
 
   cacheAll(users: User[]): void {
-    users.forEach(user => this.users.set(user.username, user))
+    users.forEach(user => {
+      if (!this.users.has(user.username))
+        this.users.set(user.username, user)
+    })
   }
 
   has(email: string): boolean {

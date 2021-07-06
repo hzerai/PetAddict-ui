@@ -15,10 +15,10 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   isLoggedIn = false;
   user?: User;
-  navbarheight=0;
+  navbarheight = 0;
   image: Image;
-  userName : string;
-  constructor(private imageService: ImageService,private tokenStorageService: TokenStorageService, private userService: UserService,public router: Router) { }
+  userName: string;
+  constructor(private imageService: ImageService, private tokenStorageService: TokenStorageService, private userService: UserService, public router: Router) { }
 
   ngOnInit(): void {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
@@ -29,10 +29,11 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       payload = window.atob(payload);
       this.userName = JSON.parse(payload).username;
       this.userService.getUserById(JSON.parse(payload).username).subscribe(next => {
+        UserService.cache.cache(next);
         this.user = next;
         this.imageService.getImage(`USER-${next.id}`).subscribe(next => { this.image = next });
       });
-     
+
     }
   }
 
@@ -45,7 +46,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   @ViewChild("popoverDropdownRef", { static: false }) popoverDropdownRef: ElementRef;
   @ViewChild("navbar", { static: false }) navbar: ElementRef;
   ngAfterViewInit() {
-    this.navbarheight=this.navbar.nativeElement.clientHeight+30;
+    this.navbarheight = this.navbar.nativeElement.clientHeight + 30;
 
     createPopper(
       this.btnDropdownRef?.nativeElement,

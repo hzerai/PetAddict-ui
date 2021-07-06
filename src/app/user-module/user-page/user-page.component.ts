@@ -1,3 +1,4 @@
+import { AfterViewInit } from '@angular/core';
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotifierService } from 'angular-notifier';
@@ -17,21 +18,36 @@ import { UserService } from '../_services/user.service';
   templateUrl: './user-page.component.html',
   styleUrls: ['./user-page.component.css']
 })
-export class UserPageComponent implements OnInit {
-  private readonly notifier: NotifierService;
+export class UserPageComponent implements OnInit, AfterViewInit {
 
+  private readonly notifier: NotifierService;
   child: string = 'profile';
   receivedAdoptionRequests: any[] = [];
   specialAdoptionRequest = -1;
   specialAdoptionRequestSender = -1;
   cameFromNotif = false;
-  constructor(private ws: WebSocketService, private _eref: ElementRef, private route: ActivatedRoute, private messages: MessageService, private tokenStorageService: TokenStorageService, private userService: UserService, private activatedRoute: ActivatedRoute, private router: Router, notifierService: NotifierService) {
-    this.notifier = notifierService;
-  }
+  username: string;
   user: User;
   inbox: Inbox = new Inbox();
   contacts: User[] = [];
   unreadMessages: number = 0;
+
+  constructor(private ws: WebSocketService, private _eref: ElementRef, private route: ActivatedRoute, private messages: MessageService, private tokenStorageService: TokenStorageService, private userService: UserService, private activatedRoute: ActivatedRoute, private router: Router, notifierService: NotifierService) {
+    this.notifier = notifierService;
+  }
+
+  ngAfterViewInit(): void {
+    this.ws.subscribe('messages' + this.username, next => {
+      let message: Message = JSON.parse(next.body);
+      if (!this.inbox.messagesByUser[message.fromUser]) {
+        this.inbox.messagesByUser[message.fromUser] = [];
+      }
+      this.notifier.notify('default', this.getFromUser(message.fromUser) + ' : ' + message.body);
+      this.inbox.messagesByUser[message.fromUser].unshift(message);
+    });
+  }
+
+
   ngOnInit(): void {
     let id;
     let u;
@@ -54,8 +70,8 @@ export class UserPageComponent implements OnInit {
     let payload;
     payload = token.split(".")[1];
     payload = window.atob(payload);
-    let username = JSON.parse(payload).username;
-    this.userService.getUserById(username).subscribe(next => {
+    this.username = JSON.parse(payload).username;
+    this.userService.getUserById(this.username).subscribe(next => {
       next.adoptions.forEach(a => a.adoptionRequests.forEach(r => { r.adoption = a; let m: any = r; m.show = false; this.receivedAdoptionRequests.push(m) }))
       this.user = next;
     })
@@ -64,14 +80,6 @@ export class UserPageComponent implements OnInit {
       this.createContactList(this.inbox);
     })
     this.sortAdoptions();
-    this.ws.watch('messages' + username).subscribe(next => {
-      let message: Message = JSON.parse(next.body);
-      if (!this.inbox.messagesByUser[message.fromUser]) {
-        this.inbox.messagesByUser[message.fromUser] = [];
-      }
-      this.notifier.notify('default', this.getFromUser(message.fromUser) + ' : ' + message.body);
-      this.inbox.messagesByUser[message.fromUser].unshift(message);
-    });
   }
 
   sortAdoptions() {
@@ -89,6 +97,7 @@ export class UserPageComponent implements OnInit {
       return 1;
     })
   }
+
   createContactList(inbox: Inbox) {
     Object.keys(inbox.messagesByUser).forEach((k) => {
       inbox.messagesByUser[k].forEach(m => {

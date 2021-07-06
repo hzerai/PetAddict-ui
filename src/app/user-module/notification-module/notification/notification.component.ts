@@ -27,7 +27,7 @@ export class NotificationComponent implements OnInit, AfterViewInit {
 
   }
   ngAfterViewInit(): void {
-    this.ws.watch('notifications' + this.currentUserName).subscribe(next => {
+    this.ws.subscribe('notifications' + this.currentUserName, next => {
       let notif: Notification = JSON.parse(next.body);
       this.unreadNotif++;
       if (notif.body.includes('acc')) {
