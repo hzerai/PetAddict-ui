@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Inbox } from './Inbox';
 import { Message } from './Message';
+import { WebSocketService } from 'src/app/WebSockets/web-socket.service';
 
 
 
@@ -18,7 +19,7 @@ export class MessageService {
 
   private inboxUrl = "http://localhost:8000/api/inbox";
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private ws: WebSocketService) {
   }
 
   getAllMessages(): Observable<Inbox> {
@@ -28,14 +29,15 @@ export class MessageService {
     return this.http.put<any>(this.inboxUrl, null, this.options);
   }
 
-  messagesStream(email): Observable<any> {
-    return this.http.get<any>(this.inboxUrl + '/' + email +'/new');
-  }
   sendMessage(message: Message): Observable<Message> {
+    this.ws.push(message, 'messages' + message.toUser);
     return this.http.post<Message>(this.inboxUrl, message, this.options);
   }
 
   readMessage(id): Observable<any> {
+    if(!id){
+      return;
+    }
     return this.http.post<any>(this.inboxUrl + '/' + id + '/read', null, this.options);
   }
 

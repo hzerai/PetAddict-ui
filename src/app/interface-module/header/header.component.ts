@@ -17,6 +17,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   user?: User;
   navbarheight=0;
   image: Image;
+  userName : string;
   constructor(private imageService: ImageService,private tokenStorageService: TokenStorageService, private userService: UserService,public router: Router) { }
 
   ngOnInit(): void {
@@ -26,6 +27,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       let payload;
       payload = token.split(".")[1];
       payload = window.atob(payload);
+      this.userName = JSON.parse(payload).username;
       this.userService.getUserById(JSON.parse(payload).username).subscribe(next => {
         this.user = next;
         this.imageService.getImage(`USER-${next.id}`).subscribe(next => { this.image = next });

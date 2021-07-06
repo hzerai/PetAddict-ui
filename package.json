@@ -23,6 +23,7 @@
     "@angular/router": "~10.1.1",
     "@ngmodule/material-carousel": "^0.6.0",
     "@popperjs/core": "^2.9.2",
+    "@stomp/ng2-stompjs": "^8.0.0",
     "angular-notifier": "^9.0.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",

@@ -46,17 +46,17 @@
         <main class="flex-1 overflow-y-auto hide-scroll">
             <app-user-profile *ngIf="child=='profile'"></app-user-profile>
             <app-inbox *ngIf="child=='inbox'" [contacts]="contacts" [inbox]="inbox" [currentUser]="user"></app-inbox>
-            <div class="flex flex-wrap p-10 overflow-y-auto hide-scroll" *ngIf="child=='adoptions'">
+            <div style="height: 90%" class="flex flex-wrap p-10 overflow-y-auto hide-scroll" *ngIf="child=='adoptions'">
                 <app-adoption *ngFor="let adoption of user.adoptions" [adoption]="adoption" class="lg:w-1/2 sm:w-1/2 p-4 hover:rounded cursor-pointer hover:shadow">
                 </app-adoption>
             </div>
-            <div class="flex flex-wrap p-10 overflow-y-auto hide-scroll" *ngIf="child=='adoptionRequests'">
+            <div style="height: 90%" class="flex-wrap p-10 overflow-y-auto hide-scroll" *ngIf="child=='adoptionRequests'">
                 <div *ngFor="let adoptionsRequest of user?.adoptionRequests" (click)="adoptionsRequest.show = !adoptionsRequest.show" [ngClass]="{'animate-bounce bg-red-200': specialAdoptionRequest == adoptionsRequest.id}" class="w-full px-auto p-2 border border-1 hover:rounded cursor-pointer hover:shadow-lg">
                     <app-show-adoption-request-sent [user]="user" [adoptionsRequest]="adoptionsRequest">
                     </app-show-adoption-request-sent>
                 </div>
             </div>
-            <div class="flex flex-wrap p-10 overflow-y-auto hide-scroll" *ngIf="child=='RadoptionRequests'">
+            <div style="height: 90%" class="flex-wrap p-10 overflow-y-auto hide-scroll" *ngIf="child=='RadoptionRequests'">
                 <div *ngFor="let adoptionsRequest of receivedAdoptionRequests" (click)="adoptionsRequest.show = !adoptionsRequest.show" [ngClass]="{'animate-bounce bg-red-200': specialAdoptionRequest == adoptionsRequest.adoption.id && specialAdoptionRequestSender == adoptionsRequest.user.id}"
                     class="w-full px-auto p-2 border border-1 hover:rounded cursor-pointer hover:shadow-lg">
                     <app-show-adoption-request [user]="user" [adoptionsRequest]="adoptionsRequest">

@@ -75,6 +75,9 @@ export class MessageComponent implements OnInit {
   }
 
   showMessageDate(message: Message, messages: Message[]) {
+    if(!message.id){
+      return false;
+    }
     if (messages[0].id == message.id) { return true }
     let prev = messages[messages.indexOf(message) + 1];
     if (prev == null) {

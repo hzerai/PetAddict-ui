@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { WebSocketService } from 'src/app/WebSockets/web-socket.service';
 import { Notification } from './Notification';
 
 @Injectable({
@@ -13,7 +14,7 @@ export class NotificationService {
 
   private notificationUrl = "http://localhost:8000/api/notification";
 
-  constructor(private http: HttpClient) {
+  constructor(private ws: WebSocketService, private http: HttpClient) {
   }
 
   getAllNotifications(): Observable<Notification[]> {
@@ -25,10 +26,14 @@ export class NotificationService {
   }
 
   sendNotification(notification: Notification): Observable<Notification> {
+    this.ws.push(notification, 'notifications' + notification.toUser);
     return this.http.post<Notification>(this.notificationUrl, notification, this.options);
   }
 
   readNotification(id): Observable<Notification> {
+    if(!id){
+      return;
+    }
     return this.http.post<Notification>(this.notificationUrl + '/' + id + '/read', null, this.options);
   }
 

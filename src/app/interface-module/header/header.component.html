@@ -50,7 +50,7 @@
                     user?.username}}</a>
                 </div>
             </div>
-            <app-notification [currentUserName]="user?.email" [notifications]='notifications' *ngIf="isLoggedIn" class="col-span-1 border border-light rounded-lg  my-4 mx-2 text-sm px-2 py-1 hover:border-black ">
+            <app-notification [currentUserName]="userName" [notifications]='notifications' *ngIf="isLoggedIn" class="col-span-1 border border-light rounded-lg  my-4 mx-2 text-sm px-2 py-1 hover:border-black ">
             </app-notification>
 
             <div *ngIf="isLoggedIn" class="flex col-span-1 my-4 whitespace-no-wrap uppercase text-sm border border-light rounded-lg px-4 py-2 text-white hover:border-black bg-red-600 hover:text-red-600 hover:bg-white font-medium no-underline" (click)="logout()">

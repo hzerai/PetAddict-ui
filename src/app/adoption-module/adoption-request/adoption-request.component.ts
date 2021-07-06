@@ -51,6 +51,7 @@ export class AdoptionRequestComponent implements OnInit {
     }
     let message: Message = new Message();
     message.body = this.messageBody;
+    message.createdAt = new Date();
     message.fromUser = this.currentUser.email;
     message.toUser = this.adoption.user.email;
     this.messages.sendMessage(message).subscribe(next => message = next);

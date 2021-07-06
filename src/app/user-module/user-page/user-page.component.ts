@@ -1,7 +1,9 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotifierService } from 'angular-notifier';
+import { WebSocketService } from 'src/app/WebSockets/web-socket.service';
 import { Inbox } from '../messages-module/Inbox';
+import { Message } from '../messages-module/Message';
 import { MessageService } from '../messages-module/message.service';
 import { User } from '../User';
 import { TokenStorageService } from '../_services/token-storage.service';
@@ -23,7 +25,7 @@ export class UserPageComponent implements OnInit {
   specialAdoptionRequest = -1;
   specialAdoptionRequestSender = -1;
   cameFromNotif = false;
-  constructor(private _eref: ElementRef, private route: ActivatedRoute, private messages: MessageService, private tokenStorageService: TokenStorageService, private userService: UserService, private activatedRoute: ActivatedRoute, private router: Router, notifierService: NotifierService) {
+  constructor(private ws: WebSocketService, private _eref: ElementRef, private route: ActivatedRoute, private messages: MessageService, private tokenStorageService: TokenStorageService, private userService: UserService, private activatedRoute: ActivatedRoute, private router: Router, notifierService: NotifierService) {
     this.notifier = notifierService;
   }
   user: User;
@@ -62,7 +64,14 @@ export class UserPageComponent implements OnInit {
       this.createContactList(this.inbox);
     })
     this.sortAdoptions();
-    this.streamNewMessages();
+    this.ws.watch('messages' + username).subscribe(next => {
+      let message: Message = JSON.parse(next.body);
+      if (!this.inbox.messagesByUser[message.fromUser]) {
+        this.inbox.messagesByUser[message.fromUser] = [];
+      }
+      this.notifier.notify('default', this.getFromUser(message.fromUser) + ' : ' + message.body);
+      this.inbox.messagesByUser[message.fromUser].unshift(message);
+    });
   }
 
   sortAdoptions() {
@@ -103,24 +112,6 @@ export class UserPageComponent implements OnInit {
     return userName;
   }
 
-  streamNewMessages() {
-    setTimeout(() => {
-      if (this.user)
-        this.messages.messagesStream(this.user?.email).subscribe(next => {
-          if (next) {
-            console.log(next)
-            this.unreadMessages = this.unreadMessages + next.length;
-            next.forEach(message => {
-              if (!this.inbox.messagesByUser[message.fromUser]) {
-                this.inbox.messagesByUser[message.fromUser] = [];
-              }
-              this.notifier.notify('default', this.getFromUser(message.fromUser) + ' : ' + message.body);
-              this.inbox.messagesByUser[message.fromUser].unshift(message);
-            });
-          }
-        })
-      this.streamNewMessages();
-    }, 2000);
-  }
+
 
 }
