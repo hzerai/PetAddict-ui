@@ -31,13 +31,13 @@ export class NotificationComponent implements OnInit, AfterViewInit {
       let notif: Notification = JSON.parse(next.body);
       this.unreadNotif++;
       if (notif.body.includes('acc')) {
-        this.notifier.notify('success', this.getFromUser(notif.fromUser) + ' a ' + notif.body);
+        this.notifier.notify('success', this.getFromUser(notif.fromUser) + ' ' + notif.body);
       } else if (notif.body.includes('rej')) {
-        this.notifier.notify('error', this.getFromUser(notif.fromUser) + ' a ' + notif.body);
+        this.notifier.notify('error', this.getFromUser(notif.fromUser) + ' ' + notif.body);
       } else if (notif.body.includes('env')) {
-        this.notifier.notify('info', this.getFromUser(notif.fromUser) + ' a ' + notif.body);
+        this.notifier.notify('info', this.getFromUser(notif.fromUser) + ' ' + notif.body);
       } else {
-        this.notifier.notify('default', this.getFromUser(notif.fromUser) + ' a ' + notif.body);
+        this.notifier.notify('default', this.getFromUser(notif.fromUser) + ' ' + notif.body);
       }
       this.notifications.unshift(notif);
     })
