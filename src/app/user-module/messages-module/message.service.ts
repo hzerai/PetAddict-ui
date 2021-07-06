@@ -32,11 +32,12 @@ export class MessageService {
 
   sendMessage(message: Message): Observable<Message> {
     this.ws.push(message, 'messages' + message.toUser);
+    this.ws.push('new messages', 'messagesforheader' + message.toUser);
     return this.http.post<Message>(this.inboxUrl, message, this.options);
   }
 
   readMessage(id): Observable<any> {
-    if(!id){
+    if (!id) {
       return;
     }
     return this.http.post<any>(this.inboxUrl + '/' + id + '/read', null, this.options);

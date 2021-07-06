@@ -58,8 +58,8 @@ export class UserPageComponent implements OnInit, AfterViewInit {
       u = next.get('u');
       if (section != null) {
         this.child = section;
-        this.cameFromNotif = true;
         if (id != null) {
+          this.cameFromNotif = true;
           this.specialAdoptionRequest = Number(id);
           this.specialAdoptionRequestSender = Number(u);
         }
@@ -113,6 +113,8 @@ export class UserPageComponent implements OnInit, AfterViewInit {
   onClick(event) {
     if (this._eref.nativeElement.contains(event.target))
       this.specialAdoptionRequest = -1;
+    if (this.child === 'inbox')
+      this.unreadMessages = 0;
   }
 
   getFromUser(email: string): string {
@@ -120,7 +122,4 @@ export class UserPageComponent implements OnInit, AfterViewInit {
     this.userService.getUserById(email).subscribe(u => userName = `${u.firstName} ${u.lastName}`)
     return userName;
   }
-
-
-
 }

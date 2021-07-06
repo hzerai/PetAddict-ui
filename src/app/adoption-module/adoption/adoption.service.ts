@@ -177,6 +177,10 @@ export class AdoptionService {
     return this.http.post<AdoptionRequest>(this.adoptionRequestUrl + id + '/reopen', this.options);
   }
 
+  getAdoptionRequest(id: number) {
+    return this.http.get<AdoptionRequest>(this.adoptionRequestUrl + id );
+  }
+
 
   populateSuggestions(): string[] {
 
