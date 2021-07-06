@@ -21,7 +21,6 @@ export class UserService {
   }
 
   getUserById(id: string): Observable<User> {
-    console.log(UserService.cache.has(id))
     return UserService.cache.has(id) ? of(UserService.cache.get(id)) : this.http.get<User>(API_URL + 'user_by_email/' + id);
   }
 
