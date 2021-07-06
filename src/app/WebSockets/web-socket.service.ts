@@ -18,7 +18,15 @@ export class WebSocketService {
 
   public subscribe(topic: string, next?: (value: Message) => void) {
     if (this.subscriptions[topic]) {
-      return;
+      try {
+        this.subscriptions[topic].unsubscribe()
+      } catch (e) {
+        try {
+          this.subscriptions[topic].forEach((sub) => sub.unsubscribe());
+        } catch (e) {
+          console.log('coudnt handle multiple subs on topic :(')
+        }
+      }
     }
     this.subscriptions[topic] = this.rxStompService.watch('/topic/' + topic.replace(/[^a-zA-Z0-9 ]/g, "")).subscribe(next);
   }
