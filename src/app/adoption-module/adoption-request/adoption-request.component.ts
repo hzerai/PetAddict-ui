@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NotifierService } from 'angular-notifier';
 import { Image } from 'src/app/images-module/Image';
 import { ImageService } from 'src/app/images-module/image.service';
 import { Message } from 'src/app/user-module/messages-module/Message';
@@ -23,7 +24,7 @@ export class AdoptionRequestComponent implements OnInit {
   currentUser: User;
   messageBody: string = '';
   image: Image;
-  constructor(private ws: WebSocketService, private imageService: ImageService, private location: Location, private notifService: NotificationService, private messages: MessageService, private route: ActivatedRoute, private adoptionService: AdoptionService, private r: Router, private userService: UserService, private tokenService: TokenStorageService) { }
+  constructor(private ws: WebSocketService, private imageService: ImageService, private location: Location, private notifService: NotificationService, private messages: MessageService, private route: ActivatedRoute, private adoptionService: AdoptionService, private r: Router, private userService: UserService, private tokenService: TokenStorageService, private notifierService: NotifierService) { }
 
   ngOnInit(): void {
     let id = '';
@@ -67,6 +68,7 @@ export class AdoptionRequestComponent implements OnInit {
     this.adoptionService.createAdoptionRequest(this.adoption.id, this.currentUser.email).subscribe(next => {
       this.ws.push(next, 'adoptionRequest');
     });
-    this.r.navigate(['/adoptions/' + this.adoption.id])
+    this.notifierService.notify('success', 'Votre demande a été envoyée avec succès.');
+    this.r.navigate(['/adoptions'])
   }
 }

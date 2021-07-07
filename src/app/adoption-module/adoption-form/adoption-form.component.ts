@@ -14,6 +14,7 @@ import { Tailles } from 'src/app/interface-module/filter/Tailles';
 import { ImageService } from 'src/app/images-module/image.service';
 import { ImageComponent } from 'src/app/images-module/image/image.component';
 import { WebSocketService } from 'src/app/WebSockets/web-socket.service';
+import { NotifierService } from 'angular-notifier';
 
 @Component({
   selector: 'app-adoption-form',
@@ -32,7 +33,7 @@ export class AdoptionFormComponent implements OnInit {
 
   @ViewChild(ImageComponent)
   imageComponent: ImageComponent;
-  constructor(private ws: WebSocketService, private imageService: ImageService, private adoptionService: AdoptionService, private router: Router, private ac: ActivatedRoute, private tokenStorageService: TokenStorageService) {
+  constructor(private notifier: NotifierService, private ws: WebSocketService, private imageService: ImageService, private adoptionService: AdoptionService, private router: Router, private ac: ActivatedRoute, private tokenStorageService: TokenStorageService) {
 
   }
 
@@ -83,22 +84,29 @@ export class AdoptionFormComponent implements OnInit {
     this.adoption.animal.nom = this.adoptionForm.value.nom
     if (this.adoption.id) {
       //update
+      this.notifier.notify('default' , 'Updating adoption. please wait ...' , 'update');
       this.imageComponent.autoUpload = true;
       this.imageComponent.uploadImage();
       this.adoptionService.updateAdoption(this.adoption).subscribe(next => {
         this.ws.push(next, 'adoptions');
-        ; this.adoption = next; this.router.navigateByUrl("/adoptions/" + this.adoption.id)
+        this.adoption = next;
+        this.notifier.hide('update');
+        this.notifier.notify('success' , 'Adoption updated successfuly');
+        this.router.navigateByUrl("/adoptions/" + this.adoption.id)
       })
     } else {
       //create
-
+      this.notifier.notify('default' , 'Creating adoption. please wait ...' , 'create');
       this.adoptionService.newAdoption(this.adoption).subscribe(next => {
         this.ws.push(next, 'adoptions');
         this.imageComponent.autoUpload = true;
         this.imageComponent.imageName = `ADOPTION-${next.id}`;
         this.imageComponent.image.name = `ADOPTION-${next.id}`;
         this.imageComponent.uploadImage();
-        this.adoption = next; this.router.navigateByUrl("/adoptions/" + this.adoption.id)
+        this.adoption = next;
+        this.notifier.hide('create');
+        this.notifier.notify('success' , 'Adoption created successfuly');
+        this.router.navigateByUrl("/adoptions/" + this.adoption.id)
       })
     }
 
