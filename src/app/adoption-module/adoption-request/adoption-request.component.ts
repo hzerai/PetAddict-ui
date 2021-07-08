@@ -19,34 +19,22 @@ import { AdoptionService } from '../adoption/adoption.service';
   styleUrls: ['./adoption-request.component.css']
 })
 export class AdoptionRequestComponent implements OnInit {
+
   adoption: Adoption = new Adoption();
   username: string;
   messageBody: string = '';
   image: Image;
+
   constructor(private ws: WebSocketService, private imageService: ImageService, private location: Location, private notifService: NotificationService, private messages: MessageService, private route: ActivatedRoute, private adoptionService: AdoptionService, private r: Router, private userService: UserService, private tokenService: TokenStorageService, private notifierService: NotifierService) { }
 
   ngOnInit(): void {
-    let id = '';
-    this.route.params.subscribe(next => {
-      id = next.id;
-      this.imageService.getImage(`ADOPTION-${id}`).subscribe(next => { ImageService.cache.cache(next); this.image = next });
+    this.route.data.subscribe((data) => {
+      this.username = data.data.username;
+      this.adoption = data.data.adoption;
+      this.imageService.getImage(`ADOPTION-${data.data.adoption.id}`).subscribe(next => { this.image = next });
     });
-    this.adoptionService.getAdoptionById(id, 'user').subscribe(next => { this.adoption = next });
-
-    this.getCurrentUser()
   }
-
-  getCurrentUser() {
-    const token = this.tokenService.getToken();
-    if (token == null) {
-      return;
-    }
-    let payload;
-    payload = token.split(".")[1];
-    payload = window.atob(payload);
-    this.username = JSON.parse(payload).username;
-  }
-
+  
   envoyerDemande() {
     if (this.username == null) {
       return;

@@ -19,39 +19,28 @@ export class AdoptionDetailsComponent implements OnInit {
   username: string;
   image: Image;
   showAdoptionButton: boolean = false;
+  isowner: boolean;
 
-  constructor(private imageService: ImageService, private route: ActivatedRoute, private adoptionService: AdoptionService, private r: Router, private userService: UserService, private tokenService: TokenStorageService) { }
+  constructor(private imageService: ImageService, private route: ActivatedRoute, private adoptionService: AdoptionService, private r: Router) { }
 
   ngOnInit(): void {
-
-    const token = this.tokenService.getToken();
-    if (token == null) {
-      return;
-    }
-    let payload;
-    payload = token.split(".")[1];
-    payload = window.atob(payload);
-    this.username = JSON.parse(payload).username;
-    let id = '';
-    this.route.params.subscribe(next => {
-      id = next.id;
-      this.adoptionService.canAdopt(Number(id), this.username).subscribe(b => this.showAdoptionButton = b)
+    this.route.data.subscribe((data) => {
+      this.username = data.data.username;
+      this.adoption = data.data.adoption;
+      this.showAdoptionButton = data.data.canAdopt;
+      this.isowner = this.username === this.adoption.createdBy
+      this.imageService.getImage(`ADOPTION-${data.data.adoption.id}`).subscribe(next => { this.image = next });
     });
-    this.adoptionService.getAdoptionById(id, 'user').subscribe(next => { this.adoption = next });
-    this.imageService.getImage(`ADOPTION-${id}`).subscribe(next => { this.image = next });
   }
 
   delete(id: number) {
     if (confirm("Are you sure to delete this adoption post ?")) {
       this.adoptionService.deleteAdoption(id).subscribe(next => this.r.navigateByUrl('/adoptions'));
     }
-
   }
 
   isOwner(): boolean {
-    return this.username === this.adoption.createdBy;
+    return this.isowner;
   }
-
-
 
 }

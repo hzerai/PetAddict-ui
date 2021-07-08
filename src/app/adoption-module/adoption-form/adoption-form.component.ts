@@ -54,21 +54,22 @@ export class AdoptionFormComponent implements OnInit {
     this.ac.params.subscribe(next => id = next.id)
 
     if (id) {
-      this.imageName = `ADOPTION-${id}`;
-      this.adoptionService.getAdoptionById(id,null).subscribe(next => {
+      this.ac.data.subscribe((data) => {
+        this.adoption = data.data.adoption;
+        this.imageName = `ADOPTION-${data.data.adoption.id}`;
         this.adoptionForm.setValue({
-          title: next.title,
-          description: next.description,
-          sexe: next.animal.sexe,
-          type: next.animal.type,
-          age: next.animal.age,
-          espece: next.animal.espece,
-          couleur: next.animal.couleur,
-          taille: next.animal.taille,
-          nom: next.animal.nom
-        }); this.adoption = next;
-        this.onSelectBreed(next.animal.espece);
-      })
+          title: this.adoption.title,
+          description: this.adoption.description,
+          sexe: this.adoption.animal.sexe,
+          type: this.adoption.animal.type,
+          age: this.adoption.animal.age,
+          espece: this.adoption.animal.espece,
+          couleur: this.adoption.animal.couleur,
+          taille: this.adoption.animal.taille,
+          nom: this.adoption.animal.nom
+        }); this.adoption = this.adoption;
+        this.onSelectBreed(this.adoption.animal.espece);
+      });
     }
   }
 
@@ -84,19 +85,19 @@ export class AdoptionFormComponent implements OnInit {
     this.adoption.animal.nom = this.adoptionForm.value.nom
     if (this.adoption.id) {
       //update
-      this.notifier.notify('default' , 'Updating adoption. please wait ...' , 'update');
+      this.notifier.notify('default', 'Updating adoption. please wait ...', 'update');
       this.imageComponent.autoUpload = true;
       this.imageComponent.uploadImage();
       this.adoptionService.updateAdoption(this.adoption).subscribe(next => {
         this.ws.push(next, 'adoptions');
         this.adoption = next;
         this.notifier.hide('update');
-        this.notifier.notify('success' , 'Adoption updated successfuly');
+        this.notifier.notify('success', 'Adoption updated successfuly');
         this.router.navigateByUrl("/adoptions/" + this.adoption.id)
       })
     } else {
       //create
-      this.notifier.notify('default' , 'Creating adoption. please wait ...' , 'create');
+      this.notifier.notify('default', 'Creating adoption. please wait ...', 'create');
       this.adoptionService.newAdoption(this.adoption).subscribe(next => {
         this.ws.push(next, 'adoptions');
         this.imageComponent.autoUpload = true;
@@ -105,7 +106,7 @@ export class AdoptionFormComponent implements OnInit {
         this.imageComponent.uploadImage();
         this.adoption = next;
         this.notifier.hide('create');
-        this.notifier.notify('success' , 'Adoption created successfuly');
+        this.notifier.notify('success', 'Adoption created successfuly');
         this.router.navigateByUrl("/adoptions/" + this.adoption.id)
       })
     }

@@ -24,31 +24,14 @@ export class VisitProfileComponent implements OnInit {
   constructor(private imageService: ImageService, private messages: MessageService, private activatedRoute: ActivatedRoute, private userService: UserService, private tokenService: TokenStorageService, private route: Router) { }
 
   ngOnInit(): void {
-    let id;
-    this.activatedRoute.queryParamMap.subscribe(next => id = next.get('id'))
-    if (id == this.tokenService.getUser()) {
-      this.route.navigate(['/user_profile']);
-    } else {
-      this.userService.getUserById(id, 'adoptions').subscribe(next => {
-        this.user = next;
-        this.imageService.getImage('USER-' + next.id).subscribe(next => this.image = next);
-      })
-    }
-    this.getCurrentUser()
-  }
-
-  getCurrentUser() {
-    const token = this.tokenService.getToken();
-    if (token == null) {
-      return;
-    }
-    let payload;
-    payload = token.split(".")[1];
-    payload = window.atob(payload);
-    let username = JSON.parse(payload).username;
-    this.userService.getUserById(username, null).subscribe(next => {
-      this.currentUser = next;
-    })
+    this.activatedRoute.data.subscribe((data) => {
+      this.user = data.data.user;
+      this.currentUser = data.data.currentUser;
+      if (this.currentUser != null&& this.user.id == this.currentUser.id) {
+        this.route.navigate(['/user_profile']);
+      }
+      this.imageService.getImage('USER-' + data.data.user.id).subscribe(next => this.image = next);
+    });
   }
 
   sendMessage() {

@@ -8,6 +8,7 @@ import { ImageService } from 'src/app/images-module/image.service';
 import { Image } from 'src/app/images-module/Image';
 import { WebSocketService } from 'src/app/WebSockets/web-socket.service';
 import { MessageService } from 'src/app/user-module/messages-module/message.service';
+import { HeaderUserResolver } from 'src/app/Resolvers/HeaderUserResolver';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -21,7 +22,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   image: Image;
   userName: string;
   unreadMessages: boolean = false;
-  constructor(private ms: MessageService, private ws: WebSocketService, private imageService: ImageService, private tokenStorageService: TokenStorageService, private userService: UserService, public router: Router, private ac: ActivatedRoute) { }
+  constructor(private hr: HeaderUserResolver, private ms: MessageService, private ws: WebSocketService, private imageService: ImageService, private tokenStorageService: TokenStorageService, private userService: UserService, public router: Router, private ac: ActivatedRoute) { }
 
 
   resetUM() {
@@ -30,18 +31,13 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit(): void {
-    this.isLoggedIn = !!this.tokenStorageService.getToken();
-    if (this.isLoggedIn) {
-      const token = this.tokenStorageService.getToken();
-      let payload;
-      payload = token.split(".")[1];
-      payload = window.atob(payload);
-      this.userName = JSON.parse(payload).username;
-      this.userService.getUserById(JSON.parse(payload).username , null).subscribe(next => {
-        this.user = next;
-        this.imageService.getImage(`USER-${next.id}`).subscribe(next => { this.image = next });
-      });
-    }
+    this.hr.getCurrentUser()?.then((user) => {
+      this.isLoggedIn = !!this.tokenStorageService.getToken();
+      if (this.isLoggedIn) {
+        this.user = user;
+        this.imageService.getImage(`USER-${user.id}`).subscribe(next => { this.image = next });
+      }
+    });
   }
 
   logout(): void {
@@ -63,16 +59,18 @@ export class HeaderComponent implements OnInit, AfterViewInit {
         placement: "bottom",
       }
     );
+    if (this.isLoggedIn) {
+      this.ms.getNewMessages().subscribe(next => {
+        if (next && next.length > 0) {
+          this.unreadMessages = true;
+        }
+      })
+      this.ws.watch('messagesforheader' + this.userName).subscribe(msg => {
+        if (!this.router.url.includes('user_profile'))
+          this.unreadMessages = true;
+      })
+    }
 
-    this.ms.getNewMessages().subscribe(next => {
-      if (next && next.length > 0) {
-        this.unreadMessages = true;
-      }
-    })
-    this.ws.watch('messagesforheader' + this.userName).subscribe(msg => {
-      if (!this.router.url.includes('user_profile'))
-        this.unreadMessages = true;
-    })
   }
   dropdownPopoverShowS = false;
   toggleTooltipS() {

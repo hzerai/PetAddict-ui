@@ -66,21 +66,16 @@ export class UserPageComponent implements OnInit, AfterViewInit {
       }
     });
 
-    const token = this.tokenStorageService.getToken();
-    let payload;
-    payload = token.split(".")[1];
-    payload = window.atob(payload);
-    this.username = JSON.parse(payload).username;
-    this.userService.getUserById(this.username, 'adoptions,requests').subscribe(next => {
-      next.recievedAdoptionRequests.forEach(r => {
-        let m: any = r; m.show = false; this.receivedAdoptionRequests.push(m)
-      })
-      this.user = next;
-    })
-    this.messages.getAllMessages().subscribe(next => {
-      Object.assign(this.inbox, next);
-      this.createContactList(this.inbox);
-    })
+    this.activatedRoute.data.subscribe((data) => {
+      console.log(data)
+      this.user = data.data.currentUser;
+      this.contacts = data.data.contacts;
+      this.inbox = data.data.inbox;
+      this.unreadMessages = data.data.unreadMessages;
+      this.receivedAdoptionRequests = data.data.receivedAdoptionRequests;     
+    });
+
+
     this.sortAdoptions();
   }
 
@@ -100,16 +95,6 @@ export class UserPageComponent implements OnInit, AfterViewInit {
     })
   }
 
-  createContactList(inbox: Inbox) {
-    Object.keys(inbox.messagesByUser).forEach((k) => {
-      inbox.messagesByUser[k].forEach(m => {
-        if (!m.vu && m.toUser == this.user?.email) {
-          this.unreadMessages++;
-        }
-      })
-      this.userService.getUserById(k, null).subscribe(next => this.contacts.push(next))
-    })
-  }
 
 
   onClick(event) {

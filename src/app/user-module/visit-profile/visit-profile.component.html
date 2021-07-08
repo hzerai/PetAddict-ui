@@ -5,7 +5,7 @@
             <div class="flex items-center">
                 <h2 class="block leading-relaxed font-light text-gray-700 text-3xl">{{user?.firstName}} {{user?.lastName}}
                 </h2>
-                <a (click)="showMessageform = !showMessageform" *ngIf="!showMessageform" class="cursor-pointer h-7 px-3 ml-20 outline-none border-transparent text-center rounded border bg-blue-500 hover:bg-blue-600 text-white text-xs bg-transparent font-semibold">Envoyer
+                <a (click)="showMessageform = !showMessageform" *ngIf="currentUser != null && !showMessageform" class="cursor-pointer h-7 px-3 ml-20 outline-none border-transparent text-center rounded border bg-blue-500 hover:bg-blue-600 text-white text-xs bg-transparent font-semibold">Envoyer
                     un message</a>
             </div>
             <ul class="flex justify-content-around items-center">
