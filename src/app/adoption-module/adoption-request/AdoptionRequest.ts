@@ -9,5 +9,7 @@ export class AdoptionRequest {
     createdBy: string = '';
     updatedBy: string = '';
     user : User;
+    userId : number;
+    adoptionId : number;
     adoption : Adoption
 }

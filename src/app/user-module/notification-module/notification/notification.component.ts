@@ -17,15 +17,19 @@ import { NotificationService } from '../notification.service';
   styleUrls: ['./notification.component.css']
 })
 export class NotificationComponent implements OnInit, AfterViewInit {
+
   private readonly notifier: NotifierService;
   @Input() currentUserName: string;
   unreadNotif: number = 0;
   notifications: Notification[] = [];
   dropdownOpen: boolean = false;
+
+  userMap = new Map();
+
   constructor(private ws: WebSocketService, private imageService: ImageService, private notificationService: NotificationService, private userService: UserService, private _eref: ElementRef, private router: Router, notifierService: NotifierService) {
     this.notifier = notifierService;
-
   }
+
   ngAfterViewInit(): void {
     this.ws.subscribe('notifications' + this.currentUserName, next => {
       let notif: Notification = JSON.parse(next.body);
@@ -44,26 +48,47 @@ export class NotificationComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+
     this.notificationService.getAllNotifications().subscribe(next => {
-      this.unreadNotif = next.filter(n => !n.vu).length;
-      this.notifications = next
+      this.unreadNotif = next.length;
+      this.notifications = next;
+      next.forEach(notif => {
+        this.userService.getUserById(notif.fromUser, null).subscribe(u => {
+          this.userMap.set(u.email, u);
+        })
+      })
     });
   }
+
   getFromUser(email: string): string {
-    let userName = '';
-    this.userService.getUserById(email).subscribe(u => userName = `${u.firstName} ${u.lastName}`)
-    return userName;
+    let user = this.userMap.get(email);
+    if (!user) {
+      this.userService.getUserById(email, null).subscribe(u => {
+        user = u ;
+        this.userMap.set(u.email, u);
+      })
+    }
+    return `${user?.firstName} ${user?.lastName}`;
   }
 
   getUserImage(email: string) {
-    let user: User;
+    let user = this.userMap.get(email);
+    if (!user) {
+      this.userService.getUserById(email, null).subscribe(u => {
+        user = u ;
+        this.userMap.set(u.email, u);
+      })
+    }
     let url;
-    this.userService.getUserById(email).subscribe(u => user = u);
     this.imageService.getImage(`USER-${user.id}`).subscribe(next => next != null ? url = next.bytes : url = 'https://www.w3schools.com/howto/img_avatar.png');
     return url;
   }
 
   showNotifs() {
+    if (this.unreadNotif === 0) {
+      this.dropdownOpen = !this.dropdownOpen;
+      return;
+    }
     this.dropdownOpen = !this.dropdownOpen;
     this.unreadNotif = 0;
     this.notifications.forEach(n => {

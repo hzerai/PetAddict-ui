@@ -1,7 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
-import { AdoptionService } from './adoption-module/adoption/adoption.service';
+import { Component } from '@angular/core';
 import { VillesService } from './user-module/villes.service';
-import { UserService } from './user-module/_services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +8,7 @@ import { UserService } from './user-module/_services/user.service';
 })
 export class AppComponent {
 
-  constructor(private villesService: VillesService, private adoption : AdoptionService , private user : UserService) { 
+  constructor(private villesService: VillesService) { 
     
   }
   

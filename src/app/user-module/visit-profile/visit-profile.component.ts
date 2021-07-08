@@ -29,14 +29,14 @@ export class VisitProfileComponent implements OnInit {
     if (id == this.tokenService.getUser()) {
       this.route.navigate(['/user_profile']);
     } else {
-      this.userService.getUserById(id).subscribe(next => {
+      this.userService.getUserById(id, 'adoptions').subscribe(next => {
         this.user = next;
         this.imageService.getImage('USER-' + next.id).subscribe(next => this.image = next);
-
       })
     }
     this.getCurrentUser()
   }
+
   getCurrentUser() {
     const token = this.tokenService.getToken();
     if (token == null) {
@@ -46,10 +46,11 @@ export class VisitProfileComponent implements OnInit {
     payload = token.split(".")[1];
     payload = window.atob(payload);
     let username = JSON.parse(payload).username;
-    this.userService.getUserById(username).subscribe(next => {
+    this.userService.getUserById(username, null).subscribe(next => {
       this.currentUser = next;
     })
   }
+
   sendMessage() {
     let message: Message = new Message();
     message.body = this.messageBody;

@@ -32,8 +32,9 @@ export class AdoptionListComponent implements OnInit {
     this.adoptionService.count().subscribe(next => {
       this.count = next; this.generatePagination();
     });
-    this.adoptionService.getPagedAdoptions(this.page, this.size).subscribe(next => { this.adoptions = next });
+    this.adoptionService.getPagedAdoptions(this.page, this.size, null).subscribe(next => { this.adoptions = next });
   }
+
   populateSuggestions() {
     if (this.suggestions.indexOf('Tunis') < 0)
       Object.values(VillesService.villes).forEach(v => { this.suggestions.push(v.name); v.municipalities.forEach(k => this.suggestions.push(k.name)) })
@@ -44,40 +45,40 @@ export class AdoptionListComponent implements OnInit {
   }
 
   next() {
-    if(this.cantNext()){
+    if (this.cantNext()) {
       return;
     }
     this.page++;
     if (this.filtered) {
       this.getPagedAdoptionsFiltered()
     } else {
-      this.adoptionService.getPagedAdoptions(this.page, this.size).subscribe(next => { this.adoptions = next });
+      this.adoptionService.getPagedAdoptions(this.page, this.size, null).subscribe(next => { this.adoptions = next });
       this.generatePagination();
     }
   }
 
   previous() {
-    if(this.cantPrevious()){
+    if (this.cantPrevious()) {
       return;
     }
     this.page--;
     if (this.filtered) {
       this.getPagedAdoptionsFiltered()
     } else {
-      this.adoptionService.getPagedAdoptions(this.page, this.size).subscribe(next => { this.adoptions = next });
+      this.adoptionService.getPagedAdoptions(this.page, this.size, null).subscribe(next => { this.adoptions = next });
       this.generatePagination();
     }
   }
 
   setPage(n: any) {
-    if(n.middle){
+    if (n.middle) {
       return;
     }
     this.page = Number(n.number);
     if (this.filtered) {
       this.getPagedAdoptionsFiltered()
     } else {
-      this.adoptionService.getPagedAdoptions(this.page, this.size).subscribe(next => { this.adoptions = next });
+      this.adoptionService.getPagedAdoptions(this.page, this.size, null).subscribe(next => { this.adoptions = next });
       this.generatePagination();
     }
   }
@@ -107,9 +108,9 @@ export class AdoptionListComponent implements OnInit {
     let user_id = this.query.params.get('user_id');
     let municipality = this.query.params.get('municipality');
     this.size = size != null ? Number(size) : this.size;
-    this.count = this.adoptionService.countFiltered(espece, type, sexe, taille, ville, municipality, user_id);
+    this.adoptionService.countFiltered(espece, type, sexe, taille, ville, municipality, user_id).subscribe(c => this.count = c);
     this.generatePagination();
-    this.adoptionService.getPagedAdoptionsFiltered(espece, type, sexe, taille, ville, municipality, user_id, this.page, this.size).subscribe(next => { this.adoptions = next;});
+    this.adoptionService.getPagedAdoptionsFiltered(espece, type, sexe, taille, ville, municipality, user_id, this.page, this.size, null).subscribe(next => { this.adoptions = next; });
 
   }
 
@@ -169,37 +170,24 @@ export class AdoptionListComponent implements OnInit {
           return v.toLowerCase().includes(str.toLowerCase())
         })
       }
+      this.autoC = true;
       this.searchBarResult = [];
-      AdoptionService.cache.adoptions.forEach((value, key, map) => {
-        let localAdoption = (JSON.parse(JSON.stringify(value)));
-        localAdoption.user.adoptions = null;
-        localAdoption.user.firstName = null;
-        localAdoption.user.lastName = null;
-        localAdoption.user.about = null;
-        localAdoption.user.adoptionRequests = null;
-        localAdoption.adoptionRequests = null;
-        localAdoption.animal.user = null;
-        let adoptionAsString = JSON.stringify(localAdoption).toLowerCase().replace(/[^a-zA-Z]/g, '');
-        if (this.respectCriteria(adoptionAsString, str.toLowerCase().replace(/[^a-zA-Z]/g, ''))) {
-          this.searchBarResult.push(value);
-        }
-      })
+      this.adoptionService.elasticSearch(str).subscribe(next => this.searchBarResult = next , () => {
+        this.autoC = false;
+      });
       this.hideSearchBarResult = false;
     } else {
       this.hideSearchBarResult = true;
     }
   }
   respectCriteria(adoptionAsString: string, str: string): boolean {
-    if(adoptionAsString.includes(str)){
+    if (adoptionAsString.includes(str)) {
       console.log(adoptionAsString)
     }
     return adoptionAsString.includes(str);
   }
 
 }
-
-
-
 
 
 export class Page {

@@ -47,25 +47,21 @@ export class ShowAdoptionRequestSentComponent implements OnInit {
     adoptionRequest.status = 'CANCELED';
     let notification = new Notification();
     notification.fromUser = this.user.email;
-    notification.toUser = adoptionRequest.adoption.user.email;
+    notification.toUser = adoptionRequest.adoption.createdBy;
     notification.body = 'a annulé sa demande d\'adoption';
     notification.route = '/user_profile#RadoptionRequests#' + this.adoptionsRequest.adoption.id + '#' + this.user.id;
     this.notifService.sendNotification(notification).subscribe();
-    this.adoptionService.cancelAdoptionRequest(adoptionRequest.id).subscribe(next =>
-      this.ws.push(next, 'adoptionRequest')
-    );
+    this.adoptionService.cancelAdoptionRequest(adoptionRequest.id).subscribe();
   }
 
   reopenAdoptionRequest(adoptionRequest: any) {
     adoptionRequest.status = 'CREATED';
     let notification = new Notification();
     notification.fromUser = this.user.email;
-    notification.toUser = adoptionRequest.adoption.user.email;
+    notification.toUser = adoptionRequest.adoption.createdBy;
     notification.body = 'vous a envoyé une demande d\'adoption';
     notification.route = '/user_profile#RadoptionRequests#' + this.adoptionsRequest.adoption.id + '#' + this.user.id;
     this.notifService.sendNotification(notification).subscribe();
-    this.adoptionService.reopenAdoptionRequest(adoptionRequest.id).subscribe(next =>
-      this.ws.push(next, 'adoptionRequest')
-    );
+    this.adoptionService.reopenAdoptionRequest(adoptionRequest.id).subscribe();
   }
 }

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Image } from 'src/app/images-module/Image';
 import { ImageService } from 'src/app/images-module/image.service';
-import { User } from 'src/app/user-module/User';
 import { TokenStorageService } from 'src/app/user-module/_services/token-storage.service';
 import { UserService } from 'src/app/user-module/_services/user.service';
 import { Adoption } from '../adoption/Adoption';
@@ -19,7 +18,7 @@ export class AdoptionDetailsComponent implements OnInit {
   currentUserId: number;
   username: string;
   image: Image;
-  showAdoptionButton: boolean = true;
+  showAdoptionButton: boolean = false;
 
   constructor(private imageService: ImageService, private route: ActivatedRoute, private adoptionService: AdoptionService, private r: Router, private userService: UserService, private tokenService: TokenStorageService) { }
 
@@ -33,13 +32,13 @@ export class AdoptionDetailsComponent implements OnInit {
     payload = token.split(".")[1];
     payload = window.atob(payload);
     this.username = JSON.parse(payload).username;
-
     let id = '';
-    this.route.params.subscribe(next => id = next.id);
-    this.adoptionService.getAdoptionById(id).subscribe(next => { this.adoption = next });
+    this.route.params.subscribe(next => {
+      id = next.id;
+      this.adoptionService.canAdopt(Number(id), this.username).subscribe(b => this.showAdoptionButton = b)
+    });
+    this.adoptionService.getAdoptionById(id, 'user').subscribe(next => { this.adoption = next });
     this.imageService.getImage(`ADOPTION-${id}`).subscribe(next => { this.image = next });
-
-    this.getCurrentUser()
   }
 
   delete(id: number) {
@@ -53,10 +52,6 @@ export class AdoptionDetailsComponent implements OnInit {
     return this.username === this.adoption.createdBy;
   }
 
-  getCurrentUser() {
-    if (this.adoption.adoptionRequests.find(a => a.user.username == this.username))
-      this.showAdoptionButton = false;
-    return this.username;
-  }
+
 
 }

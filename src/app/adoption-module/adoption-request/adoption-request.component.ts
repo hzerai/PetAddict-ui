@@ -8,7 +8,6 @@ import { Message } from 'src/app/user-module/messages-module/Message';
 import { MessageService } from 'src/app/user-module/messages-module/message.service';
 import { Notification } from 'src/app/user-module/notification-module/Notification';
 import { NotificationService } from 'src/app/user-module/notification-module/notification.service';
-import { User } from 'src/app/user-module/User';
 import { TokenStorageService } from 'src/app/user-module/_services/token-storage.service';
 import { UserService } from 'src/app/user-module/_services/user.service';
 import { WebSocketService } from 'src/app/WebSockets/web-socket.service';
@@ -21,18 +20,22 @@ import { AdoptionService } from '../adoption/adoption.service';
 })
 export class AdoptionRequestComponent implements OnInit {
   adoption: Adoption = new Adoption();
-  currentUser: User;
+  username: string;
   messageBody: string = '';
   image: Image;
   constructor(private ws: WebSocketService, private imageService: ImageService, private location: Location, private notifService: NotificationService, private messages: MessageService, private route: ActivatedRoute, private adoptionService: AdoptionService, private r: Router, private userService: UserService, private tokenService: TokenStorageService, private notifierService: NotifierService) { }
 
   ngOnInit(): void {
     let id = '';
-    this.route.params.subscribe(next => id = next.id);
-    this.adoptionService.getAdoptionById(id).subscribe(next => { this.adoption = next });
-    this.imageService.getImage(`ADOPTION-${id}`).subscribe(next => { ImageService.cache.cache(next); this.image = next });
+    this.route.params.subscribe(next => {
+      id = next.id;
+      this.imageService.getImage(`ADOPTION-${id}`).subscribe(next => { ImageService.cache.cache(next); this.image = next });
+    });
+    this.adoptionService.getAdoptionById(id, 'user').subscribe(next => { this.adoption = next });
+
     this.getCurrentUser()
   }
+
   getCurrentUser() {
     const token = this.tokenService.getToken();
     if (token == null) {
@@ -41,34 +44,31 @@ export class AdoptionRequestComponent implements OnInit {
     let payload;
     payload = token.split(".")[1];
     payload = window.atob(payload);
-    let username = JSON.parse(payload).username;
-    this.userService.getUserById(username).subscribe(next => {
-      this.currentUser = next;
-    })
+    this.username = JSON.parse(payload).username;
   }
 
   envoyerDemande() {
-    if (this.currentUser == null) {
+    if (this.username == null) {
       return;
     }
-    let message: Message = new Message();
-    message.body = this.messageBody;
-    message.createdAt = new Date();
-    message.fromUser = this.currentUser.email;
-    message.toUser = this.adoption.user.email;
-    this.messages.sendMessage(message).subscribe(next => message = next);
-
-    let notification = new Notification();
-    notification.fromUser = this.currentUser.email;
-    notification.toUser = this.adoption.user.email;
-    notification.body = 'vous a envoyé une demande d\'adoption';
-    notification.route = '/user_profile#RadoptionRequests#' + this.adoption.id + '#' + this.currentUser.id;
-    this.notifService.sendNotification(notification).subscribe()
-
-    this.adoptionService.createAdoptionRequest(this.adoption.id, this.currentUser.email).subscribe(next => {
-      this.ws.push(next, 'adoptionRequest');
-    });
-    this.notifierService.notify('success', 'Votre demande a été envoyée avec succès.');
-    this.r.navigate(['/adoptions'])
+    this.notifierService.notify('default', 'Sending adoption request. please wait ...', 'send');
+    this.adoptionService.createAdoptionRequest(this.adoption.id, this.username).subscribe(next => {
+      let notification = new Notification();
+      notification.fromUser = this.username;
+      notification.toUser = this.adoption.createdBy;
+      notification.body = 'vous a envoyé une demande d\'adoption';
+      notification.route = '/user_profile#RadoptionRequests#' + this.adoption.id + '#' + next.userId;
+      this.notifService.sendNotification(notification).subscribe()
+      let message: Message = new Message();
+      message.body = this.messageBody;
+      message.createdAt = new Date();
+      message.fromUser = this.username;
+      message.toUser = this.adoption.createdBy;
+      this.messages.sendMessage(message).subscribe(next => message = next);
+      this.notifierService.hide('send');
+      this.notifierService.notify('success', 'Votre demande a été envoyée avec succès.');
+      this.r.navigate(['/adoptions'])
+    })
   }
+
 }

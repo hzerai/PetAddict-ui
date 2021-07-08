@@ -55,7 +55,7 @@ export class AdoptionFormComponent implements OnInit {
 
     if (id) {
       this.imageName = `ADOPTION-${id}`;
-      this.adoptionService.getAdoptionById(id).subscribe(next => {
+      this.adoptionService.getAdoptionById(id,null).subscribe(next => {
         this.adoptionForm.setValue({
           title: next.title,
           description: next.description,

@@ -4,22 +4,22 @@
             <section class="text-gray-600 body-font overflow-hidden">
                 <div class="container mx-auto">
                     <div class="lg:w-4/5 mx-auto flex flex-wrap">
-                        <img alt="animalPhoto" class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded-lg shadow" [src]="image?.bytes ? image.bytes : 'https://placedog.net/500/280?id=' + ( adoption?.id > 200 ? adoption?.id - 100 : adoption?.id )">
+                        <img alt="animalPhoto" class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded-lg shadow" [src]="image?.bytes ? image?.bytes : 'https://placedog.net/500/280?id=' + ( adoption?.id > 200 ? adoption?.id - 100 : adoption?.id )">
                         <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-                            <h2 class="text-sm title-font text-gray-500 tracking-widest">#{{adoption.animal.espece}}</h2>
-                            <h1 class="text-gray-900 text-lg title-font font-medium mb-1">{{adoption.title}}</h1>
+                            <h2 class="text-sm title-font text-gray-500 tracking-widest">#{{adoption?.animal.espece}}</h2>
+                            <h1 class="text-gray-900 text-lg title-font font-medium mb-1">{{adoption?.title}}</h1>
 
-                            <p class="leading-relaxed text-gray-600 text-sm title-font font-small mb-1">{{adoption.description}}</p>
+                            <p class="leading-relaxed text-gray-600 text-sm title-font font-small mb-1">{{adoption?.description}}</p>
                             <div class="mt-6 pb-5 border-b-2 border-gray-100 mb-5 leading-relaxed text-xs font-medium title-font">
                                 <div class="">
-                                    <span class="mr-3">Publié le : {{adoption.createdAt | date:'dd/MM/yyyy'}} 
+                                    <span class="mr-3">Publié le : {{adoption?.createdAt | date:'dd/MM/yyyy'}} 
                                        </span>
                                 </div>
                                 <div class="">
-                                    <span class="mr-3">Publié par : {{adoption.user.firstName != null ? adoption.user.firstName + ' ' + adoption.user.lastName : 'anonyme'}}</span>
+                                    <span class="mr-3">Publié par : {{adoption?.user?.firstName != null ? adoption?.user?.firstName + ' ' + adoption?.user?.lastName : 'anonyme'}}</span>
                                 </div>
                                 <div class="">
-                                    <span class="mr-3">Nombre de demande existantes : {{adoption.adoptionRequests.length}}</span>
+                                    <span class="mr-3">Nombre de demande existantes : {{adoption?.adoptionRequests?.length}}</span>
                                 </div>
 
                             </div>

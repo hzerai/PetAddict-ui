@@ -49,9 +49,7 @@ export class ShowAdoptionRequestComponent implements OnInit {
     notification.body = 'a accepté votre demande d\'adoption';
     notification.route = '/user_profile#adoptionRequests#' + adoptionRequest.id;
     this.notifService.sendNotification(notification).subscribe();
-    this.adoptionService.acceptAdoptionRequest(adoptionRequest.id).subscribe(next => {
-      this.ws.push(next, 'adoptionRequest');
-    });
+    this.adoptionService.acceptAdoptionRequest(adoptionRequest.id).subscribe();
   }
 
   rejectAdoptionRequest(adoptionRequest: any) {
@@ -62,8 +60,6 @@ export class ShowAdoptionRequestComponent implements OnInit {
     notification.body = 'a rejeté votre demande d\'adoption';
     notification.route = '/user_profile#adoptionRequests#' + adoptionRequest.id;
     this.notifService.sendNotification(notification).subscribe();
-    this.adoptionService.rejectAdoptionRequest(adoptionRequest.id).subscribe(next => {
-      this.ws.push(next, 'adoptionRequest');
-    });
+    this.adoptionService.rejectAdoptionRequest(adoptionRequest.id).subscribe();
   }
 }

@@ -71,8 +71,10 @@ export class UserPageComponent implements OnInit, AfterViewInit {
     payload = token.split(".")[1];
     payload = window.atob(payload);
     this.username = JSON.parse(payload).username;
-    this.userService.getUserById(this.username).subscribe(next => {
-      next.adoptions.forEach(a => a.adoptionRequests.forEach(r => { r.adoption = a; let m: any = r; m.show = false; this.receivedAdoptionRequests.push(m) }))
+    this.userService.getUserById(this.username, 'adoptions,requests').subscribe(next => {
+      next.recievedAdoptionRequests.forEach(r => {
+        let m: any = r; m.show = false; this.receivedAdoptionRequests.push(m)
+      })
       this.user = next;
     })
     this.messages.getAllMessages().subscribe(next => {
@@ -105,7 +107,7 @@ export class UserPageComponent implements OnInit, AfterViewInit {
           this.unreadMessages++;
         }
       })
-      this.userService.getUserById(k).subscribe(next => this.contacts.push(next))
+      this.userService.getUserById(k, null).subscribe(next => this.contacts.push(next))
     })
   }
 
@@ -118,8 +120,7 @@ export class UserPageComponent implements OnInit, AfterViewInit {
   }
 
   getFromUser(email: string): string {
-    let userName = '';
-    this.userService.getUserById(email).subscribe(u => userName = `${u.firstName} ${u.lastName}`)
-    return userName;
+    let u = this.contacts?.find(usr => usr.email === email);
+    return `${u.firstName} ${u.lastName}`;
   }
 }

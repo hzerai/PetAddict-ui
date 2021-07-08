@@ -11,6 +11,8 @@ export class Adoption {
     createdBy: string = '';
     updatedBy: string = '';
     user : User;
+    userId : number;
+    animalId : number;
     animal : Animal = new Animal();
     adoptionRequests : AdoptionRequest[];
 }

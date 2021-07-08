@@ -16,7 +16,6 @@ import { BackgroundDirective } from './custom-directives/background.directive';
 import { FooterComponent } from './interface-module/footer/footer.component';
 import { HeaderComponent } from './interface-module/header/header.component';
 import { FilterComponent } from './interface-module/filter/filter.component';
-import { AdsComponent } from './interface-module/ads/ads.component';
 import { HomeComponent } from './interface-module/home/home.component';
 import { AdoptionDetailsComponent } from './adoption-module/adoption-details/adoption-details.component';
 import { AdoptionFormComponent } from './adoption-module/adoption-form/adoption-form.component';
@@ -101,7 +100,6 @@ const customNotifierOptions: NotifierOptions = {
     FooterComponent,
     HeaderComponent,
     FilterComponent,
-    AdsComponent,
     HomeComponent,
     AdoptionDetailsComponent,
     AdoptionFormComponent,

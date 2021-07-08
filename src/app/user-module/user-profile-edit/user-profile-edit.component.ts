@@ -8,6 +8,7 @@ import { User } from '../User';
 import { UserService } from '../_services/user.service';
 import { formatDate } from '@angular/common'
 import { Municipality, VillesService } from '../villes.service';
+import { NotifierService } from 'angular-notifier';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class UserProfileEditComponent implements OnInit {
   villes = VillesService.villes;
   municipalities: Municipality[];
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private notifier: NotifierService, private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
     if (this.user.address == null) {
@@ -65,6 +66,7 @@ export class UserProfileEditComponent implements OnInit {
   }
 
   saveProfile() {
+    this.notifier.notify('default', 'Updating profile. please wait ...', 'profile');
     this.user.firstName = this.userForm.value.firstName
     this.user.lastName = this.userForm.value.lastName
     this.user.phoneNumber = this.userForm.value.phoneNumber
@@ -78,14 +80,12 @@ export class UserProfileEditComponent implements OnInit {
     this.user.address.details = this.userForm.value.details
     this.user.address.ville = this.userForm.value.ville
     this.user.about = this.userForm.value.about
-    let adoptions = this.user.adoptions;
-    let adoptionRequests = this.user.adoptionRequests;
-    this.user.adoptions = null;
-    this.user.adoptionRequests = null;
-    this.userService.updateUserProfile(this.user).subscribe(next => { UserService.cache.cache(next); this.user = next })
-    this.user.adoptions = adoptions;
-    this.user.adoptionRequests = adoptionRequests;
-    this.userEvent.emit(this.user);
+    this.userService.updateUserProfile(this.user).subscribe(a => {
+      this.notifier.hide('profile');
+      this.notifier.notify('success', 'Profile updated successfuly');
+      this.userEvent.emit(this.user);
+    })
+
   }
 
   onSelect(ville) {

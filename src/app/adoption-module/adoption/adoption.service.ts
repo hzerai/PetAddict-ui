@@ -12,8 +12,6 @@ import { HorseBreed } from 'src/app/interface-module/filter/HorseBreed';
 import { Tailles } from 'src/app/interface-module/filter/Tailles';
 import { Colors } from 'src/app/interface-module/filter/Colors';
 import { environment } from 'src/environments/environment';
-import { WebSocketService } from 'src/app/WebSockets/web-socket.service';
-import { UserService } from 'src/app/user-module/_services/user.service';
 
 
 @Injectable({
@@ -21,67 +19,39 @@ import { UserService } from 'src/app/user-module/_services/user.service';
 })
 export class AdoptionService {
 
-  public static cache: AdoptionCacheService;
   public static suggestions: string[];
 
   options = {
     responseType: 'json' as const,
   };
+
   private adoptionUrl = environment.backUrl + "/adoption";
   private adoptionRequestUrl = environment.backUrl + "/adoptionRequest/";
-  constructor(private http: HttpClient, private ws: WebSocketService) {
-    AdoptionService.cache = new AdoptionCacheService();
-    this.getAdoptions().subscribe(next => AdoptionService.cache.cacheAll(next));
+
+  constructor(private http: HttpClient) {
     AdoptionService.suggestions = this.populateSuggestions()
-    this.ws.watch('adoptionRequest').subscribe(msg => {
-      let ar: AdoptionRequest = JSON.parse(msg.body);
-      let adoptionId = ar.adoption.id;
-      let fromuser = ar.createdBy;
-      let toUser = ar.adoption.createdBy;
-      let fr = UserService.cache.get(fromuser).adoptionRequests.find(r => r.id === ar.id);
-      if (fr) {
-        fr = ar;
-      } else {
-        UserService.cache.get(fromuser).adoptionRequests.unshift(ar)
-      }
-
-      let fr2 = UserService.cache.get(fromuser).adoptionRequests.find(r => r.id === ar.id);
-      if (fr) {
-        fr2 = ar;
-      } else {
-        AdoptionService.cache.get(adoptionId).adoptionRequests.unshift(ar)
-      }
-
-      let fr3 = UserService.cache.get(toUser).adoptions.find(a => a.id = adoptionId).adoptionRequests.find(r => r.id === ar.id);
-      if (fr) {
-        fr3 = ar;
-      } else {
-        UserService.cache.get(toUser).adoptions.find(a => a.id = adoptionId).adoptionRequests.unshift(ar)
-      }
-    })
-
-    this.ws.watch('adoptions').subscribe(msg => {
-      let adoption: Adoption = JSON.parse(msg.body);
-      let creator = adoption.createdBy;
-      let fa = UserService.cache.get(creator).adoptions.find(r => r.id === adoption.id);
-      if (fa) {
-        fa = adoption;
-      } else {
-        UserService.cache.get(creator).adoptions.unshift(adoption)
-      }
-      AdoptionService.cache.cache(adoption)
-    })
   }
 
 
-  getAdoptions(): Observable<Adoption[]> {
-    return this.http.get<Adoption[]>(this.adoptionUrl);
+  elasticSearch(keyword: string): Observable<Adoption[]> {
+    if (keyword == null || keyword.length < 4) {
+      return;
+    }
+    let params = new HttpParams();
+    if (keyword != null && keyword.length > 0) {
+      params = params.append('keyword', keyword);
+    }
+    return this.http.get<Adoption[]>(this.adoptionUrl + 's/elasticsearch' , {params});
   }
 
 
-  getAdoptionById(idAsString: string): Observable<Adoption> {
+  getAdoptionById(idAsString: string, key: string): Observable<Adoption> {
     let id = Number(idAsString);
-    return AdoptionService.cache.has(id) ? of(AdoptionService.cache.get(id)) : this.http.get<Adoption>(this.adoptionUrl + '/' + id);
+    let params = new HttpParams();
+    if (key != null && key.length > 0) {
+      params = params.append('key', key);
+    }
+    return this.http.get<Adoption>(this.adoptionUrl + '/' + id, { params });
   }
 
   newAdoption(adoption: Adoption): Observable<Adoption> {
@@ -93,27 +63,25 @@ export class AdoptionService {
   }
 
   deleteAdoption(id: number): Observable<Adoption> {
-    AdoptionService.cache.remove(id);
     return this.http.delete<Adoption>(this.adoptionUrl + '/' + id, this.options);
   }
 
-  getPagedAdoptions(page: number = 1, size: number = 6): Observable<Adoption[]> {
+  getPagedAdoptions(page: number = 1, size: number = 6, key: string): Observable<Adoption[]> {
 
-    if (AdoptionService.cache.adoptions.size == 0) {
-      let params = new HttpParams();
-      params = params.append('page', String(page));
-      params = params.append('size', String(size));
-      return this.http.get<Adoption[]>(this.adoptionUrl, { params });
-    } else {
-      let offset = page < 1 ? 0 : (page - 1) * size;
-      let target = size < 1 ? 6 : offset + size;
-      return of(AdoptionService.cache.getAll().slice(offset, target));
+    let params = new HttpParams();
+    params = params.append('page', String(page));
+    params = params.append('size', String(size));
+    if (key != null && key.length > 0) {
+      params = params.append('key', key);
     }
-
+    return this.http.get<Adoption[]>(this.adoptionUrl, { params });
   }
 
-  getPagedAdoptionsFiltered(espece, type, sexe, taille, ville, municipality, user_id, page, size) {
+  getPagedAdoptionsFiltered(espece, type, sexe, taille, ville, municipality, user_id, page, size, key: string) {
     let params = new HttpParams();
+    if (key != null && key.length > 0) {
+      params = params.append('key', key);
+    }
     if (espece != null && espece.length > 0) {
       params = params.append('espece', String(espece));
     }
@@ -141,22 +109,38 @@ export class AdoptionService {
     if (size != null) {
       params = params.append('size', String(size))
     }
-    if (AdoptionService.cache.adoptions.size > 0) {
-      let offset = page < 1 ? 0 : (page - 1) * size;
-      let target = size < 1 ? 6 : offset + size;
-      return of(AdoptionService.cache.getWithParams(params).slice(offset, target));
-    } else {
-      return this.http.get<Adoption[]>(this.adoptionUrl, { params });
-    }
+    return this.http.get<Adoption[]>(this.adoptionUrl, { params });
+
   }
 
   count(): Observable<number> {
-    return AdoptionService.cache.adoptions.size > 0 ? of(AdoptionService.cache.adoptions.size) : this.http.get<number>(this.adoptionUrl + 's/count');
+    return this.http.get<number>(this.adoptionUrl + 's/count');
   }
 
-
-  countFiltered(espece, type, sexe, taille, ville, municipality, user_id): number {
-    return AdoptionService.cache.count(espece, type, sexe, taille, ville, municipality, user_id);
+  countFiltered(espece, type, sexe, taille, ville, municipality, user_id): Observable<number> {
+    let params = new HttpParams();
+    if (espece != null && espece.length > 0) {
+      params = params.append('espece', String(espece));
+    }
+    if (type != null && type.length > 0) {
+      params.append('type', String(type))
+    }
+    if (sexe != null && sexe.length > 0) {
+      params = params.append('sexe', String(sexe));
+    }
+    if (taille != null && taille.length > 0) {
+      params = params.append('taille', String(taille));
+    }
+    if (ville != null && ville.length > 0) {
+      params = params.append('ville', String(ville));
+    }
+    if (municipality != null && municipality.length > 0) {
+      params = params.append('municipality', String(municipality));
+    }
+    if (user_id != null && user_id.length > 0) {
+      params = params.append('user_id', String(user_id));
+    }
+    return this.http.get<number>(this.adoptionUrl + 's/count');
   }
 
   createAdoptionRequest(id: number, userId: string) {
@@ -178,9 +162,20 @@ export class AdoptionService {
   }
 
   getAdoptionRequest(id: number) {
-    return this.http.get<AdoptionRequest>(this.adoptionRequestUrl + id );
+    return this.http.get<AdoptionRequest>(this.adoptionRequestUrl + id);
   }
 
+  getUsersAdoptionRequests(email: string): Observable<AdoptionRequest[]> {
+    return this.http.get<AdoptionRequest[]>(this.adoptionRequestUrl + 'user/' + email);
+  }
+
+  getAdoptionAdoptionRequests(id: number): Observable<AdoptionRequest[]> {
+    return this.http.get<AdoptionRequest[]>(this.adoptionRequestUrl + 'adoption/' + id);
+  }
+
+  canAdopt(id: number, email: string): Observable<boolean> {
+    return this.http.get<boolean>(this.adoptionRequestUrl + email + '/canadopot/' + id);
+  }
 
   populateSuggestions(): string[] {
 
@@ -196,98 +191,3 @@ export class AdoptionService {
   }
 
 }
-
-class AdoptionCacheService {
-
-  public adoptions: Map<number, Adoption> = new Map();
-  constructor() { }
-
-  getAll(): Adoption[] {
-    return Array.from(this.adoptions.values())
-  }
-
-  count(espece, type, sexe, taille, ville, municipality, user_id): number {
-    return Array.from(this.adoptions.values()).filter(adoption => {
-      if (espece != null && espece.length > 0 && adoption.animal.espece != espece) {
-        return false;
-      }
-      if (type != null && type.length > 0 && adoption.animal.type != type) {
-        return false;
-      }
-      if (taille != null && taille.length > 0 && adoption.animal.taille != taille) {
-        return false;
-      }
-      if (sexe != null && sexe.length > 0 && adoption.animal.sexe != sexe) {
-        return false;
-      }
-      if (ville != null && ville.length > 0 && adoption.user.address.ville != ville) {
-        return false;
-      }
-      if (municipality != null && municipality.length > 0 && adoption.user.address.municipality != municipality) {
-        return false;
-      }
-      if (user_id != null && user_id.length > 0 && adoption.user.id != Number(user_id)) {
-        return false;
-      }
-      return true;
-    }).length;
-  }
-  getWithParams(params: HttpParams): Adoption[] {
-    let espece: string = params.get('espece');
-    let type: string = params.get('type');
-    let taille: string = params.get('taille');
-    let sexe: string = params.get('sexe');
-    let ville: string = params.get('ville');
-    let municipality: string = params.get('municipality');
-    let user_id: string = params.get('user_id');
-
-    return Array.from(this.adoptions.values()).filter(adoption => {
-      if (espece != null && espece.length > 0 && adoption.animal.espece != espece) {
-        return false;
-      }
-      if (type != null && type.length > 0 && adoption.animal.type != type) {
-        return false;
-      }
-      if (taille != null && taille.length > 0 && adoption.animal.taille != taille) {
-        return false;
-      }
-      if (sexe != null && sexe.length > 0 && adoption.animal.sexe != sexe) {
-        return false;
-      }
-      if (ville != null && ville.length > 0 && adoption.user.address.ville != ville) {
-        return false;
-      }
-      if (municipality != null && municipality.length > 0 && adoption.user.address.municipality != municipality) {
-        return false;
-      }
-      if (user_id != null && user_id.length > 0 && adoption.user.id != Number(user_id)) {
-        return false;
-      }
-      return true;
-    })
-  }
-
-  get(id: number): Adoption {
-    return this.adoptions.get(id);
-  }
-
-  cache(adoption: Adoption): void {
-    this.adoptions.set(adoption.id, adoption);
-  }
-  cacheAll(adoptions: Adoption[]): void {
-    adoptions.reverse().forEach(a => {
-      this.adoptions.set(a.id, a);
-      AdoptionService.suggestions.push(a.title)
-    })
-  }
-
-  has(id: number): boolean {
-    return this.adoptions.has(id);
-  }
-
-  remove(id: number): void {
-    this.adoptions.delete(id);
-  }
-
-}
-

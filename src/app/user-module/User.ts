@@ -17,6 +17,7 @@ export class User {
     birthDate: Date;
     adoptions: Adoption[];
     adoptionRequests: AdoptionRequest[];
+    recievedAdoptionRequests: AdoptionRequest[];
     createdAt: Date;
     updatedAt: Date;
     createdBy: string = '';
@@ -26,4 +27,5 @@ export class User {
     isPhonePublic: boolean = false;
     allowNotification: boolean = false;
     address : Address;
+    addressId : number;
 }
