@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { VillesService } from './user-module/villes.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { VillesService } from './user-module/villes.service';
 })
 export class AppComponent {
 
-  constructor(private villesService: VillesService) { 
+  constructor(private villesService: VillesService,public router: Router) { 
     
   }
   

@@ -8,10 +8,14 @@ import { HomeComponent } from './interface-module/home/home.component';
 import { AboutUsComponent } from './interface-module/about-us/about-us.component';
 import { LoginComponent } from './user-module/login/login.component';
 import { RegisterComponent } from './user-module/register/register.component';
-import { UserProfileComponent } from './user-module/user-profile/user-profile.component';
 import { AdoptionRequestComponent } from './adoption-module/adoption-request/adoption-request.component';
 import { VisitProfileComponent } from './user-module/visit-profile/visit-profile.component';
 import { UserPageComponent } from './user-module/user-page/user-page.component';
+import { RouteGuardService } from './user-module/_helpers/route-guard.service';
+import { AdminComponent } from './admin-module/admin.component';
+import { UserComponent } from './admin-module/user/user.component';
+import { DashboardComponent } from './admin-module/dashboard/dashboard.component';
+import { AdminModule } from './admin-module/admin.module';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -26,10 +30,14 @@ const routes: Routes = [
   { path: 'adoptions/:id/edit', component: AdoptionFormComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'admin',canActivate : [RouteGuardService],loadChildren: () => import('./admin-module/admin.module').then(m => m.AdminModule)},
+  { path: '**',  redirectTo: '' },
+
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{enableTracing: true}),AdminModule],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule { }
