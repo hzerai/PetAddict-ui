@@ -28,4 +28,5 @@ export class User {
     allowNotification: boolean = false;
     address : Address;
     addressId : number;
+    status:boolean;
 }

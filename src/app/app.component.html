@@ -1,7 +1,7 @@
-<app-header class=""></app-header>
+<app-header class="" *ngIf="!router.url.includes('admin')"></app-header>
 <notifier-container></notifier-container>
 
 <body>
     <router-outlet></router-outlet>
 </body>
-<app-footer class=""></app-footer>
+<app-footer class="" *ngIf="!router.url.includes('admin')"></app-footer>

@@ -29,4 +29,24 @@ export class UserService {
   updateUserProfile(user: User): Observable<User> {
     return this.http.put<User>(API_URL + user.id, user);
   }
+  
+  
+  deleteUser(user: User):Observable<User> {
+    return this.http.delete<User>(API_URL + user.id);
+  }
+
+  triggerStatus(id:number):Observable<User>{
+    return this.http.put<User>(API_URL+'status/'+id,null);
+  }
+  getPagedUsers(page: number = 1, size: number = 6): Observable<User[]> {
+
+      let params = new HttpParams();
+      params = params.append('page', String(page));
+      params = params.append('size', String(size));
+      return this.http.get<User[]>(API_URL, { params });
+  }
+
+  count(): Observable<number> {
+    return this.http.get<number>(API_URL + 'count');
+  }
 }

@@ -16,6 +16,7 @@ import { UserResolver } from './Resolvers/UserResolver';
 import { CurrentUserFullResolver } from './Resolvers/CurrentUserFullResolver';
 import { HeaderUserResolver } from './Resolvers/HeaderUserResolver';
 import { UserAdoptionResolver } from './Resolvers/UserAdoptionsResolver';
+import { AdminModule } from './admin-module/admin.module';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, resolve: { data: HeaderUserResolver } },
@@ -30,10 +31,12 @@ const routes: Routes = [
   { path: 'adoptions/:id/edit', component: AdoptionFormComponent, resolve: { data: AdoptionResolver } },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'admin',loadChildren: () => import('./admin-module/admin.module').then(m => m.AdminModule)},
+  { path: '**',  redirectTo: '' },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes),AdminModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
