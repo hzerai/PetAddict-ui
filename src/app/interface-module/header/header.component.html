@@ -7,9 +7,31 @@
             </a>
 
         </div>
-        <div class="mx-auto flex"> <a [routerLink]="['adoptions']" class="col-span-1 my-auto  whitespace-no-wrap uppercase text-gray-800 text-sm px-4 py-2 text-black hover:bg-red-600 hover:text-white rounded-lg  font-medium no-underline">Adoptions</a>
-            <a  class="col-span-1 my-auto  whitespace-no-wrap uppercase text-gray-800 text-sm px-4 py-2 text-black hover:bg-red-600 hover:text-white rounded-lg  font-medium no-underline">Lost
-            & Found</a>
+        <div class="mx-auto flex"> 
+            <a [routerLink]="['adoptions']" class="col-span-1 my-auto  whitespace-no-wrap uppercase text-gray-800 text-sm px-4 py-2 text-black hover:bg-red-600 hover:text-white rounded-lg  font-medium no-underline">Adoptions</a>
+            <div class=" relative col-span-1  my-auto px-4 py-2 hover:bg-red-600 hover:text-white" (mouseenter)="showLostAndFound = true" (mouseleave)="showLostAndFound = false" >
+                <a  class="my-auto  whitespace-no-wrap uppercase text-gray-800 text-sm  text-black  rounded-lg  font-medium no-underline">Lost & Found
+                </a>
+                <div class="mx-auto w-full  mt-2 absolute flex flex-wrap  bg-white" *ngIf="showLostAndFound" style="right: -2px;">
+                    <!-- width:inherit; height:inherit; margin-right: inherit; margin-left: inherit; padding-right: inherit; padding-left: inherit; right: -2px; -->
+                    <div class="flex  mt-5  my-auto w-full ">
+                        <div class="mx-auto">
+                            <a  [routerLink]="['losts']" class="  uppercase text-gray-800 text-sm  text-black  rounded-lg  font-medium no-underline">Lost
+                            </a>
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="flex mt-5 mb-5 my-auto w-full  ">
+                        <div class="mx-auto">
+                            <a  [routerLink]="['founds']" class="  uppercase text-gray-800 text-sm  text-black  rounded-lg  font-medium no-underline">Found
+                            </a> 
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            
             <a [routerLink]="['associations']" class="col-span-1 my-auto  whitespace-no-wrap uppercase text-gray-800 text-sm px-4 py-2 text-black hover:bg-red-600 hover:text-white rounded-lg  font-medium no-underline">Associations</a>
            
             

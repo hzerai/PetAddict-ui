@@ -43,6 +43,14 @@ import { NotifierModule, NotifierOptions } from 'angular-notifier';
 import { AssociationListComponent } from './association-module/association-list/association-list.component';
 import { VetoListComponent } from './veto-module/veto-list/veto-list.component';
 import {MatCardModule} from '@angular/material/card';
+import { LostComponent } from './lostandfound-module/lost/lost.component';
+import { FoundComponent } from './lostandfound-module/found/found.component';
+import { LostListComponent } from './lostandfound-module/lost-list/lost-list.component';
+import { FoundListComponent } from './lostandfound-module/found-list/found-list.component';
+import { FoundDetailsComponent } from './lostandfound-module/found-details/found-details.component';
+import { LostDetailsComponent } from './lostandfound-module/lost-details/lost-details.component';
+import { LostFormComponent } from './lostandfound-module/lost-form/lost-form.component';
+import { FoundFormComponent } from './lostandfound-module/found-form/found-form.component';
 import {
   InjectableRxStompConfig,
   RxStompService,
@@ -125,7 +133,15 @@ const customNotifierOptions: NotifierOptions = {
     ShowAdoptionRequestComponent,
     ShowAdoptionRequestSentComponent,
     AssociationListComponent,
-    VetoListComponent
+    VetoListComponent,
+    LostComponent,
+    FoundComponent,
+    LostListComponent,
+    FoundListComponent,
+    FoundDetailsComponent,
+    LostDetailsComponent,
+    LostFormComponent,
+    FoundFormComponent
 
 
 

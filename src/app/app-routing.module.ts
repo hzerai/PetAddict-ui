@@ -19,6 +19,12 @@ import { UserAdoptionResolver } from './Resolvers/UserAdoptionsResolver';
 import { AdminModule } from './admin-module/admin.module';
 import { AssociationListComponent } from './association-module/association-list/association-list.component';
 import { VetoListComponent } from './veto-module/veto-list/veto-list.component';
+import { FoundListComponent } from './lostandfound-module/found-list/found-list.component';
+import { LostListComponent } from './lostandfound-module/lost-list/lost-list.component';
+import { LostFormComponent } from './lostandfound-module/lost-form/lost-form.component';
+import { FoundFormComponent } from './lostandfound-module/found-form/found-form.component';
+import { FoundDetailsComponent } from './lostandfound-module/found-details/found-details.component';
+import { LostDetailsComponent } from './lostandfound-module/lost-details/lost-details.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, resolve: { data: HeaderUserResolver } },
@@ -33,10 +39,19 @@ const routes: Routes = [
   { path: 'adoptions/:id', component: AdoptionDetailsComponent, resolve: { data: AdoptionResolver } },
   { path: 'adoptions/:id/adopter', component: AdoptionRequestComponent, resolve: { data: AdoptionResolver } },
   { path: 'adoptions/:id/edit', component: AdoptionFormComponent, resolve: { data: AdoptionResolver } },
+  { path: 'founds', component: FoundListComponent },
+  { path: 'losts', component: LostListComponent },
+  { path: 'losts/new', component: LostFormComponent },
+  { path: 'founds/new', component: FoundFormComponent },
+  { path: 'founds/:id', component: FoundDetailsComponent },
+  { path: 'losts/:id', component: LostDetailsComponent },
+  { path: 'founds/:id/edit', component: FoundFormComponent },
+  { path: 'losts/:id/edit', component: LostFormComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'admin',loadChildren: () => import('./admin-module/admin.module').then(m => m.AdminModule)},
   { path: '**',  redirectTo: '' },
+  
 ];
 
 @NgModule({
