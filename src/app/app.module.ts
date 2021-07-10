@@ -40,6 +40,9 @@ import { MatCarouselModule } from '@ngmodule/material-carousel';
 import { ShowAdoptionRequestComponent } from './adoption-module/show-adoption-request/show-adoption-request.component';
 import { ShowAdoptionRequestSentComponent } from './adoption-module/show-adoption-request-sent/show-adoption-request-sent.component';
 import { NotifierModule, NotifierOptions } from 'angular-notifier';
+import { AssociationListComponent } from './association-module/association-list/association-list.component';
+import { VetoListComponent } from './veto-module/veto-list/veto-list.component';
+import {MatCardModule} from '@angular/material/card';
 import {
   InjectableRxStompConfig,
   RxStompService,
@@ -121,6 +124,8 @@ const customNotifierOptions: NotifierOptions = {
     ImageComponent,
     ShowAdoptionRequestComponent,
     ShowAdoptionRequestSentComponent,
+    AssociationListComponent,
+    VetoListComponent
 
 
 
@@ -132,6 +137,7 @@ const customNotifierOptions: NotifierOptions = {
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    MatCardModule,
     MatCarouselModule.forRoot(),
     NotifierModule.withConfig(customNotifierOptions)
   ],
