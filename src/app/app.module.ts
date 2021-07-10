@@ -58,6 +58,12 @@ import {
 } from '@stomp/ng2-stompjs';
 
 import { myRxStompConfig } from './my-rx-stomp.config';
+import { PostComponent } from './post-module/post/post.component';
+import { PostListComponent } from './post-module/post-list/post-list.component';
+import { PostDetailsComponent } from './post-module/post-details/post-details.component';
+import { CommentComponent } from './post-module/comment/comment.component';
+import { PostFormComponent } from './post-module/post-form/post-form.component';
+import { CKEditorModule } from 'ckeditor4-angular';
 /**
  * Custom angular notifier options
  */
@@ -141,7 +147,13 @@ const customNotifierOptions: NotifierOptions = {
     FoundDetailsComponent,
     LostDetailsComponent,
     LostFormComponent,
-    FoundFormComponent
+    FoundFormComponent,
+    PostComponent,
+     PostListComponent,
+     PostDetailsComponent,
+     CommentComponent,
+     PostFormComponent,
+ 
 
 
 
@@ -154,6 +166,7 @@ const customNotifierOptions: NotifierOptions = {
     ReactiveFormsModule,
     FormsModule,
     MatCardModule,
+    CKEditorModule,
     MatCarouselModule.forRoot(),
     NotifierModule.withConfig(customNotifierOptions)
   ],

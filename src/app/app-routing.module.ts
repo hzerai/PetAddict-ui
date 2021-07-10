@@ -25,14 +25,17 @@ import { LostFormComponent } from './lostandfound-module/lost-form/lost-form.com
 import { FoundFormComponent } from './lostandfound-module/found-form/found-form.component';
 import { FoundDetailsComponent } from './lostandfound-module/found-details/found-details.component';
 import { LostDetailsComponent } from './lostandfound-module/lost-details/lost-details.component';
+import { PostListComponent } from './post-module/post-list/post-list.component';
+import { PostFormComponent } from './post-module/post-form/post-form.component';
+import { PostDetailsComponent } from './post-module/post-details/post-details.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, resolve: { data: HeaderUserResolver } },
   { path: 'user_profile', component: UserPageComponent, resolve: { data: CurrentUserFullResolver } },
   { path: 'visit_user_profile', component: VisitProfileComponent, resolve: { data: UserAdoptionResolver } },
   { path: 'about', component: AboutUsComponent },
-  { path: 'associations', component: AssociationListComponent},
-  { path: 'vetos', component: VetoListComponent},
+  { path: 'associations', component: AssociationListComponent },
+  { path: 'vetos', component: VetoListComponent },
   { path: 'adoptions', component: AdoptionListComponent },
   { path: 'adoptions/filtered', component: AdoptionListComponent },
   { path: 'adoptions/new', component: AdoptionFormComponent },
@@ -47,15 +50,19 @@ const routes: Routes = [
   { path: 'losts/:id', component: LostDetailsComponent },
   { path: 'founds/:id/edit', component: FoundFormComponent },
   { path: 'losts/:id/edit', component: LostFormComponent },
+  { path: 'posts', component: PostListComponent },
+  { path: 'posts/new', component: PostFormComponent },
+  { path: 'post/:id', component: PostDetailsComponent },
+  { path: 'post/:id/edit', component: PostFormComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'admin',loadChildren: () => import('./admin-module/admin.module').then(m => m.AdminModule)},
-  { path: '**',  redirectTo: '' },
-  
+  { path: 'admin', loadChildren: () => import('./admin-module/admin.module').then(m => m.AdminModule) },
+  { path: '**', redirectTo: '' },
+
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes),AdminModule],
+  imports: [RouterModule.forRoot(routes), AdminModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
