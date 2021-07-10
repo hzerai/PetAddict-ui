@@ -67,8 +67,8 @@ export class UserPageComponent implements OnInit, AfterViewInit {
     });
 
     this.activatedRoute.data.subscribe((data) => {
-      console.log(data)
       this.user = data.data.currentUser;
+      this.username = this.user.email;
       this.contacts = data.data.contacts;
       this.inbox = data.data.inbox;
       this.unreadMessages = data.data.unreadMessages;
