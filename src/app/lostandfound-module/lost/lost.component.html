@@ -1,0 +1,47 @@
+<div class="flex relative " [routerLink]="['/losts', lost.id]">
+    <img alt="gallery" class="absolute inset-0 w-full md:w-1/3 h-full object-cover object-center rounded"
+        [src]="image?.bytes ? image.bytes : 'https://via.placeholder.com/640x480?text=Image+For+lost+NEW'">
+    <div
+        class="px-8 py-10 relative z-10 w-full md:w-1/3 border-1 border-gray-200 opacity-0 hover:bg-black hover:bg-opacity-50 hover:text-white hover:opacity-100">
+        <div class="grid grid-cols-2 p-10 text-xs">
+            <div class="font-bold">Nom :</div>
+            <div>{{lost?.animal.nom}}</div>
+            <div class="font-bold">Sexe :</div>
+            <div>{{lost?.animal.sexe}}</div>
+            <div class="font-bold">Espece:</div>
+            <div>{{lost?.animal.espece}}</div>
+            <div class="font-bold">Type :</div>
+            <div>{{lost?.animal.type}}</div>
+            <div class="font-bold">Taille :</div>
+            <div>{{lost?.animal.taille}}</div>
+            <div class="font-bold">Age :</div>
+            <div>{{lost?.animal.age}}</div>
+            <div class="font-bold">Couleur :</div>
+            <div> {{lost?.animal.couleur}} </div>
+        </div>
+    </div>
+    <div class="md:w-1/3 px-5 py-5">
+        <h2 class="tracking-widest text-sm title-font font-medium text-black mb-1 flex flex-wrap">
+            <img src="assets/svg/place.svg" />
+            {{lost.user?.address?.ville?
+            lost.user?.address?.ville : 'Tunis'}}
+        </h2>
+        <h1 class="title-font text-lg font-medium text-black mb-3">{{lost.title}}</h1>
+        <p class="leading-relaxed h-32 overflow-y-auto text-black text-sm">{{lost.description}}.</p>
+    </div>
+    <div class="float-right text-right justify-end   ml-auto mt-auto">
+        <button [routerLink]="['losts/:id/edit',lost.id]" class="class=flex-no-shrink bg-green-400 hover:bg-green-500 px-5 ml-4 py-2 text-xs shadow-sm hover:shadow-lg font-medium tracking-wider border-2 border-green-300 hover:border-green-500 text-white rounded-full transition ease-in duration-300">Edit</button>
+     </div>
+     <div>
+        <div class="ml-3 my-5 bg-yellow-600 p-1 w-20">
+           <div class="uppercase text-xs leading-4 font-semibold text-center text-yellow-100">New</div>
+        </div>
+     </div>
+     <div>
+        <button class="text-gray-100 rounded-sm my-5 ml-2 focus:outline-none bg-gray-500">
+           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+           </svg>
+        </button>
+     </div>
+</div>

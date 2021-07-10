@@ -1,0 +1,90 @@
+<style>
+    .top-100 {
+        top: 100%
+    }
+
+    .bottom-100 {
+        bottom: 100%
+    }
+
+    .max-h-select {
+        max-height: 240px;
+    }
+
+    .searchresult::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.searchresult {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+</style>
+<div #slider class="grid grid-cols-5 mb-5 absolute top-0 w-full">
+    <img class="col-start-3 col-span-3 h-full w-full flex-col" src="assets/images/slider/adoptionbg.jpg">
+    <div class="row-start-1 col-start-1 col-span-2 backslide mr-auto flex h-full w-full flex-grow bg-gradient-to-r to-blue-300 from-blue-600">
+    </div> 
+</div>
+<div class="relative mb-5 flex flex-wrap container mx-auto" style="height: 430px;">
+    
+    <h1 class="my-auto text-6xl z-50 relative text-white w-full" >Animaux trouvés</h1>
+    <div id="publier" class="h-16 ml-32 rounded-lg shadow-lg">
+        <a [routerLink]="['/founds/new']" id="create" class="cursor-pointer flex">Publier 
+            <svg xmlns="http://www.w3.org/2000/svg" class="ml-auto mt-auto ml-2" style="fill:white" viewBox="0 0 24 24" width="24" height="24"><path class="heroicon-ui" d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm1-9h2a1 1 0 0 1 0 2h-2v2a1 1 0 0 1-2 0v-2H9a1 1 0 0 1 0-2h2V9a1 1 0 0 1 2 0v2z"/></svg>
+        </a>
+    </div>
+</div>
+<div class="mb-5">
+    
+    <section class=" text-gray-600 container mx-auto">
+        
+            <div class="flex flex-wrap ">
+                <app-found *ngFor="let found of founds" [found]="found"
+                    class="lg:w-full  sm:w p-4 hover:rounded cursor-pointer hover:shadow">
+                </app-found>
+            </div>
+        
+        <div class="px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6"
+            *ngIf="count > 0 ">
+            <div class="flex-1 flex justify-between sm:hidden">
+                <button (click)="previous()" [disabled]="cantPrevious()"
+                    class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                    Previous
+                </button>
+                <button (click)="next()" [disabled]="cantNext()"
+                    class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                    Next
+                </button>
+            </div>
+            <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                <div class="">
+                    <p class="text-xs font-bold text-black">
+                        Affichage de
+                        <span class="font-medium">{{(page - 1) * size + 1}}</span>
+                        à
+                        <span class="font-medium">{{page * size > count ? count : page * size}}</span>
+                        sur
+                        <span class="font-medium">{{count}}</span>
+                        résultats trouvés
+                    </p>
+                </div>
+                <div class="cursor-pointer">
+                    <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                        <a (click)="previous()"
+                            class="text-xs font-semibold flex w-8 h-8 p-0 rounded-full items-center justify-center leading-tight relative border border-solid border-blueGray-200 text-black bg-blueGray-200">
+                            &lt;
+                        </a>
+                        <a *ngFor="let i of pages" (click)="setPage(i)" paginationButton [page]="i">{{i.number}}</a>
+
+                        <a (click)="next()"
+                            class="text-xs font-semibold flex w-8 h-8 p-0 rounded-full items-center justify-center leading-tight relative border border-solid border-blueGray-200 text-black bg-blueGray-200">
+                            &gt;
+                        </a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</div>
