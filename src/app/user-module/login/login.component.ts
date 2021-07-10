@@ -47,8 +47,12 @@ export class LoginComponent implements OnInit {
         this.isLoggedIn = true;
         
         this.roles = JSON.parse(payload).roles;
-        this.reloadPage();
-
+        if(this.roles.indexOf('ROLE_ADMIN') > -1){
+          this.router.navigateByUrl('/admin');
+        }
+        else{
+          this.reloadPage();
+        }
       },
       err => {
         this.errorMessage = err.error.message;

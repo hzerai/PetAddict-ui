@@ -18,8 +18,9 @@ export class HomeComponent implements OnInit {
     {'image': 'assets/images/slider/3.jpg'}, 
   ];
 
-  adoptions: Adoption[] = [];
-  images: Image[]=[];
+  adoptions: Map<number,Adoption[]> = new Map();
+  adoptionskey: number[]=[];
+  images: Map<number,Image>=new Map();
   countAdoption:Number=0;
   startDate:number= Math.floor(((new Date().getTime())-(new Date('2021-06-17').getTime()))/(1000 * 3600 * 24));
 
@@ -29,11 +30,16 @@ export class HomeComponent implements OnInit {
     this.adoptionService.count().subscribe(next => {
       this.countAdoption = next;
     });
-    this.adoptionService.getPagedAdoptions(1, 4 , null).subscribe(next => { this.adoptions = next; 
-      this.adoptions.forEach(a => {
-      this.imageService.getImage(`ADOPTION-${a.id}`).subscribe(next => {this.images.push(next) });
-      })
-    });
+    for (let i = 0; i < 3; i++) {
+      this.adoptionService.getPagedAdoptions(i+1, 4 , null).subscribe(next => { 
+        this.adoptionskey.push(i);
+        this.adoptions.set(i,next); 
+        next.forEach(a => {
+          this.imageService.getImage(`ADOPTION-${a.id}`).subscribe(next => { this.images.set(a.id,next) });
+        })
+      });
+    }
+    
 
   }
   

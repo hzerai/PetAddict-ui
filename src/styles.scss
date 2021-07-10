@@ -136,5 +136,10 @@ body {
     fill: #fff;
 }
 
-
+.carousel > button:last-of-type {
+    right: 1px !important;
+}
+.carousel > button:first-of-type {
+    left: 1px !important;
+}
 /*# sourceMappingURL=styles.css.map */
