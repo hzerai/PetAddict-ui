@@ -1,6 +1,6 @@
-export class Association {
+export class Veto {
     id: number;
-    title: string = '';
+    docteur : string = '';
     description: string = '';
     createdAt: Date;
     updatedAt: Date;

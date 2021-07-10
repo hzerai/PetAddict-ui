@@ -17,12 +17,16 @@ import { CurrentUserFullResolver } from './Resolvers/CurrentUserFullResolver';
 import { HeaderUserResolver } from './Resolvers/HeaderUserResolver';
 import { UserAdoptionResolver } from './Resolvers/UserAdoptionsResolver';
 import { AdminModule } from './admin-module/admin.module';
+import { AssociationListComponent } from './association-module/association-list/association-list.component';
+import { VetoListComponent } from './veto-module/veto-list/veto-list.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, resolve: { data: HeaderUserResolver } },
   { path: 'user_profile', component: UserPageComponent, resolve: { data: CurrentUserFullResolver } },
   { path: 'visit_user_profile', component: VisitProfileComponent, resolve: { data: UserAdoptionResolver } },
   { path: 'about', component: AboutUsComponent },
+  { path: 'associations', component: AssociationListComponent},
+  { path: 'vetos', component: VetoListComponent},
   { path: 'adoptions', component: AdoptionListComponent },
   { path: 'adoptions/filtered', component: AdoptionListComponent },
   { path: 'adoptions/new', component: AdoptionFormComponent },
