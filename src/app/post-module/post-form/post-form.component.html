@@ -1,0 +1,40 @@
+<div class="flex  items-center justify-center  mt-10 mb-10">
+    <div class="grid rounded-lg w-11/12 md:w-9/12 lg:w-1/2 shadow">
+      <div class="flex justify-center mt-6 ">
+        <div class="flex">
+          <h1 *ngIf="!post?.id" class="text-gray-600 font-bold md:text-2xl text-xl">Publier un nouvel article </h1>
+          <h1 *ngIf="post?.id" class="text-gray-600 font-bold md:text-2xl text-xl">Modifié votre article </h1>
+        </div>
+      </div>
+      <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+        <div class="grid grid-cols-1 mt-5 ml-10 mr-10">
+          <label class="md:text-sm text-xs text-gray-500 text-light font-semibold">Titre de la publication</label>
+          <input formControlName="title"
+            class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+            type="text" placeholder="Titre..." />
+        </div>
+        <div class="grid grid-cols-1 mt-5 ml-10 mr-10">
+          <label class="md:text-sm text-xs text-gray-500 text-light font-semibold">Article</label>
+          <ckeditor #ck
+           ></ckeditor>
+        </div>
+       
+     
+        <div class="flex justify-center py-4">
+          <div class="flex ">
+            <app-image [default]="'https://via.placeholder.com/640x480?text=Image+For+post+NEW'"
+            #imageComponent   [model]="'POST'" [imageName]="imageName"
+            ></app-image>
+          </div>
+        </div>
+        
+        <div class='flex items-center justify-center  md:gap-8 gap-4 pt-5 pb-5'>
+          <a backButton
+            class='font-bold text-white bg-gray-500 border-0 py-3 px-8 focus:outline-none hover:bg-indigo-600 rounded-lg text-lg'>Retourner</a>
+          <button type="submit"
+            class='font-bold text-white bg-blue-300 border-0 py-3 px-8 focus:outline-none hover:bg-indigo-600 rounded-lg text-lg'>Publier</button>
+        </div>
+      </form>
+
+    </div>
+  </div> 

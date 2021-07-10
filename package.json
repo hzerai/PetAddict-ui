@@ -25,6 +25,7 @@
     "@popperjs/core": "^2.9.2",
     "@stomp/ng2-stompjs": "^8.0.0",
     "angular-notifier": "^9.0.1",
+    "ckeditor4-angular": "^2.2.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.10.2"
