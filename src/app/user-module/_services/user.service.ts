@@ -18,12 +18,20 @@ export class UserService {
   //   return this.http.get<User[]>(API_URL);
   // }
 
-  getUserById(id: string, key: string): Observable<User> {
+  getUserByEmail(id: string, key: string): Observable<User> {
     let params = new HttpParams();
     if (key != null && key.length > 0) {
       params = params.append('key', key);
     }
     return this.http.get<User>(API_URL + 'user_by_email/' + id, { params });
+  }
+
+  getUserById(id: number, key: string): Observable<User> {
+    let params = new HttpParams();
+    if (key != null && key.length > 0) {
+      params = params.append('key', key);
+    }
+    return this.http.get<User>(API_URL +  id, { params });
   }
 
   updateUserProfile(user: User): Observable<User> {

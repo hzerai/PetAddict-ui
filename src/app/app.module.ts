@@ -47,6 +47,7 @@ import {
 } from '@stomp/ng2-stompjs';
 
 import { myRxStompConfig } from './my-rx-stomp.config';
+import { ValiderComponent } from './user-module/valider/valider.component';
 /**
  * Custom angular notifier options
  */
@@ -121,6 +122,7 @@ const customNotifierOptions: NotifierOptions = {
     ImageComponent,
     ShowAdoptionRequestComponent,
     ShowAdoptionRequestSentComponent,
+    ValiderComponent,
 
 
 

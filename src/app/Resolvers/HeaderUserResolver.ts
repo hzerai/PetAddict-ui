@@ -25,7 +25,7 @@ export class HeaderUserResolver implements Resolve<any> {
         payload = token.split(".")[1];
         payload = window.atob(payload);
         let username = JSON.parse(payload).username;
-        return new Promise((resolve, reject) => this.userService.getUserById(username, null).subscribe(u => {
+        return new Promise((resolve, reject) => this.userService.getUserByEmail(username, null).subscribe(u => {
             resolve(u)
         }))
     }

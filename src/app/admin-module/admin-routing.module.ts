@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AdoptionResolver } from '../Resolvers/AdoptionResolver';
 import { RouteGuardService } from '../user-module/_helpers/route-guard.service';
 import { AdminComponent } from './admin.component';
 import { AdoptionComponent } from './adoption/adoption.component';
@@ -16,7 +17,7 @@ const adminRoutes: Routes = [
             { path: 'user', component: UserComponent },
             { path: 'user/edit/:id', component: UserProfileEditComponent},
             { path: 'dashboard', component: DashboardComponent },
-            { path: 'adoption', component: AdoptionComponent },
+            { path: 'adoption', component: AdoptionComponent ,resolve: { data: AdoptionResolver }},
 
             { path: '**',  redirectTo: 'dashboard' },
 

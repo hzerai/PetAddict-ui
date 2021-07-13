@@ -20,7 +20,7 @@ export class UserResolver implements Resolve<any> {
     getData(id): Promise<any> {
         const token = this.tokenService.getToken();
         if (token == null) {
-            return new Promise((resolve, reject) => this.userService.getUserById(id, null).subscribe(u => {
+            return new Promise((resolve, reject) => this.userService.getUserByEmail(id, null).subscribe(u => {
                 return resolve({
                     user: u,
                 });
@@ -33,8 +33,8 @@ export class UserResolver implements Resolve<any> {
         if (id === username) {
             return this.cur.getData(id);
         }
-        return new Promise((resolve, reject) => this.userService.getUserById(id, null).subscribe(u => {
-            this.userService.getUserById(username, null).subscribe(next => {
+        return new Promise((resolve, reject) => this.userService.getUserByEmail(id, null).subscribe(u => {
+            this.userService.getUserByEmail(username, null).subscribe(next => {
                 return resolve({
                     user: u,
                     currentUser: next

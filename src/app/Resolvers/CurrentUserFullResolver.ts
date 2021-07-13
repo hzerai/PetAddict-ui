@@ -26,7 +26,7 @@ export class CurrentUserFullResolver implements Resolve<any> {
     }
 
     getData(id): Promise<any> {
-        return new Promise((resolve, reject) => this.userService.getUserById(id, 'adoptions,requests').subscribe(u => {
+        return new Promise((resolve, reject) => this.userService.getUserByEmail(id, 'adoptions,requests').subscribe(u => {
             let receivedAdoptionRequests = [];
             let currentUser = u;
             currentUser.recievedAdoptionRequests.forEach(r => {
@@ -44,7 +44,7 @@ export class CurrentUserFullResolver implements Resolve<any> {
                             unreadMessages++;
                         }
                     })
-                    this.userService.getUserById(k, null).subscribe(next => contacts.push(next))
+                    this.userService.getUserByEmail(k, null).subscribe(next => contacts.push(next))
                 })
                 return resolve({
                     currentUser: currentUser,

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -23,10 +23,18 @@ export class AuthService {
   }
 
   register(email: string, password: string): Observable<any> {
-    return this.http.post(AUTH_API + 'users/', {
+    return this.http.post(AUTH_API + 'register', {
       email,
       password
     }, httpOptions);
+  }
+  valider(expires: string, id: string,signature: string, token: string): Observable<any> {
+    let params = new HttpParams()
+      .set('expires',expires)
+      .set('id',id)
+      .set('signature',encodeURIComponent(signature))
+      .set('token',encodeURIComponent(token))
+    return this.http.post(AUTH_API + 'verify?'+params,null, httpOptions);
   }
 
   refreshToken(refreshToken: string): Observable<any> {
