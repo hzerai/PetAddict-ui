@@ -22,6 +22,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   image: Image;
   userName: string;
   unreadMessages: boolean = false;
+
   constructor(private hr: HeaderUserResolver, private ms: MessageService, private ws: WebSocketService, private imageService: ImageService, private tokenStorageService: TokenStorageService, private userService: UserService, public router: Router, private ac: ActivatedRoute) { }
 
 
@@ -29,36 +30,26 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.unreadMessages = false;
   }
 
-
   ngOnInit(): void {
-    this.hr.getCurrentUser()?.then((user) => {
-      this.isLoggedIn = !!this.tokenStorageService.getToken();
-      if (this.isLoggedIn) {
+    this.isLoggedIn = !!this.tokenStorageService.getToken();
+    if (this.isLoggedIn) {
+      this.hr.getCurrentUser()?.then((user) => {
         this.user = user;
+        this.userName = this.user.email;
         this.imageService.getImage(`USER-${user.id}`).subscribe(next => { this.image = next });
-      }
-    });
+      });
+    }
   }
 
   logout(): void {
     this.tokenStorageService.signOut();
     window.location.reload();
   }
-
-  @ViewChild("btnDropdownRef", { static: false }) btnDropdownRef: ElementRef;
-  @ViewChild("popoverDropdownRef", { static: false }) popoverDropdownRef: ElementRef;
   @ViewChild("navbar", { static: false }) navbar: ElementRef;
 
   ngAfterViewInit() {
     this.navbarheight = this.navbar.nativeElement.clientHeight + 30;
 
-    createPopper(
-      this.btnDropdownRef?.nativeElement,
-      this.popoverDropdownRef?.nativeElement,
-      {
-        placement: "bottom",
-      }
-    );
     if (this.isLoggedIn) {
       this.ms.getNewMessages().subscribe(next => {
         if (next && next.length > 0) {
@@ -72,18 +63,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     }
 
   }
-  dropdownPopoverShowS = false;
-  toggleTooltipS() {
-    this.dropdownPopoverShowS = !this.dropdownPopoverShowS;
-  }
-
-  dropdownPopoverShowM = false;
-  toggleTooltipM() {
-    this.dropdownPopoverShowM = !this.dropdownPopoverShowM;
-  }
-
-  dropdownPopoverShowZ = false;
-  toggleTooltipZ() {
-    this.dropdownPopoverShowZ = !this.dropdownPopoverShowZ;
-  }
+   
+  showLostAndFound:boolean=false;
 }

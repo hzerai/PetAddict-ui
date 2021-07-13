@@ -1,0 +1,55 @@
+<section class="text-gray-600 body-font overflow-hidden">
+    <div class="container px-5 py-24 mx-auto">
+        <div class="lg:w-4/5 mx-auto flex flex-wrap">
+            <div class="lg:w-2/3 object-cover object-center md:w-1/3">
+                <img alt="animalPhoto" class=" w-full md:w-1/3  object-cover rounded-lg rounded-r-none pb-5/6"
+                    [src]="image?.bytes ? image.bytes : 'https://via.placeholder.com/640x480?text=Image+For+found+NEW'">
+            </div>
+            <div class="w-full  px-2 py-2 bg-white rounded-lg">
+                <h1 class="text-gray-900 text-3xl mb-3 leading-none">{{found?.title}}</h1>
+
+                <p class="leading-none text-gray-600 text-sm mb-1">{{found?.description}}</p>
+                <div
+                    class="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5 leading-relaxed text-xs font-medium title-font">
+                    <span class="mr-3">Publié le : {{found?.createdAt | date:'dd/MM/yyyy'}} par :<a
+                            [routerLink]="['/visit_user_profile']" [queryParams]="{id: found?.user?.email}">
+                            {{found?.user?.firstName != null ? found?.user?.firstName : 'anonyme'}}</a>
+                    </span>
+                </div>
+                <div class="grid grid-cols-4 p-6 text-gray-700 text-sm">
+                    <div class="font-bold ">Nom :</div>
+                    <div class="ml-5">{{found?.animal.nom}}</div>
+                    <div class="font-bold">Espece:</div>
+                    <div class="ml-5">{{found?.animal.espece}}</div>
+                    <div class="font-bold">Sexe :</div>
+                    <div class="ml-5">{{found?.animal.sexe}}</div>
+                    <div class="font-bold">Type :</div>
+                    <div class="ml-5">{{found?.animal.type}}</div>
+                    <div class="font-bold">Taille :</div>
+                    <div class="ml-5">{{found?.animal.taille}}</div>
+                    <div class="font-bold">Age :</div>
+                    <div class="ml-5">{{found?.animal.age}}</div>
+                    <div class="font-bold">Couleur :</div>
+                    <div class="ml-5"> {{found?.animal.couleur}} </div>
+
+                </div>
+                <div class="mt-2 grid justify-items-center">
+                    <hr>
+
+                    <br>
+                    <div *ngIf="!isOwner()  " class="flex">
+                        <p class="text-xs font-bold text-center text-black mt-3"><a href="/">Trouvez votre animal !</a></p>
+                    </div>  
+                    <button *ngIf="isOwner()" [routerLink]="['edit']"
+                        class="place-self-center font-bold mt-2 text-white bg-blue-300 border-0 py-3 px-6 focus:outline-none hover:bg-gray-600 rounded-lg text-lg">Modifier
+                        la publication</button>
+                    <button backButton
+                        class="place-self-center mt-3 text-white bg-gray-300 border-0 py-1 px-2 focus:outline-none hover:bg-gray-600 rounded-lg text-sm font-bold">Retourner</button>
+                        <button  (click)="delete(found.id)" 
+                        class="place-self-center mt-3 text-white bg-gray-300 border-0 py-1 px-2 focus:outline-none hover:bg-gray-600 rounded-lg text-sm font-bold">Delete</button>
+                
+                    </div>
+            </div>
+        </div>
+    </div>
+</section>

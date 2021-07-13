@@ -1,0 +1,29 @@
+
+<div  *ngFor="let item of ass" class="flex flex-col items-center justify-center  bg-white m-5 ">
+    <div class="flex bg-gray-200 p-4 rounded-lg w-8/12">
+      <div class="flex flex-col w-2/3 pr-4 bg  ">
+        <p class="title-font text-lg font-medium text-black mb-3 uppercase font-bold" >{{item.title}}</p>
+        <p class="text-lg font-light leading-5 text-black-300" [ngClass]="{'limitTextHeight': isReadMore}">{{item.description}}</p>
+        <p><button class="bt"  type="button" (click)="showText()">
+          {{ isReadMore ? 'Lire La Suite': 'Lire Moins' }}
+        </button></p> 
+        <div>
+         <div class="flex flex-row  pr-4 bg ">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path class="heroicon-ui" d="M13 20v-5h-2v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-7.59l-.3.3a1 1 0 1 1-1.4-1.42l9-9a1 1 0 0 1 1.4 0l9 9a1 1 0 0 1-1.4 1.42l-.3-.3V20a2 2 0 0 1-2 2h-3a2 2 0 0 1-2-2zm5 0v-9.59l-6-6-6 6V20h3v-5c0-1.1.9-2 2-2h2a2 2 0 0 1 2 2v5h3z"/> 
+          </svg>
+          <p class="text-sm font-light leading-5 text-black-300 " >{{item.adresse}}</p>
+        </div> 
+         <div class="flex flex-row  pr-4 bg "> 
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path class="heroicon-ui" d="M8 2h8a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4c0-1.1.9-2 2-2zm0 2v16h8V4H8zm4 14a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg>
+          <p class="text-sm font-light leading-5 text-black-300">{{item.phone}}</p>
+        </div> 
+        </div>
+        </div>
+      
+      <div class="w-1/3">
+        <img class="hover:animate-bounce rounded-lg" src="{{item.image}}" alt="" style="width: 200px; height: 150px;" />
+      </div>
+    </div>
+  </div>
+<!-------------------------------------------------------------------------------------------------------------------------------------->
+

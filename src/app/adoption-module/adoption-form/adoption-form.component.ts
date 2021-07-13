@@ -30,6 +30,7 @@ export class AdoptionFormComponent implements OnInit {
   adoptionForm: FormGroup;
   adoption: Adoption = new Adoption();
   imageName: string;
+  submitted: boolean = false;
 
   @ViewChild(ImageComponent)
   imageComponent: ImageComponent;
@@ -38,16 +39,19 @@ export class AdoptionFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (!this.tokenStorageService.getToken()) {
+      this.router.navigateByUrl("/login");
+    }
     this.adoptionForm = new FormGroup({
-      title: new FormControl(null, Validators.required),
-      description: new FormControl(),
-      nom: new FormControl(),
+      title: new FormControl(null, [Validators.required, Validators.minLength(5)]),
+      description: new FormControl(null, [Validators.required, Validators.minLength(5)]),
+      nom: new FormControl(null, Validators.minLength(3)),
       sexe: new FormControl(),
       type: new FormControl(),
-      age: new FormControl(),
+      age: new FormControl(null, Validators.min(1)),
       taille: new FormControl(),
       couleur: new FormControl(),
-      espece: new FormControl(),
+      espece: new FormControl(null, Validators.required),
 
     })
     let id;
@@ -74,6 +78,14 @@ export class AdoptionFormComponent implements OnInit {
   }
 
   onSubmit() {
+    this.submitted = true;
+    if (this.adoptionForm.invalid) {
+      this.notifier.notify('error', 'Incomplete data.');
+      return;
+    } else if (!this.imageComponent.image?.bytes) {
+      this.notifier.notify('error', 'You need to select an image for the animal.');
+      return;
+    }
     this.adoption.title = this.adoptionForm.value.title
     this.adoption.description = this.adoptionForm.value.description
     this.adoption.animal.espece = this.adoptionForm.value.espece
@@ -122,6 +134,27 @@ export class AdoptionFormComponent implements OnInit {
     } else {
 
     }
+  }
+
+  // form controls getters
+  get title() {
+    return this.adoptionForm.get('title');
+  }
+
+  get description() {
+    return this.adoptionForm.get('description');
+  }
+
+  get nom() {
+    return this.adoptionForm.get('nom');
+  }
+
+  get age() {
+    return this.adoptionForm.get('age');
+  }
+
+  get espece() {
+    return this.adoptionForm.get('espece');
   }
 
 }

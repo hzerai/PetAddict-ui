@@ -16,6 +16,7 @@ export class ImageComponent implements OnInit {
   @Input() autoUpload: boolean = false;
   image: Image;
   url: any;
+  @Input() galerie : boolean = false;
   constructor(private imageService: ImageService) { }
 
   ngOnInit(): void {

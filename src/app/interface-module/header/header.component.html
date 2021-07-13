@@ -7,34 +7,37 @@
             </a>
 
         </div>
-        <div class="mx-auto flex"> <a [routerLink]="['adoptions']" class="col-span-1 my-auto  whitespace-no-wrap uppercase text-gray-800 text-sm px-4 py-2 text-black hover:bg-red-600 hover:text-white rounded-lg  font-medium no-underline">Adoptions</a>
-            <a #btnDropdownRef (mouseenter)="toggleTooltipS()" (mouseleave)="toggleTooltipS()" *ngIf="!dropdownPopoverShowS" class="col-span-1 my-auto  whitespace-no-wrap uppercase text-gray-800 text-sm px-4 py-2 text-black hover:bg-red-600 hover:text-white rounded-lg  font-medium no-underline">Lost
-            & Found</a>
+        <div class="mx-auto flex">
+            <a [routerLink]="['adoptions']" class="col-span-1 my-auto  whitespace-no-wrap uppercase text-gray-800 text-sm px-4 py-2 text-black hover:bg-red-600 hover:text-white rounded-lg  font-medium no-underline">Adoptions</a>
+            <div class=" relative col-span-1  my-auto px-4 py-2 hover:bg-red-600 hover:text-white" (mouseenter)="showLostAndFound = true" (mouseleave)="showLostAndFound = false">
+                <a class="my-auto  whitespace-no-wrap uppercase text-gray-800 text-sm  text-black  rounded-lg  font-medium no-underline">Lost & Found
+                </a>
+                <div class="mx-auto w-full  mt-2 absolute flex flex-wrap  bg-white" *ngIf="showLostAndFound" style="right: -2px;">
+                    <!-- width:inherit; height:inherit; margin-right: inherit; margin-left: inherit; padding-right: inherit; padding-left: inherit; right: -2px; -->
+                    <div class="flex  mt-5  my-auto w-full ">
+                        <div class="mx-auto">
+                            <a [routerLink]="['losts']" class="  uppercase text-gray-800 text-sm  text-black  rounded-lg  font-medium no-underline">Lost
+                            </a>
+                        </div>
 
-            <div class="mr-auto flex z-50" *ngIf="dropdownPopoverShowS" #popoverDropdownRef (mouseleave)="toggleTooltipS()">
-                <div class="bg-red-600 border-0 my-auto block z-50 font-normal leading-normal text-sm max-w-xs text-left no-underline break-words rounded-lg">
-                    <div class="text-white p-3 font-bold">
-                        Pas encore implementé :(
                     </div>
-                </div>
-            </div>
-            <a [routerLink]="['adoptions']" #btnDropdownRef (mouseenter)="toggleTooltipM()" (mouseleave)="toggleTooltipM()" *ngIf="!dropdownPopoverShowM" class="col-span-1 my-auto  whitespace-no-wrap uppercase text-gray-800 text-sm px-4 py-2 text-black hover:bg-red-600 hover:text-white rounded-lg  font-medium no-underline">Associations</a>
-            <div class="mr-auto flex z-50" *ngIf="dropdownPopoverShowM" #popoverDropdownRef (mouseleave)="toggleTooltipM()">
-                <div class="bg-red-600 border-0 my-auto block z-50 font-normal leading-normal text-sm max-w-xs text-left no-underline break-words rounded-lg">
-                    <div class="text-white p-3 font-bold">
-                        Pas encore implementé :(
+
+                    <div class="flex mt-5 mb-5 my-auto w-full  ">
+                        <div class="mx-auto">
+                            <a [routerLink]="['founds']" class="  uppercase text-gray-800 text-sm  text-black  rounded-lg  font-medium no-underline">Found
+                            </a>
+                        </div>
+
                     </div>
                 </div>
             </div>
 
-            <a [routerLink]="['adoptions']" #btnDropdownRef (mouseenter)="toggleTooltipZ()" (mouseleave)="toggleTooltipZ()" *ngIf="!dropdownPopoverShowZ" class="col-span-1 my-auto  whitespace-no-wrap uppercase text-gray-800 text-sm px-4 py-2 text-black hover:bg-red-600 hover:text-white rounded-lg  font-medium no-underline">Vétérinaires</a>
-            <div class="mr-auto flex z-50" *ngIf="dropdownPopoverShowZ" #popoverDropdownRef (mouseleave)="toggleTooltipZ()">
-                <div class="bg-red-600 border-0 my-auto block z-50 font-normal leading-normal text-sm max-w-xs text-left no-underline break-words rounded-lg">
-                    <div class="text-white p-3 font-bold">
-                        Pas encore implementé :(
-                    </div>
-                </div>
-            </div>
+            <a [routerLink]="['associations']" class="col-span-1 my-auto  whitespace-no-wrap uppercase text-gray-800 text-sm px-4 py-2 text-black hover:bg-red-600 hover:text-white rounded-lg  font-medium no-underline">Associations</a>
+
+
+            <a [routerLink]="['vetos']" class="col-span-1 my-auto  whitespace-no-wrap uppercase text-gray-800 text-sm px-4 py-2 text-black hover:bg-red-600 hover:text-white rounded-lg  font-medium no-underline">Vétérinaires</a>
+
+            <a [routerLink]="['posts']" class="col-span-1 my-auto  whitespace-no-wrap uppercase text-gray-800 text-sm px-4 py-2 text-black hover:bg-red-600 hover:text-white rounded-lg  font-medium no-underline">Blog</a>
 
         </div>
 
@@ -50,7 +53,7 @@
                     user?.username}}</a>
                 </div>
             </div>
-            <app-notification [currentUserName]="userName" [notifications]='notifications' *ngIf="isLoggedIn" class="col-span-1 border border-light rounded-lg  my-4 mx-1 text-sm px-2 py-1 hover:border-black ">
+            <app-notification [notifications]='notifications' *ngIf="isLoggedIn" class="col-span-1 border border-light rounded-lg  my-4 mx-1 text-sm px-2 py-1 hover:border-black ">
             </app-notification>
             <div [routerLink]="['user_profile']" [queryParams]="{section: 'inbox'}" (click)="resetUM()" *ngIf="isLoggedIn" class="col-span-1 border border-light rounded-lg  my-4 mx-1 text-sm px-2 py-1 hover:border-black ">
                 <span class="absolute flex h-3 w-3" *ngIf="unreadMessages">

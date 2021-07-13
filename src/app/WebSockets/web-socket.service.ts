@@ -17,6 +17,7 @@ export class WebSocketService {
   }
 
   public subscribe(topic: string, next?: (value: Message) => void) {
+
     if (this.subscriptions[topic]) {
       try {
         this.subscriptions[topic].unsubscribe()

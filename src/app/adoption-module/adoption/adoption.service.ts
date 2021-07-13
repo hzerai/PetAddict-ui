@@ -41,7 +41,7 @@ export class AdoptionService {
     if (keyword != null && keyword.length > 0) {
       params = params.append('keyword', keyword);
     }
-    return this.http.get<Adoption[]>(this.adoptionUrl + 's/elasticsearch' , {params});
+    return this.http.get<Adoption[]>(this.adoptionUrl + 's/elasticsearch', { params });
   }
 
 
@@ -52,6 +52,10 @@ export class AdoptionService {
       params = params.append('key', key);
     }
     return this.http.get<Adoption>(this.adoptionUrl + '/' + id, { params });
+  }
+
+  coupDeCoeur(): Observable<Adoption> {
+    return this.http.get<Adoption>(this.adoptionUrl + 'coupdecoeur/');
   }
 
   newAdoption(adoption: Adoption): Observable<Adoption> {
@@ -77,7 +81,7 @@ export class AdoptionService {
     return this.http.get<Adoption[]>(this.adoptionUrl, { params });
   }
 
-  getPagedAdoptionsFiltered(espece, type, sexe, taille, ville, municipality, user_id, page, size, key: string) {
+  getPagedAdoptionsFiltered(espece, type, sexe, taille, ville, municipality, user_id, page, size, age, couleur, key: string) {
     let params = new HttpParams();
     if (key != null && key.length > 0) {
       params = params.append('key', key);
@@ -96,6 +100,12 @@ export class AdoptionService {
     }
     if (ville != null && ville.length > 0) {
       params = params.append('ville', String(ville));
+    }
+    if (age != null && age.length > 0) {
+      params = params.append('age', String(age));
+    }
+    if (couleur != null && couleur.length > 0) {
+      params = params.append('couleur', String(couleur));
     }
     if (municipality != null && municipality.length > 0) {
       params = params.append('municipality', String(municipality));
@@ -117,7 +127,7 @@ export class AdoptionService {
     return this.http.get<number>(this.adoptionUrl + 's/count');
   }
 
-  countFiltered(espece, type, sexe, taille, ville, municipality, user_id): Observable<number> {
+  countFiltered(espece, type, sexe, taille, ville, municipality, age, couleur, user_id): Observable<number> {
     let params = new HttpParams();
     if (espece != null && espece.length > 0) {
       params = params.append('espece', String(espece));
@@ -131,6 +141,12 @@ export class AdoptionService {
     if (taille != null && taille.length > 0) {
       params = params.append('taille', String(taille));
     }
+    if (age != null && age.length > 0) {
+      params = params.append('age', String(age));
+    }
+    if (couleur != null && couleur.length > 0) {
+      params = params.append('couleur', String(couleur));
+    }
     if (ville != null && ville.length > 0) {
       params = params.append('ville', String(ville));
     }
@@ -140,7 +156,7 @@ export class AdoptionService {
     if (user_id != null && user_id.length > 0) {
       params = params.append('user_id', String(user_id));
     }
-    return this.http.get<number>(this.adoptionUrl + 's/count');
+    return this.http.get<number>(this.adoptionUrl + 's/count' , {params});
   }
 
   createAdoptionRequest(id: number, userId: string) {

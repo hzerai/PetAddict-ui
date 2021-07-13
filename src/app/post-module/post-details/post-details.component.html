@@ -1,0 +1,49 @@
+<section class="text-gray-600 body-font mt-10 mb-10">
+    <div class="container px-5 pt-24 mx-auto flex flex-wrap">
+        <div class="container mx-10 shadow-lg">
+            <div class="w-full">
+                <h1 class="text-gray-900 text-4xl mb-3 leading-none">{{post?.title}}</h1>
+                <button routerLink="edit"
+                class="bg-blue-500 rounded-lg shadow py-2 px-2 text-black hover:text-white">Edit
+                !</button>
+            </div>
+
+            <div
+                class="flex mt-3 items-center  border-b-2 border-gray-100 mb-2 leading-relaxed text-xs font-medium title-font">
+                <span class="mr-3">Publié le : {{post?.createdAt | date:'dd/MM/yyyy'}} par :<a
+                        [routerLink]="['/visit_user_profile']" [queryParams]="{id: post?.createdBy}">
+                        {{post?.userFullName}}</a>
+                </span>
+            </div>
+            <div class="mx-auto w-1/2 h-80">
+                <div class="object-cover object-center mx-auto h-80">
+                    <img alt="animalPhoto" class="rounded-lg shadow h-80"
+                        [src]="image?.bytes ? image.bytes : 'https://placedog.net/500/280?id=' + ( post?.id > 200 ? post?.id - 100 : post?.id )">
+                </div>
+            </div>
+            <div class="mx-auto w-1/2" [innerHtml]="htmlData">
+
+            </div>
+            <div class="mx-auto w-1/2 mt-5">
+                <div class="bg-gray-100 rounded-lg py-6 px-8 mb-8 hover:border-blue-900 shadow-lg">
+
+                    <textarea [(ngModel)]="commentBody" class="w-full focus:outline-none focus:bg-white"
+                        placeholder="Ajouter un commentaire!" style="height: 100px">
+                        </textarea>
+                    <hr class="py-2" />
+                    <footer class="flex justify-between">
+                        <img src="https://i.pravatar.cc/40" alt class="rounded-full mr-2" />
+                        <button (click)="comment()"
+                            class="bg-blue-500 rounded-lg shadow py-2 px-2 text-black hover:text-white">Commenter
+                            !</button>
+                    </footer>
+                </div>
+
+                <app-comment *ngFor="let comment of post.comments" [comment]="comment"
+                    class="border border-blue-200 bg-white rounded-lg mb-4 hover:bg-gray-200 hover:border-blue-900 mx-auto">
+                </app-comment>
+            </div>
+
+        </div>
+    </div>
+</section>

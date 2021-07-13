@@ -4,6 +4,7 @@ import { NotifierService } from 'angular-notifier';
 import { ImageService } from 'src/app/images-module/image.service';
 import { WebSocketService } from 'src/app/WebSockets/web-socket.service';
 import { User } from '../../User';
+import { TokenStorageService } from '../../_services/token-storage.service';
 import { UserService } from '../../_services/user.service';
 import { Notification } from '../Notification';
 import { NotificationService } from '../notification.service';
@@ -19,18 +20,26 @@ import { NotificationService } from '../notification.service';
 export class NotificationComponent implements OnInit, AfterViewInit {
 
   private readonly notifier: NotifierService;
-  @Input() currentUserName: string;
+  currentUserName?: string;
   unreadNotif: number = 0;
   notifications: Notification[] = [];
   dropdownOpen: boolean = false;
 
   userMap = new Map();
 
-  constructor(private ws: WebSocketService, private imageService: ImageService, private notificationService: NotificationService, private userService: UserService, private _eref: ElementRef, private router: Router, notifierService: NotifierService) {
+  constructor(private tokenService: TokenStorageService, private ws: WebSocketService, private imageService: ImageService, private notificationService: NotificationService, private userService: UserService, private _eref: ElementRef, private router: Router, notifierService: NotifierService) {
     this.notifier = notifierService;
   }
 
   ngAfterViewInit(): void {
+    const token = this.tokenService.getToken();
+    if (token == null) {
+      return null;
+    }
+    let payload;
+    payload = token.split(".")[1];
+    payload = window.atob(payload);
+    this.currentUserName = JSON.parse(payload).username;
     this.ws.subscribe('notifications' + this.currentUserName, next => {
       let notif: Notification = JSON.parse(next.body);
       this.unreadNotif++;

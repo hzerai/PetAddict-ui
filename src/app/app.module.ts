@@ -40,6 +40,17 @@ import { MatCarouselModule } from '@ngmodule/material-carousel';
 import { ShowAdoptionRequestComponent } from './adoption-module/show-adoption-request/show-adoption-request.component';
 import { ShowAdoptionRequestSentComponent } from './adoption-module/show-adoption-request-sent/show-adoption-request-sent.component';
 import { NotifierModule, NotifierOptions } from 'angular-notifier';
+import { AssociationListComponent } from './association-module/association-list/association-list.component';
+import { VetoListComponent } from './veto-module/veto-list/veto-list.component';
+import {MatCardModule} from '@angular/material/card';
+import { LostComponent } from './lostandfound-module/lost/lost.component';
+import { FoundComponent } from './lostandfound-module/found/found.component';
+import { LostListComponent } from './lostandfound-module/lost-list/lost-list.component';
+import { FoundListComponent } from './lostandfound-module/found-list/found-list.component';
+import { FoundDetailsComponent } from './lostandfound-module/found-details/found-details.component';
+import { LostDetailsComponent } from './lostandfound-module/lost-details/lost-details.component';
+import { LostFormComponent } from './lostandfound-module/lost-form/lost-form.component';
+import { FoundFormComponent } from './lostandfound-module/found-form/found-form.component';
 import {
   InjectableRxStompConfig,
   RxStompService,
@@ -48,6 +59,12 @@ import {
 
 import { myRxStompConfig } from './my-rx-stomp.config';
 import { ValiderComponent } from './user-module/valider/valider.component';
+import { PostComponent } from './post-module/post/post.component';
+import { PostListComponent } from './post-module/post-list/post-list.component';
+import { PostDetailsComponent } from './post-module/post-details/post-details.component';
+import { CommentComponent } from './post-module/comment/comment.component';
+import { PostFormComponent } from './post-module/post-form/post-form.component';
+import { CKEditorModule } from 'ckeditor4-angular';
 /**
  * Custom angular notifier options
  */
@@ -123,6 +140,22 @@ const customNotifierOptions: NotifierOptions = {
     ShowAdoptionRequestComponent,
     ShowAdoptionRequestSentComponent,
     ValiderComponent,
+    AssociationListComponent,
+    VetoListComponent,
+    LostComponent,
+    FoundComponent,
+    LostListComponent,
+    FoundListComponent,
+    FoundDetailsComponent,
+    LostDetailsComponent,
+    LostFormComponent,
+    FoundFormComponent,
+    PostComponent,
+     PostListComponent,
+     PostDetailsComponent,
+     CommentComponent,
+     PostFormComponent,
+ 
 
 
 
@@ -134,6 +167,8 @@ const customNotifierOptions: NotifierOptions = {
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    MatCardModule,
+    CKEditorModule,
     MatCarouselModule.forRoot(),
     NotifierModule.withConfig(customNotifierOptions)
   ],
