@@ -84,7 +84,7 @@ export class PostFormComponent implements OnInit {
         this.imageComponent.image.name = `Post-${next.id}`;
         this.imageComponent.uploadImage();
         this.post = next; 
-        this.router.navigateByUrl("/post/" + this.post.id);
+        this.router.navigateByUrl("/posts/" + this.post.id);
       })
     }
   }

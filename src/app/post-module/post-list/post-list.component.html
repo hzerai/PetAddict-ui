@@ -34,10 +34,11 @@
 <div class="mb-5">
 
     <div id="mySidenav" class="sidenav" class="w-0 ">
-        <a [routerLink]="['/Post']" id="create" class="cursor-pointer flex">Publier 
+        <a [routerLink]="['/posts/new']" id="create" class="cursor-pointer flex">Publier 
             <svg xmlns="http://www.w3.org/2000/svg" class="ml-auto mt-auto ml-2" style="fill:white" viewBox="0 0 24 24" width="24" height="24"><path class="heroicon-ui" d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm1-9h2a1 1 0 0 1 0 2h-2v2a1 1 0 0 1-2 0v-2H9a1 1 0 0 1 0-2h2V9a1 1 0 0 1 2 0v2z"/></svg>
         </a>
     </div>
+
     <section class="mt-5 text-gray-600 container mx-auto">
         <div class="container py-24 mx-auto">
                 <app-post *ngFor="let post of posts" [post]="post"

@@ -7,11 +7,11 @@
             <div class="flex">
                 <a href="#" class="font-bold hover:text-blue-500 text-xs">{{comment.userFullName}}</a>
             </div>
-             <div class="flex jsutify-between items-center">
-                <button class="flex hover:shadow hover:bg-gray-400">
+             <div class="flex jsutify-between items-center" *ngIf="isOwner()"  >
+                <button  class="flex hover:shadow hover:bg-gray-400">
                     <img src="assets/svg/icon-edit.svg" alt="edit" class="rounded-full mx-2 flex inline-block" />
                 </button>
-                <button class="flex hover:shadow hover:bg-gray-400">
+                <button   class="flex hover:shadow hover:bg-gray-400">
                     <img src="assets/svg/icon-trash.svg" alt="delete" class="rounded-full mx-2 flex inline-block" /> 
                 </button>
             </div> 
@@ -26,16 +26,27 @@
         <img src="assets/svg/icon-thumb-up.svg" alt class="rounded-full inline-block" />
         <p class="inline-block">like</p>
     </a>
+ </div>
 
-    <a href="#"
-        class="flex-1 text-gray-700 text-center rounded-lg mx-2 border border-black rounded hover:bg-gray-600 hover:text-white">
-        <img src="assets/svg/icon-comment.svg" alt class="rounded-full inline-block" />
-        <p class="inline-block">comment</p>
-    </a>
+    <div class="mx-auto">
+        <div class="bg-gray-100 rounded-lg py-6 px-8 mb-8 hover:border-blue-900 shadow-lg">
+            <app-comment *ngFor="let comment of comment.comments" [comment]="comment"
+            class="border border-blue-200 bg-white rounded-lg mb-4 hover:bg-gray-200 hover:border-blue-900 mx-auto">
+        </app-comment>
+            <textarea [(ngModel)]="commentBody" class="w-full focus:outline-none focus:bg-white"
+                placeholder="Répondre!" style="height: 50px">
+                </textarea>
+            <hr class="py-2" />
+            <footer class="flex justify-between">
+                <img src="https://i.pravatar.cc/40" alt class="rounded-full mr-2" />
+                <button (click)="repcomment()"
+                    class="bg-blue-500 rounded-lg shadow py-2 px-2 text-black hover:text-white">Répondre
+                    !</button>
+            </footer>
+        </div>
 
-    <a href="#"
-        class="flex-1 text-gray-700 text-center rounded-lg mx-2 border border-black rounded hover:bg-gray-600 hover:text-white">
-        <img src="assets/svg/icon-external-link.svg" alt class="rounded-full inline-block" />
-        <p class="inline-block">share</p>
-    </a>
-</div> 
+      
+   
+
+ </div>
+ 
