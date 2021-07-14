@@ -3,8 +3,11 @@
         <div class="container mx-10 shadow-lg">
             <div class="w-full">
                 <h1 class="text-gray-900 text-4xl mb-3 leading-none">{{post?.title}}</h1>
-                <button routerLink="edit"
+                <button *ngIf="isOwner()" routerLink="edit"
                 class="bg-blue-500 rounded-lg shadow py-2 px-2 text-black hover:text-white">Edit
+                !</button>
+                <button *ngIf="isOwner()" (click)='delete()'
+                class="bg-blue-500 rounded-lg shadow py-2 px-2 text-black hover:text-white">Supprimer
                 !</button>
             </div>
 
