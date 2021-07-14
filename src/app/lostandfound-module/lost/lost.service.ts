@@ -1,5 +1,5 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Animals } from 'src/app/adoption-module/adoption/Animals';
 import { Sexe } from 'src/app/adoption-module/adoption/Sexe';
@@ -9,6 +9,8 @@ import { DogBreed } from 'src/app/interface-module/filter/DogBreed';
 import { HorseBreed } from 'src/app/interface-module/filter/HorseBreed';
 import { Tailles } from 'src/app/interface-module/filter/Tailles';
 import { Lost } from './lost';
+import { Comment } from 'src/app/post-module/comment/Comment';
+
 
 
 
@@ -74,6 +76,14 @@ export class LostService {
     Object.values(CatBreed).forEach(v => result.push(v))
     Object.values(HorseBreed).forEach(v => result.push(v))
     return result;
+  }
+  
+  addCommentlost(id:number,comment: Comment): Observable<Lost> {
+    return this.http.post<Lost>(this.lostUrl+"/"+id+"/addcommentlost", comment, this.options);
+  }
+
+  replylost(id:number,idcomment:number,comment: Comment): Observable<Lost> {
+    return this.http.post<Lost>(this.lostUrl+"/"+id+"/addcommentlost/"+idcomment+"/replylost", comment, this.options);
   }
 }
 
