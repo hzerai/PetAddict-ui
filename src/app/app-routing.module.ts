@@ -17,6 +17,7 @@ import { CurrentUserFullResolver } from './Resolvers/CurrentUserFullResolver';
 import { HeaderUserResolver } from './Resolvers/HeaderUserResolver';
 import { UserAdoptionResolver } from './Resolvers/UserAdoptionsResolver';
 import { AdminModule } from './admin-module/admin.module';
+import { ValiderComponent } from './user-module/valider/valider.component';
 import { AssociationListComponent } from './association-module/association-list/association-list.component';
 import { VetoListComponent } from './veto-module/veto-list/veto-list.component';
 import { FoundListComponent } from './lostandfound-module/found-list/found-list.component';
@@ -56,9 +57,9 @@ const routes: Routes = [
   { path: 'post/:id/edit', component: PostFormComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'admin', loadChildren: () => import('./admin-module/admin.module').then(m => m.AdminModule) },
-  { path: '**', redirectTo: '' },
-
+  { path: 'valider', component: ValiderComponent },
+  { path: 'admin',loadChildren: () => import('./admin-module/admin.module').then(m => m.AdminModule)},
+  { path: '**',  redirectTo: '' },
 ];
 
 @NgModule({

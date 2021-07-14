@@ -58,6 +58,7 @@ import {
 } from '@stomp/ng2-stompjs';
 
 import { myRxStompConfig } from './my-rx-stomp.config';
+import { ValiderComponent } from './user-module/valider/valider.component';
 import { PostComponent } from './post-module/post/post.component';
 import { PostListComponent } from './post-module/post-list/post-list.component';
 import { PostDetailsComponent } from './post-module/post-details/post-details.component';
@@ -138,6 +139,7 @@ const customNotifierOptions: NotifierOptions = {
     ImageComponent,
     ShowAdoptionRequestComponent,
     ShowAdoptionRequestSentComponent,
+    ValiderComponent,
     AssociationListComponent,
     VetoListComponent,
     LostComponent,

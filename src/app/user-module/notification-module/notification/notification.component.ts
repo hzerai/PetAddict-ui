@@ -62,7 +62,7 @@ export class NotificationComponent implements OnInit, AfterViewInit {
       this.unreadNotif = next.length;
       this.notifications = next;
       next.forEach(notif => {
-        this.userService.getUserById(notif.fromUser, null).subscribe(u => {
+        this.userService.getUserByEmail(notif.fromUser, null).subscribe(u => {
           this.userMap.set(u.email, u);
         })
       })
@@ -72,8 +72,8 @@ export class NotificationComponent implements OnInit, AfterViewInit {
   getFromUser(email: string): string {
     let user = this.userMap.get(email);
     if (!user) {
-      this.userService.getUserById(email, null).subscribe(u => {
-        user = u;
+      this.userService.getUserByEmail(email, null).subscribe(u => {
+        user = u ;
         this.userMap.set(u.email, u);
       })
     }
@@ -83,8 +83,8 @@ export class NotificationComponent implements OnInit, AfterViewInit {
   getUserImage(email: string) {
     let user = this.userMap.get(email);
     if (!user) {
-      this.userService.getUserById(email, null).subscribe(u => {
-        user = u;
+      this.userService.getUserByEmail(email, null).subscribe(u => {
+        user = u ;
         this.userMap.set(u.email, u);
       })
     }

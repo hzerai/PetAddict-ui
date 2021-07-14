@@ -32,7 +32,7 @@ export class UserProfileEditComponent implements OnInit {
     let id;
     this.ac.params.subscribe(next => {
       id = next.id;
-      this.userService.getUserById(next.id,null).subscribe(a=>{
+      this.userService.getUserByEmail(next.id,null).subscribe(a=>{
       
     if (a.address == null) {
       a.address = new Address();

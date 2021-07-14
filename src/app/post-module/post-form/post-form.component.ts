@@ -58,7 +58,7 @@ export class PostFormComponent implements OnInit {
       let payload;
       payload = token.split(".")[1];
       payload = window.atob(payload);
-      this.userService.getUserById(JSON.parse(payload).username , null).subscribe(next => {
+      this.userService.getUserByEmail(JSON.parse(payload).username , null).subscribe(next => {
         this.userFullName = next.firstName+" "+next.lastName;
       });
     }

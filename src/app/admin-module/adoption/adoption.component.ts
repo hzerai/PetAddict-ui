@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Adoption } from 'src/app/adoption-module/adoption/Adoption';
 import { AdoptionService } from 'src/app/adoption-module/adoption/adoption.service';
 import { Image } from 'src/app/images-module/Image';
 import { ImageService } from 'src/app/images-module/image.service';
+import { UserService } from 'src/app/user-module/_services/user.service';
 
 @Component({
   selector: 'app-adoption',
@@ -18,16 +20,17 @@ export class AdoptionComponent implements OnInit {
   adoptions:Adoption[];
   images: Map<number, Image> = new Map();
 
-  constructor(private adoptionService:AdoptionService,private imageService: ImageService) { }
+  constructor(private adoptionService:AdoptionService,private route: ActivatedRoute,private imageService: ImageService,private userService: UserService) { }
 
   ngOnInit(): void {
+    let data = this.route.data;
     this.adoptionService.count().subscribe(next => {
       this.countUser = next; 
       this.generatePagination();
     });
     this.adoptionService.getPagedAdoptions(this.pageUser, this.sizeUser,null).subscribe(next =>{
       this.adoptions = next;
-      next.forEach(a => {
+      this.adoptions.forEach(a => {
         this.imageService.getImage(`ADOPTION-${a.id}`).subscribe(next => { ImageService.cache.cache(next); this.images.set(a.id,next) });
       })
     })
@@ -70,9 +73,10 @@ export class AdoptionComponent implements OnInit {
     }
     this.pageUser++;
       this.adoptionService.getPagedAdoptions(this.pageUser, this.sizeUser,null).subscribe(next => { this.adoptions = next ;
-        next.forEach(a => {
+        this.adoptions.forEach(a => {
           this.imageService.getImage(`ADOPTION-${a.id}`).subscribe(next => { ImageService.cache.cache(next); this.images.set(a.id,next) });
-        })});
+        })
+      });
       this.generatePagination();
   }
 
@@ -83,7 +87,7 @@ export class AdoptionComponent implements OnInit {
     this.pageUser--;
       this.adoptionService.getPagedAdoptions(this.pageUser, this.sizeUser,null).subscribe(next => { this.adoptions
          = next ;
-        next.forEach(a => {
+         this.adoptions.forEach(a => {
           this.imageService.getImage(`ADOPTION-${a.id}`).subscribe(next => { ImageService.cache.cache(next); this.images.set(a.id,next) });
         })
       });
@@ -96,7 +100,7 @@ export class AdoptionComponent implements OnInit {
     }
     this.pageUser = Number(n.number);
     this.adoptionService.getPagedAdoptions(this.pageUser, this.sizeUser,null).subscribe(next => { this.adoptions = next ;
-      next.forEach(a => {
+      this.adoptions.forEach(a => {
         this.imageService.getImage(`ADOPTION-${a.id}`).subscribe(next => { ImageService.cache.cache(next); this.images.set(a.id,next) });
       })
     });
@@ -118,7 +122,7 @@ export class AdoptionComponent implements OnInit {
       });
       this.adoptionService.getPagedAdoptions(this.pageUser, this.sizeUser,null).subscribe(next =>{
         this.adoptions = next;
-        next.forEach(a => {
+        this.adoptions.forEach(a => {
           this.imageService.getImage(`ADOPTION-${a.id}`).subscribe(next => { ImageService.cache.cache(next); this.images.set(a.id,next) });
         })
       })

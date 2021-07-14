@@ -46,7 +46,7 @@ export class LostDetailsComponent implements OnInit {
     payload = token.split(".")[1];
     payload = window.atob(payload);
     let username = JSON.parse(payload).username;
-    this.userService.getUserById(username,null).subscribe(next => {
+    this.userService.getUserByEmail(username,null).subscribe(next => {
       this.currentUserId = next.id;
     })
   }
