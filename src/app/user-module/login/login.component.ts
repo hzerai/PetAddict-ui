@@ -19,6 +19,8 @@ export class LoginComponent implements OnInit {
   isLoginFailed = false;
   errorMessage = '';
   roles: string[] = [];
+  passwordEmailSended = false;
+  forgetbutton = false;
 
   constructor(private authService: AuthService,private location:Location, private tokenStorage: TokenStorageService, private router: Router) { }
 
@@ -63,5 +65,25 @@ export class LoginComponent implements OnInit {
 
   reloadPage(): void {
     window.location.reload();
+  }
+
+  forgetsend():void{
+    const { email, password } = this.form;
+    if(email!==""){
+      this.authService.forgetsend(email).subscribe(data=>{ 
+        this.passwordEmailSended =true;
+      },
+      err => {
+        this.errorMessage = err.error;
+        this.passwordEmailSended =true;
+        this.isLoginFailed = true;
+      }
+      );
+    }
+    else{
+      this.errorMessage = "Email is missing"
+        this.passwordEmailSended =true;
+        this.isLoginFailed = true;
+    }
   }
 }

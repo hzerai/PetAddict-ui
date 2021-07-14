@@ -29,6 +29,7 @@ import { LostDetailsComponent } from './lostandfound-module/lost-details/lost-de
 import { PostListComponent } from './post-module/post-list/post-list.component';
 import { PostFormComponent } from './post-module/post-form/post-form.component';
 import { PostDetailsComponent } from './post-module/post-details/post-details.component';
+import { ChangepasswordComponent } from './user-module/changepassword/changepassword.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, resolve: { data: HeaderUserResolver } },
@@ -58,6 +59,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'valider', component: ValiderComponent },
+  { path: 'valideruser', component: ChangepasswordComponent },
+
   { path: 'admin',loadChildren: () => import('./admin-module/admin.module').then(m => m.AdminModule)},
   { path: '**',  redirectTo: '' },
 ];

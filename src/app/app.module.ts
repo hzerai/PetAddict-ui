@@ -65,6 +65,7 @@ import { PostDetailsComponent } from './post-module/post-details/post-details.co
 import { CommentComponent } from './post-module/comment/comment.component';
 import { PostFormComponent } from './post-module/post-form/post-form.component';
 import { CKEditorModule } from 'ckeditor4-angular';
+import { ChangepasswordComponent } from './user-module/changepassword/changepassword.component';
 /**
  * Custom angular notifier options
  */
@@ -155,6 +156,7 @@ const customNotifierOptions: NotifierOptions = {
      PostDetailsComponent,
      CommentComponent,
      PostFormComponent,
+     ChangepasswordComponent,
  
 
 
