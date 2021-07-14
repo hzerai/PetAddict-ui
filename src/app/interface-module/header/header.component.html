@@ -8,13 +8,42 @@
 
         </div>
         <div class="mx-auto flex">
-            <a [routerLink]="['adoptions']" class="col-span-1 my-auto  whitespace-no-wrap uppercase text-gray-800 text-sm px-4 py-2 text-black hover:bg-red-600 hover:text-white rounded-lg  font-medium no-underline">Adoptions</a>
-            <div class=" relative col-span-1  my-auto px-4 py-2 hover:bg-red-600 hover:text-white" (mouseenter)="showLostAndFound = true" (mouseleave)="showLostAndFound = false">
+
+            <div class=" relative col-span-1  my-auto px-4 py-2 hover:bg-blue-300 hover:text-white rounded-lg" (mouseenter)="showAdoptionDD = true" (mouseleave)="showAdoptionDD = false">
+                <a [routerLink]="['adoptions']" class="my-auto  whitespace-no-wrap uppercase text-gray-800 text-sm  text-black  rounded-lg  font-medium no-underline">Adoptions d'animaux                </a>
+                <div class="mx-auto w-full  mt-2 absolute flex flex-wrap  bg-white rounded-lg" *ngIf="showAdoptionDD" style="right: -2px;">
+                    <div class="flex  mt-3 py-2  my-auto w-full hover:bg-blue-300 hover:text-white rounded-lg">
+                        <div class="mx-auto">
+                            <a [routerLink]="['adoptions']" class="  uppercase text-gray-800 text-sm  text-black  rounded-lg  font-medium no-underline">Adopter un animal
+                            </a>
+                        </div>
+
+                    </div>
+
+                    <div class="flex py-2 my-auto w-full  hover:bg-blue-300 hover:text-white rounded-lg">
+                        <div class="mx-auto">
+                            <a [routerLink]="['adoptions']" class="  uppercase text-gray-800 text-sm  text-black  rounded-lg  font-medium no-underline">Ils ont été adoptés
+                            </a>
+                        </div>
+
+                    </div>
+
+                    <div class="flex py-2 my-auto w-full  hover:bg-blue-300 hover:text-white rounded-lg">
+                        <div class="mx-auto">
+                            <a [routerLink]="['adoptions']" class="  uppercase text-gray-800 text-sm  text-black  rounded-lg  font-medium no-underline">Témoignages
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class=" relative col-span-1  my-auto px-4 py-2 hover:bg-blue-300 hover:text-white rounded-lg" (mouseenter)="showLostAndFound = true" (mouseleave)="showLostAndFound = false">
                 <a class="my-auto  whitespace-no-wrap uppercase text-gray-800 text-sm  text-black  rounded-lg  font-medium no-underline">Lost & Found
                 </a>
-                <div class="mx-auto w-full  mt-2 absolute flex flex-wrap  bg-white" *ngIf="showLostAndFound" style="right: -2px;">
-                    <!-- width:inherit; height:inherit; margin-right: inherit; margin-left: inherit; padding-right: inherit; padding-left: inherit; right: -2px; -->
-                    <div class="flex  mt-5  my-auto w-full ">
+                <div class="mx-auto w-full  mt-2 absolute flex flex-wrap  bg-white rounded-lg" *ngIf="showLostAndFound" style="right: -2px;">
+                    <div class="flex  mt-3 py-2  my-auto w-full hover:bg-blue-300 hover:text-white rounded-lg">
                         <div class="mx-auto">
                             <a [routerLink]="['losts']" class="  uppercase text-gray-800 text-sm  text-black  rounded-lg  font-medium no-underline">Lost
                             </a>
@@ -22,7 +51,7 @@
 
                     </div>
 
-                    <div class="flex mt-5 mb-5 my-auto w-full  ">
+                    <div class="flex py-2 my-auto w-full  hover:bg-blue-300 hover:text-white rounded-lg">
                         <div class="mx-auto">
                             <a [routerLink]="['founds']" class="  uppercase text-gray-800 text-sm  text-black  rounded-lg  font-medium no-underline">Found
                             </a>
@@ -32,12 +61,29 @@
                 </div>
             </div>
 
-            <a [routerLink]="['associations']" class="col-span-1 my-auto  whitespace-no-wrap uppercase text-gray-800 text-sm px-4 py-2 text-black hover:bg-red-600 hover:text-white rounded-lg  font-medium no-underline">Associations</a>
+            <div class=" relative col-span-1  my-auto px-4 py-2 hover:bg-blue-300 hover:text-white rounded-lg" (mouseenter)="showAssosEtVets = true" (mouseleave)="showAssosEtVets = false">
+                <a class="my-auto  whitespace-no-wrap uppercase text-gray-800 text-sm  text-black  rounded-lg  font-medium no-underline">Associations & Vétérinaires
+                </a>
+                <div class="mx-auto w-full  mt-2 absolute flex flex-wrap  bg-white rounded-lg" *ngIf="showAssosEtVets" style="right: -2px;">
+                    <div class="flex  mt-3 py-2  my-auto w-full hover:bg-blue-300 hover:text-white rounded-lg">
+                        <div class="mx-auto">
+                            <a [routerLink]="['losts']" class="  uppercase text-gray-800 text-sm  text-black  rounded-lg  font-medium no-underline">Associations
+                            </a>
+                        </div>
 
+                    </div>
 
-            <a [routerLink]="['vetos']" class="col-span-1 my-auto  whitespace-no-wrap uppercase text-gray-800 text-sm px-4 py-2 text-black hover:bg-red-600 hover:text-white rounded-lg  font-medium no-underline">Vétérinaires</a>
+                    <div class="flex py-2 my-auto w-full  hover:bg-blue-300 hover:text-white rounded-lg">
+                        <div class="mx-auto">
+                            <a [routerLink]="['founds']" class="  uppercase text-gray-800 text-sm  text-black  rounded-lg  font-medium no-underline">Vétérinaires
+                            </a>
+                        </div>
 
-            <a [routerLink]="['posts']" class="col-span-1 my-auto  whitespace-no-wrap uppercase text-gray-800 text-sm px-4 py-2 text-black hover:bg-red-600 hover:text-white rounded-lg  font-medium no-underline">Blog</a>
+                    </div>
+                </div>
+            </div>
+
+            <a [routerLink]="['posts']" class="col-span-1 my-auto  whitespace-no-wrap uppercase text-gray-800 text-sm px-4 py-2 text-black hover:bg-blue-300 hover:text-white rounded-lg  font-medium no-underline">Blog</a>
 
         </div>
 
@@ -58,14 +104,14 @@
             <div [routerLink]="['user_profile']" [queryParams]="{section: 'inbox'}" (click)="resetUM()" *ngIf="isLoggedIn" class="col-span-1 border border-light rounded-lg  my-4 mx-1 text-sm px-2 py-1 hover:border-black ">
                 <span class="absolute flex h-3 w-3" *ngIf="unreadMessages">
                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                <span class="relative inline-flex rounded-full h-3 w-3 bg-red-900"></span>
                 </span>
                 <button class="relative z-10 block rounded-md p-2 focus:outline-none ">
                               <svg  class="h-5 w-5 text-gray-800"  fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path></svg>
     
                 </button>
             </div>
-            <div *ngIf="isLoggedIn" class="flex col-span-1 my-4 whitespace-no-wrap uppercase text-sm border border-light rounded-lg px-4 py-2 text-white hover:border-black bg-red-600 hover:text-red-600 hover:bg-white font-medium no-underline" (click)="logout()">
+            <div *ngIf="isLoggedIn" class="flex col-span-1 my-4 whitespace-no-wrap uppercase text-sm border border-light rounded-lg px-4 py-2 text-white hover:border-black bg-blue-300 hover:text-blue-300 hover:bg-white font-medium no-underline" (click)="logout()">
                 <p class="m-auto">LogOut</p>
             </div>
         </div>

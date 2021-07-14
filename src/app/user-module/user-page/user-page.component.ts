@@ -2,6 +2,7 @@ import { AfterViewInit } from '@angular/core';
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotifierService } from 'angular-notifier';
+import { Image } from 'src/app/images-module/Image';
 import { WebSocketService } from 'src/app/WebSockets/web-socket.service';
 import { Inbox } from '../messages-module/Inbox';
 import { Message } from '../messages-module/Message';
@@ -31,6 +32,7 @@ export class UserPageComponent implements OnInit, AfterViewInit {
   inbox: Inbox = new Inbox();
   contacts: User[] = [];
   unreadMessages: number = 0;
+  image : Image;
 
   constructor(private ws: WebSocketService, private _eref: ElementRef, private route: ActivatedRoute, private messages: MessageService, private tokenStorageService: TokenStorageService, private userService: UserService, private activatedRoute: ActivatedRoute, private router: Router, notifierService: NotifierService) {
     this.notifier = notifierService;
@@ -72,7 +74,8 @@ export class UserPageComponent implements OnInit, AfterViewInit {
       this.contacts = data.data.contacts;
       this.inbox = data.data.inbox;
       this.unreadMessages = data.data.unreadMessages;
-      this.receivedAdoptionRequests = data.data.receivedAdoptionRequests;     
+      this.receivedAdoptionRequests = data.data.receivedAdoptionRequests;   
+      this.image = data.data.image;  
     });
 
 

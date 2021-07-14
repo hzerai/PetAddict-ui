@@ -26,6 +26,7 @@ export class AdoptionFormComponent implements OnInit {
   colors = Object.values(Colors);
   tailles = Object.values(Tailles);
   breed = [];
+  ages = ['Bébé', 'Junior', 'Adulte', 'Senior'];
   sexes = Object.values(Sexe);
   adoptionForm: FormGroup;
   adoption: Adoption = new Adoption();
@@ -48,7 +49,7 @@ export class AdoptionFormComponent implements OnInit {
       nom: new FormControl(null, Validators.minLength(3)),
       sexe: new FormControl(),
       type: new FormControl(),
-      age: new FormControl(null, Validators.min(1)),
+      age: new FormControl(null),
       taille: new FormControl(),
       couleur: new FormControl(),
       espece: new FormControl(null, Validators.required),

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Image } from 'src/app/images-module/Image';
 import { User } from '../User';
 import { TokenStorageService } from '../_services/token-storage.service';
 import { UserService } from '../_services/user.service';
@@ -15,6 +16,7 @@ export class UserProfileComponent implements OnInit {
   @Input() user: User;
   edit: boolean = false;
   userImage: string;
+  @Input() image : Image;
 
   ngOnInit(): void {
     const token = this.tokenStorageService.getToken();

@@ -65,4 +65,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
    
   showLostAndFound:boolean=false;
+  showAssosEtVets:boolean=false;
+  showAdoptionDD:boolean=false;
 }

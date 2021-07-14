@@ -74,16 +74,10 @@
           <option *ngFor="let c of colors" [value]="c">{{c}}
         </select>
 
-                <div>
-                    <input formControlName="age" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" type="number"
-                        placeholder="Age" />
-                    <div *ngIf="age.invalid && (age.dirty || age.touched)" class="p-2">
-                        <div *ngIf="age.errors?.min">
-                            <p class="text-red-500 text-xs italic">Age must be higher than 0.</p>
-                        </div>
-
-                    </div>
-                </div>
+                <select formControlName="age" class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+            <option [ngValue]="null" [disabled]="true">Age</option>
+            <option *ngFor="let age of ages" [value]="age">{{age}}
+          </select>
 
 
                 <select formControlName="taille" class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">

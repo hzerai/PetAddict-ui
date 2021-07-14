@@ -44,7 +44,7 @@
             </nav>
         </div>
         <main class="flex-1 overflow-y-auto hide-scroll">
-            <app-user-profile [user]="user" *ngIf="child=='profile'"></app-user-profile>
+            <app-user-profile [user]="user" [image]="image" *ngIf="child=='profile'"></app-user-profile>
             <app-inbox *ngIf="child=='inbox'" [contacts]="contacts" [inbox]="inbox" [currentUser]="user"></app-inbox>
             <div style="height: 90%" class="flex flex-wrap p-10 overflow-y-auto hide-scroll" *ngIf="child=='adoptions'">
                 <app-adoption *ngFor="let adoption of user.adoptions" [adoption]="adoption" class="lg:w-1/2 sm:w-1/2 p-4 hover:rounded cursor-pointer hover:shadow">

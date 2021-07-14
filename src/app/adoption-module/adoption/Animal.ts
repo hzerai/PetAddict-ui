@@ -8,7 +8,7 @@ export class Animal {
     espece: Animals ;
     sexe: Sexe;
     taille: Tailles;
-    age: number = 0;
+    age: string = '';
     couleur: Colors;
     type: string = '';
     nom: string = '';

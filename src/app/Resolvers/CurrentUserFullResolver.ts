@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/router";
+import { ImageService } from "../images-module/image.service";
 import { Inbox } from "../user-module/messages-module/Inbox";
 import { MessageService } from "../user-module/messages-module/message.service";
 import { TokenStorageService } from "../user-module/_services/token-storage.service";
@@ -10,7 +11,7 @@ import { UserService } from "../user-module/_services/user.service";
 })
 export class CurrentUserFullResolver implements Resolve<any> {
 
-    constructor(private userService: UserService, private tokenService: TokenStorageService, private messages: MessageService) { }
+    constructor(private imageService: ImageService, private userService: UserService, private tokenService: TokenStorageService, private messages: MessageService) { }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         const token = this.tokenService.getToken();
@@ -29,6 +30,8 @@ export class CurrentUserFullResolver implements Resolve<any> {
         return new Promise((resolve, reject) => this.userService.getUserByEmail(id, 'adoptions,requests').subscribe(u => {
             let receivedAdoptionRequests = [];
             let currentUser = u;
+            let image ;
+            this.imageService.getImage('USER-'+u.id).subscribe(next => { image = next});
             currentUser.recievedAdoptionRequests.forEach(r => {
                 let m: any = r; m.show = false; receivedAdoptionRequests.push(m)
             })
@@ -48,6 +51,7 @@ export class CurrentUserFullResolver implements Resolve<any> {
                 })
                 return resolve({
                     currentUser: currentUser,
+                    image : image,
                     contacts: contacts,
                     inbox: inbox,
                     unreadMessages: unreadMessages,
