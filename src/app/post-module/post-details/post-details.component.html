@@ -3,12 +3,7 @@
         <div class="container mx-10 shadow-lg">
             <div class="w-full">
                 <h1 class="text-gray-900 text-4xl mb-3 leading-none">{{post?.title}}</h1>
-                <button *ngIf="isOwner()" routerLink="edit"
-                class="bg-blue-500 rounded-lg shadow py-2 px-2 text-black hover:text-white">Edit
-                !</button>
-                <button *ngIf="isOwner()" (click)='delete()'
-                class="bg-blue-500 rounded-lg shadow py-2 px-2 text-black hover:text-white">Supprimer
-                !</button>
+           
             </div>
 
             <div
@@ -26,6 +21,15 @@
             </div>
             <div class="mx-auto w-1/2" [innerHtml]="htmlData">
 
+            </div>
+            <div class='flex items-center justify-center  md:gap-8 gap-4 pt-5 pb-5'>
+            <button *ngIf="isOwner()" routerLink="edit"
+            class="bg-gray-200 rounded-lg shadow py-2 px-2 text-black hover:text-white">Modifier article
+            </button>
+            
+            <button *ngIf="isOwner()" (click)="delete(post.id)"
+            class="bg-gray-200 rounded-lg shadow py-2 px-2 text-black hover:text-white">Supprimer article
+            </button>
             </div>
             <div class="mx-auto w-1/2 mt-5">
                 <div class="bg-gray-100 rounded-lg py-6 px-8 mb-8 hover:border-blue-900 shadow-lg">
