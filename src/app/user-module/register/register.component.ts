@@ -22,8 +22,8 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const {email, password } = this.form;
-
+    const {email, password ,confirmpassword} = this.form;
+    if(password===confirmpassword){
     this.authService.register(email, password).subscribe(
       data => {
         this.isSuccessful = true;
@@ -35,4 +35,9 @@ export class RegisterComponent implements OnInit {
       }
     );
   }
+  else{
+    this.errorMessage = "Password and confirmed password are not the same"
+        this.isSignUpFailed = true;
+  }
+}
 }
