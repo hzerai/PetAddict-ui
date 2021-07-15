@@ -1,5 +1,5 @@
 <div class="flex  items-center justify-center  mt-10 mb-10">
-    <div class="grid rounded-lg bg-gray-100 w-11/12 md:w-9/12 lg:w-1/2 shadow">
+    <div class="grid rounded-lg  w-11/12 md:w-9/12 lg:w-1/2 shadow">
       <div class="flex justify-center mt-6 ">
         <div class="flex">
           <h1 class="text-gray-600 font-bold md:text-2xl text-xl">Publier une Found </h1>
@@ -11,12 +11,28 @@
           <input formControlName="title"
             class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
             type="text" placeholder="Titre de l'annonce" />
+            <div *ngIf="title.invalid && (title.dirty || title.touched)" class="p-2">
+              <div *ngIf="title.errors?.required">
+                  <p class="text-red-500 text-xs italic">Please fill out this field.</p>
+              </div>
+              <div *ngIf="title.errors?.minlength">
+                  <p class="text-red-500 text-xs italic">Please fill out this field with more than 5 caracters.</p>
+              </div>
+          </div>
         </div>
         <div class="grid grid-cols-1 mt-5 ml-10 mr-10">
           <label class="md:text-sm text-xs text-gray-500 text-light font-semibold">Description</label>
           <textarea formControlName="description"
             class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
             type="text" placeholder="Description"></textarea>
+            <div *ngIf="description.invalid && (description.dirty || description.touched)" class="p-2">
+              <div *ngIf="description.errors?.required">
+                  <p class="text-red-500 text-xs italic">Please fill out this field.</p>
+              </div>
+              <div *ngIf="description.errors?.minlength">
+                  <p class="text-red-500 text-xs italic">Please fill out this field with more than 5 caracters.</p>
+              </div>
+          </div>
         </div>
         <label class="md:text-sm text-xs text-gray-500 text-light font-semibold mt-5 ml-10 mr-10">Information sur
           l'animal</label>
@@ -28,6 +44,11 @@
             <option *ngFor="let animal of animals" [value]="animal">{{animal}}
             </option>
           </select>
+          <div *ngIf="espece.invalid && (espece.dirty || espece.touched)" class="p-2">
+            <div *ngIf="espece.errors?.required">
+                <p class="text-red-500 text-xs italic">Please select a breed.</p>
+            </div>
+        </div>
   
           <select formControlName="type"
             class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
@@ -41,12 +62,16 @@
             <option [ngValue]="null" [disabled]="true">Sexe</option>
             <option *ngFor="let sexe of sexes" [value]="sexe">{{sexe}}
           </select>
-  
-          <input formControlName="nom"
-            class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-            type="text" placeholder="Nom" />
-  
-  
+          <div>
+            <input formControlName="nom" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" type="text"
+                placeholder="Nom" />
+            <div *ngIf="nom.invalid && (nom.dirty || nom.touched)" class="p-2">
+
+                <div *ngIf="nom.errors?.minlength">
+                    <p class="text-red-500 text-xs italic">Please fill out this field with at least 3 caracters.</p>
+                </div>
+            </div>
+        </div>
           <select formControlName="couleur"
             class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
             <option [ngValue]="null" [disabled]="true">Couleur</option>
@@ -70,6 +95,9 @@
             <app-image [default]="'https://via.placeholder.com/640x480?text=Image+For+found+NEW'"
             #imageComponent   [model]="'Found'" [imageName]="imageName"
             ></app-image>
+            <div *ngIf="!imageComponent.image?.bytes && submitted" class="p-2">
+              <p class="text-red-500 text-xs italic">Please select an image for the animal.</p>
+          </div>
           </div>
         </div>
         

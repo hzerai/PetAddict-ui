@@ -29,6 +29,27 @@
         <h1 class="title-font text-lg font-medium text-black mb-3">{{found.title}}</h1>
         <p class="leading-relaxed h-32 overflow-y-auto text-black text-sm">{{found.description}}.</p>
     </div>
+    </div>
+    <div>
+    <div class="w-full w-1/2 mt-5">
+        <div class="bg-gray-100 rounded-lg py-6 px-8 mb-8 hover:border-blue-900 shadow-lg">
+
+            <textarea [(ngModel)]="commentBody" class="w-full focus:outline-none focus:bg-white"
+                placeholder="Ajouter un commentaire!" style="height: 100px">
+                </textarea>
+            <hr class="py-2" />
+            <footer class="flex justify-between">
+                <img src="https://i.pravatar.cc/40" alt class="rounded-full mr-2" />
+                <button (click)="comment()"
+                    class="bg-blue-500 rounded-lg shadow py-2 px-2 text-black hover:text-white">Commenter
+                    !</button>
+            </footer>
+        </div>
+
+        <app-comment *ngFor="let comment of found.comments" [comment]="comment"
+            class="border border-blue-200 bg-white rounded-lg mb-4 hover:bg-gray-200 hover:border-blue-900 mx-auto">
+        </app-comment>
+    </div>
     
     
 </div>

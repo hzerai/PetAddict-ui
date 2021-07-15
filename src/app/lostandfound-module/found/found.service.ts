@@ -9,6 +9,8 @@ import { DogBreed } from 'src/app/interface-module/filter/DogBreed';
 import { HorseBreed } from 'src/app/interface-module/filter/HorseBreed';
 import { Tailles } from 'src/app/interface-module/filter/Tailles';
 import { Found } from './found';
+import { Comment } from 'src/app/post-module/comment/Comment';
+
 
 
 
@@ -73,6 +75,13 @@ export class FoundService {
     Object.values(CatBreed).forEach(v => result.push(v))
     Object.values(HorseBreed).forEach(v => result.push(v))
     return result;
+  }
+  addCommentfound(id:number,comment: Comment): Observable<Found> {
+    return this.http.post<Found>(this.foundUrl+"/"+id+"/addcommentfound", comment, this.options);
+  }
+
+  replyfound(id:number,idcomment:number,comment: Comment): Observable<Found> {
+    return this.http.post<Found>(this.foundUrl+"/"+id+"/addcommentfound/"+idcomment+"/replyfound", comment, this.options);
   }
 
 }

@@ -9,9 +9,11 @@ import { UserProfileEditComponent } from './user/user-profile-edit/user-profile-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdoptionComponent } from './adoption/adoption.component';
 import { PageButtonDirective } from '../custom-directives/page-button.directive';
+import { LostComponent } from './lost/lost.component';
+import { FoundComponent } from './found/found.component';
 
 @NgModule({
-  declarations: [DashboardComponent, UserComponent, AdminComponent,UserProfileEditComponent, AdoptionComponent],
+  declarations: [DashboardComponent, UserComponent, AdminComponent,UserProfileEditComponent, AdoptionComponent, LostComponent, FoundComponent],
   imports: [AdminRoutingModule
 ,CommonModule,FormsModule,ReactiveFormsModule],
   bootstrap: [AdminComponent],
