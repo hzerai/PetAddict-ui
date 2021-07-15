@@ -1,0 +1,271 @@
+#mySidenav a {
+    position: absolute;
+    /* Position them relative to the browser window */
+    left: -77px;
+    /* Position them outside of the screen */
+    transition: 0.5s;
+    /* Add transition on hover */
+    padding: 15px;
+    /* 15px padding */
+    width: 120px;
+    /* Set a specific width */
+    text-decoration: none;
+    /* Remove underline */
+    font-size: 20px;
+    /* Increase font size */
+    color: white;
+    /* White text color */
+    border-radius: 0 5px 5px 0;
+    /* Rounded corners on the top right and bottom right side */
+}
+
+#mySidenav a:hover {
+    left: 0;
+    /* On mouse-over, make the elements appear as they should */
+}
+
+#filter {
+    top: 180px;
+    background-color: #2196F3;
+    /* Blue */
+}
+
+#create {
+    top: 120px;
+    background-color: #148323;
+    /* Green */
+}
+
+#here {
+    top: 80px;
+}
+
+#here {
+    left: 10px;
+    width: 140px;
+    height: 140px;
+    border-radius: 0 5px 5px 0;
+}
+
+#specials {
+    position: absolute;
+    /* Position them relative to the browser window */
+    right: -150px;
+    /* Position them outside of the screen */
+    transition: 1s;
+    /* Add transition on hover */
+    width: 240px;
+    /* Set a specific width */
+    text-decoration: none;
+    /* Remove underline */
+    font-size: 20px;
+    /* Increase font size */
+    color: black;
+    /* White text color */
+    border-radius: 10px 10px;
+    /* Rounded corners on the top right and bottom right side */
+    top: 120px;
+    background-color: white;
+}
+
+#specials:hover {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    align-items: center;
+    right: 0;
+    /* On mouse-over, make the elements appear as they should */
+}
+
+#specials-open {
+    top: 80px;
+    right: 10px;
+    width: 140px;
+    height: 140px;
+    border-radius: 0 5px 5px 0;
+}
+
+.specials2 {
+    position: absolute;
+    /* Position them relative to the browser window */
+    right: -150px;
+    /* Position them outside of the screen */
+    transition: 1s;
+    /* Add transition on hover */
+    width: 240px;
+    /* Set a specific width */
+    text-decoration: none;
+    /* Remove underline */
+    font-size: 20px;
+    /* Increase font size */
+    color: black;
+    /* White text color */
+    border-radius: 10px 10px;
+    /* Rounded corners on the top right and bottom right side */
+    top: 500px;
+    background-color: white;
+}
+
+.specials2:hover {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    align-items: center;
+    right: 0;
+    /* On mouse-over, make the elements appear as they should */
+}
+
+#specials2-open {
+    top: 80px;
+    right: 10px;
+    width: 140px;
+    height: 140px;
+    border-radius: 0 5px 5px 0;
+}
+
+.pulsing {
+    animation: ping 1.5s linear infinite both;
+}
+
+#animated_div {
+    position: relative;
+    animation: animated_div 30s 1;
+    -moz-animation: animated_div 30s 1;
+    -webkit-animation: animated_div 30s 1;
+    -o-animation: animated_div 30s 1;
+    animation-delay: 30s;
+}
+
+@keyframes animated_div {
+    0% {
+        transform: rotate(0deg);
+        right: 0px;
+        bottom: 0px;
+    }
+    10% {
+        transform: rotate(20deg);
+        right: 400px;
+        bottom: 40px;
+    }
+    20% {
+        transform: rotate(0deg);
+        right: 800px;
+        bottom: 80px;
+    }
+    30% {
+        transform: rotate(20deg);
+        right: 1200px;
+        bottom: 120px;
+    }
+    40% {
+        transform: rotate(0deg);
+        right: 1600px;
+        bottom: 140px;
+    }
+    50% {
+        transform: rotate(20deg);
+        right: 1900px;
+        bottom: 160px;
+    }
+    60% {
+        transform: rotate(0deg);
+        right: 1600px;
+        bottom: 140px;
+    }
+    70% {
+        transform: rotate(0deg);
+        right: 1200px;
+        bottom: 120px;
+    }
+    80% {
+        transform: rotate(20deg);
+        right: 800px;
+        bottom: 80px;
+    }
+    90% {
+        transform: rotate(0deg);
+        right: 100px;
+        bottom: 40px;
+    }
+    100% {
+        transform: rotate(-360deg);
+        right: 0px;
+        bottom: 0px;
+    }
+}
+
+.animaltedP {
+    animation: animaltedP 10s 1;
+    -moz-animation: animaltedP 5s 1;
+    -webkit-animation: animaltedP 5s 1;
+    -o-animation: animaltedP 5s 1;
+    animation-delay: 10s;
+}
+
+@keyframes animaltedP {
+    0% {
+        transform: rotate(0deg);
+        left: 0px;
+    }
+    25% {
+        transform: rotate(20deg);
+        left: 200px;
+    }
+    50% {
+        transform: rotate(0deg);
+        left: 500px;
+    }
+    55% {
+        transform: rotate(0deg);
+        left: 500px;
+    }
+    70% {
+        transform: rotate(0deg);
+        left: 200px;
+    }
+    100% {
+        transform: rotate(-360deg);
+        left: 0px;
+    }
+}
+
+.animaltedP2 {
+    animation: animaltedP2 10s 1;
+    -moz-animation: animaltedP2 5s 1;
+    -webkit-animation: animaltedP2 5s 1;
+    -o-animation: animaltedP2 5s 1;
+    animation-delay: 20s;
+}
+
+@keyframes animaltedP2 {
+    0% {
+        transform: rotate(0deg);
+        left: 0px;
+        background-color: rgba(33, 112, 231, 0.87);
+    }
+    25% {
+        transform: rotate(20deg);
+        left: 200px;
+        background-color: rgba(17, 68, 145, 0.87);
+    }
+    50% {
+        transform: rotate(0deg);
+        left: 500px;
+        background-color: blue;
+    }
+    55% {
+        transform: rotate(0deg);
+        left: 500px;
+        background-color: blue;
+    }
+    70% {
+        transform: rotate(0deg);
+        left: 200px;
+        background-color: rgba(17, 68, 145, 0.87);
+    }
+    100% {
+        transform: rotate(-360deg);
+        left: 0px;
+        background-color: rgba(33, 112, 231, 0.87);
+    }
+}

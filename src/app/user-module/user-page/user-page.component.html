@@ -51,14 +51,13 @@
                 </app-adoption>
             </div>
             <div style="height: 90%" class="flex-wrap p-10 overflow-y-auto hide-scroll" *ngIf="child=='adoptionRequests'">
-                <div *ngFor="let adoptionsRequest of user?.adoptionRequests" (click)="adoptionsRequest.show = !adoptionsRequest.show" [ngClass]="{'animate-bounce bg-red-200': specialAdoptionRequest == adoptionsRequest.id}" class="w-full px-auto p-2 border border-1 hover:rounded cursor-pointer hover:shadow-lg">
+                <div *ngFor="let adoptionsRequest of user?.adoptionRequests" [ngClass]="{'animate-bounce bg-red-200': specialAdoptionRequest == adoptionsRequest.id}" class="w-full px-auto p-2 border border-1 hover:rounded cursor-pointer hover:shadow-lg">
                     <app-show-adoption-request-sent [user]="user" [adoptionsRequest]="adoptionsRequest">
                     </app-show-adoption-request-sent>
                 </div>
             </div>
             <div style="height: 90%" class="flex-wrap p-10 overflow-y-auto hide-scroll" *ngIf="child=='RadoptionRequests'">
-                <div *ngFor="let adoptionsRequest of receivedAdoptionRequests" (click)="adoptionsRequest.show = !adoptionsRequest.show" [ngClass]="{'animate-bounce bg-red-200': specialAdoptionRequest == adoptionsRequest.adoption.id && specialAdoptionRequestSender == adoptionsRequest.user.id}"
-                    class="w-full px-auto p-2 border border-1 hover:rounded cursor-pointer hover:shadow-lg">
+                <div *ngFor="let adoptionsRequest of receivedAdoptionRequests" [ngClass]="{'animate-bounce bg-red-200': specialAdoptionRequest == adoptionsRequest.adoption.id && specialAdoptionRequestSender == adoptionsRequest.user.id}" class="w-full px-auto p-2 border border-1 hover:rounded cursor-pointer hover:shadow-lg">
                     <app-show-adoption-request [user]="user" [adoptionsRequest]="adoptionsRequest">
                     </app-show-adoption-request>
                 </div>

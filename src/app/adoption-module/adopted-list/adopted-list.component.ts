@@ -10,13 +10,13 @@ import { AnimalService } from '../adoption/animal.service';
 
 
 @Component({
-  selector: 'app-adoption-list',
-  templateUrl: './adoption-list.component.html',
-  styleUrls: ['./adoption-list.component.css']
+  selector: 'app-adopted-list',
+  templateUrl: './adopted-list.component.html',
+  styleUrls: ['./adopted-list.component.css']
 })
-export class AdoptionListComponent implements OnInit {
+export class AdoptedListComponent implements OnInit {
 
-  filtered: boolean = false;
+  filtered: boolean = true;
   page: number = 1;
   size: number = 6;
   count: number = 0;
@@ -33,25 +33,9 @@ export class AdoptionListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.adoptionService.count().subscribe(next => {
-      this.count = next; this.generatePagination();
-    });
-    this.adoptionService.coupDeCoeur().subscribe(next => { this.coupDeCoeur = next; });
-    this.adoptionService.getPagedAdoptions(this.page, this.size, null).subscribe(next => { this.adoptions = next });
+    this.getPagedAdoptionsFiltered();
   }
 
-  refreshCDC() {
-    this.adoptionService.coupDeCoeur().subscribe(next => { this.coupDeCoeur = next; });
-  }
-
-  populateSuggestions() {
-    if (this.suggestions.indexOf('Tunis') < 0)
-      Object.values(VillesService.villes).forEach(v => { this.suggestions.push(v.name); v.municipalities.forEach(k => this.suggestions.push(k.name)) })
-  }
-
-  filter() {
-    this.filterOpen = !this.filterOpen;
-  }
 
   next() {
     if (this.cantNext()) {
@@ -108,22 +92,12 @@ export class AdoptionListComponent implements OnInit {
   }
 
   getPagedAdoptionsFiltered() {
-    let espece = this.query.params.get('espece');
-    let type = this.query.params.get('type');
-    let sexe = this.query.params.get('sexe');
-    let taille = this.query.params.get('taille');
-    let ville = this.query.params.get('ville');
-    let age = this.query.params.get('age');
-    let couleur = this.query.params.get('couleur');
-    let size = this.query.params.get('size');
-    let user_id = this.query.params.get('user_id');
-    let municipality = this.query.params.get('municipality');
-    this.size = size != null ? Number(size) : this.size;
-    this.adoptionService.countFiltered(espece, type, sexe, taille, ville, municipality, age, couleur, user_id, null, null).subscribe(c => {
+
+    this.adoptionService.countFiltered(null, null, null, null, null, null, null, null, null, null, 'ADOPTED').subscribe(c => {
       this.count = c;
       this.generatePagination();
     });
-    this.adoptionService.getPagedAdoptionsFiltered(espece, type, sexe, taille, ville, municipality, user_id, this.page, this.size, age, couleur, null, null, null).subscribe(next => { this.adoptions = next; });
+    this.adoptionService.getPagedAdoptionsFiltered(null, null, null, null, null, null, null, this.page, this.size, null, null, null, 'ADOPTED', null).subscribe(next => { this.adoptions = next; });
 
   }
 
@@ -172,7 +146,6 @@ export class AdoptionListComponent implements OnInit {
   autoC = true;
 
   fetch(str: string) {
-    this.populateSuggestions();
     if (str?.length > 3) {
       if (this.autoC) {
         this.autoComplete = [];
@@ -198,49 +171,6 @@ export class AdoptionListComponent implements OnInit {
     return adoptionAsString.includes(str);
   }
 
-  noire() {
-    this.page = 1;
-    this.size = 100;
-    this.adoptionService.countFiltered(null, null, null, null, null, null, null, Colors.Noir, null, null, null).subscribe(c => {
-      this.count = c;
-      this.generatePagination();
-    });
-    this.generatePagination();
-    this.adoptionService.getPagedAdoptionsFiltered(null, null, null, null, null, null, null, 1, 100, null, Colors.Noir, null, null, null).subscribe(next => { this.adoptions = next; });
-  }
-
-  or() {
-    this.page = 1;
-    this.size = 100;
-    this.adoptionService.countFiltered(null, null, null, null, null, null, 'Senior', null, null, null, null).subscribe(c => {
-      this.count = c;
-      this.generatePagination();
-    });
-    this.generatePagination();
-    this.adoptionService.getPagedAdoptionsFiltered(null, null, null, null, null, null, null, 1, 100, 'Senior', null, null, null, null).subscribe(next => { this.adoptions = next; });
-  }
-
-  whynotme() {
-    this.page = 1;
-    this.size = 100;
-    this.adoptionService.countFiltered('Poisson', null, null, null, null, null, null, null, null, null, null).subscribe(c => {
-      this.count = c;
-      this.generatePagination();
-    });
-    this.generatePagination();
-    this.adoptionService.getPagedAdoptionsFiltered('Poisson', null, null, null, null, null, null, 1, 100, null, null, null, null, null).subscribe(next => { this.adoptions = next; });
-  }
-
-  urgence() {
-    this.page = 1;
-    this.size = 100;
-    this.adoptionService.countFiltered(null, null, null, null, null, null, null, null, null, true, null).subscribe(c => {
-      this.count = c;
-      this.generatePagination();
-    });
-    this.generatePagination();
-    this.adoptionService.getPagedAdoptionsFiltered(null, null, null, null, null, null, null, 1, 100, null, null, true, null, null).subscribe(next => { this.adoptions = next; });
-  }
 
 }
 

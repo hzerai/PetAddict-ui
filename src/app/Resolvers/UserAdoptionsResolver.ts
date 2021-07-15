@@ -31,7 +31,9 @@ export class UserAdoptionResolver implements Resolve<any> {
         payload = window.atob(payload);
         let username = JSON.parse(payload).username;
         if (id === username) {
-            return this.cur.getData(id);
+            return new Promise((resolve, reject) => {
+                return resolve({sameUser : true});
+            });
         }
         return new Promise((resolve, reject) => this.userService.getUserByEmail(id, 'adoptions').subscribe(u => {
             this.userService.getUserByEmail(username, null).subscribe(next => {

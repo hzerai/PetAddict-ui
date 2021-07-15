@@ -30,6 +30,8 @@ import { PostListComponent } from './post-module/post-list/post-list.component';
 import { PostFormComponent } from './post-module/post-form/post-form.component';
 import { PostDetailsComponent } from './post-module/post-details/post-details.component';
 import { ChangepasswordComponent } from './user-module/changepassword/changepassword.component';
+import { AdoptedListComponent } from './adoption-module/adopted-list/adopted-list.component';
+import { TemoignagesComponent } from './adoption-module/temoignages/temoignages.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, resolve: { data: HeaderUserResolver } },
@@ -39,7 +41,8 @@ const routes: Routes = [
   { path: 'associations', component: AssociationListComponent },
   { path: 'vetos', component: VetoListComponent },
   { path: 'adoptions', component: AdoptionListComponent },
-  { path: 'adoptions/filtered', component: AdoptionListComponent },
+  { path: 'adopted', component: AdoptedListComponent },
+  { path: 'temoignages', component: TemoignagesComponent },
   { path: 'adoptions/new', component: AdoptionFormComponent },
   { path: 'adoptions/:id', component: AdoptionDetailsComponent, resolve: { data: AdoptionResolver } },
   { path: 'adoptions/:id/adopter', component: AdoptionRequestComponent, resolve: { data: AdoptionResolver } },
@@ -61,8 +64,8 @@ const routes: Routes = [
   { path: 'valider', component: ValiderComponent },
   { path: 'valideruser', component: ChangepasswordComponent },
 
-  { path: 'admin',loadChildren: () => import('./admin-module/admin.module').then(m => m.AdminModule)},
-  { path: '**',  redirectTo: '' },
+  { path: 'admin', loadChildren: () => import('./admin-module/admin.module').then(m => m.AdminModule) },
+  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({

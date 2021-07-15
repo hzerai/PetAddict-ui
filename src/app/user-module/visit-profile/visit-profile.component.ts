@@ -25,11 +25,11 @@ export class VisitProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe((data) => {
-      this.user = data.data.user;
-      this.currentUser = data.data.currentUser;
-      if (this.currentUser != null&& this.user.id == this.currentUser.id) {
+      if (data.data.sameUser) {
         this.route.navigate(['/user_profile']);
       }
+      this.user = data.data.user;
+      this.currentUser = data.data.currentUser;     
       this.imageService.getImage('USER-' + data.data.user.id).subscribe(next => this.image = next);
     });
   }

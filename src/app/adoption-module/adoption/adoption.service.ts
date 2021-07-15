@@ -12,6 +12,7 @@ import { HorseBreed } from 'src/app/interface-module/filter/HorseBreed';
 import { Tailles } from 'src/app/interface-module/filter/Tailles';
 import { Colors } from 'src/app/interface-module/filter/Colors';
 import { environment } from 'src/environments/environment';
+import { Temoignage } from '../temoignages/Temoignage';
 
 
 @Injectable({
@@ -81,7 +82,7 @@ export class AdoptionService {
     return this.http.get<Adoption[]>(this.adoptionUrl, { params });
   }
 
-  getPagedAdoptionsFiltered(espece, type, sexe, taille, ville, municipality, user_id, page, size, age, couleur, key: string) {
+  getPagedAdoptionsFiltered(espece, type, sexe, taille, ville, municipality, user_id, page, size, age, couleur, urgent: boolean, status, key: string) {
     let params = new HttpParams();
     if (key != null && key.length > 0) {
       params = params.append('key', key);
@@ -90,7 +91,13 @@ export class AdoptionService {
       params = params.append('espece', String(espece));
     }
     if (type != null && type.length > 0) {
-      params.append('type', String(type))
+      params = params.append('type', String(type))
+    }
+    if (urgent) {
+      params = params.append('urgent', String(urgent));
+    }
+    if (status != null && status.length > 0) {
+      params = params.append('status', String(status))
     }
     if (sexe != null && sexe.length > 0) {
       params = params.append('sexe', String(sexe));
@@ -127,13 +134,19 @@ export class AdoptionService {
     return this.http.get<number>(this.adoptionUrl + 's/count');
   }
 
-  countFiltered(espece, type, sexe, taille, ville, municipality, age, couleur, user_id): Observable<number> {
+  countFiltered(espece, type, sexe, taille, ville, municipality, age, couleur, user_id, urgent: boolean, status): Observable<number> {
     let params = new HttpParams();
     if (espece != null && espece.length > 0) {
       params = params.append('espece', String(espece));
     }
     if (type != null && type.length > 0) {
       params.append('type', String(type))
+    }
+    if (urgent) {
+      params = params.append('urgent', String(urgent));
+    }
+    if (status != null && status.length > 0) {
+      params = params.append('status', String(status))
     }
     if (sexe != null && sexe.length > 0) {
       params = params.append('sexe', String(sexe));
@@ -156,11 +169,19 @@ export class AdoptionService {
     if (user_id != null && user_id.length > 0) {
       params = params.append('user_id', String(user_id));
     }
-    return this.http.get<number>(this.adoptionUrl + 's/count' , {params});
+    return this.http.get<number>(this.adoptionUrl + 's/count', { params });
   }
 
   createAdoptionRequest(id: number, userId: string) {
     return this.http.post<AdoptionRequest>(this.adoptionUrl + '/' + id + '/adopt', this.options);
+  }
+
+  createTemoignage(id: number, temoignage: Temoignage): Observable<Temoignage> {
+    return this.http.post<Temoignage>(this.adoptionRequestUrl + id + '/temoignage', temoignage, this.options);
+  }
+
+  getAllTemoignage(): Observable<Temoignage[]> {
+    return this.http.get<Temoignage[]>(this.adoptionRequestUrl + 'temoignages', this.options);
   }
 
   acceptAdoptionRequest(id: number) {

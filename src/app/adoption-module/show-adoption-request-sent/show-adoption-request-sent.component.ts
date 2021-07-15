@@ -4,8 +4,8 @@ import { Notification } from 'src/app/user-module/notification-module/Notificati
 import { NotificationService } from 'src/app/user-module/notification-module/notification.service';
 import { User } from 'src/app/user-module/User';
 import { WebSocketService } from 'src/app/WebSockets/web-socket.service';
-import { AdoptionRequest } from '../adoption-request/AdoptionRequest';
 import { AdoptionService } from '../adoption/adoption.service';
+import { Temoignage } from '../temoignages/Temoignage';
 
 @Component({
   selector: 'app-show-adoption-request-sent',
@@ -63,5 +63,17 @@ export class ShowAdoptionRequestSentComponent implements OnInit {
     notification.route = '/user_profile#RadoptionRequests#' + this.adoptionsRequest.adoption.id + '#' + this.user.id;
     this.notifService.sendNotification(notification).subscribe();
     this.adoptionService.reopenAdoptionRequest(adoptionRequest.id).subscribe();
+  }
+  showTemoignage : boolean = false;
+  temoignagetitre: string = '';
+  temoignagebody: string = '';
+
+  temoignage() {
+    let temoignage = new Temoignage();
+    temoignage.createdBy = this.user.email;
+    temoignage.titre = this.temoignagetitre;
+    temoignage.body = this.temoignagebody;
+    this.adoptionService.createTemoignage(this.adoptionsRequest.id, temoignage).subscribe();
+    this.showTemoignage = false;
   }
 }
