@@ -25,6 +25,7 @@ export class FoundService {
     responseType: 'json' as const,
   };
   private foundUrl = "http://localhost:8000/api/found";
+
   constructor(private http: HttpClient) {
     FoundService.suggestions = this.populateSuggestions()
     
@@ -33,6 +34,9 @@ export class FoundService {
 
   getFounds(): Observable<Found[]> {
     return this.http.get<Found[]>(this.foundUrl);
+  }
+  getUserFounds(): Observable<Found[]> {
+    return this.http.get<Found[]>("http://localhost:8000/api/userfound");
   }
 
 

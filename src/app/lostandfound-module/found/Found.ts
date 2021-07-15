@@ -9,7 +9,8 @@ export class Found {
     updatedAt: Date;
     createdBy: string = '';
     updatedBy: string = '';
-    user : User;
-    animal : Animal = new Animal();
-    comments:Comment[]=[];
+    user: User;
+    animal: Animal = new Animal();
+    comments: Comment[] = [];
+    status: string = 'CREATED';
 }

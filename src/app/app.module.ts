@@ -65,6 +65,8 @@ import { PostDetailsComponent } from './post-module/post-details/post-details.co
 import { CommentComponent } from './post-module/comment/comment.component';
 import { PostFormComponent } from './post-module/post-form/post-form.component';
 import { CKEditorModule } from 'ckeditor4-angular';
+import { UserLostListComponent } from './lostandfound-module/user-lost-list/user-lost-list.component';
+import { UserFoundListComponent } from './lostandfound-module/user-found-list/user-found-list.component';
 /**
  * Custom angular notifier options
  */
@@ -155,6 +157,8 @@ const customNotifierOptions: NotifierOptions = {
      PostDetailsComponent,
      CommentComponent,
      PostFormComponent,
+     UserLostListComponent,
+     UserFoundListComponent,
  
 
 
