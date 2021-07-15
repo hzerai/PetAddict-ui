@@ -42,6 +42,7 @@ export class PostDetailsComponent implements OnInit {
     this.htmlData=this.sanitizer.bypassSecurityTrustHtml(next.body);
     });
     this.imageService.getImage(`Post-${id}`).subscribe(next => { this.image = next });
+
   }
   delete(id: number) {
     if (confirm("Are you sure to delete this blog ?")) {
