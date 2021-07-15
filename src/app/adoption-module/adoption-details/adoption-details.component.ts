@@ -18,7 +18,7 @@ export class AdoptionDetailsComponent implements OnInit {
   currentUserId: number;
   username: string;
   image: Image;
-  showAdoptionButton: boolean = false;
+  canAdopt: boolean = false;
   isowner: boolean;
 
   constructor(private imageService: ImageService, private route: ActivatedRoute, private adoptionService: AdoptionService, private r: Router) { }
@@ -27,8 +27,8 @@ export class AdoptionDetailsComponent implements OnInit {
     this.route.data.subscribe((data) => {
       this.username = data.data.username;
       this.adoption = data.data.adoption;
-      this.showAdoptionButton = data.data.canAdopt;
-      this.isowner = this.username === this.adoption.createdBy
+      this.canAdopt = data.data.canAdopt;
+      this.isowner = data.data.owner;
       this.imageService.getImage(`ADOPTION-${data.data.adoption.id}`).subscribe(next => { this.image = next });
     });
   }
@@ -38,9 +38,4 @@ export class AdoptionDetailsComponent implements OnInit {
       this.adoptionService.deleteAdoption(id).subscribe(next => this.r.navigateByUrl('/adoptions'));
     }
   }
-
-  isOwner(): boolean {
-    return this.isowner;
-  }
-
 }

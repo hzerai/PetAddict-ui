@@ -7,7 +7,11 @@
             <section class="text-gray-600 body-font overflow-hidden">
                 <div class="container mx-auto">
                     <div class="lg:w-4/5 mx-auto flex flex-wrap">
-                        <img alt="animalPhoto" class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded-lg shadow" [src]="image?.bytes ? image?.bytes : 'https://placedog.net/500/280?id=' + ( adoption?.id > 200 ? adoption?.id - 100 : adoption?.id )">
+                        <div class="lg:w-1/2 w-full lg:h-auto h-64 relative">
+                            <img *ngIf="adoption.urgent && adoption.status != 'ADOPTED'" src="assets/svg/siren.svg" class="absolute animate-pulse" style="z-index: 1; right: 3;" width="32px" height="32px">
+                            <img *ngIf="adoption.status == 'ADOPTED'" src="assets/svg/shield.svg" class="absolute animate-pulse" style="z-index: 1; right: 3;" width="32px" height="32px">
+                            <img adoptionBorder [adoption]="adoption" alt="animalPhoto" class=" object-cover object-center rounded-lg shadow" [src]="image?.bytes ? image?.bytes : 'https://placedog.net/500/280?id=' + ( adoption?.id > 200 ? adoption?.id - 100 : adoption?.id )">
+                        </div>
                         <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                             <h2 class="text-sm title-font text-gray-500 tracking-widest">#{{adoption?.animal.espece}}</h2>
                             <h1 class="text-gray-900 text-lg title-font font-medium mb-1">{{adoption?.title}}</h1>
@@ -36,7 +40,7 @@
         </div>
         <div class="lg:w-2/6 md:w-1/2 bg-gray-100 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 shadow">
             <h2 class="text-gray-900 text-md mb-1 font-medium title-font">Adopter</h2>
-            <p class="leading-relaxed mb-5 text-gray-600">Pour commencer la procedure d'adoption, veillez saisir un message pour le proprietaire actuel :
+            <p class="leading-relaxed mb-5 text-gray-600 text-sm">Pour commencer la procedure d'adoption, veillez saisir un message pour le proprietaire actuel :
             </p>
             <div class="relative">
                 <label for="message" class="leading-7 text-sm text-gray-600">Message</label>

@@ -42,7 +42,7 @@ import { ShowAdoptionRequestSentComponent } from './adoption-module/show-adoptio
 import { NotifierModule, NotifierOptions } from 'angular-notifier';
 import { AssociationListComponent } from './association-module/association-list/association-list.component';
 import { VetoListComponent } from './veto-module/veto-list/veto-list.component';
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
 import { LostComponent } from './lostandfound-module/lost/lost.component';
 import { FoundComponent } from './lostandfound-module/found/found.component';
 import { LostListComponent } from './lostandfound-module/lost-list/lost-list.component';
@@ -65,6 +65,10 @@ import { PostDetailsComponent } from './post-module/post-details/post-details.co
 import { CommentComponent } from './post-module/comment/comment.component';
 import { PostFormComponent } from './post-module/post-form/post-form.component';
 import { CKEditorModule } from 'ckeditor4-angular';
+import { ChangepasswordComponent } from './user-module/changepassword/changepassword.component';
+import { AdoptedListComponent } from './adoption-module/adopted-list/adopted-list.component';
+import { AdoptionBorderDirective } from './custom-directives/adoption-bordor.directive';
+import { TemoignagesComponent } from './adoption-module/temoignages/temoignages.component';
 import { UserLostListComponent } from './lostandfound-module/user-lost-list/user-lost-list.component';
 import { UserFoundListComponent } from './lostandfound-module/user-found-list/user-found-list.component';
 /**
@@ -153,16 +157,16 @@ const customNotifierOptions: NotifierOptions = {
     LostFormComponent,
     FoundFormComponent,
     PostComponent,
-     PostListComponent,
-     PostDetailsComponent,
-     CommentComponent,
-     PostFormComponent,
-     UserLostListComponent,
-     UserFoundListComponent,
- 
-
-
-
+    PostListComponent,
+    PostDetailsComponent,
+    CommentComponent,
+    PostFormComponent,
+    ChangepasswordComponent,
+    AdoptedListComponent,
+    AdoptionBorderDirective,
+    TemoignagesComponent,
+    UserLostListComponent,
+     UserFoundListComponent
   ],
   imports: [
     AppRoutingModule,

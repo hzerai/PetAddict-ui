@@ -1,16 +1,18 @@
-<div class="lg:w-4/5 mx-auto flex flex-wrap" [routerLink]="['/post',post?.id]">
-  <div class="lg:w-1/2 object-cover object-center h-40">
-      <img alt="animalPhoto" class="rounded-lg shadow h-40" [src]="image?.bytes ? image.bytes : 'https://placedog.net/500/280?id=' + ( post?.id > 200 ? post?.id - 100 : post?.id )">
-  </div>
-  <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-      <h1 class="text-gray-900 text-3xl mb-3 leading-none">{{post?.title}}</h1>
+<div class="flex relative "  [routerLink]="['/post',post?.id]">
 
-     
-      <div class="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5 leading-relaxed text-xs font-medium title-font">
-          <span class="mr-3">Publié le : {{post?.createdAt | date:'dd/MM/yyyy'}} par :<a
-                  [routerLink]="['/visit_user_profile']" [queryParams]="{id: post?.createdBy}">
-                  {{post?.userFullName}}</a>
-          </span>
-      </div> 
-  </div>
+    <img alt="animalPhoto" class="absolute inset-0 w-full h-full object-cover object-center rounded"[src]="image?.bytes ? image.bytes : 'https://placedog.net/500/280?id=' + ( post?.id > 200 ? post?.id - 100 : post?.id )">
+    <div class="px-8 py-10 relative z-10 w-full border-1 border-gray-200 opacity-0 hover:bg-black hover:bg-opacity-50 hover:text-white hover:opacity-100">
+        <div class="grid grid-cols-2 p-10 text-xs">
+      
+        </div>
+    </div>
 </div>
+<div class="p-5">
+    <h1 class="title-font text-lg font-medium text-black mb-3">{{post?.title}}</h1>
+
+    <div class="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5 leading-relaxed text-xs font-medium title-font">
+        <span class="mr-3">Publié le : {{post?.createdAt | date:'dd/MM/yyyy'}} par :<a
+                [routerLink]="['/visit_user_profile']" [queryParams]="{id: post?.createdBy}">
+                {{post?.userFullName}}</a>
+        </span>
+    </div></div>

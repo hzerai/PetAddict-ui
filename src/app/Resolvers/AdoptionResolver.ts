@@ -9,7 +9,7 @@ import { TokenStorageService } from "../user-module/_services/token-storage.serv
 })
 export class AdoptionResolver implements Resolve<any> {
 
-    constructor(private adoptionService: AdoptionService, private tokenService: TokenStorageService,private router:Router) { }
+    constructor(private adoptionService: AdoptionService, private tokenService: TokenStorageService, private router: Router) { }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         /*if(this.router.url!="/admin/adoptions"){
@@ -19,8 +19,8 @@ export class AdoptionResolver implements Resolve<any> {
         return this.getData(id);
 
     }
-    getAllData():Promise<any> {
-        return new Promise((resolve, reject) => this.adoptionService.getPagedAdoptions(null,null,null).subscribe(a => {
+    getAllData(): Promise<any> {
+        return new Promise((resolve, reject) => this.adoptionService.getPagedAdoptions(null, null, null).subscribe(a => {
             return resolve({
                 adoption: a,
                 canAdopt: true
@@ -47,18 +47,25 @@ export class AdoptionResolver implements Resolve<any> {
         payload = window.atob(payload);
         let username = JSON.parse(payload).username;
         let canAdopt: boolean;
-        return new Promise((resolve, reject) => this.adoptionService.canAdopt(Number(id), username).subscribe(b => {
-            canAdopt = b;
+        return new Promise((resolve, reject) =>
             this.adoptionService.getAdoptionById(id, 'user').subscribe(a => {
+                let canAdopt: boolean = true;
+                let owner: boolean = false;
+                if (a.createdBy === username) {
+                    canAdopt = false;
+                    owner = true;
+                } else {
+                    if (a.adoptionRequests && a.adoptionRequests.find(r => r.createdBy === username)) {
+                        canAdopt = false;
+                    }
+                }
                 return resolve({
                     adoption: a,
                     username: username,
-                    canAdopt: canAdopt
+                    canAdopt: canAdopt,
+                    owner: owner
                 });
-            });
-        }))
-
-
-
+            })
+        )
     }
 }

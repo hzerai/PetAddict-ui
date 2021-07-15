@@ -1,25 +1,29 @@
-<div class="flex relative " [routerLink]="['/adoptions', adoption.id]">
-    <img alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center rounded" [src]="image?.bytes ? image.bytes : 'https://placedog.net/500/280?id=' + ( adoption?.id > 200 ? adoption?.id - 100 : adoption?.id )">
-    <div class="px-8 py-10 relative z-10 w-full border-1 border-gray-200 opacity-0 hover:bg-black hover:bg-opacity-50 hover:text-white hover:opacity-100">
-        <div class="grid grid-cols-2 p-10 text-xs">
-            <div class="font-bold">Nom :</div>
-            <div>{{adoption?.animal.nom}}</div>
-            <div class="font-bold">Sexe :</div>
-            <div>{{adoption?.animal.sexe}}</div>
-            <div class="font-bold">Espece:</div>
-            <div>{{adoption?.animal.espece}}</div>
-            <div class="font-bold">Type :</div>
-            <div>{{adoption?.animal.type}}</div>
-            <div class="font-bold">Taille : </div>
-            <div>{{adoption?.animal.taille}}</div>
-            <div class="font-bold">Age :</div>
-            <div>{{adoption?.animal.age}}</div>
-            <div class="font-bold">Couleur :</div>
-            <div> {{adoption?.animal.couleur}} </div>
+<div>
+    <div class="flex relative " [routerLink]="['/adoptions', adoption.id]">
+        <img *ngIf="adoption.urgent && adoption.status != 'ADOPTED'" src="assets/svg/siren.svg" class="absolute animate-pulse" style="z-index: 1; right: 3;" width="32px" height="32px">
+        <img *ngIf="adoption.status == 'ADOPTED'" src="assets/svg/shield.svg" class="absolute animate-pulse" style="z-index: 1; right: 3;" width="32px" height="32px">
+        <img adoptionBorder [adoption]="adoption" alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center rounded" [src]="image?.bytes ? image.bytes : 'https://placedog.net/500/280?id=' + ( adoption?.id > 200 ? adoption?.id - 100 : adoption?.id )">
+        <div class="px-8 py-10 relative z-10 w-full border-1 border-gray-200 opacity-0 hover:bg-black hover:bg-opacity-50 hover:text-white hover:opacity-100">
+            <div class="grid grid-cols-2 p-10 text-xs">
+                <div class="font-bold">Nom :</div>
+                <div>{{adoption?.animal.nom}}</div>
+                <div class="font-bold">Sexe :</div>
+                <div>{{adoption?.animal.sexe}}</div>
+                <div class="font-bold">Espece:</div>
+                <div>{{adoption?.animal.espece}}</div>
+                <div class="font-bold">Type :</div>
+                <div>{{adoption?.animal.type}}</div>
+                <div class="font-bold">Taille : </div>
+                <div>{{adoption?.animal.taille}}</div>
+                <div class="font-bold">Age :</div>
+                <div>{{adoption?.animal.age}}</div>
+                <div class="font-bold">Couleur :</div>
+                <div> {{adoption?.animal.couleur}} </div>
+            </div>
         </div>
     </div>
-</div>
-<div class="p-5">
-    <h1 class="title-font text-lg font-medium text-black mb-3">{{adoption.title}}</h1>
-    <p class="leading-relaxed h-32 overflow-y-auto text-black text-sm">{{adoption.description}}.</p>
+    <div class="p-5">
+        <h1 class="title-font text-lg font-medium text-black mb-3">{{adoption.title}}</h1>
+        <p class="leading-relaxed h-32 overflow-y-auto text-black text-sm">{{adoption.description}}.</p>
+    </div>
 </div>

@@ -6,6 +6,8 @@ export class Adoption {
     id: number;
     title: string = '';
     description: string = '';
+    status : string = 'CREATED';
+    urgent : boolean = false;
     createdAt: Date;
     updatedAt: Date;
     createdBy: string = '';

@@ -27,7 +27,10 @@
             errorMessage}}</p>
         </div>
       </form>
-      <p class="text-xs text-gray-500 mt-3"><a href="/">Vous rencontrez des problèmes de connexion ?</a></p>
+      <p class="text-xs text-gray-500 mt-3"><a (click)="forgetsend()">Mot de passe oublié ?</a>
+      <span class="text-red-600 font-bold ml-2" *ngIf="passwordEmailSended && isLoginFailed">{{errorMessage}}</span>
+      <span class="text-green-600 font-bold ml-2" *ngIf="passwordEmailSended && !isLoginFailed">Check your email to verify your identity</span>
+      </p>
       <div class="mt-2 grid justify-items-center">
         <hr>
         <br><button [routerLink]="['/register']"

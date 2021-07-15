@@ -1,0 +1,53 @@
+<style>
+    .top-100 {
+        top: 100%
+    }
+    
+    .bottom-100 {
+        bottom: 100%
+    }
+    
+    .max-h-select {
+        max-height: 240px;
+    }
+    
+    .searchresult::-webkit-scrollbar {
+        display: none;
+    }
+    /* Hide scrollbar for IE, Edge and Firefox */
+    
+    .searchresult {
+        -ms-overflow-style: none;
+        /* IE and Edge */
+        scrollbar-width: none;
+        /* Firefox */
+    }
+</style>
+<div #slider class="grid grid-cols-5 mb-5 absolute top-0 w-full">
+    <img class="col-start-3 col-span-3 ml-auto h-full w-full flex-col" src="assets/images/slider/adoptionbg.jpg">
+    <div class="row-start-1 col-start-1 col-span-2 backslide mr-auto flex h-full w-full flex-grow bg-gradient-to-r to-blue-300 from-blue-600">
+    </div>
+</div>
+<div class="relative mb-5 flex container mx-auto" style="height: 500px;">
+    <h1 class="my-auto text-6xl z-50 relative text-white animate-pulse">Témoignages</h1>
+</div>
+
+<div class="mb-5">
+    <section class="mt-5 text-gray-600 container mx-auto">
+        <div class="container py-24 mx-auto">
+            <div class="flex flex-wrap -m-4">
+                <div *ngFor="let t of temoignages" class="lg:w-1/3 sm:w-1/2 p-4 hover:rounded cursor-pointer hover:shadow">
+                    <div>
+                        <div class="flex" [routerLink]="['/adoptions', t?.adoption?.adoptionId]">
+                            <img class="w-full h-full rounded" [src]="t?.image">
+                        </div>
+                        <div class="p-5">
+                            <h1 class="title-font text-lg font-medium text-black mb-3">{{t?.titre}}</h1>
+                            <p class="leading-relaxed h-32 overflow-y-auto text-black text-sm">{{t?.body}}.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
