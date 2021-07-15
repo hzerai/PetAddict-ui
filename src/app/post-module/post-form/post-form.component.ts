@@ -7,6 +7,7 @@ import { ImageService } from 'src/app/images-module/image.service';
 import { ImageComponent } from 'src/app/images-module/image/image.component';
 import { TokenStorageService } from 'src/app/user-module/_services/token-storage.service';
 import { UserService } from 'src/app/user-module/_services/user.service';
+import { WebSocketService } from 'src/app/WebSockets/web-socket.service';
 import { Post } from '../post/Post';
 import { PostService } from '../post/post.service';
 
@@ -27,7 +28,7 @@ export class PostFormComponent implements OnInit {
   ck:CKEditorComponent;
   userFullName:string;
 
-  constructor(private imageService: ImageService, private postService: PostService, private router: Router, private ac: ActivatedRoute, private tokenStorageService: TokenStorageService,private notifier: NotifierService,private userService : UserService
+  constructor(private imageService: ImageService,private ws: WebSocketService, private postService: PostService, private router: Router, private ac: ActivatedRoute, private tokenStorageService: TokenStorageService,private notifier: NotifierService,private userService : UserService
     ) {
 
   }
@@ -72,19 +73,29 @@ export class PostFormComponent implements OnInit {
     this.post.body = this.ck.data
     if (this.post.id) {
       //update
+      this.notifier.notify('default', 'Updating post. please wait ...', 'update');
       this.imageComponent.autoUpload = true;
       this.imageComponent.uploadImage();
-      this.postService.updatePost(this.post).subscribe(next => { this.router.navigateByUrl("/post/" + this.post.id) })
+      this.postService.updatePost(this.post).subscribe(next => {
+        this.ws.push(next, 'post');
+        this.post = next;
+        this.notifier.hide('update');
+        this.notifier.notify('success', 'Post updated successfuly')
+       this.router.navigateByUrl("/post/" + this.post.id) })
     } else {
       //create
+      this.notifier.notify('default', 'Creating post. please wait ...', 'create');
       this.post.userFullName =  this.userFullName;
       this.postService.newPost(this.post).subscribe(next => {
+        this.ws.push(next, 'post');
         this.imageComponent.autoUpload = true;
         this.imageComponent.imageName = `Post-${next.id}`;
         this.imageComponent.image.name = `Post-${next.id}`;
         this.imageComponent.uploadImage();
         this.post = next; 
-        this.router.navigateByUrl("/posts/" + this.post.id);
+        this.notifier.hide('create');
+        this.notifier.notify('success', 'Post created successfuly');
+        this.router.navigateByUrl("/post/" + this.post.id);
       })
     }
   }
