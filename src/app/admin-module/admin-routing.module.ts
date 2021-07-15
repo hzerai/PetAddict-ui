@@ -9,8 +9,7 @@ import { UserProfileEditComponent } from './user/user-profile-edit/user-profile-
 import { UserComponent } from './user/user.component';
 import { FoundComponent } from './found/found.component';
 import { LostComponent } from './lost/lost.component';
-import { FoundResolver } from '../Resolvers/FoundResolver';
-import { LostResolver } from '../Resolvers/LostResolver';
+
 const adminRoutes: Routes = [
     {
       path: 'admin',
@@ -21,8 +20,8 @@ const adminRoutes: Routes = [
             { path: 'user/edit/:id', component: UserProfileEditComponent},
             { path: 'dashboard', component: DashboardComponent },
             { path: 'adoption', component: AdoptionComponent ,resolve: { data: AdoptionResolver }},
-            { path: 'found', component: FoundComponent ,resolve: { data: FoundResolver }},
-            { path: 'lost', component: LostComponent ,resolve: { data: LostResolver }},
+            { path: 'found', component: FoundComponent },
+            { path: 'lost', component: LostComponent },
 
 
 

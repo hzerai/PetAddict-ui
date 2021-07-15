@@ -14,7 +14,6 @@ import { DogBreed } from 'src/app/interface-module/filter/DogBreed';
 import { CatBreed } from 'src/app/interface-module/filter/CatBreed';
 import { HorseBreed } from 'src/app/interface-module/filter/HorseBreed';
 import { NotifierService } from 'angular-notifier';
-import { WebSocketService } from 'src/app/WebSockets/web-socket.service';
 
 
 
@@ -38,7 +37,7 @@ export class FoundFormComponent implements OnInit {
 
   @ViewChild(ImageComponent)
   imageComponent: ImageComponent;
-  constructor(private ws: WebSocketService, private notifier: NotifierService, private imageService: ImageService, private foundService: FoundService, private router: Router, private ac: ActivatedRoute, private tokenStorageService: TokenStorageService) {
+  constructor( private notifier: NotifierService, private imageService: ImageService, private foundService: FoundService, private router: Router, private ac: ActivatedRoute, private tokenStorageService: TokenStorageService) {
 
   }
 
@@ -101,7 +100,6 @@ export class FoundFormComponent implements OnInit {
       this.imageComponent.autoUpload = true;
       this.imageComponent.uploadImage();
       this.foundService.updateFound(this.found).subscribe(next => {
-        this.ws.push(next, 'losts');
         this.found = next;
         this.notifier.hide('update');
         this.notifier.notify('success', 'Found updated successfuly');
@@ -111,7 +109,6 @@ export class FoundFormComponent implements OnInit {
       //create
       this.notifier.notify('default', 'Creating found. please wait ...', 'create');
       this.foundService.newFound(this.found).subscribe(next => {
-        this.ws.push(next, 'founds');
         this.imageComponent.autoUpload = true;
         this.imageComponent.imageName = `Found-${next.id}`;
         this.imageComponent.image.name = `Found-${next.id}`;
