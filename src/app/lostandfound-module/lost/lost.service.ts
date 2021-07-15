@@ -8,8 +8,8 @@ import { Colors } from 'src/app/interface-module/filter/Colors';
 import { DogBreed } from 'src/app/interface-module/filter/DogBreed';
 import { HorseBreed } from 'src/app/interface-module/filter/HorseBreed';
 import { Tailles } from 'src/app/interface-module/filter/Tailles';
-import { Lost } from './lost';
 import { Comment } from 'src/app/post-module/comment/Comment';
+import { Lost } from './Lost';
 
 
 
@@ -35,7 +35,9 @@ export class LostService {
   getLosts(): Observable<Lost[]> {
     return this.http.get<Lost[]>(this.lostUrl);
   }
-
+  getUserLosts(): Observable<Lost[]> {
+    return this.http.get<Lost[]>("http://localhost:8000/api/userlost");
+  }
 
   getLostById(idAsString: string): Observable<Lost> {
     let id = Number(idAsString);

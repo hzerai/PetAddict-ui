@@ -69,6 +69,8 @@ import { ChangepasswordComponent } from './user-module/changepassword/changepass
 import { AdoptedListComponent } from './adoption-module/adopted-list/adopted-list.component';
 import { AdoptionBorderDirective } from './custom-directives/adoption-bordor.directive';
 import { TemoignagesComponent } from './adoption-module/temoignages/temoignages.component';
+import { UserLostListComponent } from './lostandfound-module/user-lost-list/user-lost-list.component';
+import { UserFoundListComponent } from './lostandfound-module/user-found-list/user-found-list.component';
 /**
  * Custom angular notifier options
  */
@@ -162,7 +164,9 @@ const customNotifierOptions: NotifierOptions = {
     ChangepasswordComponent,
     AdoptedListComponent,
     AdoptionBorderDirective,
-    TemoignagesComponent
+    TemoignagesComponent,
+    UserLostListComponent,
+     UserFoundListComponent
   ],
   imports: [
     AppRoutingModule,

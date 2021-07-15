@@ -3,27 +3,30 @@
         <div class="w-64 p-6 rounded-lg shadow-lg overflow-y-auto">
             <nav>
                 <div class="mt-3">
-                    <a class="cursor-pointer mt-2 -mx-3 px-3 py-2 flex items-center justify-between text-sm font-medium hover:bg-gray-200 rounded-lg " [ngClass]="{'bg-blue-500': child=='profile'}" (click)="child='profile'">
+                    <a class="cursor-pointer mt-2 -mx-3 px-3 py-2 flex items-center justify-between text-sm font-medium hover:bg-gray-200 rounded-lg "
+                        [ngClass]="{'bg-blue-500': child=='profile'}" (click)="child='profile'">
                         <span class="inline-flex align-baseline">
                             <span class="leading-normal">
                                 <i class="fas fa-inbox h-5 w-5 fill-current "></i>
                             </span>
-                        <span class="ml-2 text-gray-900">Profile</span>
+                            <span class="ml-2 text-gray-900">Profile</span>
                         </span>
                     </a>
-                    <a class="cursor-pointer mt-2 -mx-3 px-3 py-2 flex items-center justify-between text-sm font-medium hover:bg-gray-200 rounded-lg " [ngClass]="{'bg-blue-500': child=='inbox'}" (click)="child='inbox'; unreadMessages=0">
+                    <a class="cursor-pointer mt-2 -mx-3 px-3 py-2 flex items-center justify-between text-sm font-medium hover:bg-gray-200 rounded-lg "
+                        [ngClass]="{'bg-blue-500': child=='inbox'}" (click)="child='inbox'; unreadMessages=0">
                         <span class="inline-flex align-baseline">
                             <span class="leading-normal">
                                 <i class="far fa-flag h-5 w-5 fill-current text-gray-500 "></i>
                             </span>
-                        <span class="ml-2">Message</span>
+                            <span class="ml-2">Message</span>
                         </span>
-                        <span *ngIf="unreadMessages > 0" class="relative w-10 text-center py-1 text-xs font-semibold rounded-full bg-gray-300">
+                        <span *ngIf="unreadMessages > 0"
+                            class="relative w-10 text-center py-1 text-xs font-semibold rounded-full bg-gray-300">
                             <span class=" flex ">
                                 <span
                                     class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                        </span>
-                        {{unreadMessages}}
+                            </span>
+                            {{unreadMessages}}
                         </span>
                     </a>
 
@@ -33,12 +36,21 @@
                     Publications
                 </h2>
                 <div class="mt-4">
-                    <a class="p-2 rounded-lg cursor-pointer block text-sm font-medium" [ngClass]="{'bg-blue-500': child=='adoptions'}" (click)="child='adoptions'">Adoptions
+                    <a class="p-2 rounded-lg cursor-pointer block text-sm font-medium"
+                        [ngClass]="{'bg-blue-500': child=='adoptions'}" (click)="child='adoptions'">Adoptions
                         publiées</a>
-                    <a class="p-2 rounded-lg cursor-pointer block text-sm font-medium" [ngClass]="{'bg-blue-500': child=='adoptionRequests'}" (click)="child='adoptionRequests'">Demandes enovyées</a>
-                    <a class="p-2 rounded-lg cursor-pointer block text-sm font-medium" [ngClass]="{'bg-blue-500': child=='RadoptionRequests'}" (click)="child='RadoptionRequests'">Demandes reçues</a>
-                    <a class="p-2 rounded-lg cursor-pointer block text-sm font-medium">Perdu</a>
-                    <a class="p-2 rounded-lg cursor-pointer block text-sm font-medium">Trouvé</a>
+                    <a class="p-2 rounded-lg cursor-pointer block text-sm font-medium"
+                        [ngClass]="{'bg-blue-500': child=='adoptionRequests'}"
+                        (click)="child='adoptionRequests'">Demandes enovyées</a>
+                    <a class="p-2 rounded-lg cursor-pointer block text-sm font-medium"
+                        [ngClass]="{'bg-blue-500': child=='RadoptionRequests'}"
+                        (click)="child='RadoptionRequests'">Demandes reçues</a>
+                    <a class="p-2 rounded-lg cursor-pointer block text-sm font-medium"
+                        [ngClass]="{'bg-blue-500': child=='lost'}"
+                        (click)="child='lost'">Perdu</a>
+                    <a class="p-2 rounded-lg cursor-pointer block text-sm font-medium"
+                        [ngClass]="{'bg-blue-500': child=='found'}"
+                        (click)="child='found'">Trouvé</a>
                     <a class="p-2 rounded-lg cursor-pointer block text-sm font-medium">Posts</a>
                 </div>
             </nav>
@@ -47,21 +59,31 @@
             <app-user-profile [user]="user" [image]="image" *ngIf="child=='profile'"></app-user-profile>
             <app-inbox *ngIf="child=='inbox'" [contacts]="contacts" [inbox]="inbox" [currentUser]="user"></app-inbox>
             <div style="height: 90%" class="flex flex-wrap p-10 overflow-y-auto hide-scroll" *ngIf="child=='adoptions'">
-                <app-adoption *ngFor="let adoption of user.adoptions" [adoption]="adoption" class="lg:w-1/2 sm:w-1/2 p-4 hover:rounded cursor-pointer hover:shadow">
+                <app-adoption *ngFor="let adoption of user.adoptions" [adoption]="adoption"
+                    class="lg:w-1/2 sm:w-1/2 p-4 hover:rounded cursor-pointer hover:shadow">
                 </app-adoption>
             </div>
+
             <div style="height: 90%" class="flex-wrap p-10 overflow-y-auto hide-scroll" *ngIf="child=='adoptionRequests'">
                 <div *ngFor="let adoptionsRequest of user?.adoptionRequests" [ngClass]="{'animate-bounce bg-red-200': specialAdoptionRequest == adoptionsRequest.id}" class="w-full px-auto p-2 border border-1 hover:rounded cursor-pointer hover:shadow-lg">
                     <app-show-adoption-request-sent [user]="user" [adoptionsRequest]="adoptionsRequest">
                     </app-show-adoption-request-sent>
                 </div>
             </div>
+
             <div style="height: 90%" class="flex-wrap p-10 overflow-y-auto hide-scroll" *ngIf="child=='RadoptionRequests'">
                 <div *ngFor="let adoptionsRequest of receivedAdoptionRequests" [ngClass]="{'animate-bounce bg-red-200': specialAdoptionRequest == adoptionsRequest.adoption.id && specialAdoptionRequestSender == adoptionsRequest.user.id}" class="w-full px-auto p-2 border border-1 hover:rounded cursor-pointer hover:shadow-lg">
                     <app-show-adoption-request [user]="user" [adoptionsRequest]="adoptionsRequest">
                     </app-show-adoption-request>
                 </div>
             </div>
+            <div style="height: 90%" class="flex-wrap p-10 overflow-y-auto hide-scroll" *ngIf="child=='lost'">
+                <app-user-lost-list> </app-user-lost-list>
+            </div>
+            <div style="height: 90%" class="flex-wrap p-10 overflow-y-auto hide-scroll" *ngIf="child=='found'">
+                <app-user-found-list> </app-user-found-list>
+            </div>
+
         </main>
     </div>
 </div>

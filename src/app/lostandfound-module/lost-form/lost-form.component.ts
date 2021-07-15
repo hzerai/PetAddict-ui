@@ -12,7 +12,6 @@ import { DogBreed } from 'src/app/interface-module/filter/DogBreed';
 import { HorseBreed } from 'src/app/interface-module/filter/HorseBreed';
 import { Tailles } from 'src/app/interface-module/filter/Tailles';
 import { TokenStorageService } from 'src/app/user-module/_services/token-storage.service';
-import { WebSocketService } from 'src/app/WebSockets/web-socket.service';
 import { Lost } from '../lost/Lost';
 import { LostService } from '../lost/lost.service';
 
@@ -36,7 +35,7 @@ export class LostFormComponent implements OnInit {
 
   @ViewChild(ImageComponent)
   imageComponent: ImageComponent;
-  constructor(private ws: WebSocketService, private notifier: NotifierService,private imageService: ImageService, private lostService: LostService, private router: Router, private ac: ActivatedRoute, private tokenStorageService: TokenStorageService) {
+  constructor(private notifier: NotifierService,private imageService: ImageService, private lostService: LostService, private router: Router, private ac: ActivatedRoute, private tokenStorageService: TokenStorageService) {
 
   }
 
@@ -99,7 +98,6 @@ export class LostFormComponent implements OnInit {
        this.imageComponent.autoUpload = true;
        this.imageComponent.uploadImage();
        this.lostService.updateLost(this.lost).subscribe(next => {
-         this.ws.push(next, 'losts');
          this.lost = next;
          this.notifier.hide('update');
          this.notifier.notify('success', 'Found lost successfuly');
@@ -109,7 +107,6 @@ export class LostFormComponent implements OnInit {
        //create
        this.notifier.notify('default', 'Creating lost. please wait ...', 'create');
        this.lostService.newLost(this.lost).subscribe(next => {
-         this.ws.push(next, 'losts');
          this.imageComponent.autoUpload = true;
          this.imageComponent.imageName = `Lost-${next.id}`;
          this.imageComponent.image.name = `Lost-${next.id}`;
