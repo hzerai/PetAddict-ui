@@ -49,7 +49,9 @@ export class VetoListComponent implements OnInit {
       return;
     }
     this.page++;
-      this.vetoService.getPagedVetos(this.page, this.size).subscribe(next => { this.veto = next });
+      this.vetoService.getPagedVetos(this.page, this.size).subscribe(next => { this.veto = next ;
+        this.veto.forEach(a=>this.imageService.getImage("VETO-"+a.id).subscribe(i=>a.image=i))
+      });
       this.generatePagination();
     
   }
@@ -59,7 +61,9 @@ export class VetoListComponent implements OnInit {
       return;
     }
     this.page--;
-      this.vetoService.getPagedVetos(this.page, this.size).subscribe(next => { this.veto = next });
+      this.vetoService.getPagedVetos(this.page, this.size).subscribe(next =>  { this.veto = next ;
+        this.veto.forEach(a=>this.imageService.getImage("VETO-"+a.id).subscribe(i=>a.image=i))
+      });
       this.generatePagination();
   }
   setPage(n: any) {
@@ -67,7 +71,9 @@ export class VetoListComponent implements OnInit {
       return;
     }
     this.page = Number(n.number);
-      this.vetoService.getPagedVetos(this.page, this.size).subscribe(next => { this.veto = next });
+      this.vetoService.getPagedVetos(this.page, this.size).subscribe(next =>  { this.veto = next ;
+        this.veto.forEach(a=>this.imageService.getImage("VETO-"+a.id).subscribe(i=>a.image=i))
+      });
       this.generatePagination();
   }
   cantPrevious(): boolean {
@@ -127,8 +133,8 @@ fetch(str: string) {
     console.log(str)
    
     this.searchBarResult = [ ];
-    this.vetoService.elasticSearch(str).subscribe(next => this.veto = next , () => {
-      
+    this.vetoService.elasticSearch(str).subscribe(next =>  { this.veto = next ;
+      this.veto.forEach(a=>this.imageService.getImage("VETO-"+a.id).subscribe(i=>a.image=i))
     });
     this.hideSearchBarResult = false;
   } else {
