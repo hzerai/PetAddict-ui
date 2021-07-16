@@ -9,9 +9,9 @@ import { Comment } from './Comment';
   styleUrls: ['./comment.component.css']
 })
 export class CommentComponent implements OnInit {
-@Input() comment:Comment;
+@Input() comment:any ;
   commentBody:string="";
-  currentUserFullName:string;
+@Input() currentUserFullName:string;
   username: string;
   post: Post = new Post();
 
@@ -27,8 +27,9 @@ export class CommentComponent implements OnInit {
       comment.createdAt=new Date();
       comment.createdBy=this.username;
       this.postService.reply(this.post.id,this.comment.id,comment).subscribe();
-      this.post.comments.unshift(comment);
+      this.comment.comments.unshift(comment);
       this.commentBody="";
+      this.comment.show=false;
     }
 }
 isOwner(): boolean {

@@ -1,0 +1,80 @@
+<div class="mt-4 mx-4">
+    <div class="w-full overflow-hidden rounded-lg shadow-xs">
+      <div class="w-full overflow-x-auto">
+        <table class="w-full">
+          <thead>
+            <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+              <th class="px-4 py-3">Post</th>
+              <th class="px-4 py-3">user</th>
+              <th class="px-4 py-3">Date</th>
+              <th class="px-4 py-3">Actions</th>
+
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+            <tr *ngFor="let post of posts; let i = index" [post]="post" class="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
+              <td class="px-4 py-3 w-1/2">
+                <div class="flex items-center text-sm">
+                  <div class="relative hidden w-8 h-8 mr-3 md:block">
+                    <img alt="animalPhoto" class="rounded-lg shadow h-80"
+                    [src]="image?.bytes ? image.bytes : 'https://placedog.net/500/280?id=' + ( post?.id > 200 ? post?.id - 100 : post?.id )">                
+                        <div class="absolute inset-0 shadow-inner" aria-hidden="true"></div>
+                  </div>
+                  <div class="">
+                    <p class="font-semibold">{{post?.title}}</p>
+
+                  </div>
+                </div>
+              </td>
+              <td class="px-4 py-3 text-xs">
+                <span class="px-2 py-1 font-semibold leading-tight"> {{post?.userFullName}} </span>
+              </td>
+              <td class="px-4 py-3 text-sm">{{post?.createdAt | date:'dd-MM-yyyy'}}</td>
+              <td class="px-4 py-3 text-sm flex">
+                <div (click)="delete(post.id,i)"  class="mr-3 cursor-pointer text-white px-3 py-2 text-center rounded w-1/2 bg-red-600 ">Delete</div>
+                  <div [routerLink]="['/post', post.id]"  class="cursor-pointer text-white px-3 py-2 text-center rounded w-1/2 bg-gray-600 ">Go Post</div>
+                </td>
+
+            </tr>
+        <tr>
+          <td></td>
+          <td>
+          </td>
+          <td></td>
+          <td>
+            <div class="w-full flex ">
+              <div [routerLink]="['/posts/new']"  class=" mx-auto cursor-pointer text-white px-2 py-2 text-center rounded bg-blue-600 ">Créer Post</div>
+            </div>
+          </td>
+        </tr>
+          </tbody>
+        </table>
+      
+      </div>
+      <div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
+        <span class="flex items-center col-span-3"> 
+          Affichage de
+          <span class="font-medium mx-1">{{(pageUser - 1) * sizeUser + 1}}</span>
+          à
+          <span class="font-medium mx-1">{{pageUser * sizeUser > countUser ? countUser : pageUser * sizeUser}}</span>
+          sur
+          <span class="font-medium mx-1">{{countUser}}</span>
+          résultats trouvés
+        </span>
+        <span class="col-span-3"></span>
+
+        <div class="cursor-pointer col-span-3 text-right">
+          <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+              <a (click)="previous()"
+                  class="text-xs font-semibold flex w-8 h-8 p-0 rounded-full items-center justify-center leading-tight relative border border-solid border-blueGray-200 text-black bg-blueGray-200">
+                  &lt;
+              </a>
+              <a *ngFor="let i of pagesUser" (click)="setPage(i)" paginationButton [page]="i">{{i.number}}</a>
+
+              <a (click)="next()"
+                  class="text-xs font-semibold flex w-8 h-8 p-0 rounded-full items-center justify-center leading-tight relative border border-solid border-blueGray-200 text-black bg-blueGray-200">
+                  &gt;
+              </a>
+          </nav>
+      </div>
+        
