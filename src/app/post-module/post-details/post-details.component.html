@@ -1,6 +1,6 @@
-<section class="text-gray-600 body-font mt-10 mb-10">
-    <div class="container px-5 pt-24 mx-auto flex flex-wrap">
-        <div class="container mx-10 shadow-lg">
+<section class="text-gray-600 body-font mt-10 mb-20">
+    <div class="container px-5 mx-auto flex flex-wrap">
+        <div class=" mx-10 py-10">
             <div class="w-full">
                 <h1 class="text-gray-900 text-4xl mb-3 leading-none">{{post?.title}}</h1>
            
@@ -32,21 +32,22 @@
             </button>
             </div>
             <div class="mx-auto w-1/2 mt-5">
-                <div  class="flex">
-                    <div class="mr-2 flex-shrink-0  w-1/5">
-                        <img src="https://i.pravatar.cc/50" alt class="rounded-full mr-2" />
+                <div  class="flex my-3">
+                    <div class="mr-2 flex-shrink-0 ">
+                        <img [src]="currentUserImage" class="rounded-full mr-2 w-8 h-8" />
                     </div>
-                    <input type="text" [(ngModel)]="commentBody" class="w-3/5 focus:outline-none focus:bg-white text-xs shadow-inner"
+                    <input type="text" [(ngModel)]="commentBody" class="flex-1 focus:outline-none focus:bg-white text-xs shadow-inner"
                         placeholder="Répondre...">
                 
                 
                         <button (click)="comment()"
-                            class="bg-blue-500 rounded-lg shadow p-1  text-black hover:text-white w-1/5 text-xs">Répondre
+                            class="bg-blue-500 rounded-lg shadow p-1  text-black hover:text-white w-20 text-xs">Répondre
                             !</button>
                    
                 </div>
                 <app-comment *ngFor="let comment of post.comments" [comment]="comment" [currentUserFullName]="currentUserFullName"
-                    class="border border-blue-200 bg-white rounded-lg  hover:bg-gray-200 hover:border-blue-900 mx-auto">
+                [currentUserImage]="currentUserImage" [currentUser]="currentUser"
+                    class=" bg-white rounded-lg  hover:bg-gray-200 hover:border-blue-900 mx-auto">
                 </app-comment>
                 
               
