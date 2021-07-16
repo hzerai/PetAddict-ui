@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Animals } from 'src/app/adoption-module/adoption/Animals';
 import { Sexe } from 'src/app/adoption-module/adoption/Sexe';
@@ -33,9 +33,9 @@ export class UserProfileEditComponent implements OnInit {
       this.user.address = new Address();
     }
     this.userForm = new FormGroup({
-      firstName: new FormControl(),
-      lastName: new FormControl(),
-      phoneNumber: new FormControl(),
+      firstName: new FormControl(null, [Validators.required, Validators.minLength(2)]),
+      lastName: new FormControl(null, [Validators.required, Validators.minLength(2)]),
+      phoneNumber:new FormControl(null, [Validators.pattern('[0-9]{8}'), Validators.minLength(8), Validators.maxLength(8)]),
       birthDate: new FormControl(),
       sexe: new FormControl(),
       favoriteAnimal: new FormControl(),
@@ -66,6 +66,11 @@ export class UserProfileEditComponent implements OnInit {
   }
 
   saveProfile() {
+    if (this.userForm.invalid) {
+      this.notifier.notify('error', 'Incomplete data.' , 'inc');
+      return;
+    }
+    this.notifier.hide('inc');
     this.notifier.notify('default', 'Updating profile. please wait ...', 'profile');
     this.user.firstName = this.userForm.value.firstName
     this.user.lastName = this.userForm.value.lastName
@@ -94,6 +99,18 @@ export class UserProfileEditComponent implements OnInit {
 
   toggleModal() {
     this.showModal = !this.showModal;
+  }
+
+  get firstName() {
+    return this.userForm.get('firstName');
+  }
+
+  get lastName() {
+    return this.userForm.get('lastName');
+  }
+
+  get phoneNumber() {
+    return this.userForm.get('phoneNumber');
   }
 
 }

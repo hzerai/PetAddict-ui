@@ -81,12 +81,13 @@ export class AdoptionFormComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     if (this.adoptionForm.invalid) {
-      this.notifier.notify('error', 'Incomplete data.');
+      this.notifier.notify('error', 'Incomplete data.' , 'inc');
       return;
     } else if (!this.imageComponent.image?.bytes) {
-      this.notifier.notify('error', 'You need to select an image for the animal.');
+      this.notifier.notify('error', 'You need to select an image for the animal.' , 'inc');
       return;
     }
+    this.notifier.hide('inc');
     this.adoption.title = this.adoptionForm.value.title
     this.adoption.description = this.adoptionForm.value.description
     this.adoption.animal.espece = this.adoptionForm.value.espece

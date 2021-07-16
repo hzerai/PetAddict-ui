@@ -34,7 +34,7 @@ export class AdoptionDetailsComponent implements OnInit {
   }
 
   delete(id: number) {
-    if (confirm("Are you sure to delete this adoption post ?")) {
+    if (confirm("Êtes vous sur de vouloir supprimer cet adoption ?")) {
       this.adoptionService.deleteAdoption(id).subscribe(next => this.r.navigateByUrl('/adoptions'));
     }
   }
