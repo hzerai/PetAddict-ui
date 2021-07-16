@@ -1,36 +1,35 @@
-import { Component, OnInit, Query, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ImageComponent } from 'src/app/admin-module/image/image.component';
 import { Page } from 'src/app/adoption-module/adoption-list/adoption-list.component';
-import { Veto } from '../Veto';
-import { ImageComponent } from 'src/app/images-module/image/image.component';
-import { VetoService } from '../veto.service';
+
+import { Association } from '../../association-module/Association';
+import { AssociationService } from '../../association-module/association.service';
 
 @Component({
-  selector: 'app-veto-admin',
-  templateUrl: './veto-admin.component.html',
-  styleUrls: ['./veto-admin.component.css']
+  selector: 'app-association-admin',
+  templateUrl: './association-admin.component.html',
+  styleUrls: ['./association-admin.component.css']
 })
-export class VetoAdminComponent implements OnInit {
+export class AssociationAdminComponent implements OnInit {
+  associationForm: FormGroup;
+  association: Association = new Association();
+  asso: Association[] ;
+  modif:boolean = false;
+  id:number;
   page: number = 1;
   size: number = 3;
-  count: number = 0;
-  veto :Veto[];
-  Vett: Veto = new Veto();
-  id:number;
-  //query: Query = new Query();
   pages: Page[];
-  vetoForm: FormGroup;
+  count: number = 0;
   filterOpen: boolean = false;
-  modif:boolean = false;
   imageName: string;
   @ViewChild(ImageComponent)
   imageComponent: ImageComponent;
-  constructor(private vetoService: VetoService, private route: ActivatedRoute) { }
+  constructor(  private associationService: AssociationService) { }
 
   ngOnInit(): void {
-    this.vetoForm = new FormGroup({
-      docteur: new FormControl(),
+    this.associationForm = new FormGroup({
+      title: new FormControl(),
       description: new FormControl(),
       adresse: new FormControl(),
       phone: new FormControl(),
@@ -39,20 +38,12 @@ export class VetoAdminComponent implements OnInit {
     })
 
     
-    this.vetoService.getVeto().subscribe( list => this.veto = list )
-    this.vetoService.count().subscribe(next => {
+    this.associationService.getAssociations().subscribe( list => this.asso = list )
+    this.associationService.count().subscribe(next => {
       this.count = next; this.generatePagination();
     });
-
-
-
-
-
-    this.vetoService.getPagedVetos(this.page, this.size).subscribe(next => { this.veto = next }); 
-
+    this.associationService.getPagedAssociations(this.page, this.size).subscribe(next => { this.asso = next });
   }
-
-
 
   filter() {
     this.filterOpen = !this.filterOpen;
@@ -62,17 +53,16 @@ export class VetoAdminComponent implements OnInit {
       return;
     }
     this.page++;
-      this.vetoService.getPagedVetos(this.page, this.size).subscribe(next => { this.veto = next });
+      this.associationService.getPagedAssociations(this.page, this.size).subscribe(next => { this.asso = next });
       this.generatePagination();
     
   }
-
   previous() {
     if(this.cantPrevious()){
       return;
     }
     this.page--;
-      this.vetoService.getPagedVetos(this.page, this.size).subscribe(next => { this.veto = next });
+      this.associationService.getPagedAssociations(this.page, this.size).subscribe(next => { this.asso = next });
       this.generatePagination();
   }
   setPage(n: any) {
@@ -80,7 +70,7 @@ export class VetoAdminComponent implements OnInit {
       return;
     }
     this.page = Number(n.number);
-      this.vetoService.getPagedVetos(this.page, this.size).subscribe(next => { this.veto = next });
+      this.associationService.getPagedAssociations(this.page, this.size).subscribe(next => { this.asso = next });
       this.generatePagination();
   }
   cantPrevious(): boolean {
@@ -90,9 +80,6 @@ export class VetoAdminComponent implements OnInit {
   cantNext(): boolean {
     return this.page >= this.nbPages;
   }
-
-
-
   private nbPages = 0;
   generatePagination() {
     let pages: Page[] = [];
@@ -119,65 +106,58 @@ export class VetoAdminComponent implements OnInit {
     }
     this.pages = pages;
   }
-
-
   showForm(){
     console.log("dddd");
     this.modif=false
    var formm =  document.getElementById("formm").style.visibility ="visible";
   }
-
   modifier(item){
     var formm =  document.getElementById("formm").style.visibility ="visible";
     console.log(item)
-    this.vetoForm.setValue({
-      docteur: item.docteur, 
+    this.associationForm.setValue({
+      title: item.title, 
       description: item.description,
       adresse: item.adresse,
       phone: item.phone,
     });
     this.modif=true;
     this.id=item.id;
-    this.imageName= `VETO-${item.id}`;
+    this.imageName= `ASSOCIATION-${item.id}`;
     this.imageComponent.imageName= this.imageName;
     this.imageComponent.ngOnInit();
   }
-
   supprimer(item){
     console.log(item.id)
-    this.vetoService.deleteVeto(item.id).subscribe(next => this.Vett = next);
-    this.vetoService.getVeto().subscribe( list => this.veto = list );
+    this.associationService.deleteAssociation(item.id).subscribe(next => this.association = next);
+    this.associationService.getAssociations().subscribe( list => this.asso = list );
 
   }
-
   onSubmit():void{
     if(this.modif){}
-    this.Vett.docteur = this.vetoForm.value.docteur
-    this.Vett.description = this.vetoForm.value.description
-    this.Vett.adresse = this.vetoForm.value.adresse
-    this.Vett.phone = this.vetoForm.value.phone
+    this.association.title = this.associationForm.value.title
+    this.association.description = this.associationForm.value.description
+    this.association.adresse = this.associationForm.value.adresse
+    this.association.phone = this.associationForm.value.phone
     if(this.modif){ 
-      this.Vett.id=this.id;
+      this.association.id=this.id;
       this.imageComponent.autoUpload = true;
       this.imageComponent.uploadImage();
-      this.vetoService.updateVeto(this.Vett).subscribe(next => this.Vett = next);
-      
-      this.vetoService.getVeto().subscribe( list => this.veto = list );
+      this.associationService.updateAssociation(this.association).subscribe(next => this.association = next);
+      this.associationService.getAssociations().subscribe( list => this.asso = list );
       
     }
     else{
-    this.vetoService.newVeto(this.Vett).subscribe(next => {this.Vett = next;
-    this.imageComponent.autoUpload = true;
-    this.imageComponent.imageName = `VETO-${next.id}`;
-    this.imageComponent.image.name = `VETO-${next.id}`;
-    this.imageComponent.uploadImage();});
-   // window.location.reload();
+    this.associationService.newAssociation(this.association).subscribe(next => {this.association = next;
+      this.imageComponent.autoUpload = true;
+      this.imageComponent.imageName = `ASSOCIATION-${next.id}`;
+      this.imageComponent.image.name = `ASSOCIATION-${next.id}`;
+      this.imageComponent.uploadImage();});
     }
-    console.log(this.Vett)
+    console.log(this.association)
 
    console.log("bbbbb");
    var formm =  document.getElementById("formm").style.visibility ="hidden";
-   this.vetoService.getVeto().subscribe( list => this.veto = list );
+   this.associationService.getAssociations().subscribe( list => this.asso = list );
   }
 
 }
