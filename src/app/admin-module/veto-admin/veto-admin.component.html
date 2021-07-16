@@ -1,6 +1,5 @@
-
 <div class="h-100 w-full flex items-center justify-center bg-teal-lightest font-sans">
-	<div class="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 ">
+    <div class="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 ">
         <div class="mb-4">
             <h1 class="text-grey-darkest">Liste des veto</h1>
             <div class="flex mt-4">
@@ -11,7 +10,7 @@
             </div>
         </div>
         <div>
-            <div *ngFor="let item of veto"  class="flex mb-4 items-center">
+            <div *ngFor="let item of veto" class="flex mb-4 items-center">
                 <p class="w-full text-grey-darkest">{{item.docteur}}</p>
                 <button class=" tooltip update flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green border-green hover:bg-green " (click)="modifier(item)">
                     <span class="tooltiptext">Modifier</span>
@@ -22,7 +21,7 @@
                     <span class="tooltiptext2">Supprimer</span>
                 </button>
             </div>
-          	
+
         </div>
     </div>
 </div>
@@ -31,94 +30,82 @@
         <span class="tooltiptext3">Ajouter</span>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path class="heroicon-ui" d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm1-9h2a1 1 0 0 1 0 2h-2v2a1 1 0 0 1-2 0v-2H9a1 1 0 0 1 0-2h2V9a1 1 0 0 1 2 0v2z"/></svg>
         </button>
-           
+
 </div>
 <!------------------------------------------------------------->
 <div id="formm" class="flex  items-center justify-center  mt-10 mb-10" style="visibility: hidden;">
     <div class="grid rounded-lg bg-gray-100 w-11/12 md:w-9/12 lg:w-1/2 shadow">
-      <div class="flex justify-center mt-6 ">
-        <div class="flex">
-          <h1 class="text-gray-600 font-bold md:text-2xl text-xl">Ajouter un veto </h1>
+        <div class="flex justify-center mt-6 ">
+            <div class="flex">
+                <h1 class="text-gray-600 font-bold md:text-2xl text-xl">Ajouter un veto </h1>
+            </div>
         </div>
-      </div>
-      <form [formGroup]="vetoForm" (ngSubmit)="onSubmit()">
-        <div class="grid grid-cols-1 mt-5 ml-10 mr-10">
-          <label class="md:text-sm text-xs text-gray-500 text-light font-semibold">Nom de docteur</label>
-          
-          <input formControlName="docteur" 
-            class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-            type="text" placeholder="Nom de veto" />
-        </div>
-        <div class="grid grid-cols-1 mt-5 ml-10 mr-10">
-          <label class="md:text-sm text-xs text-gray-500 text-light font-semibold">Description</label>
-          <textarea formControlName="description"
-            class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-            type="text" placeholder="Description"></textarea>
-        </div>
-        <div class="grid grid-cols-1 mt-5 ml-10 mr-10">
-            <label class="md:text-sm text-xs text-gray-500 text-light font-semibold">Adresse</label>
-            <textarea formControlName="adresse"
-              class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-              type="text" placeholder="Adresse"></textarea>
-          </div>
-          <div class="grid grid-cols-1 mt-5 ml-10 mr-10">
-            <label class="md:text-sm text-xs text-gray-500 text-light font-semibold">Telephone</label>
-            <input formControlName="phone"
-              class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-              type="number" placeholder="Telephone"/>
-          </div>
-          <app-image-admin  [default]="'https://via.placeholder.com/640x480?text=Image+For+association+NEW'" #imageComponent [model]="'VETO'" [imageName]="imageName"></app-image-admin>
-           
-        
-        
-        
-        
-        <div class='flex items-center justify-center  md:gap-8 gap-4 pt-5 pb-5'>
-           <button type="submit"
-            class='font-bold text-white bg-blue-300 border-0 py-3 px-8 focus:outline-none hover:bg-indigo-600 rounded-lg text-lg'>Sauvegarder</button>
-        </div>
-      </form>
-     
+        <form [formGroup]="vetoForm" (ngSubmit)="onSubmit()">
+            <div class="grid grid-cols-1 mt-5 ml-10 mr-10">
+                <label class="md:text-sm text-xs text-gray-500 text-light font-semibold">Nom de docteur</label>
+
+                <input formControlName="docteur" class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" type="text"
+                    placeholder="Nom de veto" />
+            </div>
+            <div class="grid grid-cols-1 mt-5 ml-10 mr-10">
+                <label class="md:text-sm text-xs text-gray-500 text-light font-semibold">Description</label>
+                <textarea formControlName="description" class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" type="text"
+                    placeholder="Description"></textarea>
+            </div>
+            <div class="grid grid-cols-1 mt-5 ml-10 mr-10">
+                <label class="md:text-sm text-xs text-gray-500 text-light font-semibold">Adresse</label>
+                <textarea formControlName="adresse" class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" type="text"
+                    placeholder="Adresse"></textarea>
+            </div>
+            <div class="grid grid-cols-1 mt-5 ml-10 mr-10">
+                <label class="md:text-sm text-xs text-gray-500 text-light font-semibold">Telephone</label>
+                <input formControlName="phone" class="bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" type="number"
+                    placeholder="Telephone" />
+            </div>
+            <app-image-admin [galerie]="true" [default]="'https://via.placeholder.com/640x480?text=Image+For+association+NEW'" #imageComponent [model]="'VETO'" [imageName]="imageName"></app-image-admin>
+
+
+
+
+
+            <div class='flex items-center justify-center  md:gap-8 gap-4 pt-5 pb-5'>
+                <button type="submit" class='font-bold text-white bg-blue-300 border-0 py-3 px-8 focus:outline-none hover:bg-indigo-600 rounded-lg text-lg'>Sauvegarder</button>
+            </div>
+        </form>
+
     </div>
-  </div>
-  <!--------------------------------------------- pagination------------------------------------>
-  <!--pagination-->
+</div>
+<!--------------------------------------------- pagination------------------------------------>
+<!--pagination-->
 <div class="px-4 py-5 flex items-center justify-between border-t border-gray-200 sm:px-6" *ngIf="count > 0 ">
     <div class="flex-1 flex justify-between sm:hidden">
-      <button (click)="previous()" [disabled]="cantPrevious()"
-        class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+        <button (click)="previous()" [disabled]="cantPrevious()" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
         Previous
       </button>
-      <button (click)="next()" [disabled]="cantNext()"
-        class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+        <button (click)="next()" [disabled]="cantNext()" class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
         Next
       </button>
     </div>
     <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-      <div class="">
-        <p class="text-xs font-bold text-black">
-          Affichage de
-          <span class="font-medium">{{(page - 1) * size + 1}}</span>
-          à
-          <span class="font-medium">{{page * size > count ? count : page * size}}</span>
-          sur
-          <span class="font-medium">{{count}}</span>
-          résultats trouvés
-        </p>
-      </div>
-      <div class="cursor-pointer">
-        <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
-          <a (click)="previous()"
-            class="text-xs font-semibold flex w-8 h-8 p-0 rounded-full items-center justify-center leading-tight relative border border-solid border-blueGray-200 text-black bg-blueGray-200">
+        <div class="">
+            <p class="text-xs font-bold text-black">
+                Affichage de
+                <span class="font-medium">{{(page - 1) * size + 1}}</span> à
+                <span class="font-medium">{{page * size > count ? count : page * size}}</span> sur
+                <span class="font-medium">{{count}}</span> résultats trouvés
+            </p>
+        </div>
+        <div class="cursor-pointer">
+            <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                <a (click)="previous()" class="text-xs font-semibold flex w-8 h-8 p-0 rounded-full items-center justify-center leading-tight relative border border-solid border-blueGray-200 text-black bg-blueGray-200">
             &lt;
           </a>
-          <a *ngFor="let i of pages" (click)="setPage(i)" paginationButton [page]="i">{{i.number}}</a>
-  
-          <a (click)="next()"
-            class="text-xs font-semibold flex w-8 h-8 p-0 rounded-full items-center justify-center leading-tight relative border border-solid border-blueGray-200 text-black bg-blueGray-200">
+                <a *ngFor="let i of pages" (click)="setPage(i)" paginationButton [page]="i">{{i.number}}</a>
+
+                <a (click)="next()" class="text-xs font-semibold flex w-8 h-8 p-0 rounded-full items-center justify-center leading-tight relative border border-solid border-blueGray-200 text-black bg-blueGray-200">
             &gt;
           </a>
-        </nav>
-      </div>
+            </nav>
+        </div>
     </div>
-  </div>
+</div>
