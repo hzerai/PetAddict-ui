@@ -1,19 +1,41 @@
 .limitTextHeight {
-    height: 20px;
-    overflow: hidden;
-  }
+  height: 20px;
+  overflow: hidden;
+}
+
+.bt:hover {
+  background-color: #e53e3e;
+  border-radius: 5px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  color: white;
   
-  .bt:hover {
-    background-color: #e53e3e;
-    border-radius: 5px;
-    transition-duration: 0.4s;
-    cursor: pointer;
-    color: white;
-    
-  }
-  .bt{
-    padding: 3px 5px;
-  }
-  svg{
-    margin-right: 20px;
-  }
+}
+.bt{
+  padding: 3px 5px;
+}
+svg{
+  margin-right: 20px;
+}
+.titre:hover{
+  background-color: #e53e3e;
+  cursor: pointer;
+  color: white;
+  border-radius: 5px;
+}
+
+
+.form-control {
+  width: 60%;
+  box-shadow: 0 10px 40px 0 #B0C1D9;
+  justify-content: center;
+  align-items: center;
+  cursor: help;
+  padding-bottom: 50px;
+  
+  padding: 12px 20px;
+  margin-left: 20%;
+ 
+  display: inline-block;
+  
+}

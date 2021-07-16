@@ -32,6 +32,10 @@ import { PostDetailsComponent } from './post-module/post-details/post-details.co
 import { ChangepasswordComponent } from './user-module/changepassword/changepassword.component';
 import { AdoptedListComponent } from './adoption-module/adopted-list/adopted-list.component';
 import { TemoignagesComponent } from './adoption-module/temoignages/temoignages.component';
+import { AssociationDetailsComponent } from './association-module/association-details/association-details.component';
+import { AssociationAdminComponent } from './association-module/association-admin/association-admin.component';
+import { VetoDetailsComponent } from './veto-module/veto-details/veto-details.component';
+import { VetoAdminComponent } from './veto-module/veto-admin/veto-admin.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, resolve: { data: HeaderUserResolver } },
@@ -39,7 +43,12 @@ const routes: Routes = [
   { path: 'visit_user_profile', component: VisitProfileComponent, resolve: { data: UserAdoptionResolver } },
   { path: 'about', component: AboutUsComponent },
   { path: 'associations', component: AssociationListComponent },
+  { path: 'associations/:id', component: AssociationDetailsComponent },
+ // { path: 'associationadmin', component: AssociationAdminComponent},
+  { path: 'vetos/:id', component:VetoDetailsComponent },
+ // { path: 'vetoadmin', component:VetoAdminComponent},
   { path: 'vetos', component: VetoListComponent },
+  
   { path: 'adoptions', component: AdoptionListComponent },
   { path: 'adopted', component: AdoptedListComponent },
   { path: 'temoignages', component: TemoignagesComponent },

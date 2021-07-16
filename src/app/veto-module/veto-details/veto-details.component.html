@@ -1,0 +1,34 @@
+<section class="text-gray-600 body-font overflow-hidden">
+    <div class="container px-5 py-16 mx-auto -mb-3 -mt-3">
+        <div class="lg:w-4/5 mx-auto flex flex-wrap">
+           
+                <div class="w-1/3 items-center">
+                    <img class="hover:animate-bounce rounded-lg " [src]="image?.bytes ? image.bytes : 'https://via.placeholder.com/640x480?text=Image+For+found+NEW'" style="width: 700px; height: 300px;" />
+                  </div>
+            
+            <div class="w-full  px-2 py-2 bg-white rounded-lg">
+                <h1 class="text-gray-900 text-3xl mb-3 leading-none">{{veto.docteur}}</h1>
+
+                <p class="leading-none text-gray-600 text-sm mb-1">{{veto.description}}</p>
+                <div class="flex flex-col mt-6  pb-5 border-b-2 border-gray-100 mb-5 leading-relaxed text-xs font-medium title-font">
+                   <div class="flex flex-row  pr-4 bg ">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" class="mr-3">
+                        <path class="heroicon-ui" d="M5.64 16.36a9 9 0 1 1 12.72 0l-5.65 5.66a1 1 0 0 1-1.42 0l-5.65-5.66zm11.31-1.41a7 7 0 1 0-9.9 0L12 19.9l4.95-4.95zM12 14a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg>
+                      <p class="text-sm font-light leading-5 text-black-300 ">{{veto.adresse}}</p>
+                   </div> 
+                   <div class="flex flex-row  pr-4 bg" >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" class="mr-3"> 
+                        <path class="heroicon-ui"
+                          d="M8 2h8a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4c0-1.1.9-2 2-2zm0 2v16h8V4H8zm4 14a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+                      </svg>
+                      <p class="leading-none text-gray-600 text-sm mb-1">{{veto.phone}}</p>
+                   </div> 
+                </div>
+            </div>
+            <button backButton
+ class="place-self-center mt-3 text-white bg-gray-300 border-0 py-1 px-2 focus:outline-none hover:bg-gray-600 rounded-lg text-sm font-bold">Retourner</button>
+
+        </div>
+    </div>
+</section>
+                        
