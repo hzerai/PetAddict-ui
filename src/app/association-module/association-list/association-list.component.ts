@@ -47,7 +47,9 @@ export class AssociationListComponent implements OnInit {
       return;
     }
     this.page++;
-      this.associationService.getPagedAssociations(this.page, this.size).subscribe(next => { this.asso = next });
+      this.associationService.getPagedAssociations(this.page, this.size).subscribe(next =>  { this.asso = next ;
+        this.asso.forEach(a=>this.imageService.getImage("ASSOCIATION-"+a.id).subscribe(i=>a.image=i))
+        });
       this.generatePagination();
     
   }
@@ -56,7 +58,9 @@ export class AssociationListComponent implements OnInit {
       return;
     }
     this.page--;
-      this.associationService.getPagedAssociations(this.page, this.size).subscribe(next => { this.asso = next });
+      this.associationService.getPagedAssociations(this.page, this.size).subscribe(next =>  { this.asso = next ;
+        this.asso.forEach(a=>this.imageService.getImage("ASSOCIATION-"+a.id).subscribe(i=>a.image=i))
+        });
       this.generatePagination();
   }
   setPage(n: any) {
@@ -64,7 +68,9 @@ export class AssociationListComponent implements OnInit {
       return;
     }
     this.page = Number(n.number);
-      this.associationService.getPagedAssociations(this.page, this.size).subscribe(next => { this.asso = next });
+      this.associationService.getPagedAssociations(this.page, this.size).subscribe(next =>  { this.asso = next ;
+        this.asso.forEach(a=>this.imageService.getImage("ASSOCIATION-"+a.id).subscribe(i=>a.image=i))
+        });
       this.generatePagination();
   }
   cantPrevious(): boolean {
@@ -121,9 +127,9 @@ fetch(str: string) {
     console.log(str)
    
     this.searchBarResult = [ ];
-    this.associationService.elasticSearch(str).subscribe(next => this.asso = next , () => {
-     
-    });
+    this.associationService.elasticSearch(str).subscribe(next =>  { this.asso = next ;
+      this.asso.forEach(a=>this.imageService.getImage("ASSOCIATION-"+a.id).subscribe(i=>a.image=i))
+      });
     this.hideSearchBarResult = false;
   } else {
     this.hideSearchBarResult = true;
