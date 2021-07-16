@@ -71,6 +71,10 @@ import { AdoptionBorderDirective } from './custom-directives/adoption-bordor.dir
 import { TemoignagesComponent } from './adoption-module/temoignages/temoignages.component';
 import { UserLostListComponent } from './lostandfound-module/user-lost-list/user-lost-list.component';
 import { UserFoundListComponent } from './lostandfound-module/user-found-list/user-found-list.component';
+import { AssociationAdminComponent } from './association-module/association-admin/association-admin.component';
+import { AssociationDetailsComponent } from './association-module/association-details/association-details.component';
+import { VetoAdminComponent } from './veto-module/veto-admin/veto-admin.component';
+import { VetoDetailsComponent } from './veto-module/veto-details/veto-details.component';
 /**
  * Custom angular notifier options
  */
@@ -166,7 +170,11 @@ const customNotifierOptions: NotifierOptions = {
     AdoptionBorderDirective,
     TemoignagesComponent,
     UserLostListComponent,
-     UserFoundListComponent
+     UserFoundListComponent,
+     AssociationAdminComponent,
+     AssociationDetailsComponent,
+     VetoAdminComponent,
+     VetoDetailsComponent
   ],
   imports: [
     AppRoutingModule,
