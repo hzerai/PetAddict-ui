@@ -205,7 +205,6 @@ export class AdoptionListComponent implements OnInit {
       this.count = c;
       this.generatePagination();
     });
-    this.generatePagination();
     this.adoptionService.getPagedAdoptionsFiltered(null, null, null, null, null, null, null, 1, 100, null, Colors.Noir, null, null, null).subscribe(next => { this.adoptions = next; });
   }
 
@@ -216,19 +215,17 @@ export class AdoptionListComponent implements OnInit {
       this.count = c;
       this.generatePagination();
     });
-    this.generatePagination();
     this.adoptionService.getPagedAdoptionsFiltered(null, null, null, null, null, null, null, 1, 100, 'Senior', null, null, null, null).subscribe(next => { this.adoptions = next; });
   }
 
   whynotme() {
     this.page = 1;
     this.size = 100;
-    this.adoptionService.countFiltered('Poisson', null, null, null, null, null, null, null, null, null, null).subscribe(c => {
+    this.adoptionService.countFiltered('Cheval', null, null, null, null, null, null, null, null, null, null).subscribe(c => {
       this.count = c;
       this.generatePagination();
     });
-    this.generatePagination();
-    this.adoptionService.getPagedAdoptionsFiltered('Poisson', null, null, null, null, null, null, 1, 100, null, null, null, null, null).subscribe(next => { this.adoptions = next; });
+    this.adoptionService.getPagedAdoptionsFiltered('Cheval', null, null, null, null, null, null, 1, 100, null, null, null, null, null).subscribe(next => { this.adoptions = next; });
   }
 
   urgence() {
@@ -238,7 +235,6 @@ export class AdoptionListComponent implements OnInit {
       this.count = c;
       this.generatePagination();
     });
-    this.generatePagination();
     this.adoptionService.getPagedAdoptionsFiltered(null, null, null, null, null, null, null, 1, 100, null, null, true, null, null).subscribe(next => { this.adoptions = next; });
   }
 
