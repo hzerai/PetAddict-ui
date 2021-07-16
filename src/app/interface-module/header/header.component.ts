@@ -37,6 +37,11 @@ export class HeaderComponent implements OnInit, AfterViewInit {
         this.user = user;
         this.userName = this.user.email;
         this.imageService.getImage(`USER-${user.id}`).subscribe(next => { this.image = next });
+        this.ws.watch('messagesforheader' + this.userName).subscribe(msg => {
+          if (!this.router.url.includes('user_profile')){
+            this.unreadMessages = true;
+          }
+        })
       });
     }
   }
@@ -55,11 +60,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
         if (next && next.length > 0) {
           this.unreadMessages = true;
         }
-      })
-      this.ws.watch('messagesforheader' + this.userName).subscribe(msg => {
-        if (!this.router.url.includes('user_profile'))
-          this.unreadMessages = true;
-      })
+      })      
     }
 
   }

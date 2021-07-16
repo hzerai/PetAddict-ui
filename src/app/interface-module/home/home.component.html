@@ -27,15 +27,15 @@
                 <p class="text-center text-xl font-bold text-blue-600">Days of<br/>work</p>
             </div>
             <div class="m-auto z-40">
-                <p class="text-center text-4xl font-bold text-blue-600">220</p>
+                <p class="text-center text-4xl font-bold text-blue-600">{{soulsSaved}}</p>
                 <p class="text-center text-xl font-bold text-blue-600">Souls<br/>saved</p>
             </div>
             <div class="m-auto z-40">
-                <p class="text-center text-4xl font-bold text-blue-600">{{countAdoption}}</p>
+                <p class="text-center text-4xl font-bold text-blue-600">{{waiting}}</p>
                 <p class="text-center text-xl font-bold text-blue-600">Waiting for<br/>a family</p>
             </div>
             <div class="m-auto z-40">
-                <p class="text-center text-4xl font-bold text-blue-600">50</p>
+                <p class="text-center text-4xl font-bold text-blue-600">{{lost}}</p>
                 <p class="text-center text-xl font-bold text-blue-600">Missing<br/> Friend</p>
             </div>
             <div class="countbottombar"></div>
@@ -124,7 +124,7 @@
             <hr class="bg-red-600 w-1/4 h-1 my-5 mx-auto">
         </div>
         <mat-carousel class="col-start-3 col-span-3 ml-auto h-full w-full flex-col" timings="250ms ease-in" [autoplay]="true" interval="5000" color="accent" maxWidth="auto" proportion="35" slides="3" [loop]="true" [hideArrows]="false" [hideIndicators]="true"
-        [useKeyboard]="true" [useMouseWheel]="false" orientation="ltr">
+            [useKeyboard]="true" [useMouseWheel]="false" orientation="ltr">
             <mat-carousel-slide #matCarouselSlide *ngFor="let key of adoptionskey;let j = index" [hideOverlay]="true">
                 <div class="grid grid-cols-4 gap-4 mx-10 px-2">
                     <div class="pb-5 card cursor-pointer" *ngFor="let adoption of adoptions?.get(j); let i = index">
@@ -146,7 +146,7 @@
                 </div>
             </mat-carousel-slide>
         </mat-carousel>
-        
+
         <div class="flex w-full">
             <a [routerLink]="['adoptions']" class="mx-auto text-white bg-red-600 mt-5 text-xl flex hover:bg-blue-600 py-2 pl-10 pr-6 rounded-full">See them all 
                 <svg xmlns="http://www.w3.org/2000/svg" class="ml-3 mt-auto" style="fill: white;" viewBox="0 0 24 24" width="24" height="24"><path class="heroicon-ui" d="M18.59 13H3a1 1 0 0 1 0-2h15.59l-5.3-5.3a1 1 0 1 1 1.42-1.4l7 7a1 1 0 0 1 0 1.4l-7 7a1 1 0 0 1-1.42-1.4l5.3-5.3z"/></svg>

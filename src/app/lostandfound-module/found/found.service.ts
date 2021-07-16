@@ -10,6 +10,7 @@ import { HorseBreed } from 'src/app/interface-module/filter/HorseBreed';
 import { Tailles } from 'src/app/interface-module/filter/Tailles';
 import { Found } from './found';
 import { Comment } from 'src/app/post-module/comment/Comment';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -24,7 +25,7 @@ export class FoundService {
   options = {
     responseType: 'json' as const,
   };
-  private foundUrl = "http://localhost:8000/api/found";
+  private foundUrl = environment.backUrl+"/found";
 
   constructor(private http: HttpClient) {
     FoundService.suggestions = this.populateSuggestions()
@@ -36,7 +37,7 @@ export class FoundService {
     return this.http.get<Found[]>(this.foundUrl);
   }
   getUserFounds(): Observable<Found[]> {
-    return this.http.get<Found[]>("http://localhost:8000/api/userfound");
+    return this.http.get<Found[]>(environment.backUrl + "/userfound");
   }
 
 

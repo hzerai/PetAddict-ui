@@ -10,6 +10,7 @@ import { HorseBreed } from 'src/app/interface-module/filter/HorseBreed';
 import { Tailles } from 'src/app/interface-module/filter/Tailles';
 import { Comment } from 'src/app/post-module/comment/Comment';
 import { Lost } from './Lost';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -24,7 +25,7 @@ export class LostService {
   options = {
     responseType: 'json' as const,
   };
-  private lostUrl = "http://localhost:8000/api/lost";
+  private lostUrl = environment.backUrl + "/lost";
   constructor(private http: HttpClient) {
   LostService.suggestions = this.populateSuggestions()
 
@@ -36,7 +37,7 @@ export class LostService {
     return this.http.get<Lost[]>(this.lostUrl);
   }
   getUserLosts(): Observable<Lost[]> {
-    return this.http.get<Lost[]>("http://localhost:8000/api/userlost");
+    return this.http.get<Lost[]>(environment.backUrl +"/userlost");
   }
 
   getLostById(idAsString: string): Observable<Lost> {
