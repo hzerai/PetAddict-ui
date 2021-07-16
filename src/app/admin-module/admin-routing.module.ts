@@ -10,6 +10,8 @@ import { UserProfileEditComponent } from './user/user-profile-edit/user-profile-
 import { UserComponent } from './user/user.component';
 import { FoundComponent } from './found/found.component';
 import { LostComponent } from './lost/lost.component';
+import { AssociationAdminComponent } from './association-admin/association-admin.component';
+import { VetoAdminComponent } from './veto-admin/veto-admin.component';
 
 const adminRoutes: Routes = [
     {
@@ -24,7 +26,10 @@ const adminRoutes: Routes = [
             { path: 'found', component: FoundComponent },
             { path: 'lost', component: LostComponent },
             { path: 'post', component : PostComponent},
-            { path: '**',  redirectTo: 'dashboard' },
+            { path: 'association', component: AssociationAdminComponent},
+            { path: 'veto', component:VetoAdminComponent},
+            { path: '**',  redirectTo: 'dashboard' }
+            
 
       ]
     }
