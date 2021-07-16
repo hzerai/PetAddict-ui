@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NotifierService } from 'angular-notifier';
 import { Animals } from 'src/app/adoption-module/adoption/Animals';
 import { Sexe } from 'src/app/adoption-module/adoption/Sexe';
 import { ImageService } from 'src/app/images-module/image.service';
@@ -29,24 +30,26 @@ export class LostFormComponent implements OnInit {
   lostForm: FormGroup;
   lost: Lost = new Lost();
   imageName: string;
+  submitted: boolean = false;
+
 
   @ViewChild(ImageComponent)
   imageComponent: ImageComponent;
-  constructor(private imageService: ImageService, private lostService: LostService, private router: Router, private ac: ActivatedRoute, private tokenStorageService: TokenStorageService) {
+  constructor(private notifier: NotifierService,private imageService: ImageService, private lostService: LostService, private router: Router, private ac: ActivatedRoute, private tokenStorageService: TokenStorageService) {
 
   }
 
   ngOnInit(): void {
     this.lostForm = new FormGroup({
-      title: new FormControl(null, Validators.required),
-      description: new FormControl(),
-      nom: new FormControl(),
+      title: new FormControl(null, [Validators.required, Validators.minLength(5)]),
+      description: new FormControl(null, [Validators.required, Validators.minLength(5)]),
+      nom: new FormControl(null, Validators.minLength(3)),
       sexe: new FormControl(),
       type: new FormControl(),
-      age: new FormControl(),
+      age: new FormControl(null),
       taille: new FormControl(),
       couleur: new FormControl(),
-      espece: new FormControl(),
+      espece: new FormControl(null, Validators.required),
 
     })
     let id;
@@ -72,6 +75,14 @@ export class LostFormComponent implements OnInit {
   }
 
   onSubmit() {
+    this.submitted = true;
+    if (this.lostForm.invalid) {
+      this.notifier.notify('error', 'Incomplete data.');
+      return;
+    } else if (!this.imageComponent.image?.bytes) {
+      this.notifier.notify('error', 'You need to select an image for the animal.');
+      return;
+    }
     this.lost.title = this.lostForm.value.title
     this.lost.description = this.lostForm.value.description
     this.lost.animal.espece = this.lostForm.value.espece
@@ -82,21 +93,30 @@ export class LostFormComponent implements OnInit {
     this.lost.animal.couleur = this.lostForm.value.couleur
     this.lost.animal.nom = this.lostForm.value.nom
     if (this.lost.id) {
-      //update
-      this.imageComponent.autoUpload = true;
-      this.imageComponent.uploadImage();
-      this.lostService.updateLost(this.lost).subscribe(next => { this.router.navigateByUrl("/losts/" + this.lost.id) })
-    } else {
-      //create
-
-      this.lostService.newLost(this.lost).subscribe(next => {
-        this.imageComponent.autoUpload = true;
-        this.imageComponent.imageName = `Lost-${next.id}`;
-        this.imageComponent.image.name = `Lost-${next.id}`;
-        this.imageComponent.uploadImage();
-        this.lost = next; this.router.navigateByUrl("/losts/" + this.lost.id)
-      })
-    }
+       //update
+       this.notifier.notify('default', 'Updating lost. please wait ...', 'update');
+       this.imageComponent.autoUpload = true;
+       this.imageComponent.uploadImage();
+       this.lostService.updateLost(this.lost).subscribe(next => {
+         this.lost = next;
+         this.notifier.hide('update');
+         this.notifier.notify('success', 'Found lost successfuly');
+         this.router.navigateByUrl("/losts/" + this.lost.id)
+       })
+     } else {
+       //create
+       this.notifier.notify('default', 'Creating lost. please wait ...', 'create');
+       this.lostService.newLost(this.lost).subscribe(next => {
+         this.imageComponent.autoUpload = true;
+         this.imageComponent.imageName = `Lost-${next.id}`;
+         this.imageComponent.image.name = `Lost-${next.id}`;
+         this.imageComponent.uploadImage();
+         this.lost = next;
+         this.notifier.hide('create');
+         this.notifier.notify('success', 'Lost created successfuly');
+         this.router.navigateByUrl("/losts/" + this.lost.id)
+       })
+     }
 
   }
   onSelectBreed(b) {
@@ -110,5 +130,27 @@ export class LostFormComponent implements OnInit {
 
     }
   }
+
+  // form controls getters
+  get title() {
+    return this.lostForm.get('title');
+  }
+
+  get description() {
+    return this.lostForm.get('description');
+  }
+
+  get nom() {
+    return this.lostForm.get('nom');
+  }
+
+  get age() {
+    return this.lostForm.get('age');
+  }
+
+  get espece() {
+    return this.lostForm.get('espece');
+  }
+
 
 }

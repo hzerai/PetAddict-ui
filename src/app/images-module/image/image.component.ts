@@ -14,13 +14,16 @@ export class ImageComponent implements OnInit {
   @Input() default: string = 'https://www.w3schools.com/howto/img_avatar.png';
   @Input() imageMessage: string = 'Télécharger une nouvelle photo.';
   @Input() autoUpload: boolean = false;
-  image: Image;
+  @Input() image: Image;
   url: any;
+  @Input() galerie : boolean = false;
   constructor(private imageService: ImageService) { }
 
   ngOnInit(): void {
     if (!this.image) {
       this.imageService.getImage(this.imageName).subscribe(next => { this.image = next; this.url = next?.bytes; });
+    } else {
+      this.url = this.image.bytes;
     }
   }
   touchedImage: boolean = false;

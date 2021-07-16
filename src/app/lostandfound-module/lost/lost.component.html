@@ -29,19 +29,25 @@
         <h1 class="title-font text-lg font-medium text-black mb-3">{{lost.title}}</h1>
         <p class="leading-relaxed h-32 overflow-y-auto text-black text-sm">{{lost.description}}.</p>
     </div>
-    <div class="float-right text-right justify-end   ml-auto mt-auto">
-        <button [routerLink]="['losts/:id/edit',lost.id]" class="class=flex-no-shrink bg-green-400 hover:bg-green-500 px-5 ml-4 py-2 text-xs shadow-sm hover:shadow-lg font-medium tracking-wider border-2 border-green-300 hover:border-green-500 text-white rounded-full transition ease-in duration-300">Edit</button>
-     </div>
-     <div>
-        <div class="ml-3 my-5 bg-yellow-600 p-1 w-20">
-           <div class="uppercase text-xs leading-4 font-semibold text-center text-yellow-100">New</div>
-        </div>
-     </div>
-     <div>
-        <button class="text-gray-100 rounded-sm my-5 ml-2 focus:outline-none bg-gray-500">
-           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-           </svg>
-        </button>
-     </div>
+</div>
+<div>
+<div class="w-full w-1/2 mt-5">
+    <div class="bg-gray-100 rounded-lg py-6 px-8 mb-8 hover:border-blue-900 shadow-lg">
+
+        <textarea [(ngModel)]="commentBody" class="w-full focus:outline-none focus:bg-white"
+            placeholder="Ajouter un commentaire!" style="height: 100px">
+            </textarea>
+        <hr class="py-2" />
+        <footer class="flex justify-between">
+            <img src="https://i.pravatar.cc/40" alt class="rounded-full mr-2" />
+            <button (click)="comment()"
+                class="bg-blue-500 rounded-lg shadow py-2 px-2 text-black hover:text-white">Commenter
+                !</button>
+        </footer>
+    </div>
+
+    <app-comment *ngFor="let comment of lost.comments" [comment]="comment"
+        class="border border-blue-200 bg-white rounded-lg mb-4 hover:bg-gray-200 hover:border-blue-900 mx-auto">
+    </app-comment>
+</div>
 </div>

@@ -11,8 +11,7 @@
 
                         <div class="md:flex md:flex-row md:space-x-4 w-full text-xs">
                             <div class="w-full flex flex-col mb-3">
-                                <select (change)="onSelectBreed($event.target.value)" formControlName="espece" (change)="resetPageNumber()"
-                                    class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4 md:w-full ">
+                                <select (change)="onSelectBreed($event.target.value)" formControlName="espece" (change)="resetPageNumber()" class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4 md:w-full ">
                                     <option value="">Espèce</option>
                                     <option *ngFor="let e of animals" [value]="e">{{e}}</option>
 
@@ -20,8 +19,7 @@
                             </div>
 
                             <div class="w-full flex flex-col mb-3">
-                                <select formControlName="type" (change)="resetPageNumber()"
-                                    class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4 md:w-full ">
+                                <select formControlName="type" (change)="resetPageNumber()" class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4 md:w-full ">
                                     <option value="">Race</option>
                                     <option *ngFor="let r of breed" [value]="r">{{r}}</option>
 
@@ -31,8 +29,7 @@
 
                         <div class="md:flex md:flex-row md:space-x-4 w-full text-xs">
                             <div class="w-full flex flex-col mb-3">
-                                <select formControlName="taille" (change)="resetPageNumber()"
-                                    class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4 md:w-full ">
+                                <select formControlName="taille" (change)="resetPageNumber()" class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4 md:w-full ">
                                     <option value="">Taille</option>
                                     <option *ngFor="let taille of tailles" [value]="taille">{{taille}}</option>
 
@@ -41,10 +38,28 @@
                             </div>
 
                             <div class="w-full flex flex-col mb-3">
-                                <select formControlName="sexe" (change)="resetPageNumber()"
-                                    class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4 md:w-full ">
+                                <select formControlName="sexe" (change)="resetPageNumber()" class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4 md:w-full ">
                                     <option value="">Sexe</option>
                                     <option *ngFor="let s of sexes" [value]="s">{{s}}</option>
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="md:flex md:flex-row md:space-x-4 w-full text-xs">
+                            <div class="w-full flex flex-col mb-3">
+                                <select formControlName="couleur" (change)="resetPageNumber()" class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4 md:w-full ">
+                                    <option value="">Couleur</option>
+                                    <option *ngFor="let couleur of colors" [value]="couleur">{{couleur}}</option>
+
+                                </select>
+                                <p class="text-sm text-red-500 hidden mt-3" id="error">Please fill out this field.</p>
+                            </div>
+
+                            <div class="w-full flex flex-col mb-3">
+                                <select formControlName="age" (change)="resetPageNumber()" class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4 md:w-full ">
+                                    <option value="">Age</option>
+                                    <option *ngFor="let a of ages" [value]="a">{{a}}</option>
 
                                 </select>
                             </div>
@@ -54,8 +69,7 @@
 
                         <div class="md:flex md:flex-row md:space-x-4 w-full text-xs">
                             <div class="w-full flex flex-col mb-3">
-                                <select (change)="onSelectVille($event.target.value)" formControlName="ville" (change)="resetPageNumber()"
-                                    class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4 md:w-full ">
+                                <select (change)="onSelectVille($event.target.value)" formControlName="ville" (change)="resetPageNumber()" class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4 md:w-full ">
                                     <option value="">Ville</option>
                                     <option *ngFor="let ville of villes" [value]="ville?.name">{{ville.name}}</option>
 
@@ -64,8 +78,7 @@
                             </div>
 
                             <div class="w-full flex flex-col mb-3">
-                                <select formControlName="municipality" (change)="resetPageNumber()"
-                                    class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4 md:w-full ">
+                                <select formControlName="municipality" (change)="resetPageNumber()" class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4 md:w-full ">
                                     <option value="">Municipalité</option>
                                     <option *ngFor="let m of municipalities" [value]="m?.name">{{m.name}}</option>
 
@@ -73,10 +86,9 @@
                             </div>
                         </div>
 
-                        <div class="md:flex md:flex-row md:space-x-4 w-full text-xs">                            
+                        <div class="md:flex md:flex-row md:space-x-4 w-full text-xs">
                             <div class="w-full flex flex-col mb-3">
-                                <select formControlName="size" (change)="resetPageNumber()"
-                                    class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4 md:w-full ">
+                                <select formControlName="size" (change)="resetPageNumber()" class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4 md:w-full ">
                                     <option [value]="6">6</option>
                                     <option [value]="12">12</option>
                                     <option [value]="24">24</option>
@@ -87,14 +99,12 @@
                         </div>
                     </form>
                     <div class="mt-5 text-center md:space-x-3 md:block flex">
-                        <button (click)="resetFilter()" (change)="resetPageNumber()"
-                            class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
+                        <button (click)="resetFilter()" (change)="resetPageNumber()" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
                             Réinitialiser </button>
-                        <button (click)="queryResult(query)"
-                            class="mb-2 md:mb-0 bg-blue-300 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-indigo-600">Rechercher</button>
+                        <button (click)="queryResult(query)" class="mb-2 md:mb-0 bg-blue-300 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-indigo-600">Rechercher</button>
 
                     </div>
-                    
+
                 </div>
             </div>
         </div>

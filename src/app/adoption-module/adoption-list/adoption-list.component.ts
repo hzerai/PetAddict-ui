@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Colors } from 'src/app/interface-module/filter/Colors';
 import { Query } from 'src/app/interface-module/filter/Query';
 import { VillesService } from 'src/app/user-module/villes.service';
 import { Adoption } from '../adoption/Adoption';
@@ -22,6 +23,9 @@ export class AdoptionListComponent implements OnInit {
   adoptions: Adoption[] = [];
   query: Query = new Query();
   pages: Page[];
+  specials: boolean = false;
+  coeur: boolean = false;
+  coupDeCoeur: Adoption;
 
   filterOpen: boolean = false;
 
@@ -32,7 +36,12 @@ export class AdoptionListComponent implements OnInit {
     this.adoptionService.count().subscribe(next => {
       this.count = next; this.generatePagination();
     });
+    this.adoptionService.coupDeCoeur().subscribe(next => { this.coupDeCoeur = next; });
     this.adoptionService.getPagedAdoptions(this.page, this.size, null).subscribe(next => { this.adoptions = next });
+  }
+
+  refreshCDC() {
+    this.adoptionService.coupDeCoeur().subscribe(next => { this.coupDeCoeur = next; });
   }
 
   populateSuggestions() {
@@ -104,13 +113,17 @@ export class AdoptionListComponent implements OnInit {
     let sexe = this.query.params.get('sexe');
     let taille = this.query.params.get('taille');
     let ville = this.query.params.get('ville');
+    let age = this.query.params.get('age');
+    let couleur = this.query.params.get('couleur');
     let size = this.query.params.get('size');
     let user_id = this.query.params.get('user_id');
     let municipality = this.query.params.get('municipality');
     this.size = size != null ? Number(size) : this.size;
-    this.adoptionService.countFiltered(espece, type, sexe, taille, ville, municipality, user_id).subscribe(c => this.count = c);
-    this.generatePagination();
-    this.adoptionService.getPagedAdoptionsFiltered(espece, type, sexe, taille, ville, municipality, user_id, this.page, this.size, null).subscribe(next => { this.adoptions = next; });
+    this.adoptionService.countFiltered(espece, type, sexe, taille, ville, municipality, age, couleur, user_id, null, null).subscribe(c => {
+      this.count = c;
+      this.generatePagination();
+    });
+    this.adoptionService.getPagedAdoptionsFiltered(espece, type, sexe, taille, ville, municipality, user_id, this.page, this.size, age, couleur, null, null, null).subscribe(next => { this.adoptions = next; });
 
   }
 
@@ -158,9 +171,6 @@ export class AdoptionListComponent implements OnInit {
   autoComplete: string[] = [];
   autoC = true;
 
-
-
-
   fetch(str: string) {
     this.populateSuggestions();
     if (str?.length > 3) {
@@ -172,7 +182,7 @@ export class AdoptionListComponent implements OnInit {
       }
       this.autoC = true;
       this.searchBarResult = [];
-      this.adoptionService.elasticSearch(str).subscribe(next => this.searchBarResult = next , () => {
+      this.adoptionService.elasticSearch(str).subscribe(next => this.searchBarResult = next, () => {
         this.autoC = false;
       });
       this.hideSearchBarResult = false;
@@ -180,11 +190,56 @@ export class AdoptionListComponent implements OnInit {
       this.hideSearchBarResult = true;
     }
   }
+
   respectCriteria(adoptionAsString: string, str: string): boolean {
     if (adoptionAsString.includes(str)) {
       console.log(adoptionAsString)
     }
     return adoptionAsString.includes(str);
+  }
+
+  noire() {
+    this.page = 1;
+    this.size = 100;
+    this.adoptionService.countFiltered(null, null, null, null, null, null, null, Colors.Noir, null, null, null).subscribe(c => {
+      this.count = c;
+      this.generatePagination();
+    });
+    this.generatePagination();
+    this.adoptionService.getPagedAdoptionsFiltered(null, null, null, null, null, null, null, 1, 100, null, Colors.Noir, null, null, null).subscribe(next => { this.adoptions = next; });
+  }
+
+  or() {
+    this.page = 1;
+    this.size = 100;
+    this.adoptionService.countFiltered(null, null, null, null, null, null, 'Senior', null, null, null, null).subscribe(c => {
+      this.count = c;
+      this.generatePagination();
+    });
+    this.generatePagination();
+    this.adoptionService.getPagedAdoptionsFiltered(null, null, null, null, null, null, null, 1, 100, 'Senior', null, null, null, null).subscribe(next => { this.adoptions = next; });
+  }
+
+  whynotme() {
+    this.page = 1;
+    this.size = 100;
+    this.adoptionService.countFiltered('Poisson', null, null, null, null, null, null, null, null, null, null).subscribe(c => {
+      this.count = c;
+      this.generatePagination();
+    });
+    this.generatePagination();
+    this.adoptionService.getPagedAdoptionsFiltered('Poisson', null, null, null, null, null, null, 1, 100, null, null, null, null, null).subscribe(next => { this.adoptions = next; });
+  }
+
+  urgence() {
+    this.page = 1;
+    this.size = 100;
+    this.adoptionService.countFiltered(null, null, null, null, null, null, null, null, null, true, null).subscribe(c => {
+      this.count = c;
+      this.generatePagination();
+    });
+    this.generatePagination();
+    this.adoptionService.getPagedAdoptionsFiltered(null, null, null, null, null, null, null, 1, 100, null, null, true, null, null).subscribe(next => { this.adoptions = next; });
   }
 
 }

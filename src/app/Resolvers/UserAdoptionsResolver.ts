@@ -20,7 +20,7 @@ export class UserAdoptionResolver implements Resolve<any> {
     getData(id): Promise<any> {
         const token = this.tokenService.getToken();
         if (token == null) {
-            return new Promise((resolve, reject) => this.userService.getUserById(id, 'adoptions').subscribe(u => {
+            return new Promise((resolve, reject) => this.userService.getUserByEmail(id, 'adoptions').subscribe(u => {
                 return resolve({
                     user: u,
                 });
@@ -31,10 +31,12 @@ export class UserAdoptionResolver implements Resolve<any> {
         payload = window.atob(payload);
         let username = JSON.parse(payload).username;
         if (id === username) {
-            return this.cur.getData(id);
+            return new Promise((resolve, reject) => {
+                return resolve({sameUser : true});
+            });
         }
-        return new Promise((resolve, reject) => this.userService.getUserById(id, 'adoptions').subscribe(u => {
-            this.userService.getUserById(username, null).subscribe(next => {
+        return new Promise((resolve, reject) => this.userService.getUserByEmail(id, 'adoptions').subscribe(u => {
+            this.userService.getUserByEmail(username, null).subscribe(next => {
                 return resolve({
                     user: u,
                     currentUser: next

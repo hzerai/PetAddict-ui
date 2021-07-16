@@ -13,6 +13,7 @@ import { TokenStorageService } from '../../user-module/_services/token-storage.s
 import { DogBreed } from 'src/app/interface-module/filter/DogBreed';
 import { CatBreed } from 'src/app/interface-module/filter/CatBreed';
 import { HorseBreed } from 'src/app/interface-module/filter/HorseBreed';
+import { NotifierService } from 'angular-notifier';
 
 
 
@@ -32,24 +33,25 @@ export class FoundFormComponent implements OnInit {
   foundForm: FormGroup;
   found: Found = new Found();
   imageName: string;
+  submitted: boolean = false;
 
   @ViewChild(ImageComponent)
   imageComponent: ImageComponent;
-  constructor(private imageService: ImageService, private foundService: FoundService, private router: Router, private ac: ActivatedRoute, private tokenStorageService: TokenStorageService) {
+  constructor( private notifier: NotifierService, private imageService: ImageService, private foundService: FoundService, private router: Router, private ac: ActivatedRoute, private tokenStorageService: TokenStorageService) {
 
   }
 
   ngOnInit(): void {
     this.foundForm = new FormGroup({
-      title: new FormControl(null, Validators.required),
-      description: new FormControl(),
-      nom: new FormControl(),
+      title: new FormControl(null, [Validators.required, Validators.minLength(5)]),
+      description: new FormControl(null, [Validators.required, Validators.minLength(5)]),
+      nom: new FormControl(null, Validators.minLength(3)),
       sexe: new FormControl(),
       type: new FormControl(),
-      age: new FormControl(),
+      age: new FormControl(null),
       taille: new FormControl(),
       couleur: new FormControl(),
-      espece: new FormControl(),
+      espece: new FormControl(null, Validators.required),
 
     })
     let id;
@@ -75,6 +77,14 @@ export class FoundFormComponent implements OnInit {
   }
 
   onSubmit() {
+    this.submitted = true;
+    if (this.foundForm.invalid) {
+      this.notifier.notify('error', 'Incomplete data.');
+      return;
+    } else if (!this.imageComponent.image?.bytes) {
+      this.notifier.notify('error', 'You need to select an image for the animal.');
+      return;
+    }
     this.found.title = this.foundForm.value.title
     this.found.description = this.foundForm.value.description
     this.found.animal.espece = this.foundForm.value.espece
@@ -86,18 +96,27 @@ export class FoundFormComponent implements OnInit {
     this.found.animal.nom = this.foundForm.value.nom
     if (this.found.id) {
       //update
+      this.notifier.notify('default', 'Updating found. please wait ...', 'update');
       this.imageComponent.autoUpload = true;
       this.imageComponent.uploadImage();
-      this.foundService.updateFound(this.found).subscribe(next => { this.router.navigateByUrl("/founds/" + this.found.id) })
+      this.foundService.updateFound(this.found).subscribe(next => {
+        this.found = next;
+        this.notifier.hide('update');
+        this.notifier.notify('success', 'Found updated successfuly');
+        this.router.navigateByUrl("/founds/" + this.found.id)
+      })
     } else {
       //create
-
+      this.notifier.notify('default', 'Creating found. please wait ...', 'create');
       this.foundService.newFound(this.found).subscribe(next => {
         this.imageComponent.autoUpload = true;
         this.imageComponent.imageName = `Found-${next.id}`;
         this.imageComponent.image.name = `Found-${next.id}`;
         this.imageComponent.uploadImage();
-        this.found = next; this.router.navigateByUrl("/founds/" + this.found.id)
+        this.found = next;
+        this.notifier.hide('create');
+        this.notifier.notify('success', 'Found created successfuly');
+        this.router.navigateByUrl("/founds/" + this.found.id)
       })
     }
 
@@ -112,6 +131,26 @@ export class FoundFormComponent implements OnInit {
     } else {
 
     }
+  }
+  // form controls getters
+  get title() {
+    return this.foundForm.get('title');
+  }
+
+  get description() {
+    return this.foundForm.get('description');
+  }
+
+  get nom() {
+    return this.foundForm.get('nom');
+  }
+
+  get age() {
+    return this.foundForm.get('age');
+  }
+
+  get espece() {
+    return this.foundForm.get('espece');
   }
 
 }

@@ -9,6 +9,8 @@ import { DogBreed } from 'src/app/interface-module/filter/DogBreed';
 import { HorseBreed } from 'src/app/interface-module/filter/HorseBreed';
 import { Tailles } from 'src/app/interface-module/filter/Tailles';
 import { Found } from './found';
+import { Comment } from 'src/app/post-module/comment/Comment';
+
 
 
 
@@ -23,6 +25,7 @@ export class FoundService {
     responseType: 'json' as const,
   };
   private foundUrl = "http://localhost:8000/api/found";
+
   constructor(private http: HttpClient) {
     FoundService.suggestions = this.populateSuggestions()
     
@@ -31,6 +34,9 @@ export class FoundService {
 
   getFounds(): Observable<Found[]> {
     return this.http.get<Found[]>(this.foundUrl);
+  }
+  getUserFounds(): Observable<Found[]> {
+    return this.http.get<Found[]>("http://localhost:8000/api/userfound");
   }
 
 
@@ -73,6 +79,13 @@ export class FoundService {
     Object.values(CatBreed).forEach(v => result.push(v))
     Object.values(HorseBreed).forEach(v => result.push(v))
     return result;
+  }
+  addCommentfound(id:number,comment: Comment): Observable<Found> {
+    return this.http.post<Found>(this.foundUrl+"/"+id+"/addcommentfound", comment, this.options);
+  }
+
+  replyfound(id:number,idcomment:number,comment: Comment): Observable<Found> {
+    return this.http.post<Found>(this.foundUrl+"/"+id+"/addcommentfound/"+idcomment+"/replyfound", comment, this.options);
   }
 
 }

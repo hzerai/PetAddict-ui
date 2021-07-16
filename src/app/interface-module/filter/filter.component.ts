@@ -21,6 +21,7 @@ export class FilterComponent implements OnInit {
   colors = Object.values(Colors);
   tailles = Object.values(Tailles);
   breed = [];
+  ages : string[];
   sexes = Object.values(Sexe);
   villes = VillesService.villes;
   municipalities: Municipality[];
@@ -29,10 +30,13 @@ export class FilterComponent implements OnInit {
   query: Query = new Query();
   adoptionFilter: FormGroup;
   constructor() {
+    this.ages = ['Bébé', 'Junior', 'Adulte', 'Senior'];
     this.query.params.set('espece', '');
     this.query.params.set('type', '');
     this.query.params.set('taille', '');
     this.query.params.set('sexe', '');
+    this.query.params.set('couleur', '');
+    this.query.params.set('age', '');
     this.query.params.set('ville', '');
     this.query.params.set('municipality', '');
     this.query.params.set('size', '6');
@@ -53,6 +57,10 @@ export class FilterComponent implements OnInit {
     sexe.setValue(this.query.params.get('sexe'));
     let size = new FormControl();
     size.setValue(this.query.params.get('size'));
+    let couleur = new FormControl();
+    couleur.setValue(this.query.params.get('couleur'));
+    let age = new FormControl();
+    age.setValue(this.query.params.get('age'));
 
     this.adoptionFilter = new FormGroup({
       espece: espece,
@@ -61,19 +69,12 @@ export class FilterComponent implements OnInit {
       taille: taille,
       ville: ville,
       municipality: municipality,
-      size: size
+      size: size,
+      couleur: couleur,
+      age: age
 
     })
   }
-
-  // onSubmit() {
-  //   this.title = this.adoptionFilter.value.title
-  //   this.animal = this.adoptionFilter.value.animal
-  //   // this.router.navigate(["/adoptions/filtered"], { queryParams: { page: 1, size: 8, title: this.title, animal: this.animal } })
-  //   this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-  //     this.router.navigate(["/adoptions"], { queryParams: { page: 1, size: 8, title: this.title, animal: this.animal } });
-  //   });
-  // }
 
   resetFilter() {
     this.query.params.set('espece', '');
@@ -82,6 +83,8 @@ export class FilterComponent implements OnInit {
     this.query.params.set('taille', '');
     this.query.params.set('ville', '');
     this.query.params.set('size', '6');
+    this.query.params.set('age', '');
+    this.query.params.set('couleur', '');
     this.query.params.set('municipality', '');
     this.ngOnInit();
   }
@@ -93,6 +96,8 @@ export class FilterComponent implements OnInit {
     this.query.params.set('taille', this.adoptionFilter.value['taille']);
     this.query.params.set('ville', this.adoptionFilter.value['ville']);
     this.query.params.set('municipality', this.adoptionFilter.value['municipality']);
+    this.query.params.set('couleur', this.adoptionFilter.value['couleur']);
+    this.query.params.set('age', this.adoptionFilter.value['age']);
     this.query.params.set('size', this.adoptionFilter.value['size']);
     this.newQueryEvent.emit(query);
   }

@@ -37,7 +37,7 @@ export class PostDetailsComponent implements OnInit {
     this.route.params.subscribe(next => {
       id = next.id;
     });
-    this.userService.getUserById(this.username,null).subscribe(next=>this.currentUserFullName=next.firstName+" "+next.lastName);
+    this.userService.getUserByEmail(this.username,null).subscribe(next=>this.currentUserFullName=next.firstName+" "+next.lastName);
     this.postService.getPostById(id).subscribe(next => { this.post = next ; 
     this.htmlData=this.sanitizer.bypassSecurityTrustHtml(next.body);
     });

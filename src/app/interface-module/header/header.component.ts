@@ -30,15 +30,15 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.unreadMessages = false;
   }
 
-
   ngOnInit(): void {
-    this.hr.getCurrentUser()?.then((user) => {
-      this.isLoggedIn = !!this.tokenStorageService.getToken();
-      if (this.isLoggedIn) {
+    this.isLoggedIn = !!this.tokenStorageService.getToken();
+    if (this.isLoggedIn) {
+      this.hr.getCurrentUser()?.then((user) => {
         this.user = user;
+        this.userName = this.user.email;
         this.imageService.getImage(`USER-${user.id}`).subscribe(next => { this.image = next });
-      }
-    });
+      });
+    }
   }
 
   logout(): void {
@@ -65,4 +65,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
    
   showLostAndFound:boolean=false;
+  showAssosEtVets:boolean=false;
+  showAdoptionDD:boolean=false;
 }

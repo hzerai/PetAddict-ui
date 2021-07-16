@@ -26,23 +26,22 @@
     <div class="row-start-1 col-start-1 col-span-2 backslide mr-auto flex h-full w-full flex-grow bg-gradient-to-r to-blue-300 from-blue-600">
     </div> 
 </div>
-<div class="relative mb-5 flex container mx-auto" style="height: 500px;">
+<div class="relative mb-5 flex flex-wrap container mx-auto" style="height: 430px;">
     
-    <h1 class="my-auto text-6xl z-50 relative text-white">Find your partner</h1>
-</div>
-<div class="mb-5">
-    <div id="mySidenav" class="sidenav" class="w-0 ">
+    <h1 class="my-auto text-6xl z-50 relative text-white w-full" >Animaux Perdus</h1>
+    <div id="publier" class="h-16 ml-32 rounded-lg shadow-lg">
         <a [routerLink]="['/losts/new']" id="create" class="cursor-pointer flex">Publier 
             <svg xmlns="http://www.w3.org/2000/svg" class="ml-auto mt-auto ml-2" style="fill:white" viewBox="0 0 24 24" width="24" height="24"><path class="heroicon-ui" d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm1-9h2a1 1 0 0 1 0 2h-2v2a1 1 0 0 1-2 0v-2H9a1 1 0 0 1 0-2h2V9a1 1 0 0 1 2 0v2z"/></svg>
         </a>
     </div>
-    <section class="mt-5 text-gray-600 container mx-auto">
-        <div class="container py-24 ">
-            <div class="flex flex-wrap m ">
-                <app-lost *ngFor="let lost of losts" [lost]="lost"
-                    class="lg:w-full  sm:w p-4 hover:rounded cursor-pointer hover:shadow">
-                </app-lost>
-            </div>
+</div>
+<div class="mb-5">
+    <section class=" text-gray-600 container mx-auto">
+        
+        <div class="flex flex-wrap ">
+            <app-lost *ngFor="let lost of losts" [lost]="lost"
+                class="lg:w-full  sm:w p-4 hover:rounded cursor-pointer hover:shadow">
+            </app-lost>
         </div>
         
 
