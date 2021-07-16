@@ -16,14 +16,14 @@ export class VetoAdminComponent implements OnInit {
   page: number = 1;
   size: number = 3;
   count: number = 0;
-  veto :Veto[];
+  veto: Veto[];
   Vett: Veto = new Veto();
-  id:number;
-  //query: Query = new Query();
+  id: number;
+  keyword: string = '';
   pages: Page[];
   vetoForm: FormGroup;
   filterOpen: boolean = false;
-  modif:boolean = false;
+  modif: boolean = false;
   imageName: string;
   @ViewChild(ImageComponent)
   imageComponent: ImageComponent;
@@ -35,22 +35,11 @@ export class VetoAdminComponent implements OnInit {
       description: new FormControl(),
       adresse: new FormControl(),
       phone: new FormControl(),
-      
-
     })
-
-    
-    this.vetoService.getVeto().subscribe( list => this.veto = list )
     this.vetoService.count().subscribe(next => {
       this.count = next; this.generatePagination();
     });
-
-
-
-
-
-    this.vetoService.getPagedVetos(this.page, this.size).subscribe(next => { this.veto = next }); 
-
+    this.vetoService.getPagedVetos(this.page, this.size).subscribe(next => { this.veto = next });
   }
 
 
@@ -59,30 +48,30 @@ export class VetoAdminComponent implements OnInit {
     this.filterOpen = !this.filterOpen;
   }
   next() {
-    if(this.cantNext()){
+    if (this.cantNext()) {
       return;
     }
     this.page++;
-      this.vetoService.getPagedVetos(this.page, this.size).subscribe(next => { this.veto = next });
-      this.generatePagination();
-    
+    this.vetoService.getPagedVetos(this.page, this.size).subscribe(next => { this.veto = next });
+    this.generatePagination();
+
   }
 
   previous() {
-    if(this.cantPrevious()){
+    if (this.cantPrevious()) {
       return;
     }
     this.page--;
-      this.vetoService.getPagedVetos(this.page, this.size).subscribe(next => { this.veto = next });
-      this.generatePagination();
+    this.vetoService.getPagedVetos(this.page, this.size).subscribe(next => { this.veto = next });
+    this.generatePagination();
   }
   setPage(n: any) {
-    if(n.middle){
+    if (n.middle) {
       return;
     }
     this.page = Number(n.number);
-      this.vetoService.getPagedVetos(this.page, this.size).subscribe(next => { this.veto = next });
-      this.generatePagination();
+    this.vetoService.getPagedVetos(this.page, this.size).subscribe(next => { this.veto = next });
+    this.generatePagination();
   }
   cantPrevious(): boolean {
     return this.page < 2;
@@ -97,9 +86,7 @@ export class VetoAdminComponent implements OnInit {
   private nbPages = 0;
   generatePagination() {
     let pages: Page[] = [];
-
     this.nbPages = Math.ceil(this.count / this.size)
-
     if (this.nbPages <= 3) {
       for (let i = 1; i <= this.nbPages; i++) {
         pages.push(new Page(i, i == this.page, i == this.page + 1))
@@ -122,63 +109,72 @@ export class VetoAdminComponent implements OnInit {
   }
 
 
-  showForm(){
-    console.log("dddd");
-    this.modif=false
-   var formm =  document.getElementById("formm").style.visibility ="visible";
+  showForm() {
+    this.modif = false
+    var formm = document.getElementById("formm").style.visibility = "visible";
   }
 
-  modifier(item){
-    var formm =  document.getElementById("formm").style.visibility ="visible";
+  modifier(item) {
+    var formm = document.getElementById("formm").style.visibility = "visible";
     console.log(item)
     this.vetoForm.setValue({
-      docteur: item.docteur, 
+      docteur: item.docteur,
       description: item.description,
       adresse: item.adresse,
       phone: item.phone,
     });
-    this.modif=true;
-    this.id=item.id;
-    this.imageName= `VETO-${item.id}`;
-    this.imageComponent.imageName= this.imageName;
+    this.modif = true;
+    this.id = item.id;
+    this.imageName = `VETO-${item.id}`;
+    this.imageComponent.imageName = this.imageName;
     this.imageComponent.ngOnInit();
   }
 
-  supprimer(item){
+  supprimer(item) {
     console.log(item.id)
     this.vetoService.deleteVeto(item.id).subscribe(next => this.Vett = next);
-    this.vetoService.getVeto().subscribe( list => this.veto = list );
-
+    this.ngOnInit();
   }
 
-  onSubmit():void{
-    if(this.modif){}
+  onSubmit(): void {
+    if (this.modif) { }
     this.Vett.docteur = this.vetoForm.value.docteur
     this.Vett.description = this.vetoForm.value.description
     this.Vett.adresse = this.vetoForm.value.adresse
     this.Vett.phone = this.vetoForm.value.phone
-    if(this.modif){ 
-      this.Vett.id=this.id;
+    if (this.modif) {
+      this.Vett.id = this.id;
       this.imageComponent.autoUpload = true;
       this.imageComponent.uploadImage();
       this.vetoService.updateVeto(this.Vett).subscribe(next => this.Vett = next);
-      
-      this.vetoService.getVeto().subscribe( list => this.veto = list );
-      
+      this.ngOnInit()
+
     }
-    else{
-    this.vetoService.newVeto(this.Vett).subscribe(next => {this.Vett = next;
-    this.imageComponent.autoUpload = true;
-    this.imageComponent.imageName = `VETO-${next.id}`;
-    this.imageComponent.image.name = `VETO-${next.id}`;
-    this.imageComponent.uploadImage();});
-   // window.location.reload();
+    else {
+      this.vetoService.newVeto(this.Vett).subscribe(next => {
+        this.Vett = next;
+        this.imageComponent.autoUpload = true;
+        this.imageComponent.imageName = `VETO-${next.id}`;
+        this.imageComponent.image.name = `VETO-${next.id}`;
+        this.imageComponent.uploadImage();
+      });
+      // window.location.reload();
     }
     console.log(this.Vett)
 
-   console.log("bbbbb");
-   var formm =  document.getElementById("formm").style.visibility ="hidden";
-   this.vetoService.getVeto().subscribe( list => this.veto = list );
+    console.log("bbbbb");
+    var formm = document.getElementById("formm").style.visibility = "hidden";
+    this.ngOnInit()
   }
-
+  fetch() {
+    if (this.keyword?.length == 0) {
+      this.ngOnInit();
+      return;
+    }
+    if (this.keyword?.length > 3) {
+      this.vetoService.elasticSearch(this.keyword).subscribe(next => {
+        this.veto = next;
+      });
+    }
+  }
 }

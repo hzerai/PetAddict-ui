@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ImageComponent } from 'src/app/admin-module/image/image.component';
 import { Page } from 'src/app/adoption-module/adoption-list/adoption-list.component';
+import { ImageService } from 'src/app/images-module/image.service';
 
 import { Association } from '../../association-module/Association';
 import { AssociationService } from '../../association-module/association.service';
@@ -14,9 +15,10 @@ import { AssociationService } from '../../association-module/association.service
 export class AssociationAdminComponent implements OnInit {
   associationForm: FormGroup;
   association: Association = new Association();
-  asso: Association[] ;
-  modif:boolean = false;
-  id:number;
+  asso: Association[];
+  modif: boolean = false;
+  keyword: string = '';
+  id: number;
   page: number = 1;
   size: number = 3;
   pages: Page[];
@@ -25,7 +27,7 @@ export class AssociationAdminComponent implements OnInit {
   imageName: string;
   @ViewChild(ImageComponent)
   imageComponent: ImageComponent;
-  constructor(  private associationService: AssociationService) { }
+  constructor(private associationService: AssociationService) { }
 
   ngOnInit(): void {
     this.associationForm = new FormGroup({
@@ -33,12 +35,7 @@ export class AssociationAdminComponent implements OnInit {
       description: new FormControl(),
       adresse: new FormControl(),
       phone: new FormControl(),
-      
-
     })
-
-    
-    this.associationService.getAssociations().subscribe( list => this.asso = list )
     this.associationService.count().subscribe(next => {
       this.count = next; this.generatePagination();
     });
@@ -49,29 +46,29 @@ export class AssociationAdminComponent implements OnInit {
     this.filterOpen = !this.filterOpen;
   }
   next() {
-    if(this.cantNext()){
+    if (this.cantNext()) {
       return;
     }
     this.page++;
-      this.associationService.getPagedAssociations(this.page, this.size).subscribe(next => { this.asso = next });
-      this.generatePagination();
-    
+    this.associationService.getPagedAssociations(this.page, this.size).subscribe(next => { this.asso = next });
+    this.generatePagination();
+
   }
   previous() {
-    if(this.cantPrevious()){
+    if (this.cantPrevious()) {
       return;
     }
     this.page--;
-      this.associationService.getPagedAssociations(this.page, this.size).subscribe(next => { this.asso = next });
-      this.generatePagination();
+    this.associationService.getPagedAssociations(this.page, this.size).subscribe(next => { this.asso = next });
+    this.generatePagination();
   }
   setPage(n: any) {
-    if(n.middle){
+    if (n.middle) {
       return;
     }
     this.page = Number(n.number);
-      this.associationService.getPagedAssociations(this.page, this.size).subscribe(next => { this.asso = next });
-      this.generatePagination();
+    this.associationService.getPagedAssociations(this.page, this.size).subscribe(next => { this.asso = next });
+    this.generatePagination();
   }
   cantPrevious(): boolean {
     return this.page < 2;
@@ -106,58 +103,64 @@ export class AssociationAdminComponent implements OnInit {
     }
     this.pages = pages;
   }
-  showForm(){
+  showForm() {
     console.log("dddd");
-    this.modif=false
-   var formm =  document.getElementById("formm").style.visibility ="visible";
+    this.modif = false
+    var formm = document.getElementById("formm").style.visibility = "visible";
   }
-  modifier(item){
-    var formm =  document.getElementById("formm").style.visibility ="visible";
+  modifier(item) {
+    var formm = document.getElementById("formm").style.visibility = "visible";
     console.log(item)
     this.associationForm.setValue({
-      title: item.title, 
+      title: item.title,
       description: item.description,
       adresse: item.adresse,
       phone: item.phone,
     });
-    this.modif=true;
-    this.id=item.id;
-    this.imageName= `ASSOCIATION-${item.id}`;
-    this.imageComponent.imageName= this.imageName;
+    this.modif = true;
+    this.id = item.id;
+    this.imageName = `ASSOCIATION-${item.id}`;
+    this.imageComponent.imageName = this.imageName;
     this.imageComponent.ngOnInit();
   }
-  supprimer(item){
+  supprimer(item) {
     console.log(item.id)
     this.associationService.deleteAssociation(item.id).subscribe(next => this.association = next);
-    this.associationService.getAssociations().subscribe( list => this.asso = list );
-
+    this.ngOnInit();
   }
-  onSubmit():void{
-    if(this.modif){}
+  onSubmit(): void {
+    if (this.modif) { }
     this.association.title = this.associationForm.value.title
     this.association.description = this.associationForm.value.description
     this.association.adresse = this.associationForm.value.adresse
     this.association.phone = this.associationForm.value.phone
-    if(this.modif){ 
-      this.association.id=this.id;
+    if (this.modif) {
+      this.association.id = this.id;
       this.imageComponent.autoUpload = true;
       this.imageComponent.uploadImage();
-      this.associationService.updateAssociation(this.association).subscribe(next => this.association = next);
-      this.associationService.getAssociations().subscribe( list => this.asso = list );
-      
+      this.associationService.updateAssociation(this.association).subscribe(next => { this.association = next; this.ngOnInit() });
     }
-    else{
-    this.associationService.newAssociation(this.association).subscribe(next => {this.association = next;
-      this.imageComponent.autoUpload = true;
-      this.imageComponent.imageName = `ASSOCIATION-${next.id}`;
-      this.imageComponent.image.name = `ASSOCIATION-${next.id}`;
-      this.imageComponent.uploadImage();});
+    else {
+      this.associationService.newAssociation(this.association).subscribe(next => {
+        this.association = next;
+        this.imageComponent.autoUpload = true;
+        this.imageComponent.imageName = `ASSOCIATION-${next.id}`;
+        this.imageComponent.image.name = `ASSOCIATION-${next.id}`;
+        this.imageComponent.uploadImage();
+        this.ngOnInit()
+      });
     }
-    console.log(this.association)
-
-   console.log("bbbbb");
-   var formm =  document.getElementById("formm").style.visibility ="hidden";
-   this.associationService.getAssociations().subscribe( list => this.asso = list );
+    var formm = document.getElementById("formm").style.visibility = "hidden";
   }
-
+  fetch() {
+    if (this.keyword?.length == 0) {
+      this.ngOnInit();
+      return;
+    }
+    if (this.keyword?.length > 3) {
+      this.associationService.elasticSearch(this.keyword).subscribe(next => {
+        this.asso = next;
+      });
+    }
+  }
 }
