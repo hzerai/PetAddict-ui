@@ -1,12 +1,12 @@
 <div class="flex px-4  mx-auto">
-    <div class="mr-2 flex-shrink-0">
-        <img src="https://i.pravatar.cc/50" alt class="rounded-full mr-2" />
+    <div class="mr-2 flex-shrink-0" [routerLink]="['/visit_user_profile']" [queryParams]="{id: comment?.createdBy}">
+        <img [src]="comment.image" class="rounded-full mr-2 w-8 h-8" />
     </div>
     <div>
         <div class="w-full bg-gray-300 rounded-lg p-3">
             <div class="flex justify-between w-full px-1">
-                <div class="flex ">
-                    <a  class="font-bold hover:text-blue-500 text-sm">{{comment.userFullName}}</a>
+                <div class="flex " [routerLink]="['/visit_user_profile']" [queryParams]="{id: comment?.createdBy}">
+                    <a class="font-bold hover:text-blue-500 text-sm">{{comment.userFullName}}</a>
                 </div>
                 <div class="flex jsutify-between items-center" *ngIf="isOwner()">
                     <button class="flex hover:shadow hover:bg-gray-400">
@@ -19,10 +19,10 @@
             </div>
             <p class="text-black rounded-lg text-sm">{{comment.body}}</p>
         </div>
-        <div class=" px-3  text-xs hover:underline" (click)="comment.reply=true">
+        <div>
 
-            <p>Répondre</p>
-
+            <p class="inline-block px-3  text-xs hover:underline" (click)="comment.reply=true">Répondre</p>
+            <p class="inline-block mx-1 font-normal text-xs text-gray-400 ">{{getHumanDate(comment.createdAt)}}</p>
         </div>
     </div>
 
@@ -30,25 +30,27 @@
 
 <div *ngIf="comment.reply" class="flex">
     <div class="mr-2 flex-shrink-0 w-1/5">
-        <img src="https://i.pravatar.cc/50" alt class="rounded-full mr-2" />
+        <img [src]="currentUserImage" alt class="rounded-full mr-2 w-8 h-8" />
     </div>
     <input type="text" [(ngModel)]="commentBody" class="w-3/5 focus:outline-none focus:bg-white text-xs shadow-inner"
         placeholder="Répondre...">
 
 
-        <button (click)="repcomment()"
-            class="bg-blue-500 rounded-lg shadow p-1  text-black hover:text-white w-1/5 text-xs">Répondre
-            !</button>
-   
+    <button (click)="repcomment()"
+        class="bg-blue-500 rounded-lg shadow p-1  text-black hover:text-white w-1/5 text-xs">Répondre
+    </button>
+
 </div>
 
 <div class="mx-auto" *ngIf="comment.comments.length>0">
     <div class=" rounded-lg py-6 px-8  hover:border-blue-900">
-        <app-comment *ngFor="let comment of comment.comments" [comment]="comment" [currentUserFullName]="currentUserFullName"
+        <app-comment *ngFor="let comment of comment.comments" [comment]="comment"
+            [currentUserFullName]="currentUserFullName"
             class=" bg-white rounded-lg mb-4 hover:bg-gray-200 hover:border-blue-900 mx-auto">
         </app-comment>
 
- 
+
+
     </div>
 
 

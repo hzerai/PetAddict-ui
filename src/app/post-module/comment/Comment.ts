@@ -7,5 +7,6 @@ export class Comment {
     createdBy: string = '';
     updatedBy: string = '';
     userFullName:string='Anonymous';
+    userId:number;
     comments:Comment[]=[];
 }

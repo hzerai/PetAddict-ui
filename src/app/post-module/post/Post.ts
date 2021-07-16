@@ -9,6 +9,7 @@ export class Post {
     createdBy: string = '';
     updatedBy: string = '';
    userFullName:string='Anonymous';
+   userId:number;
    comments:Comment[]=[];
 
 }
