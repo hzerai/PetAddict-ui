@@ -12,4 +12,5 @@ export class AdoptionRequest {
     userId : number;
     adoptionId : number;
     adoption : Adoption
+    hasTestamony:boolean = false;
 }

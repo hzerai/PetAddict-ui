@@ -15,13 +15,29 @@ import { FoundComponent } from './found/found.component';
 import { VetoAdminComponent } from './veto-admin/veto-admin.component';
 import { ImageComponent } from './image/image.component';
 import { AssociationAdminComponent } from './association-admin/association-admin.component';
+import { PageButtonDirectiveAdmin } from './PageButtonDirectiveAdmin';
 
 
 @NgModule({
-  declarations: [DashboardComponent, VetoAdminComponent,ImageComponent,
-    AssociationAdminComponent ,UserComponent, AdminComponent, UserProfileEditComponent, AdoptionComponent, LostComponent, FoundComponent, PostComponent],
-  imports: [AdminRoutingModule
-    , CommonModule, FormsModule, ReactiveFormsModule],
+  declarations: [
+    DashboardComponent,
+    VetoAdminComponent,
+    ImageComponent,
+    PageButtonDirectiveAdmin,
+    AssociationAdminComponent,
+    UserComponent,
+    AdminComponent,
+    UserProfileEditComponent,
+    AdoptionComponent,
+    LostComponent,
+    FoundComponent,
+    PostComponent
+  ],
+  imports: [
+    AdminRoutingModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule],
   bootstrap: [AdminComponent],
 })
 

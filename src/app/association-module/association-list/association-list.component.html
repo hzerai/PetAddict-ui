@@ -1,123 +1,118 @@
 <!--<a  [routerLink]="['associations/new']">link</a> -->
 <style>
-  .top-100 {
-      top: 100%
-  }
-  
-  .bottom-100 {
-      bottom: 100%
-  }
-  
-  .max-h-select {
-      max-height: 240px;
-  }
-  
-  .searchresult::-webkit-scrollbar {
-      display: none;
-  }
-  /* Hide scrollbar for IE, Edge and Firefox */
-  
-  .searchresult {
-      -ms-overflow-style: none;
-      /* IE and Edge */
-      scrollbar-width: none;
-      /* Firefox */
-  }
+    .top-100 {
+        top: 100%
+    }
+    
+    .bottom-100 {
+        bottom: 100%
+    }
+    
+    .max-h-select {
+        max-height: 240px;
+    }
+    
+    .searchresult::-webkit-scrollbar {
+        display: none;
+    }
+    /* Hide scrollbar for IE, Edge and Firefox */
+    
+    .searchresult {
+        -ms-overflow-style: none;
+        /* IE and Edge */
+        scrollbar-width: none;
+        /* Firefox */
+    }
 </style>
-<div class="container">
-
-  <div class="w-full">
-    <div class="flex flex-col items-center relative ">
+<div class="container mx-auto my-10">
+    <div>
         <div class="w-full">
-            <div class="mt-2 bg-white flex rounded-t hover:shadow hover:border-gray-400 overflow-hidden rounded-lg">
-                <!-- <div class="flex flex-auto flex-wrap"></div> -->
-                <div class="px-3 py-1 mx-auto bg-red-600 text-white">Chercher</div>
-                <input placeholder="{{placeHolderSearchBar}}" class="m-1 p-1 px-2 appearance-none outline-none w-full text-sm text-gray-800" (keyup)="autoC=true; fetch(searchcontent);" [(ngModel)]="searchcontent">
-                <div class="text-gray-300 w-8 py-1 border-l flex items-center border-gray-200">
-                    <button class="cursor-pointer w-6 h-6 text-gray-600 outline-none focus:outline-none">
+            <div class="flex flex-col items-center relative ">
+                <div class="w-full">
+                    <div class="mt-2 bg-white flex rounded-t hover:shadow hover:border-gray-400 overflow-hidden rounded-lg">
+                        <!-- <div class="flex flex-auto flex-wrap"></div> -->
+                        <div class="px-3 py-1 mx-auto bg-red-600 text-white">Chercher</div>
+                        <input placeholder="{{placeHolderSearchBar}}" class="m-1 p-1 px-2 bg-gray-100 appearance-none outline-none w-full text-sm text-gray-800" (keyup)="autoC=true; fetch(searchcontent);" [(ngModel)]="searchcontent">
+                        <div class="text-gray-300 w-8 py-1 border-l flex items-center border-gray-200">
+                            <button class="cursor-pointer w-6 h-6 text-gray-600 outline-none focus:outline-none">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
-
-    </div>
-</div>
-<!------------------------------------------------------------------------------------------------>
-<div *ngFor="let item of asso " class="flex flex-col items-center justify-center  bg-white m-5 ">
-  <div class="flex bg-gray-200 p-4 rounded-lg w-8/12">
-    <div class="flex flex-col w-2/3 pr-4 bg  ">
-      <p class="title-font text-lg font-medium text-black mb-3 uppercase font-bold"><a [routerLink]="['/associations', item.id]" class="titre">{{item.title}}</a></p>
-      <p class="text-lg font-light leading-5 text-black-300" [ngClass]="{'limitTextHeight': isReadMore}">
-        {{item.description}}</p>
-      <p><button class="bt" type="button" (click)="showText()">
+        <!------------------------------------------------------------------------------------------------>
+        <div *ngFor="let item of asso " class="flex flex-col items-center justify-center  bg-white m-5 ">
+            <div class="flex bg-gray-200 p-4 rounded-lg w-8/12">
+                <div class="flex flex-col w-2/3 pr-4 bg  ">
+                    <p class="title-font text-lg font-medium text-black mb-3 uppercase font-bold"><a [routerLink]="['/associations', item.id]" class="titre">{{item.title}}</a></p>
+                    <p class="text-lg font-light leading-5 text-black-300" [ngClass]="{'limitTextHeight': isReadMore}">
+                        {{item.description}}</p>
+                    <p><button class="bt" type="button" (click)="showText()">
           {{ isReadMore ? 'Lire La Suite': 'Lire Moins' }}
         </button></p>
-      <div>
-        <div class="flex flex-row  pr-4 bg ">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" >
+                    <div>
+                        <div class="flex flex-row  pr-4 bg ">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
             <path class="heroicon-ui" 
             d="M5.64 16.36a9 9 0 1 1 12.72 0l-5.65 5.66a1 1 0 0 1-1.42 0l-5.65-5.66zm11.31-1.41a7 7 0 1 0-9.9 0L12 19.9l4.95-4.95zM12 14a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg>
-          
-          <p class="text-sm font-light leading-5 text-black-300 ">{{item.adresse}}</p>
-        </div>
-        <div class="flex flex-row  pr-4 bg ">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+
+                            <p class="text-sm font-light leading-5 text-black-300 ">{{item.adresse}}</p>
+                        </div>
+                        <div class="flex flex-row  pr-4 bg ">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
             <path class="heroicon-ui"
               d="M8 2h8a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4c0-1.1.9-2 2-2zm0 2v16h8V4H8zm4 14a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
           </svg>
-          <p class="text-sm font-light leading-5 text-black-300">{{item.phone}}</p>
-        </div>
-      </div>
-    </div>
+                            <p class="text-sm font-light leading-5 text-black-300">{{item.phone}}</p>
+                        </div>
+                    </div>
+                </div>
 
-    <div class="w-1/3">
-      <img class="hover:animate-bounce rounded-lg" [src]="item?.image?.bytes" alt="" style="width: 200px; height: 150px;" />
+                <div class="w-1/3">
+                    <img class="hover:animate-bounce rounded-lg" [src]="item?.image?.bytes" alt="" style="width: 200px; height: 150px;" />
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div></div>
-<!-------------------------------------------------------------------------------------------------------------------------------------->
-<!--pagination-->
-<div class="px-4 py-5 flex items-center justify-between border-t border-gray-200 sm:px-6" *ngIf="count > 0 ">
-  <div class="flex-1 flex justify-between sm:hidden">
-    <button (click)="previous()" [disabled]="cantPrevious()"
-      class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+    <!-------------------------------------------------------------------------------------------------------------------------------------->
+    <!--pagination-->
+    <div class="px-4 py-5 flex items-center justify-between border-t border-gray-200 sm:px-6" *ngIf="count > 0 ">
+        <div class="flex-1 flex justify-between sm:hidden">
+            <button (click)="previous()" [disabled]="cantPrevious()" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
       Previous
     </button>
-    <button (click)="next()" [disabled]="cantNext()"
-      class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+            <button (click)="next()" [disabled]="cantNext()" class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
       Next
     </button>
-  </div>
-  <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-    <div class="">
-      <p class="text-xs font-bold text-black">
-        Affichage de
-        <span class="font-medium">{{(page - 1) * size + 1}}</span>
-        à
-        <span class="font-medium">{{page * size > count ? count : page * size}}</span>
-        sur
-        <span class="font-medium">{{count}}</span>
-        résultats trouvés
-      </p>
-    </div>
-    <div class="cursor-pointer">
-      <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
-        <a (click)="previous()"
-          class="text-xs font-semibold flex w-8 h-8 p-0 rounded-full items-center justify-center leading-tight relative border border-solid border-blueGray-200 text-black bg-blueGray-200">
+        </div>
+        <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+            <div class="">
+                <p class="text-xs font-bold text-black">
+                    Affichage de
+                    <span class="font-medium">{{(page - 1) * size + 1}}</span> à
+                    <span class="font-medium">{{page * size > count ? count : page * size}}</span> sur
+                    <span class="font-medium">{{count}}</span> résultats trouvés
+                </p>
+            </div>
+            <div class="cursor-pointer">
+                <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                    <a (click)="previous()" class="text-xs font-semibold flex w-8 h-8 p-0 rounded-full items-center justify-center leading-tight relative border border-solid border-blueGray-200 text-black bg-blueGray-200">
           &lt;
         </a>
-        <a *ngFor="let i of pages" (click)="setPage(i)" paginationButton [page]="i">{{i.number}}</a>
+                    <a *ngFor="let i of pages" (click)="setPage(i)" paginationButton [page]="i">{{i.number}}</a>
 
-        <a (click)="next()"
-          class="text-xs font-semibold flex w-8 h-8 p-0 rounded-full items-center justify-center leading-tight relative border border-solid border-blueGray-200 text-black bg-blueGray-200">
+                    <a (click)="next()" class="text-xs font-semibold flex w-8 h-8 p-0 rounded-full items-center justify-center leading-tight relative border border-solid border-blueGray-200 text-black bg-blueGray-200">
           &gt;
         </a>
-      </nav>
+                </nav>
+            </div>
+        </div>
     </div>
-  </div>
 </div>

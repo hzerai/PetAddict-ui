@@ -1,8 +1,6 @@
-<div class="flex relative "  >
-    <img alt="gallery"  class="absolute inset-0 w-full md:w-1/3 h-full object-cover object-center rounded"
-        [src]="image?.bytes ? image.bytes : 'https://via.placeholder.com/640x480?text=Image+For+found+NEW'">
-    <div  [routerLink]="['/founds', found.id]"
-        class="px-8 py-10 relative z-10 w-full md:w-1/3 border-1 border-gray-200 opacity-0 hover:bg-black hover:bg-opacity-50 hover:text-white hover:opacity-100">
+<div class="flex relative ">
+    <img alt="gallery" class="absolute inset-0 w-full md:w-1/3 h-full object-cover object-center rounded" [src]="image?.bytes ? image.bytes : 'https://via.placeholder.com/640x480?text=Image+For+found+NEW'">
+    <div [routerLink]="['/founds', found.id]" class="px-8 py-10 relative z-10 w-full md:w-1/3 border-1 border-gray-200 opacity-0 hover:bg-black hover:bg-opacity-50 hover:text-white hover:opacity-100">
         <div class="grid grid-cols-2 p-10 text-xs">
             <div class="font-bold">Nom :</div>
             <div>{{found?.animal.nom}}</div>
@@ -20,37 +18,42 @@
             <div> {{found?.animal.couleur}} </div>
         </div>
     </div>
-    <div class="md:w-1/3 px-5 py-5">
+    <div class="flex-1 px-5 py-5">
         <h2 class="tracking-widest text-sm title-font font-medium text-black mb-1 flex flex-wrap">
-            <img src="assets/svg/place.svg" />
-            {{found.user?.address?.ville?
-            found.user?.address?.ville : 'Tunis'}}
+            <img src="assets/svg/place.svg" /> {{found.user?.address?.ville? found.user?.address?.ville : 'Tunis'}}
         </h2>
         <h1 class="title-font text-lg font-medium text-black mb-3">{{found.title}}</h1>
         <p class="leading-relaxed h-32 overflow-y-auto text-black text-sm">{{found.description}}.</p>
     </div>
-    </div>
-    <div>
+</div>
+<div>
     <div class="w-full w-1/2 mt-5">
-        <div class="bg-gray-100 rounded-lg py-6 px-8 mb-8 hover:border-blue-900 shadow-lg">
+        <!-- <div class="bg-gray-100 rounded-lg py-6 px-8 mb-8 hover:border-blue-900 shadow-lg">
 
-            <textarea [(ngModel)]="commentBody" class="w-full focus:outline-none focus:bg-white"
-                placeholder="Ajouter un commentaire!" style="height: 100px">
+            <textarea [(ngModel)]="commentBody" class="w-full focus:outline-none focus:bg-white" placeholder="Ajouter un commentaire!" style="height: 100px">
                 </textarea>
             <hr class="py-2" />
             <footer class="flex justify-between">
                 <img src="https://i.pravatar.cc/40" alt class="rounded-full mr-2" />
-                <button (click)="comment()"
-                    class="bg-blue-500 rounded-lg shadow py-2 px-2 text-black hover:text-white">Commenter
+                <button (click)="comment()" class="bg-blue-500 rounded-lg shadow py-2 px-2 text-black hover:text-white">Commenter
                     !</button>
             </footer>
         </div>
 
-        <app-comment *ngFor="let comment of found.comments" [comment]="comment"
-            class="border border-blue-200 bg-white rounded-lg mb-4 hover:bg-gray-200 hover:border-blue-900 mx-auto">
-        </app-comment>
+        <app-comment *ngFor="let comment of found.comments" [comment]="comment" class="border border-blue-200 bg-white rounded-lg mb-4 hover:bg-gray-200 hover:border-blue-900 mx-auto">
+        </app-comment> -->
+        <div class="mx-auto w-1/2 mt-5 border border-gray-100">
+            <div class="flex my-3 mb-3">
+                <div class="flex-shrink-0 my-auto h-8">
+                    <img src="https://i.pravatar.cc/40" alt class="rounded-full mr-2" />
+                </div>
+                <input type="text" [(ngModel)]="commentBody" class="flex-1 focus:outline-none focus:bg-white text-xs bg-gray-100 p-2 shadow-inner h-16 rounded-lg mx-2" placeholder="Ajouter un commentaire...">
+                <button (click)="comment()" class="my-auto bg-blue-500 rounded-lg shadow p-1  text-black hover:text-white w-20 text-xs h-8">Répondre</button>
+            </div>
+            <app-comment *ngFor="let comment of found?.comments" [comment]="comment" class=" bg-white rounded-lg  hover:bg-gray-200 hover:border-blue-900 mx-auto">
+            </app-comment>
+        </div>
     </div>
-    
-    
-</div>
 
+
+</div>

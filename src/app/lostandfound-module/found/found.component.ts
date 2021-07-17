@@ -12,29 +12,28 @@ import { Comment } from 'src/app/post-module/comment/Comment';
 export class FoundComponent implements OnInit {
 
   username: string;
-  commentBody:string="";
-  currentUserFullName:string;
+  commentBody: string = "";
+  currentUserFullName: string;
   @Input() found: Found;
-  
   image: Image;
+
   constructor(private imageService: ImageService, private foundService: FoundService) { }
 
   ngOnInit(): void {
-    this.imageService.getImage(`Found-${this.found.id}`).subscribe(next => {this.image = next });
+    this.imageService.getImage(`Found-${this.found.id}`).subscribe(next => { this.image = next });
   }
-  comment(){
-    if(this.commentBody.length>0){
-      let comment=new Comment();
-      comment.body=this.commentBody;
-      comment.userFullName=this.currentUserFullName;
-      comment.createdAt=new Date();
-      comment.createdBy=this.username;
-      this.foundService.addCommentfound(this.found.id,comment).subscribe();
+
+  comment() {
+    if (this.commentBody.length > 0) {
+      let comment = new Comment();
+      comment.body = this.commentBody;
+      comment.userFullName = this.currentUserFullName;
+      comment.createdAt = new Date();
+      comment.createdBy = this.username;
+      this.foundService.addCommentfound(this.found.id, comment).subscribe();
       this.found.comments.unshift(comment);
-      this.commentBody="";
+      this.commentBody = "";
     }
-    }
- 
-  
+  }
 
 }

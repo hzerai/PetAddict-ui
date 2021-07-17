@@ -49,11 +49,11 @@ export class PostService {
     return this.http.get<Post[]>(this.postUrl, { params });
   }
 
-  addComment(id:number,comment: Comment): Observable<Post> {
-    return this.http.post<Post>(this.postUrl+"/"+id+"/addcomment", comment, this.options);
+  addComment(id:number,comment: Comment): Observable<Comment> {
+    return this.http.post<Comment>(this.postUrl+"/"+id+"/addcomment", comment, this.options);
   }
 
-  reply(id:number,idcomment:number,comment: Comment): Observable<Post> {
-    return this.http.post<Post>(this.postUrl+"/"+id+"/addcomment/"+idcomment+"/reply", comment, this.options);
+  reply(id:number,idcomment:number,comment: Comment): Observable<Comment> {
+    return this.http.post<Comment>(this.postUrl+"/"+id+"/addcomment/"+idcomment+"/reply", comment, this.options);
   }
 }

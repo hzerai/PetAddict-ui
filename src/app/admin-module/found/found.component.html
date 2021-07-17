@@ -1,69 +1,64 @@
- <div class="mt-4 mx-4">
+<div class="mt-4 mx-4">
     <div class="w-full overflow-hidden rounded-lg shadow-xs">
-      <div class="w-full overflow-x-auto">
-        <table class="w-full">
-          <thead>
-            <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-              <th class="px-4 py-3">Found</th>
-              <th class="px-4 py-3">user</th>
-              <th class="px-4 py-3">Date</th>
-              <th class="px-4 py-3">Actions</th>
+        <div class="w-full overflow-x-auto">
+            <table class="w-full">
+                <thead>
+                    <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                        <th class="px-4 py-3">Found</th>
+                        <th class="px-4 py-3">user</th>
+                        <th class="px-4 py-3">Date</th>
+                        <th class="px-4 py-3">Actions</th>
 
-            </tr>
-          </thead>
-          <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-            <tr *ngFor="let found of founds; let i = index" [found]="found" class="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
-              <td class="px-4 py-3 w-1/2">
-                <div class="flex items-center text-sm">
-                  <div class="relative hidden w-8 h-8 mr-3 md:block">
-                    <img class="object-cover w-full h-full " [src]="images?.has(found?.id) ? images?.get(user?.id)?.bytes : 'https://placedog.net/500/280?id=' + ( found?.id > 200 ? found?.id - 100 : found?.id )" alt="" loading="lazy" />
-                    <div class="absolute inset-0 shadow-inner" aria-hidden="true"></div>
-                  </div>
-                  <div class="">
-                    <p class="font-semibold">{{found?.title}}</p>
-                    <p class="text-xs text-gray-600 dark:text-gray-400">{{found?.animal.nom}}</p>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                    <tr *ngFor="let found of founds; let i = index" [found]="found" class="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-700 dark:text-gray-400">
+                        <td class="px-4 py-3 w-1/2">
+                            <div class="flex items-center text-sm">
+                                <div class="relative hidden w-8 h-8 mr-3 md:block">
+                                    <img class="object-cover w-full h-full " [src]="images?.has(found?.id) ? images?.get(found?.id)?.bytes : 'https://placedog.net/500/280?id=' + ( found?.id > 200 ? found?.id - 100 : found?.id )" alt="" loading="lazy" />
+                                    <div class="absolute inset-0 shadow-inner" aria-hidden="true"></div>
+                                </div>
+                                <div class="">
+                                    <p class="font-semibold">{{found?.title}}</p>
+                                    <p class="text-xs text-gray-600 dark:text-gray-400">{{found?.animal.nom}}</p>
 
-                  </div>
-                </div>
-              </td>
-              <td class="px-4 py-3 text-xs">
-                <span class="px-2 py-1 font-semibold leading-tight"> {{found?.user?.firstName != null ? found?.user?.firstName : 'anonyme'}} </span>
-              </td>
-              <td class="px-4 py-3 text-sm">{{found?.createdAt | date:'dd-MM-yyyy'}}</td>
-              <td class="px-4 py-3 text-sm flex">
-                <div (click)="delete(found.id,i)"  class="mr-3 cursor-pointer text-white px-3 py-2 text-center rounded w-1/2 bg-red-600 ">Delete</div>
-                  <div [routerLink]="['/founds', found.id]"  class="cursor-pointer text-white px-3 py-2 text-center rounded w-1/2 bg-gray-600 ">Go Adoption</div>
-                </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
-        <span class="flex items-center col-span-3"> 
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-4 py-3 text-xs">
+                            <span class="px-2 py-1 font-semibold leading-tight"> {{found?.createdBy}} </span>
+                        </td>
+                        <td class="px-4 py-3 text-sm">{{found?.createdAt | date:'dd-MM-yyyy'}}</td>
+                        <td class="px-4 py-3 text-sm flex">
+                            <div (click)="delete(found.id,i)" class="mr-3 cursor-pointer text-white px-3 py-2 text-center rounded w-1/2 bg-red-600 ">Delete</div>
+                            <div [routerLink]="['/founds', found.id]" class="cursor-pointer text-white px-3 py-2 text-center rounded w-1/2 bg-gray-600 ">Go Adoption</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
+            <span class="flex items-center col-span-3"> 
           Affichage de
-          <span class="font-medium mx-1">{{(pageUser - 1) * sizeUser + 1}}</span>
-          à
-          <span class="font-medium mx-1">{{pageUser * sizeUser > countUser ? countUser : pageUser * sizeUser}}</span>
-          sur
-          <span class="font-medium mx-1">{{countUser}}</span>
-          résultats trouvés
-        </span>
-        <span class="col-span-3"></span>
+          <span class="font-medium mx-1">{{(pageUser - 1) * sizeUser + 1}}</span> à
+            <span class="font-medium mx-1">{{pageUser * sizeUser > countUser ? countUser : pageUser * sizeUser}}</span> sur
+            <span class="font-medium mx-1">{{countUser}}</span> résultats trouvés
+            </span>
+            <span class="col-span-3"></span>
 
-        <div class="cursor-pointer col-span-3 text-right">
-          <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
-              <a (click)="previous()"
-                  class="text-xs font-semibold flex w-8 h-8 p-0 rounded-full items-center justify-center leading-tight relative border border-solid border-blueGray-200 text-black bg-blueGray-200">
+            <div class="cursor-pointer col-span-3 text-right">
+                <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                    <a (click)="previous()" class="text-xs font-semibold flex w-8 h-8 p-0 rounded-full items-center justify-center leading-tight relative border border-solid border-blueGray-200 text-black bg-blueGray-200">
                   &lt;
               </a>
-              <a *ngFor="let i of pagesUser" (click)="setPage(i)" paginationButton [page]="i">{{i.number}}</a>
+                    <a *ngFor="let i of pagesUser" (click)="setPage(i)" paginationButton [page]="i">{{i.number}}</a>
 
-              <a (click)="next()"
-                  class="text-xs font-semibold flex w-8 h-8 p-0 rounded-full items-center justify-center leading-tight relative border border-solid border-blueGray-200 text-black bg-blueGray-200">
+                    <a (click)="next()" class="text-xs font-semibold flex w-8 h-8 p-0 rounded-full items-center justify-center leading-tight relative border border-solid border-blueGray-200 text-black bg-blueGray-200">
                   &gt;
               </a>
-          </nav>
-      </div>
-      </div>
+                </nav>
+            </div>
+        </div>
     </div>
-  </div>
+</div>

@@ -91,7 +91,7 @@
             <a *ngIf="!isLoggedIn" class="col-start-11 col-span-1 my-4 whitespace-no-wrap uppercase text-gray-800 text-sm border border-light rounded-lg px-2 py-2 mx-1  text-black hover:border-black hover:text-black font-medium no-underline" routerLink="login">Sign-In</a>
             <a *ngIf="!isLoggedIn" class="col-span-1 my-4 whitespace-no-wrap uppercase text-gray-800 text-sm border border-light rounded-lg px-4 py-2 mx-1  text-black hover:border-black hover:text-black font-medium no-underline" routerLink="register">Sign-Up</a>
             <div *ngIf="isLoggedIn" [routerLink]="['user_profile']" class="col-span-3 flex items-center  border border-light rounded-lg  my-4 mx-2 uppercase text-sm px-2 
-                text-gray-800 hover:border-black hover:text-black font-medium ">
+                text-gray-800 hover:border-black hover:text-black font-medium cursor-pointer">
                 <div> <img [src]="image?.bytes ? image.bytes : 'https://www.w3schools.com/howto/img_avatar.png'" class="w-8 h-8 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4" />
                 </div>
                 <div class="flex-grow">

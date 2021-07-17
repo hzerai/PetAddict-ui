@@ -16,11 +16,17 @@ export class ShowAdoptionRequestSentComponent implements OnInit {
 
   @Input() adoptionsRequest: any;
   @Input() user: User;
+  showTemoignage : boolean = false;
+  temoignagebody: string = '';
+  showInput : boolean = false;
+
   constructor(private ws: WebSocketService, private imageService: ImageService, private notifService: NotificationService, private adoptionService: AdoptionService) { }
 
   ngOnInit(): void {
     this.adoptionsRequest.show = false;
+    this.showTemoignage = !this.adoptionsRequest.hasTestamony && this.adoptionsRequest.status == 'ACCEPTED';
   }
+
   getUserImage(adoptionRequest: any) {
     let image;
     this.imageService.getImage('ADOPTION-' + adoptionRequest.adoption.id).subscribe(next => image = next);
@@ -61,19 +67,19 @@ export class ShowAdoptionRequestSentComponent implements OnInit {
     notification.toUser = adoptionRequest.adoption.createdBy;
     notification.body = 'vous a envoyé une demande d\'adoption';
     notification.route = '/user_profile#RadoptionRequests#' + this.adoptionsRequest.adoption.id + '#' + this.user.id;
+    console.log(notification)
     this.notifService.sendNotification(notification).subscribe();
     this.adoptionService.reopenAdoptionRequest(adoptionRequest.id).subscribe();
   }
-  showTemoignage : boolean = false;
-  temoignagetitre: string = '';
-  temoignagebody: string = '';
+
 
   temoignage() {
     let temoignage = new Temoignage();
     temoignage.createdBy = this.user.email;
-    temoignage.titre = this.temoignagetitre;
+    temoignage.titre = "Témoignage de " + this.user.firstName;
     temoignage.body = this.temoignagebody;
     this.adoptionService.createTemoignage(this.adoptionsRequest.id, temoignage).subscribe();
-    this.showTemoignage = false;
+    this.showInput = false;
+    this.adoptionsRequest.hasTestamony = true;
   }
 }

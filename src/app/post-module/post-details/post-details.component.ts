@@ -6,8 +6,6 @@ import { ImageService } from 'src/app/images-module/image.service';
 import { User } from 'src/app/user-module/User';
 import { TokenStorageService } from 'src/app/user-module/_services/token-storage.service';
 import { UserService } from 'src/app/user-module/_services/user.service';
-import { Comment } from '../comment/Comment';
-import { Post } from '../post/Post';
 import { PostService } from '../post/post.service';
 
 @Component({
@@ -16,16 +14,18 @@ import { PostService } from '../post/post.service';
   styleUrls: ['./post-details.component.css']
 })
 export class PostDetailsComponent implements OnInit {
+
   post: any;
   currentUserId: number;
   username: string;
   image: Image;
-  htmlData:SafeHtml;
-  commentBody:string="";
-  currentUserFullName:string;
-  currentUser:User;
-  currentUserImage:string;
-  constructor(private imageService: ImageService, private route: ActivatedRoute, private postService: PostService, private r: Router, private userService: UserService, private tokenService: TokenStorageService,private sanitizer : DomSanitizer) { }
+  htmlData: SafeHtml;
+  commentBody: string = "";
+  currentUserFullName: string;
+  currentUser: User;
+  currentUserImage: string;
+
+  constructor(private imageService: ImageService, private route: ActivatedRoute, private postService: PostService, private r: Router, private userService: UserService, private tokenService: TokenStorageService, private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     const token = this.tokenService.getToken();
@@ -40,17 +40,20 @@ export class PostDetailsComponent implements OnInit {
     this.route.params.subscribe(next => {
       id = next.id;
     });
-    this.userService.getUserByEmail(this.username,null).subscribe(next=>{this.currentUserFullName=next.firstName+" "+next.lastName;
-  this.currentUser=next; 
-  this.imageService.getImage(`USER-${next.id}`).subscribe(next => {if (next==null){this.currentUserImage='https://www.w3schools.com/howto/img_avatar.png'} else {this.currentUserImage = next.bytes} });
+    this.userService.getUserByEmail(this.username, null).subscribe(next => {
+      this.currentUserFullName = next.firstName + " " + next.lastName;
+      this.currentUser = next;
+      this.imageService.getImage(`USER-${next.id}`).subscribe(next => { if (next == null) { this.currentUserImage = 'https://www.w3schools.com/howto/img_avatar.png' } else { this.currentUserImage = next.bytes } });
 
-  });
-    this.postService.getPostById(id).subscribe(next => { this.post = next ; 
-    this.htmlData=this.sanitizer.bypassSecurityTrustHtml(next.body);
+    });
+    this.postService.getPostById(id).subscribe(next => {
+      this.post = next;
+      this.htmlData = this.sanitizer.bypassSecurityTrustHtml(next.body);
     });
     this.imageService.getImage(`Post-${id}`).subscribe(next => { this.image = next });
 
   }
+
   delete(id: number) {
     if (confirm("Are you sure to delete this blog ?")) {
       this.postService.deletePost(id).subscribe(next => this.r.navigateByUrl('/posts'));
@@ -59,20 +62,23 @@ export class PostDetailsComponent implements OnInit {
   }
 
   isOwner(): boolean {
-    return this.username === this.post.createdBy;
+    return this.username === this.post?.createdBy;
   }
-comment(){
-if(this.commentBody.length>0){
-  let comment:any ={};
-  comment.body=this.commentBody;
-  comment.userFullName=this.currentUserFullName;
-  comment.createdAt=new Date();
-  comment.createdBy=this.username;
-  comment.image=this.currentUserImage;
 
-  this.postService.addComment(this.post.id,comment).subscribe();
-  this.post.comments.unshift(comment);
-  this.commentBody="";
-}
-}
+  comment() {
+    if (this.commentBody.length > 0) {
+      let comment: any = {};
+      comment.body = this.commentBody;
+      comment.userFullName = this.currentUserFullName;
+      comment.createdAt = new Date();
+      comment.createdBy = this.username;
+      comment.comments = [];
+      comment.userId = this.currentUser.id;
+      comment.image = this.currentUserImage;
+      this.postService.addComment(this.post.id, comment).subscribe(c => {
+        this.post.comments.unshift(c);
+      });
+      this.commentBody = "";
+    }
+  }
 }

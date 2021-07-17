@@ -28,6 +28,7 @@ export class AuthService {
       password
     }, httpOptions);
   }
+  
   valider(expires: string, id: string,signature: string, token: string): Observable<any> {
     let params = new HttpParams()
       .set('expires',expires)

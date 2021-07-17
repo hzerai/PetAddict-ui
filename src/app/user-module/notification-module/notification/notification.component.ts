@@ -43,15 +43,19 @@ export class NotificationComponent implements OnInit, AfterViewInit {
     this.ws.subscribe('notifications' + this.currentUserName, next => {
       let notif: Notification = JSON.parse(next.body);
       this.unreadNotif++;
-      if (notif.body.includes('acc')) {
-        this.notifier.notify('success', this.getFromUser(notif.fromUser) + ' ' + notif.body);
-      } else if (notif.body.includes('rej')) {
-        this.notifier.notify('error', this.getFromUser(notif.fromUser) + ' ' + notif.body);
-      } else if (notif.body.includes('env')) {
-        this.notifier.notify('info', this.getFromUser(notif.fromUser) + ' ' + notif.body);
-      } else {
-        this.notifier.notify('default', this.getFromUser(notif.fromUser) + ' ' + notif.body);
-      }
+      this.userService.getUserByEmail(notif.fromUser, null).subscribe(u => {
+
+        if (notif.body.includes('acc')) {
+          this.notifier.notify('success', `${u?.firstName} ${u?.lastName}` + ' ' + notif.body);
+        } else if (notif.body.includes('rej')) {
+          this.notifier.notify('error', `${u?.firstName} ${u?.lastName}` + ' ' + notif.body);
+        } else if (notif.body.includes('env')) {
+          this.notifier.notify('info', `${u?.firstName} ${u?.lastName}` + ' ' + notif.body);
+        } else {
+          this.notifier.notify('default', `${u?.firstName} ${u?.lastName}` + ' ' + notif.body);
+        }
+      })
+
       this.notifications.unshift(notif);
     })
   }
@@ -73,7 +77,7 @@ export class NotificationComponent implements OnInit, AfterViewInit {
     let user = this.userMap.get(email);
     if (!user) {
       this.userService.getUserByEmail(email, null).subscribe(u => {
-        user = u ;
+        user = u;
         this.userMap.set(u.email, u);
       })
     }
@@ -84,7 +88,7 @@ export class NotificationComponent implements OnInit, AfterViewInit {
     let user = this.userMap.get(email);
     if (!user) {
       this.userService.getUserByEmail(email, null).subscribe(u => {
-        user = u ;
+        user = u;
         this.userMap.set(u.email, u);
       })
     }
